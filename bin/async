@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+#
+# You need to source this
+#
+
+function async() {
+    eval $1 \
+        && notify-send -u critical -t 2000 -i face-laugh "SUCCESS" "$1" \
+        || notify-send -u critical -t 2000 -i face-sad "FAILED" "$1"
+}
+

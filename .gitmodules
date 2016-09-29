@@ -1,0 +1,99 @@
+[submodule ".vim/bundle/NERDTree"]
+	path = .vim/bundle/NERDTree
+	url = https://github.com/scrooloose/nerdtree
+[submodule ".vim/bundle/guicolorscheme.vim"]
+	path = .vim/bundle/guicolorscheme.vim
+	url = https://github.com/vim-scripts/guicolorscheme.vim
+[submodule ".vim/bundle/taboo.vim"]
+	path = .vim/bundle/taboo.vim
+	url = https://github.com/gcmt/taboo.vim.git
+[submodule ".vim/bundle/typescript-vim"]
+	path = .vim/bundle/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule ".vim/bundle/vim-airline"]
+	path = .vim/bundle/vim-airline
+	url = https://github.com/bling/vim-airline
+[submodule ".vim/bundle/vim-buffergator"]
+	path = .vim/bundle/vim-buffergator
+	url = https://github.com/jeetsukumaran/vim-buffergator.git
+[submodule ".vim/bundle/vim-css-color"]
+	path = .vim/bundle/vim-css-color
+	url = https://github.com/ap/vim-css-color.git
+[submodule ".vim/bundle/vim-fugitive"]
+	path = .vim/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".vim/bundle/nerdcommenter"]
+	path = .vim/bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule ".vim/bundle/vim-repeat"]
+	path = .vim/bundle/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git
+[submodule ".vim/bundle/vim-surround"]
+	path = .vim/bundle/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule ".vim/bundle/tagbar"]
+	path = .vim/bundle/tagbar
+	url = https://github.com/majutsushi/tagbar.git
+[submodule ".vim/bundle/vim-better-whitespace"]
+	path = .vim/bundle/vim-better-whitespace
+	url = https://github.com/ntpeters/vim-better-whitespace
+[submodule ".vim/bundle/vim-javascript"]
+	path = .vim/bundle/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule ".vim/bundle/vim-markdown"]
+	path = .vim/bundle/vim-markdown
+	url = https://github.com/tpope/vim-markdown.git
+[submodule ".vim/bundle/vim-mustache-handlebars"]
+	path = .vim/bundle/vim-mustache-handlebars
+	url = https://github.com/mustache/vim-mustache-handlebars.git
+[submodule ".vim/bundle/vim-node"]
+	path = .vim/bundle/vim-node
+	url = https://github.com/moll/vim-node
+[submodule ".vim/bundle/splice.vim"]
+	path = .vim/bundle/splice.vim
+	url = https://github.com/bmustiata/splice.vim
+[submodule ".vim/bundle/neocomplete.vim"]
+	path = .vim/bundle/neocomplete.vim
+	url = https://github.com/Shougo/neocomplete.vim
+[submodule ".vim/bundle/emmet-vim"]
+	path = .vim/bundle/emmet-vim
+	url = https://github.com/mattn/emmet-vim
+[submodule ".vim/bundle/vim-cucumber"]
+	path = .vim/bundle/vim-cucumber
+	url = https://github.com/bmustiata/vim-cucumber
+[submodule ".vim/bundle/vim-json"]
+	path = .vim/bundle/vim-json
+	url = https://github.com/elzr/vim-json
+[submodule ".vim/bundle/SyntaxRange"]
+	path = .vim/bundle/SyntaxRange
+	url = https://github.com/vim-scripts/SyntaxRange
+[submodule ".vim/bundle/ingo-library"]
+	path = .vim/bundle/ingo-library
+	url = https://github.com/vim-scripts/ingo-library
+[submodule ".vim/bundle/asciidoc-vim"]
+	path = .vim/bundle/asciidoc-vim
+	url = https://github.com/dagwieers/asciidoc-vim
+[submodule ".vim/bundle/vim-jsx"]
+	path = .vim/bundle/vim-jsx
+	url = https://github.com/mxw/vim-jsx.git
+[submodule ".vim/bundle/vim-markdown-wiki"]
+	path = .vim/bundle/vim-markdown-wiki
+	url = https://github.com/mmai/vim-markdown-wiki/
+[submodule ".vim/bundle/autolink.vim"]
+	path = .vim/bundle/autolink.vim
+	url = https://github.com/sampsyo/autolink.vim
+[submodule ".vim/bundle/vim-todo"]
+	path = .vim/bundle/vim-todo
+	url = https://github.com/bmustiata/vim-todo
+[submodule ".vim/bundle/rust.vim"]
+	path = .vim/bundle/rust.vim
+	url = https://github.com/rust-lang/rust.vim
+[submodule ".vim/fonts"]
+	path = .vim/fonts
+	url = https://github.com/powerline/fonts
+[submodule ".vim/bundle/ultisnips"]
+	path = .vim/bundle/ultisnips
+	url = https://github.com/bmustiata/ultisnips

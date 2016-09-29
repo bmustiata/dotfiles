@@ -1,0 +1,12 @@
+[user]
+	email = bogdan.mustiata@gmail.com
+	name = Bogdan Mustiata
+[push]
+	default = matching
+[credential]
+	helper = cache --timeout=86400
+[merge]
+    tool = diffconflicts
+[mergetool "diffconflicts"]
+    cmd=diffconflicts gvim "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+
