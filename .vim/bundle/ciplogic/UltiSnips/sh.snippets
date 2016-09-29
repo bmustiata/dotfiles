@@ -1,0 +1,65 @@
+snippet c "Add a comment"
+# ${VISUAL}${0:}
+endsnippet
+
+snippet cs "Add a comment section"
+#
+# ${VISUAL}${0:}
+#
+endsnippet
+
+snippet css "Add a comment mega section"
+#############################################################################
+# ${VISUAL}${0:}
+#############################################################################
+endsnippet
+
+snippet if "Create a bash if statement"
+if [[ ${1:condition} ]]; then
+	${VISUAL}${0:}
+fi # [[ $1 ]]
+endsnippet
+
+snippet iffile "Create a bash if statement that checks for a file if is exists"
+if [ -f ${1:condition} ]; then
+	${VISUAL}${0:}
+fi # [ -f $1 ]
+endsnippet
+
+snippet ife "Create a bash if/else statement"
+if [[ ${1:condition} ]]; then
+	${VISUAL}${0:}
+else # not [[ $1 ]]
+
+fi   # else [[ $1 ]]
+endsnippet
+
+snippet fun "Create a function"
+function ${1:name}() {
+	${VISUAL}${0:}
+}
+endsnippet
+
+snippet for "Create a for loop"
+for ${1:f} in ${2:\`ls\`}; do
+	${0:}
+done
+endsnippet
+
+snippet bash "Adds a bash #!/usr/bin/env declaration."
+#!/usr/bin/env bash${0:}
+endsnippet
+
+snippet mls "Add a multiline string value"
+read -r -d '' ${1:VALUE} << ${2:EOM}
+${VISUAL}${0:}
+$2
+endsnippet
+
+snippet curdir "Get the current directory in a bash script as an absolute path" i
+$(readlink -f "$(dirname \$0)${VISUAL}")
+endsnippet
+
+snippet path "Add an item to the PATH"
+export PATH="${VISUAL}${1:}:$PATH"${0:}
+endsnippet

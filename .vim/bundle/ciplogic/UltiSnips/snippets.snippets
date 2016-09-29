@@ -1,0 +1,47 @@
+snippet snippet "Create a new snippet"
+snippet ${1:tab_expand} "${2:description}"
+${VISUAL}${0:}
+`!p snip.rv = "endsnippet"`
+endsnippet
+
+snippet c "Adds a comment"
+#
+# ${VISUAL}${0:}
+#
+endsnippet
+
+
+snippet cs "Adds a comment section"
+#############################################################################
+# ${VISUAL}${0:}
+#############################################################################
+endsnippet
+
+snippet prio "Adds a priority section."
+priority ${1:1}
+
+${VISUAL}${0:}
+
+priority ${2:0}
+endsnippet
+
+snippet wrapvar "Adds a wrapped variable." i
+`!p
+if t[3] != "":
+	snip.rv += '${' + t[1] + "/.+/"
+else:
+	snip.rv += ""
+`${3:prefix}${3/.+/\/}/}\${${1:1}:${2:originalValue}}`!p
+if t[4] != "":
+	snip.rv += '${' + t[1] + "/.+/"
+else:
+	snip.rv += ""`${4:suffix}${4/.+/\/}/}${0:}
+endsnippet
+
+snippet /matchval/ "Adds the value of a group match" r
+\`!p snip.rv += match.group(${1:1})\`${0:}
+endsnippet
+
+snippet notre "Add a not regexp" i
+^((?!${1:word}).)*$${0:}
+endsnippet

@@ -1,0 +1,144 @@
+snippet src "Create a source segment"
+[source,${1:text}]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet source "Create a source segment"
+[source,${1:text}]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet text "Create a text segment"
+[source,text]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet a "Create a link snippet link:URL[description]"
+link:${2:$1}[${1:${VISUAL}}]
+endsnippet
+
+
+snippet py "Create a python segment"
+[source,python]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet js "Create a javascript segment"
+[source,javascript]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet html "Create a HTML segment"
+[source,html]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet python "Create a source segment"
+[source,python]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet xml "Create a source segment"
+[source,xml]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet java "Create a source segment"
+[source,java]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet sh "Create a shell source segment"
+[source,sh]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet uml "Create a UML snippet with plantuml"
+[plantuml, ${1:germanium-selectors-uml}, ${2:svg}]
+------------------------------------------------------------------------------
+${0:class A<T> <<singleton>> {
+	{abstract} -int x
+	{static} #void meta()
+}
+
+class B
+
+A <|-- B}
+------------------------------------------------------------------------------
+endsnippet
+
+snippet ditaa "Draw an ascii diagram with ditaa"
+[ditaa, "${1:selector-left-of}"]
+-----------------------------------------------------------------------------
+${0: Page
++------------------------------+---------------------------+
+|                              |                           |
+|                              +---------------+           |
+|                              |   left_of()   |           |
+|                              |   reference   |           |
+|                              |   element     |           |
+|                              +---------------+           |
+|                              |                           |
+|      Considered Region       |        Excluded Region    |
+|       +---------+            |           +---------+     |
+|       | Input() |            |           | Input() |     |
+|       |     cAEA|            |           |     cD99|     |
+|c9D9   +---------+            |  cA77     +---------+     |
++------------------------------+---------------------------+}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet api "A single API call"
+*Description*
+
+${VISUAL}${0:}
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+
+*Sample*
+endsnippet
+
+snippet inc "Include another file"
+include::${1:${VISUAL:file.adoc}}[]${0:}
+endsnippet
+
+snippet frontpage "The front page settings, with TOC"
+= ${1:Title}
+:toc: left
+:experimental:
+//:source-highlighter: pygments
+//:pygments-css: style
+:sectanchors:
+
+:leveloffset: +1
+
+// includes
+// include::otherfile.adoc[]
+
+:leveloffset: -1
+endsnippet

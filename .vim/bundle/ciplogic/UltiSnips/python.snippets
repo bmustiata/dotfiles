@@ -1,0 +1,110 @@
+snippet super "Add a super call"
+super(${1:SuperClass}, self).__init__(${2:parameters})
+endsnippet
+
+snippet from "Adds a from .. import"
+from ${1:name} import ${2:$1}
+endsnippet
+
+snippet P "Create a behave parameter" i
+(?P<${1:name}>.*?)
+endsnippet
+
+snippet self "Create an assignment"
+self._${1:name} = $1${0:}
+endsnippet
+
+snippet unittest "Add a unittest"
+import unittest
+
+class ${1:TestClass}(unittest.TestCase):
+	"""
+	${3:}
+	"""
+	def test_${2:}(self):
+		"""
+		${4:}
+		"""
+		${VISUAL}${0:}
+
+if __name__ == '__main__':
+	unittest.main()
+endsnippet
+
+snippet /^(\s*)def$/ "Define a method or function" r
+`!p snip.rv += match.group(1)`def ${1:name}(${2:self}):
+`!p snip.rv += match.group(1)`${3/.+/    """ /}${3:documentation}${3/.+/ """\n/}`!p snip.rv += match.group(1)`    ${VISUAL}${0:}
+endsnippet
+
+snippet /^(\s*)sdef$/ "Define a static method" r
+`!p snip.rv += match.group(1)`@classmethod
+`!p snip.rv += match.group(1)`def ${1:name}(${2:self}):
+`!p snip.rv += match.group(1)`${3/.+/    """ /}${3:documentation}${3/.+/ """\n/}`!p snip.rv += match.group(1)`    ${VISUAL}${0:}
+endsnippet
+
+snippet class "Create a new class."
+class ${1:ClassName}(${2:object}):
+	"""
+	${3:Class Documentation}
+	"""
+	def __init__(self${4:}):
+		${5:pass}
+endsnippet
+
+snippet c "Add a comment"
+${VISUAL/^(\s*)(.*?)$/$1/}#  ${VISUAL/^(\s*)(.*?)$/$2/}${0:}
+endsnippet
+
+snippet """ "Add a pydoc comment"
+"""
+${VISUAL}${0:}
+"""
+endsnippet
+
+snippet try "Add a try/except statement"
+try:
+	${VISUAL}${0:}
+except Exception as ${1:e}:
+	${2:pass}
+endsnippet
+
+snippet trye "Add a try/except/finally statement"
+try:
+	${VISUAL}${0:}
+except Exception as ${1:e}:
+	${2:pass}
+finally:
+	${3:pass}
+endsnippet
+
+snippet tryf "Add a try/finally statement"
+try:
+	${VISUAL}${0:}
+finally:
+	${1:pass}
+endsnippet
+
+snippet trygermanium "Add a germanium try/except/finally block"
+try:
+	${VISUAL}${0:}
+except Exception as e:
+	print("test failed: " + str(e))
+	germanium.take_screenshot("WpTestLogin")
+finally:
+	germanium.quit()
+endsnippet
+
+snippet python "Add python as a shell script"
+#!/usr/bin/env python
+endsnippet
+
+snippet step "Add a behave step"
+@step("${1:step definition}")
+${2/.+/@iframe("/}${2:default}${2/.+/")/}
+def ${3:step_impl}(context):
+	${0:pass}
+endsnippet
+
+snippet print "Add a print"
+print(${0:})
+endsnippet
