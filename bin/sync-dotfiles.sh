@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-lndir $(readlink -f "$(dirname $0)/..") $HOME
+DOTFOLDER=$(readlink -f $(dirname $(readlink -f "$0"))/..)
+lndir $DOTFOLDER $HOME
 

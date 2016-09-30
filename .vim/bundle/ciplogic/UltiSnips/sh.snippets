@@ -56,8 +56,10 @@ ${VISUAL}${0:}
 $2
 endsnippet
 
+# The extra readlink is there to get the absolute path
+# even if there are linked folders.
 snippet curdir "Get the current directory in a bash script as an absolute path" i
-$(readlink -f "$(dirname \$0)${VISUAL}")
+$(readlink -f $(dirname $(readlink -f "\$0"))${VISUAL})
 endsnippet
 
 snippet path "Add an item to the PATH"
