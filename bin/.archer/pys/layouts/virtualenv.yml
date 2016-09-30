@@ -1,0 +1,10 @@
+layout:
+    name: Python Virtual Environment
+    requires: [VIRTUAL_ENVIRONMENT_HOME]
+    activate: |
+        OLDDIR=`pwd`
+        cd $VIRTUAL_ENVIRONMENT_HOME/bin
+        . activate
+        cd $OLDDIR
+    deactivate: |
+        deactivate

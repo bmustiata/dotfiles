@@ -1,0 +1,43 @@
+layout:
+    name: Tomcat
+    requires: [ PROJECT_HOME, PROJECT_BUILD_FOLDER, DEPLOY_ARTIFACT_NAME, SERVER_HOME ]
+    commands:
+        cdl: cd $SERVER_HOME/logs
+        cdb: cd $SERVER_HOME/bin
+        cds: cd $SERVER_HOME
+        cdi: cd $SERVER_HOME/infinica
+        cdw: cd $SERVER_HOME/webapps
+        serverstop: kill -9 $(ps -efww | grep $SERVER_HOME | grep org.apache.catalina.startup.Bootstrap | tr -s " " " " | cut -f2 -d\ )
+        serverstart: |
+            CURRENT_FOLDER=$(pwd)
+            cds
+            bin/xstartup.sh
+            cd $CURRENT_FOLDER
+        serverstatus: |
+            TOMCAT_PID=$(ps -efww | grep $SERVER_HOME | grep org.apache.catalina.startup.Bootstrap | tr -s " " " " | cut -f2 -d\ )
+            echo "PID: $TOMCAT_PID"
+        deploy: |
+            cp $PROJECT_HOME/$PROJECT_BUILD_FOLDER/*.war $SERVER_HOME/webapps/$DEPLOY_ARTIFACT_NAME.war
+        undeploy: |
+            rm -fr $SERVER_HOME/webapps/$DEPLOY_ARTIFACT_NAME $SERVER_HOME/webapps/$DEPLOY_ARTIFACT_NAME.war
+        redeploy: |
+            undeploy
+            deploy
+        reall: |
+            serverstop && clean && build $@ && redeploy && serverstart
+        clearlogs: |
+            CURRENT_FOLDER=$(pwd)
+            cdl
+            rm *
+            cd $CURRENT_FOLDER
+        clearserver: |
+            CURRENT_FOLDER=$(pwd)
+            cdl
+            rm *
+            cd $SERVER_HOME
+            rm -fr temp/*
+            rm -fr task-storage/*
+            rm -fr storage/*
+            rm -fr work/*
+            cd $CURRENT_FOLDER
+        ss: serverstatus
