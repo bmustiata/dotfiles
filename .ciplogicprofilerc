@@ -1,3 +1,8 @@
+
+# you need to add this into the ~/.bashrc that gets executed every
+# time a new bash instance is started. .profile is executed only
+# on login, and byobu trips on new instances.
+
 export EDITOR=vim
 export PATH="/home/raptor/bin:$PATH"
 
