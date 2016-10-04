@@ -10,3 +10,6 @@
 [mergetool "diffconflicts"]
     cmd=diffconflicts gvim "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
 
+[alias]
+    serve = !git daemon --reuseaddr --base-path=. --export-all --verbose --enable=receive-pack
+
