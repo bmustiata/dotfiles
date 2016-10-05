@@ -67,16 +67,24 @@
 #
 # NOTE: Use :cq to abort the merge and exit Vim with an error code.
 
-if [[ -z $@ || $# != "5" ]] ; then
-    echo -e "Usage: $0 \$EDITOR \$BASE \$LOCAL \$REMOTE \$MERGED"
+if [[ -z $@ || $# != "4" ]] ; then
+    echo -e "Usage: $0 \$BASE \$LOCAL \$REMOTE \$MERGED"
     exit 1
 fi
 
-cmd=$1
-BASE="$2"
-LOCAL="$3"
-REMOTE="$4"
-MERGED="$5"
+if [[ "$DISPLAY" == "" ]]; then
+    cmd=vim
+else # not [[ "$DISPLAY" != "" ]]
+    cmd=gvim
+    if [[ "$USE_CONSOLE_VIM" != "" ]]; then
+        cmd=vim
+    fi # [[ "$USE_CONSOLE_VIM" != "" ]]
+fi   # else [[ "$DISPLAY" != "" ]]
+
+BASE="$1"
+LOCAL="$2"
+REMOTE="$3"
+MERGED="$4"
 printf -v QBASE '%q' "${BASE}"
 printf -v QLOCAL '%q' "${LOCAL}"
 printf -v QREMOTE '%q' "${REMOTE}"
