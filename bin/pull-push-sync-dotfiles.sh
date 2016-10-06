@@ -8,7 +8,8 @@ cd $DOTFOLDER
 git pull --rebase
 git submodule init
 git submodule update
-git push
-
 bin/sync-dotfiles.sh
+
+echo "PUSHING changes. Feel free to cancel if on unsecure systems"
+git push
 
