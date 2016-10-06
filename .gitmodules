@@ -97,3 +97,6 @@
 [submodule ".vim/bundle/ultisnips"]
 	path = .vim/bundle/ultisnips
 	url = https://github.com/bmustiata/ultisnips
+[submodule ".vim/bundle/vim-dirdiff"]
+	path = .vim/bundle/vim-dirdiff
+	url = https://github.com/FuDesign2008/vim-dirdiff/
