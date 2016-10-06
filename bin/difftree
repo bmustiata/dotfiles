@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [[ -z $@ || $# != "2" ]] ; then
+    echo -e "Usage: $0 \$FIRST_FOLDER \$SECOND_FOLDER"
+    exit 1
+fi
+
+if [[ "$DISPLAY" == "" ]]; then
+    cmd=vim
+else # not [[ "$DISPLAY" != "" ]]
+    cmd=gvim
+    if [[ "$USE_CONSOLE_VIM" != "" ]]; then
+        cmd=vim
+    fi # [[ "$USE_CONSOLE_VIM" != "" ]]
+fi   # else [[ "$DISPLAY" != "" ]]
+
+FIRST_FOLDER="$1"
+SECOND_FOLDER="$2"
+
+$cmd -f -c ":DirDiff $FIRST_FOLDER $SECOND_FOLDER"
+
