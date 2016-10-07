@@ -100,3 +100,6 @@
 [submodule ".vim/bundle/vim-dirdiff"]
 	path = .vim/bundle/vim-dirdiff
 	url = https://github.com/FuDesign2008/vim-dirdiff/
+[submodule ".vim/bundle/FastFold"]
+	path = .vim/bundle/FastFold
+	url = https://github.com/Konfekt/FastFold
