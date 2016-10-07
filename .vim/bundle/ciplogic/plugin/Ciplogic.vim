@@ -82,7 +82,12 @@ nmap ,l :set list!<CR>
 " Tail files with Shift-F, similar with less
 "
 map F :edit!<CR>G
+
 "
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+"
+cmap w!! w !sudo tee > /dev/null %
+
 
 "
 " json
