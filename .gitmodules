@@ -52,9 +52,6 @@
 [submodule ".vim/bundle/vim-node"]
 	path = .vim/bundle/vim-node
 	url = https://github.com/moll/vim-node
-[submodule ".vim/bundle/splice.vim"]
-	path = .vim/bundle/splice.vim
-	url = https://github.com/bmustiata/splice.vim
 [submodule ".vim/bundle/neocomplete.vim"]
 	path = .vim/bundle/neocomplete.vim
 	url = https://github.com/Shougo/neocomplete.vim
