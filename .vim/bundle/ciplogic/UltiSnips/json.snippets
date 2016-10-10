@@ -57,3 +57,22 @@ snippet workplace_module "Adds a workplace module"
 	}
 }
 endsnippet
+
+snippet yuimodule "Adds an yuimodule"
+{
+	"name": "${1:module-name}",
+	"builds": {
+		"$1" : {
+			"jsfiles": [
+				"${2:$1.js}"
+			],
+			"config": {
+				"requires": [
+				]${3/.+/,
+				"lang": ["/}${3:de}${3/.+/"]/}
+			}
+		}
+	}
+}
+endsnippet
+
