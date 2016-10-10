@@ -326,3 +326,14 @@ module.exports = {
 	${0:}
 };
 endsnippet
+
+snippet vuecomponent "Create a Vuejs component"
+Y.Vue.component('${1:component-name}', {
+	template: uiDefinition['$1.ui.xml'],
+	data: function() {
+		return {
+			// data definition
+		}
+	}
+});
+endsnippet
