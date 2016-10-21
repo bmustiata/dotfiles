@@ -31,3 +31,8 @@ eval $(archer py)
 alias p=project
 alias s=server
 
+# this is going to check if another byobu is already opened.
+if [[ "$TMUX" == "" ]]; then
+    byobu new-session
+fi # [[ "$TMUX" == "" ]]
+
