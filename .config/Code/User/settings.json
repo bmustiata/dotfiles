@@ -1,0 +1,11 @@
+// Place your settings in this file to overwrite the default settings
+{
+    // Controls the font family.
+    "editor.fontFamily": "'Ubuntu Mono derivative Powerline Regular', 'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'",
+
+    // Controls the font weight.
+    "editor.fontWeight": "normal",
+
+    // Controls the font size in pixels.
+    "editor.fontSize": 14
+}
