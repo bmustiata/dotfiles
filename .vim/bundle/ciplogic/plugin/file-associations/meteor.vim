@@ -3,7 +3,7 @@
 "
 function! JsMeteor()
     au BufRead,BufNewFile *.html set filetype=meteor_html.bootstrap_html.handlebars.xml.html
-    au BufRead,BufNewFile *.js set filetype=meteor_js.jquery_js.javascript
+    au BufRead,BufNewFile *.js set filetype=js_meteor_js.js_jquery.js_es5.javascript
 endfunction
 command JsMeteor call JsMeteor()
 
