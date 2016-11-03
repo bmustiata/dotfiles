@@ -5,7 +5,7 @@ snippet node "Adds the node launcher"
 endsnippet
 
 snippet /\.on/ "Create a JavaScript event handler" r
-.on(${1:"click"}, (${2:ev}) => {
+.on(${1:"click"}, function(${2:ev}) {
 	${VISUAL}${0:}
 });
 endsnippet
@@ -167,13 +167,13 @@ try {
 endsnippet
 
 snippet /\.then/ "Add a then statement" r
-.then((${1:data}) => {
+.then(function(${1:data}) {
 	${VISUAL}${0:}
 });
 endsnippet
 
 snippet /\.catch/ "Add a catch statement" r
-.catch((${1:e}) => {
+.catch(function(${1:e}) {
 	${VISUAL}${0:}
 });
 endsnippet
@@ -187,21 +187,21 @@ ${VISUAL}${0:}
 endsnippet
 
 snippet forEach "A forEach statement" i
-forEach((${1:it}) => {
+forEach(function(${1:it}) {
 	${VISUAL}${0:}
 });
 endsnippet
 
 snippet each "A forEach statement" i
-forEach((${1:it}) => {
+forEach(function(${1:it}) {
 	${VISUAL}${0:}
 });
 endsnippet
 
 snippet filter "A filter statement" i
-filter((${1:it}) => {
+filter(function(${1:it}) {
 	${VISUAL}${0:}
-})${2:}
+}${2/.+/.bind(/}${2:this}${2/.+/)/})${3:;}
 endsnippet
 
 snippet req "Require a module."
@@ -273,10 +273,22 @@ for (var ${1:k} in ${2:item}) {
 }
 endsnippet
 
-snippet /\.map/ "Map an array." r
-.map((${1:it}) => {
-	${2:return ${3:}}
-})${0:}
+snippet .map "Map an array." i
+.map(function(${1:it}) {
+	${4:return }${0:}
+}${2/.+/.bind(/}${2:this}${2/.+/)/})${3:;}
+endsnippet
+
+snippet int "parseInt" i
+parseInt(${1:${VISUAL}})${0:}
+endsnippet
+
+snippet arrcopy "Copy elements as an array."
+var ${1:newArrayNode} = new Array(${2:${VISUAL/^$/copy/}}.length);
+
+for (var ${3:i} = 0; i < $2.length; i++) {
+	$1[$3] = $2[$3];
+}
 endsnippet
 
 snippet ready "Adds the jQuery document ready"
@@ -292,13 +304,13 @@ Promise(function(resolve, reject) {
 endsnippet
 
 snippet setTimeout "setTimeout function"
-setTimeout(() => {
+setTimeout(function() {
 	${VISUAL}${0:}
-}, ${1:0});
+}${1/.+/.bind(/}${1:this}${1/.+/)/}, ${2:0});
 endsnippet
 
 snippet .query "create a query" i
-.query("${1:select 1+1 as solution}", (err, rows, fields) => {
+.query("${1:select 1+1 as solution}", function(err, rows, fields) {
 	${VISUAL}${0:}
 });
 endsnippet
