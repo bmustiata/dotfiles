@@ -1,0 +1,84 @@
+snippet ckwidget "Add a CKEditor Widget class" wm
+var ${1:WidgetName} = Y.InfinicaBase.create("$1", Y.infinica.composer.document.CKWidget, [], {
+	/**
+	 * Function called after the anchor node was created
+	 * and attached into the DOM of the page.
+	 *
+	 * The node is available as the \`widgetNode\` property.
+	 */
+	$onNodeAttached: function(initialData) {
+		console.log("$1 node attached.");
+	},
+
+	/**
+	 * The widget instance is being destroyed
+	 */
+	$onDestroy: function() {
+		console.log("$1 widget destroyed.");
+	},
+
+    /**
+     * Serialize for saving the Widget.
+     * The virtual DOM structure can still be changed on downcast.
+     * @returns {CKEDITOR.htmlParser.fragment|CKEDITOR.htmlParser.element}
+     */
+	$onDowncast: function(element) {
+		console.log("$1 widget being downcasted.");
+		return element;
+	}
+}, {
+	/**
+	 * Check if we can instantiate the widget.
+	 *
+	 * @static
+	 * @param {CKEDITOR.htmlParser.element} element
+	 * @param {Object} initialData Data that will be sent to $onNodeAttached
+	 */
+	$onUpcast: function (element, initialData) {
+		if (element.name != "${2:targetelement}") {
+			return false;
+		}
+
+		console.log("$1 widget being upcasted");
+
+		// the virtual DOM structure can still be changed or
+		// replaced on upcast, and the element must be returned instead.
+
+		return true;
+	},
+
+	ATTRS: {
+		// wrapperNode
+		// widgetNode
+	},
+
+	ckwidgetDefinition: {
+		"allowedContent": {
+			attributes: '*',
+			styles: '*',
+			classes: '*'
+		}${3/.+/,
+		draggable: /}${3:false}${4/.+/,
+		editables: {
+			content: {
+				selector: '/}${4:.contents}${4/.+/'
+			}
+		}
+/}
+	}
+});
+
+Y.ckWidgetRegistry.registerWidget($1);
+endsnippet
+
+snippet infclass "Adds an InfinicaBase class" mw
+var ${1:ClassName} = Y.InfinicaBase.create("$1", ${2:Y.InfinicaBase}, {
+	${0:}
+}, { // static
+	ATTRS: {
+	}
+});
+
+Y.namespace("${3:infinica.composer.model}").$1 = $1;
+endsnippet
+
