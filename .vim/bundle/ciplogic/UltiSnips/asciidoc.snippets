@@ -26,10 +26,13 @@ ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
-snippet a "Create a link snippet link:URL[description]"
-link:${2:$1}[${1:${VISUAL}}]
+snippet a "Create a link snippet link:URL[description]" i
+link:${1:url}[${2:description}]
 endsnippet
 
+snippet img "Create an image snippet" i
+image:${1:url}[${2:description}]
+endsnippet
 
 snippet py "Create a python segment"
 [source,python]

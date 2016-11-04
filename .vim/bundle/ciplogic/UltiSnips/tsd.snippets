@@ -1,0 +1,23 @@
+snippet rcomponent "Create a react component"
+interface $1Props extends React.Props<any> {
+}
+
+interface $1State {
+}
+
+export class ${1:ClassName} extends React.Component<$1Props, $1State> {
+}
+endsnippet
+
+snippet interface "Create an interface"
+export interface ${1:Name} {
+	${0:}
+}
+endsnippet
+
+snippet module "Create a module"
+export module "${1:module-name}" {
+	${VISUAL}${0:}
+}
+endsnippet
+

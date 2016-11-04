@@ -1,0 +1,32 @@
+priority 10
+
+snippet rcomponent "Create a React MobX component"
+import React = require('react')
+import { observer } from 'mobx-react'
+
+/**
+ * $1Props: Properties for the $1 Component.
+ */
+export interface $1Props extends React.Props<any> {
+}
+
+/**
+ * $1.
+ */
+@observer
+export class ${1:ClassName} extends React.Component<$1Props, {}> {
+	render() {
+		return (
+			$0
+		);
+	}
+}
+endsnippet
+
+snippet rreq "Add a react require"
+import React = require('react')
+import { observer } from 'mobx-react'
+endsnippet
+
+priority 0
+
