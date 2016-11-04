@@ -1,4 +1,8 @@
 snippet snippet "Create a new snippet"
+#
+# snippet: $1
+# $2
+#
 snippet ${1:tab_expand} "${2:description}"${3/.+/ /}${3:wm}
 ${VISUAL}${0:}
 `!p snip.rv = "endsnippet"`

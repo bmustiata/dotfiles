@@ -48,9 +48,12 @@ var ${1:WidgetName} = Y.InfinicaBase.create("$1", Y.infinica.composer.document.C
 	},
 
 	ATTRS: {
-		// wrapperNode
-		// widgetNode
+		// wrapperNode // CKWidget base class
+		// widgetNode // CKWidget base class
 	},
+
+	// Needed by CKEditor
+	NAME: "$1",
 
 	ckwidgetDefinition: {
 		"allowedContent": {
@@ -71,6 +74,9 @@ var ${1:WidgetName} = Y.InfinicaBase.create("$1", Y.infinica.composer.document.C
 Y.ckWidgetRegistry.registerWidget($1);
 endsnippet
 
+#
+# Add an InfinicaBase class.
+#
 snippet infclass "Adds an InfinicaBase class" mw
 var ${1:ClassName} = Y.InfinicaBase.create("$1", ${2:Y.InfinicaBase}, {
 	${0:}
