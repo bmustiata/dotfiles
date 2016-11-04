@@ -4,8 +4,8 @@ snippet node "Adds the node launcher"
 #!/usr/bin/env node
 endsnippet
 
-snippet /\.on/ "Create a JavaScript event handler" r
-.on(${1:"click"}, function(${2:ev}) {
+snippet on "Create a JavaScript event handler" wm
+on(${1:"click"}, function(${2:ev}) {
 	${VISUAL}${0:}
 });
 endsnippet
@@ -72,7 +72,7 @@ endsnippet
 
 priority 0
 
-snippet /(\W?class)/ "Create a JavaScript Class" r
+snippet /(class)/ "Create a JavaScript Class" rwm
 /**
  * $1 - ${3:}
 `!p
@@ -132,10 +132,10 @@ endsnippet
 
 #
 # Create an if statement, eventually also wrapping the selected code.
-snippet if "Create an if statement."
-if (${1:condition}) {`!p if t[2] : snip.rv = " // "`${2:}
+snippet if "Create an if statement." mw
+if (${1:condition}) {${2/.+/ \/\/ /}${2:comment}
 	${VISUAL}${0:}
-}
+} // ${3:end if ($1)}
 endsnippet
 
 # Create a prototype method, and also add the parameters for the
@@ -166,19 +166,19 @@ try {
 }
 endsnippet
 
-snippet /\.then/ "Add a then statement" r
-.then(function(${1:data}) {
+snippet then "Add a then statement" mw
+then(function(${1:data}) {
 	${VISUAL}${0:}
 });
 endsnippet
 
-snippet /\.catch/ "Add a catch statement" r
-.catch(function(${1:e}) {
+snippet catch "Add a catch statement" mw
+catch(function(${1:e}) {
 	${VISUAL}${0:}
 });
 endsnippet
 
-snippet jsscope "Create an anonyomous function for a JS scope"
+snippet jsscope "Create an anonyomous function for a JS scope" mw
 (function($) {
 
 ${VISUAL}${0:}
@@ -186,19 +186,19 @@ ${VISUAL}${0:}
 })(${1:jQuery});
 endsnippet
 
-snippet forEach "A forEach statement" i
+snippet forEach "A forEach statement" mw
 forEach(function(${1:it}) {
 	${VISUAL}${0:}
 });
 endsnippet
 
-snippet each "A forEach statement" i
+snippet each "A forEach statement" mw
 forEach(function(${1:it}) {
 	${VISUAL}${0:}
 });
 endsnippet
 
-snippet filter "A filter statement" i
+snippet filter "A filter statement" mw
 filter(function(${1:it}) {
 	${VISUAL}${0:}
 }${2/.+/.bind(/}${2:this}${2/.+/)/})${3:;}
