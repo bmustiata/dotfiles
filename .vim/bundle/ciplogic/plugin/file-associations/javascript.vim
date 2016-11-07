@@ -37,5 +37,13 @@ function! JsGermanium()
 endfunction
 command JsGermanium call JsGermanium()
 
-call JsComposer()
-
+"
+" call JsComposer()
+"
+" This is a JsComposer call, without the set filetype, since this will be
+" applied for every opened file in every new instance.
+"
+au BufRead,BufNewFile *.js set filetype=js_composer.js_yui3.js_es5.javascript
+call JsDefaults()
+"set filetype=js_composer.js_yui3.js_es5.javascript
+"
