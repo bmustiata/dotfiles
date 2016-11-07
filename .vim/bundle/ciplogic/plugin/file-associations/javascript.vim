@@ -30,5 +30,12 @@ function! JsVanilla()
 endfunction
 command JsVanilla call JsVanilla()
 
+function! JsGermanium()
+    au BufRead,BufNewFile *.js set filetype=js_germanium.javascript
+    call JsDefaults()
+    set filetype=js_germanium.javascript
+endfunction
+command JsGermanium call JsGermanium()
+
 call JsComposer()
 
