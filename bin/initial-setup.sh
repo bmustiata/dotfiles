@@ -8,3 +8,5 @@ nvm install v6.7.0
 npm install -g project-archer
 npm install -g fast-live-reload
 
+# needed by the befautify commands in vim
+npm install -g js-beautify
