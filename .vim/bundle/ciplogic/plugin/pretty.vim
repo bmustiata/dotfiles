@@ -1,24 +1,33 @@
+" -------------------------------------------------------------------------
+" Create a command for either python 2 or 3, depending on what is available
+" on the platform.
+" -------------------------------------------------------------------------
+let g:_vimtodopy=":py3 "
+if !has("python3")
+   if !has("python")
+       echo  "vim-todo requires Python 2 or 3."
+       unlet g:_vimtodopy
+   endif
+   let g:_vimtodopy=":py "
+endif
 
 "
 " This function parses the current buffer into an xml,
 " and then displays it as a pretty print xml.
 "
 function! PrettyXml()
-python << endpython
-
-import xml.dom.minidom
-import vim
-
-buffer = vim.current.buffer
-
-content = "\n".join(buffer.range(1, len(buffer)))
-
-xml = xml.dom.minidom.parseString(content.strip())
-pretty_xml = xml.toprettyxml()
-
-buffer[:] = pretty_xml.splitlines()
-
-endpython
+exec g:_vimtodopy "\n
+\import xml.dom.minidom\n
+\import vim\n
+\\n
+\buffer = vim.current.buffer\n
+\\n
+\content = '\\n'.join(buffer.range(1, len(buffer)))\n
+\\n
+\xml = xml.dom.minidom.parseString(content.strip())\n
+\pretty_xml = xml.toprettyxml()\n
+\\n
+\buffer[:] = pretty_xml.splitlines()\n"
 set filetype=xml
 endfunction
 
@@ -27,19 +36,16 @@ endfunction
 " and displays is using a pretty print.
 "
 function! PrettyJson()
-python << endpython
-
-from json.tool import json as js
-import vim
-
-buffer = vim.current.buffer
-
-content = "\n".join(buffer.range(1, len(buffer)))
-data = js.dumps(js.loads(content.strip()), indent=2)
-
-buffer[:] = data.splitlines()
-
-endpython
+exec g:_vimtodopy "\n
+\from json.tool import json as js\n
+\import vim\n
+\\n
+\buffer = vim.current.buffer\n
+\\n
+\content = '\\n'.join(buffer.range(1, len(buffer)))\n
+\data = js.dumps(js.loads(content.strip()), indent=2)\n
+\\n
+\buffer[:] = data.splitlines()\n"
 set filetype=json.javascript
 endfunction
 
