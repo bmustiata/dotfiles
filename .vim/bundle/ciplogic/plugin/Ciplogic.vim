@@ -39,7 +39,6 @@ set noswapfile
 :map <c-l> :set invnumber<cr>
 :imap <c-l> <esc>:set invnumber<cr>a
 
-" a mustang2 slight variation
 :colorscheme ciplogic
 
 " automax the current window
