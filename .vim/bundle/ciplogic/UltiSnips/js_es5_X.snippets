@@ -368,3 +368,21 @@ for (var ${2:i} = 0; $2 < ${3:myarray}.length; $2++) {
 ${0:}
 endsnippet
 
+#
+# snippet: arrrem
+# Array remove, remove an element from an array
+#
+snippet arrrem "Array remove, remove an element from an array" wm
+${1:array}.splice($1.indexOf(${2:value}, 1));
+endsnippet
+
+#
+# snippet: arrifrem
+# Array remove, if an element is in an array
+#
+snippet arrifrem "Array remove, if an element is in an array" wm
+if ($1.indexOf($2) > 0) {
+	${1:array}.splice($1.indexOf(${2:value}, 1));
+}
+endsnippet
+
