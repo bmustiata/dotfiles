@@ -6,6 +6,8 @@
 export EDITOR=vim
 export PATH="/home/raptor/bin:$PATH"
 
+export ARS_PROJECTS_FOLDER="/home/raptor/projects/dotfiles/.projects"
+
 export PATH="$HOME/programs/VSCode-linux-x64/bin:$PATH"
 
 export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -30,4 +32,7 @@ eval $(archer py)
 
 alias p=project
 alias s=server
+
+alias npmi="npm install --save -E"
+alias npmd="npm install --save-dev -E"
 
