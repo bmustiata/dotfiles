@@ -1,0 +1,25 @@
+#
+# snippet: vuecomponent
+# Create a new Vue Component
+#
+snippet vue "Create a new Vue Component" wm
+<template>
+	<div class="$1">
+		${0:}
+	</div>
+</template>
+
+<script>
+export default {
+	name: '${1:component}',
+	props: {
+	},
+};
+</script>
+
+${3:<style${2: scoped}>
+.$1 {
+	border: solid black 1px;
+}
+</style>}
+endsnippet
