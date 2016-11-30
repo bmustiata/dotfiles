@@ -25,20 +25,3 @@ snippet cs "Add a comment section"
  * ======================================================== */
 endsnippet
 
-#
-# super generic closing brackets autocomplete
-#
-priority -1
-
-
-snippet /^((\s*)([^\{\}]+))$/ "Autocomplete the brackets." r
-`!p
-snip.rv += match.group(1)
-if not match.group(1).endswith(" "):
-	snip.rv += " "
-`{
-`!p snip.rv += match.group(2)`	${VISUAL}${0:}
-`!p snip.rv += match.group(2)`}
-endsnippet
-
-priority 0

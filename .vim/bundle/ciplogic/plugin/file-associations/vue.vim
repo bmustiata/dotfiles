@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.vue set filetype=X_css.X_xml.X_html.js_es2017.X_vue.vue
+au BufRead,BufNewFile *.vue set filetype=X_vue.X_css.X_xml.X_html.X_js_es2017.vue
