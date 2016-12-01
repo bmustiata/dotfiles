@@ -1,6 +1,8 @@
 snippet snippet "Create a new snippet"
 #
 # snippet: $1
+# w (word boundary),
+# m (trim spaces on the right of the script)
 # $2
 #
 snippet ${1:tab_expand} "${2:description}"${3/.+/ /}${3:wm}
@@ -37,7 +39,11 @@ snippet var "Create a simple variable around a selected text" wm
 \${${1:1}:${VISUAL}${0:}}
 endsnippet
 
-snippet wvar "Adds a wrapped variable." i
+#
+# wrapvar Adds a wrapped variable with a prefix and postfix
+# that will be added only if the variable is defined.
+#
+snippet wrapvar "Adds a wrapped variable with a prefix and postfix." wm
 `!p
 if t[3] != "":
 	snip.rv += '${' + t[1] + "/.+/"
@@ -50,8 +56,23 @@ else:
 	snip.rv += ""`${4:suffix}${4/.+/\/}/}${0:}
 endsnippet
 
-snippet wval "Adds a value if the wrapped variable matches." i
+#
+# wraptext Adds a text only if the wrapped variable matches.
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+snippet wraptext "Adds a text only if the wrapped variable matches." i
 \${${1:1}/.+/${VISUAL}/}${0:}
+endsnippet
+
+#
+# snippet: wraptextonempty
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Adds a value if the wrapped variable does not match
+#
+snippet wraptextonempty "Adds a value if the wrapped variable does not match" wm
+\${${1:VISUAL}/^$/${2:value}/}
 endsnippet
 
 snippet /matchval/ "Adds the value of a group match" r
@@ -61,3 +82,4 @@ endsnippet
 snippet notre "Add a not regexp" i
 ^((?!${1:word}).)*$${0:}
 endsnippet
+
