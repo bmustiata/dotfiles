@@ -8,6 +8,22 @@ snippet block "Adds a block."
 </block>
 endsnippet
 
+#
+# snippet: blockcontainer
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Adds a block container
+#
+snippet container "Adds a block container" wm
+<container${1/.+/ editable="/}${1:true}${1/.+/"/}>
+	${VISUAL/^$/<block>
+		<text>
+			<text-contents>text<\/text-contents>
+		<\/text>
+	<\/block>/}
+</container>
+endsnippet
+
 snippet dynamic "Adds a dynamic value." i
 <dynamic-value expression="${VISUAL}${1:xpath}"/>${0:}
 endsnippet

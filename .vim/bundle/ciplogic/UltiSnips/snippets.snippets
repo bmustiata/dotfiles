@@ -62,7 +62,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 #
 snippet wraptext "Adds a text only if the wrapped variable matches." i
-\${${1:1}/.+/${VISUAL}/}${0:}
+\${${1:1}/.+/${VISUAL/([\\\/])/\\$1/g}/}${0:}
 endsnippet
 
 #
@@ -72,7 +72,7 @@ endsnippet
 # Adds a value if the wrapped variable does not match
 #
 snippet wraptextonempty "Adds a value if the wrapped variable does not match" wm
-\${${1:VISUAL}/^$/${2:value}/}
+\${${1:VISUAL}/^$/${2:${VISUAL/([\\\/])/\\$1/g}}/}
 endsnippet
 
 snippet /matchval/ "Adds the value of a group match" r
