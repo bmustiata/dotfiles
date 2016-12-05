@@ -9,11 +9,14 @@ var localNodeModules = fs.readdirSync("node_modules")
 localNodeModules.splice(0, 0, "fs", "net", "path")
 
 module.exports = {
-  entry: ['babel-polyfill', './src/main.js'],
+  entry: ['babel-polyfill', './src/main.ts'],
   output: {
     filename: 'out/main.js',
     library: true,
     libraryTarget : 'commonjs2'
+  },
+  resolve: {
+      extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
   },
   target: "node", // don't include stubs for `process`, etc.
   externals: localNodeModules,
@@ -24,8 +27,22 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2017', 'es2015']
+          presets: ['es2015']
         }
+      },
+      {
+        test: function(name) {
+          if (/\.tsx?$/.test(name)) {
+            return true;
+          }
+
+          if (!/\./.test(name)) {
+            return true;
+          }
+
+          return false;
+        },
+        loader: 'babel-loader?presets=es2015!ts-loader',
       }
     ]
   },

@@ -37,6 +37,13 @@ function! JsGermanium()
 endfunction
 command JsGermanium call JsGermanium()
 
+function! JsES2017()
+  au BufRead,BufNewFile *.js set filetype=X_js_es2017.javascript
+  call JsDefaults()
+  set filetype=X_js_es2017.javascript
+endfunction
+command JsES2017 call JsES2017()
+
 "
 " call JsComposer()
 "

@@ -357,3 +357,14 @@ if ($1.indexOf($2) > 0) {
 }
 endsnippet
 
+
+#
+# snippet: ret
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Return a value
+#
+snippet ret "Return a value" wm
+return ${VISUAL}${0:}
+endsnippet
+
