@@ -5,10 +5,12 @@
     "experimentalDecorators" : true,
     "moduleResolution": "node",
     "sourceMap": true,
-    "jsx": "react",
-{{#if customTypes}}
+    "jsx": "react"{{#if customTypes}},
     "typeRoots": [
       "typings", "node_modules/@types", "node_modules"
+    ],
+    "types": [
+      "node"
     ]
 {{/if}}
   }
