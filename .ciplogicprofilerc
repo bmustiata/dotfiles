@@ -35,4 +35,6 @@ alias s=server
 
 alias npmi="npm install --save -E"
 alias npmd="npm install --save-dev -E"
+alias npmg="npm install -g"
+
 

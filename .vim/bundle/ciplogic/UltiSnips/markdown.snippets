@@ -84,6 +84,20 @@ npm install ${1:-g }${2:project}
 ${0:}
 endsnippet
 
+#
+# snippet: json
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Adds some JSON source.
+#
+snippet json "Adds some JSON source." wm
+\`\`\`json
+${VISUAL/^$/{
+	name: "value"
+}/}
+\`\`\`
+endsnippet
+
 snippet ``` "Add some source"
 \`\`\`${1:text}
 ${VISUAL}${0:}

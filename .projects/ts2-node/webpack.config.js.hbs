@@ -42,6 +42,7 @@ module.exports = {
 
           return false;
         },
+        exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader?presets=es2015!ts-loader',
       }
     ]
@@ -55,7 +56,9 @@ module.exports = {
     }
     ]),
     {{/if}}
-    new SmartBannerPlugin('require("source-map-support/register");\n',
+    new SmartBannerPlugin({{#if binary}}
+        '#!/usr/bin/env node\n' +{{/if}}
+        'require("source-map-support/register");\n',
         {raw: true, entryOnly: false })
   ],
   devtool: 'source-map'
