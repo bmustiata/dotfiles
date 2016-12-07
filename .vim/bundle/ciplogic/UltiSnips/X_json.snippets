@@ -16,6 +16,18 @@ snippet k, " Adds a key/value pair"
 ${0:}
 endsnippet
 
+#
+# snippet: ko
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a key/object value pair
+#
+snippet ko "Add a key/object value pair" wm
+"${1:name}": {
+	${VISUAL}${0:}
+}${2:,}
+endsnippet
+
 snippet s, "Add a string followed by a comma."
 "${1:}",
 ${0:}
