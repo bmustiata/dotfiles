@@ -101,7 +101,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Escape the text under the cursor as a string for use in the shell.
 #
-snippet ssesc "Escape the text under the cursor as a string." wm
+snippet ssesc "Escape the text under the cursor as a shell string." wm
 `!p
 
 snip.rv += '"' + snip.v.text\
@@ -110,7 +110,6 @@ snip.rv += '"' + snip.v.text\
 	.replace('$', '\\$')\
 	.replace('\n', '\\n')\
 	+ '"'
-
 `
 endsnippet
 
@@ -129,6 +128,90 @@ snip.rv += "'" + snip.v.text\
 	.replace('\n', '\\n')\
 	+ "'"
 
+`
+endsnippet
+
+#
+# snippet: base64encode
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Encode the text selected as base64
+#
+snippet base64encode "Encode the text selected as base64" wm
+`!p
+import base64
+
+snip.rv += base64.b64encode(snip.v.text)
+`
+endsnippet
+
+#
+# snippet: base64decode
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Decode the selected text from base64
+#
+snippet base64decode "Decode the selected text from base64" wm
+`!p
+import base64
+
+snip.rv += base64.b64decode(snip.v.text)
+`
+endsnippet
+
+#
+# snippet: md5
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get the MD5 hash of the selected text
+#
+snippet md5 "Get the MD5 hash of the selected text" wm
+`!p
+import hashlib
+
+snip.rv += hashlib.md5(snip.v.text).hexdigest()
+`
+endsnippet
+
+#
+# snippet: sha1
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get the SHA1 hash of the selected text
+#
+snippet sha1 "Get the SHA1 hash of the selected text" wm
+`!p
+import hashlib
+
+snip.rv += hashlib.sha1(snip.v.text).hexdigest()
+`
+endsnippet
+
+#
+# snippet: sha256
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get the SHA256 hash of the selected text
+#
+snippet sha256 "Get the SHA256 hash of the selected text" wm
+`!p
+import hashlib
+
+snip.rv += hashlib.sha256(snip.v.text).hexdigest()
+`
+endsnippet
+
+#
+# snippet: sha512
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get the SHA512 hash of the selected text
+#
+snippet sha512 "Get the SHA512 hash of the selected text" wm
+`!p
+import hashlib
+
+snip.rv += hashlib.sha512(snip.v.text).hexdigest()
 `
 endsnippet
 

@@ -95,3 +95,15 @@ snippet notre "Add a not regexp" i
 ^((?!${1:word}).)*$${0:}
 endsnippet
 
+#
+# snippet: py
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a python code block
+#
+snippet py "Add a python code block" wm
+\`!p
+${VISUAL}${0:}
+\`
+endsnippet
+
