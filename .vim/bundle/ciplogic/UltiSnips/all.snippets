@@ -51,3 +51,84 @@ now = datetime.datetime.now()
 snip.rv += "%02d:%02d:%02d" % (now.hour, now.minute, now.second)
 `
 endsnippet
+
+#
+# snippet: rescape
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Escape the text under cursor as a regexp.
+#
+snippet resc "Escape the text under cursor as a regexp." wm
+`!p
+
+snip.rv += snip.v.text\
+	.replace('\\', '\\\\')\
+	.replace('/', '\\/')\
+	.replace('(', '\\(')\
+	.replace(')', '\\)')\
+	.replace('{', '\\{')\
+	.replace('}', '\\}')\
+	.replace('[', '\\[')\
+	.replace(']', '\\]')\
+	.replace('.', '\\.')\
+	.replace('?', '\\?')\
+	.replace('\n', '\\n')
+
+`
+endsnippet
+
+#
+# snippet: sescape
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Escape the text under the cursor as a string.
+#
+snippet sesc "Escape the text under the cursor as a string." wm
+`!p
+
+snip.rv += '"' + snip.v.text\
+	.replace('\\', '\\\\')\
+	.replace('"', '\\"')\
+	.replace('\n', '\\n')\
+	+ '"'
+
+`
+endsnippet
+
+#
+# snippet: ssescape
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Escape the text under the cursor as a string for use in the shell.
+#
+snippet ssesc "Escape the text under the cursor as a string." wm
+`!p
+
+snip.rv += '"' + snip.v.text\
+	.replace('\\', '\\\\')\
+	.replace('"', '\\"')\
+	.replace('$', '\\$')\
+	.replace('\n', '\\n')\
+	+ '"'
+
+`
+endsnippet
+
+#
+# snippet: qesc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Escape the text under the cursor as a single quote string.
+#
+snippet qesc "Escape the text under the cursor as a single quote string." wm
+`!p
+
+snip.rv += "'" + snip.v.text\
+	.replace('\\', '\\\\')\
+	.replace("'", "\\'")\
+	.replace('\n', '\\n')\
+	+ "'"
+
+`
+endsnippet
+

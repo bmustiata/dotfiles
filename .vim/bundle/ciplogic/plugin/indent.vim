@@ -1,6 +1,7 @@
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set autoindent
 
 " Allow working with tabs as actual tabs:
 function! Tabs2()
