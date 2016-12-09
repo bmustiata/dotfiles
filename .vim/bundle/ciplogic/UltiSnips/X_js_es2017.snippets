@@ -230,34 +230,34 @@ console.error(${VISUAL}${0:});
 endsnippet
 
 snippet fori "for (i = ..; i < c.length; i++)"
-for (${1:var i} = 0; ${1/(.*\s)?(.*?)/$2/} < ${2:list}.length; ${1/(.*\s)?(.*?)/$2/}++) {
+for (${1:let i} = 0; ${1/(.*\s)?(.*?)/$2/} < ${2:list}.length; ${1/(.*\s)?(.*?)/$2/}++) {
 	${VISUAL}${0:}
 }
 endsnippet
 
 snippet foria "for (i = ..; i < c.length; i++)"
-for (${1:var i} = 0; ${1/(.*\s)?(.*?)/$2/} < ${2:list}.length; ${1/(.*\s)?(.*?)/$2/}++) {
-	${3:var item} = $2[${1/(.*\s)?(.*?)/$2/}];
+for (${1:let i} = 0; ${1/(.*\s)?(.*?)/$2/} < ${2:list}.length; ${1/(.*\s)?(.*?)/$2/}++) {
+	${3:let item} = $2[${1/(.*\s)?(.*?)/$2/}];
 	${VISUAL}${0:}
 }
 endsnippet
 
 snippet foriar "for i reversed"
-for (${1:var i} = ${2:list}.length - 1; ${1/(.*\s)?(.*?)/$2/} >= 0; ${1/(.*\s)?(.*?)/$2/}--) {
-	${3:var item} = $2[${1/(.*\s)?(.*?)/$2/}];
+for (${1:let i} = ${2:list}.length - 1; ${1/(.*\s)?(.*?)/$2/} >= 0; ${1/(.*\s)?(.*?)/$2/}--) {
+	${3:let item} = $2[${1/(.*\s)?(.*?)/$2/}];
 	${VISUAL}${0:}
 }
 endsnippet
 
 snippet fork "for (k in ..)"
-for (${1:var k} in ${2:item}) {
+for (${1:let k} in ${2:item}) {
 	${VISUAL}${0:}
 }
 endsnippet
 
 snippet forka "for (k in ..) // assigned"
-for (var ${1:k} in ${2:item}) {
-	var ${3:value} = $2[$1];
+for (let ${1:k} in ${2:item}) {
+	let ${3:value} = $2[$1];
 	${VISUAL}${0:}
 }
 endsnippet
@@ -273,9 +273,9 @@ parseInt(${1:${VISUAL}})${0:}
 endsnippet
 
 snippet arrcopy "Copy elements as an array."
-var ${1:newArrayNode} = new Array(${2:${VISUAL/^$/copy/}}.length);
+let ${1:newArrayNode} = new Array(${2:${VISUAL/^$/copy/}}.length);
 
-for (var ${3:i} = 0; i < $2.length; i++) {
+for (let ${3:i} = 0; i < $2.length; i++) {
 	$1[$3] = $2[$3];
 }
 endsnippet
@@ -326,10 +326,10 @@ endsnippet
 # Finds an element into an array using a for
 #
 snippet find "Finds an element into an array using a for" wm
-var ${1:searched} = null;
+let ${1:searched} = null;
 
-for (var ${2:i} = 0; $2 < ${3:myarray}.length; $2++) {
-	var ${4:item} = $3[$2];
+for (let ${2:i} = 0; $2 < ${3:myarray}.length; $2++) {
+	let ${4:item} = $3[$2];
 	if (${5:$3}) {
 		$1 = $4;
 		break;
@@ -368,3 +368,33 @@ snippet ret "Return a value" wm
 return ${VISUAL}${0:}
 endsnippet
 
+#
+# snippet: l
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# let statement.
+#
+snippet l "let statement." wm
+let ${0:}
+endsnippet
+
+#
+# snippet: co
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# const statement
+#
+snippet co "const statement" wm
+const ${0:}
+endsnippet
+
+
+#
+# snippet: v
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# var statement
+#
+snippet v "var statement" wm
+var ${0:}
+endsnippet

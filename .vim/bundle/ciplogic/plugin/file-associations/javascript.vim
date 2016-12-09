@@ -17,9 +17,9 @@ endfunction
 command JsSuperb call JsSuperb()
 
 function! JsComposer()
-    au BufRead,BufNewFile *.js set filetype=js_composer.js_yui3.X_js_es5.javascript
+    au BufRead,BufNewFile *.js set filetype=js_composer.js_yui3.X_js_es2017.javascript
     call JsDefaults()
-    set filetype=js_composer.js_yui3.X_js_es5.javascript
+    set filetype=js_composer.js_yui3.X_js_es2017.javascript
 endfunction
 command JsComposer call JsComposer()
 
@@ -50,7 +50,7 @@ command JsES2017 call JsES2017()
 " This is a JsComposer call, without the set filetype, since this will be
 " applied for every opened file in every new instance.
 "
-au BufRead,BufNewFile *.js set filetype=js_composer.js_yui3.X_js_es5.javascript
+au BufRead,BufNewFile *.js set filetype=js_composer.js_yui3.X_js_es2017.javascript
 call JsDefaults()
 "set filetype=js_composer.js_yui3.X_js_es5.javascript
 "

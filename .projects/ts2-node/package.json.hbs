@@ -1,7 +1,7 @@
 {
-  "name": "{{name}}",
+  "name": "{{#if name}}{{name}}{{else}}test{{/if}}",
   "version": "1.0.0",
-  "description": "{{name}}.",
+  "description": "{{#if name}}{{name}}{{else}}test{{/if}}.",
   {{#if binary}}
   "bin" : {
     "{{name}}" : "out/main.js"

@@ -1,1 +1,1 @@
-console.log("Welcome to {{name}}");
+console.log("Welcome to {{#if name}}{{name}}{{else}}test{{/if}}");
