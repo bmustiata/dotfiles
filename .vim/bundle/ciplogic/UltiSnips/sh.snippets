@@ -65,3 +65,24 @@ endsnippet
 snippet path "Add an item to the PATH"
 export PATH="${VISUAL}${1:}:$PATH"${0:}
 endsnippet
+
+#
+# snippet: s
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Wrap the text in a string.
+#
+snippet s "Wrap the text in a string." wm
+"${1:${VISUAL/^$/text/}}"${0:}
+endsnippet
+
+#
+# snippet: resolve
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Resolve the path to its absolute value
+#
+snippet resolve "Resolve the path to its absolute value" wm
+$(readlink -f "${1:${VISUAL/^$/file/}}")
+endsnippet
+

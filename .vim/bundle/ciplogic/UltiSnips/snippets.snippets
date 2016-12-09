@@ -33,10 +33,22 @@ endsnippet
 
 #
 # snippet: var
+# w (word boundary),
+# m (trim spaces on the right of the script)
 # Create a simple variable around a selected text
 #
 snippet var "Create a simple variable around a selected text" wm
-\${${1:1}:${VISUAL}${0:}}
+\${${1:1}:${VISUAL/^$/var/}${0:}}
+endsnippet
+
+#
+# snippet: varvisual
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a variable around a text that will return that text.
+#
+snippet varvisual "Create a variable around a text that will return that text." wm
+\${${1:1}:\${VISUAL/^$/${VISUAL/^$/var/}/}}${0:}
 endsnippet
 
 #

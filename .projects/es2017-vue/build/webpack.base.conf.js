@@ -59,6 +59,12 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.tsx?$/,
+        loader: 'babel-loader?presets=es2015!ts-loader',
+        include: projectRoot,
+        exclude: /(node_modules|bower_components)/
+      },
+      {
         test: /\.json$/,
         loader: 'json'
       },
