@@ -147,7 +147,7 @@ class RepoStats:
     def add_to_powerline(self, powerline, color):
         def add(_key, fg, bg):
             if self[_key]:
-                s = u" {}{} ".format(self.n_or_empty(_key), self.symbols[_key])
+                s = u"{}{} ".format(self.n_or_empty(_key), self.symbols[_key])
                 powerline.append(s, fg, bg)
         add('ahead', color.GIT_AHEAD_FG, color.GIT_AHEAD_BG)
         add('behind', color.GIT_BEHIND_FG, color.GIT_BEHIND_BG)
@@ -296,11 +296,11 @@ add_virtual_env_segment(powerline)
 def add_username_segment(powerline):
     import os
     if powerline.args.shell == 'bash':
-        user_prompt = ' \\u '
+        user_prompt = '\\u'
     elif powerline.args.shell == 'zsh':
-        user_prompt = ' %n '
+        user_prompt = '%n '
     else:
-        user_prompt = ' %s ' % os.getenv('USER')
+        user_prompt = '%s' % os.getenv('USER')
 
     if os.getenv('USER') == 'root':
         bgcolor = Color.USERNAME_ROOT_BG
@@ -374,7 +374,7 @@ def add_cwd_segment(powerline):
     cwd = replace_home_dir(cwd)
 
     if powerline.args.cwd_mode == 'plain':
-        powerline.append(' %s ' % (cwd,), Color.CWD_FG, Color.PATH_BG)
+        powerline.append('%s' % (cwd,), Color.CWD_FG, Color.PATH_BG)
         return
 
     names = split_path_into_names(cwd)
@@ -401,14 +401,16 @@ def add_cwd_segment(powerline):
     for i, name in enumerate(names):
         fg, bg = get_fg_bg(name)
 
-        separator = powerline.separator_thin
+        # Looks bad, don't know why. I'm more used to paths as paths.
+        #separator = powerline.separator_thin
+        separator = '/'
         separator_fg = Color.SEPARATOR_FG
         is_last_dir = (i == len(names) - 1)
         if requires_special_home_display(name) or is_last_dir:
             separator = None
             separator_fg = None
 
-        powerline.append(' %s ' % maybe_shorten_name(powerline, name), fg, bg,
+        powerline.append('%s' % maybe_shorten_name(powerline, name), fg, bg,
                          separator, separator_fg)
 
 
@@ -511,7 +513,7 @@ def add_git_segment(powerline):
         bg = Color.REPO_DIRTY_BG
         fg = Color.REPO_DIRTY_FG
 
-    powerline.append(' %s ' % branch, fg, bg)
+    powerline.append('%s' % branch, fg, bg)
     stats.add_to_powerline(powerline, Color)
 
 
@@ -620,9 +622,9 @@ def add_jobs_segment(powerline):
 add_jobs_segment(powerline)
 def add_root_segment(powerline):
     root_indicators = {
-        'bash': ' \\$ ',
-        'zsh': ' %# ',
-        'bare': ' $ ',
+        'bash': '\\$',
+        'zsh': '%#',
+        'bare': '$',
     }
     bg = Color.CMD_PASSED_BG
     fg = Color.CMD_PASSED_FG
