@@ -47,6 +47,7 @@ exec g:_vimtodopy "\n
 \\n
 \buffer[:] = data.splitlines()\n"
 set filetype=json.javascript
+StripWhitespace
 endfunction
 
 "
