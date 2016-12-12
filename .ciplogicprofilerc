@@ -4,7 +4,7 @@
 # on login, and byobu trips on new instances.
 
 export EDITOR=vim
-export PATH="/home/raptor/bin:$PATH"
+export PATH="${HOME}/bin:$PATH"
 
 export ARS_PROJECTS_FOLDER="/home/raptor/projects/dotfiles/.projects"
 
@@ -37,7 +37,7 @@ alias npmi="npm install --save -E"
 alias npmd="npm install --save-dev -E"
 alias npmg="npm install -g"
 
-alias cddot="cd /home/raptor/projects/dotfiles"
+alias cddot="cd $(dirname $(readlink -f ${HOME}/.ciplogicprofilerc))"
 
 #
 # Powerline Shell

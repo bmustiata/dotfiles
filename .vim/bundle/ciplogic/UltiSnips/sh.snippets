@@ -83,6 +83,16 @@ endsnippet
 # Resolve the path to its absolute value
 #
 snippet resolve "Resolve the path to its absolute value" wm
-$(readlink -f "${1:${VISUAL/^$/file/}}")
+$(readlink -f ${1:${VISUAL/^$/file/}})
+endsnippet
+
+#
+# snippet: dir
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get the directory path for the given path
+#
+snippet dir "Get the directory path for the given path" wm
+$(dirname ${VISUAL/^$/filepath/})
 endsnippet
 
