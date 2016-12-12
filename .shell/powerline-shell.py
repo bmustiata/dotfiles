@@ -558,8 +558,11 @@ def add_hg_segment(powerline):
         branch += (' ' + extra if extra != '' else '')
     return powerline.append(' %s ' % branch, fg, bg)
 
+#=====================================================
+# Mercurial is actually way too slow.
+#=====================================================
+# add_hg_segment(powerline)
 
-add_hg_segment(powerline)
 import subprocess
 
 
