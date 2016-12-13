@@ -15,6 +15,28 @@ snippet ifi "Add an inline if snippet" wm
 endsnippet
 
 #
+# snippet: ifn
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an if not snippet.
+#
+snippet ifn "Add an if not snippet." wm
+{{#unless ${1:expression}}}
+	${VISUAL}${0:}
+{{/unless}}
+endsnippet
+
+#
+# snippet: ifni
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an if not inline snippet
+#
+snippet ifni "Add an if not inline snippet" wm
+{{#unless ${1:expression}}}${VISUAL}${0:}{{/unless}}
+endsnippet
+
+#
 # snippet: ife
 # Add an if/else statement
 #
