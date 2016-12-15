@@ -88,3 +88,18 @@ var ${1:ClassName} = Y.InfinicaBase.create("$1", ${2:Y.InfinicaBase}, {
 Y.namespace("${3:infinica.composer.model}").$1 = $1;
 endsnippet
 
+#
+# snippet: ckplugin
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new CKEditor plugin
+#
+snippet ckplugin "Create a new CKEditor plugin" wm
+let ${1:PluginName} = Y.Base.create('$1', Y.WebFo.CKEditorPluginNew, [], {
+	_$pluginInitialized : function() {
+		this.createButton("${2:$1}", ${3:msg.INSERT_TABLE}, "${4:table.png}", ${5:callback});
+	}
+});
+
+new $1();
+endsnippet

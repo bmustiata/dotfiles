@@ -29,6 +29,7 @@ layout:
             CURRENT_FOLDER=$(pwd)
             cdl
             rm *
+            rm -fr composer
             cd $CURRENT_FOLDER
         clearserver: |
             CURRENT_FOLDER=$(pwd)
