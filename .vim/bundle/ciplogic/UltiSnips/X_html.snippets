@@ -94,3 +94,12 @@ snippet <template "Add a template"
 </template>
 endsnippet
 
+#
+# snippet: img
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new image
+#
+snippet img "Create a new image" wm
+<img src="${VISUAL/^$/image.png/}">
+endsnippet
