@@ -3,5 +3,5 @@
 docker run -it \
     --rm \
     -v $(pwd):'/src' \
-    cdrx/pyinstaller-windows
+    cdrx/pyinstaller-windows:python2
 
