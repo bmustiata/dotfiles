@@ -1,0 +1,4 @@
+name - default "test"
+binary - default false
+customTypes - default false
+
