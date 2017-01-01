@@ -34,6 +34,17 @@ else # not [[ $1 ]]
 fi   # else [[ $1 ]]
 endsnippet
 
+#
+# snippet: elif
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an elif statement
+#
+snippet elif "Create an elif statement" wm
+elif [[ ${1:condition} ]]; then
+	${VISUAL}${0:}
+endsnippet
+
 snippet fun "Create a function"
 function ${1:name}() {
 	${VISUAL}${0:}
