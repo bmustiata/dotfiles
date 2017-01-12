@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" value="width=device-width, scale=initial-scale">
+        <title>{{#if name}}{{name}}{{else}}test{{/if}}</title>
+    </head>
+    <body>
+        <h1>{{#if name}}{{name}}{{else}}test{{/if}}</h1>
+        <div id="app"></div>
+        <script type="text/javascript" src="js/client.js"></script>
+    </body>
+</html>
+

@@ -1,9 +1,10 @@
 var fs = require("fs")
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: ['babel-polyfill', './src/ts/main.ts'],
   output: {
-    filename: 'out/main.js',
+    filename: 'out/public/js/client.js',
   },
   module: {
     loaders: [
@@ -22,6 +23,14 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new CopyWebpackPlugin([
+    {
+        from: 'src/html',
+        to: 'out/public'
+    }
+    ])
+  ],
   devtool: 'source-map'
 }
 

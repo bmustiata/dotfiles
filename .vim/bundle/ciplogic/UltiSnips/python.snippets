@@ -120,3 +120,34 @@ snippet cs "Add a comment section." wm
 # ${VISUAL}${0:}
 #=====================================================
 endsnippet
+
+#
+# snippet: setup
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a setup section.
+#
+snippet setup "Create a setup section." wm
+from setuptools import setup
+
+with open('README.rst') as readme_file:
+	readme = readme_file.read()
+
+setup(
+	name='${1:germanium}',
+	version='${2:1.10.5}',
+	description='${3:The germanium project: Selenium WebDriver testing API that doesn\'t disappointa.}',
+	long_description = readme,
+	author='${4:Bogdan Mustiata}',
+	author_email='${5:bogdan.mustiata@gmail.com}',
+	license='${6:BSD}',
+${7/.+/	install_requires=[
+		'/}${7:germaniumdrivers==1.10.5}${7/.+/'
+	],
+/}	packages=['$1']${8/.+/,
+	package_data={
+		'/}${8:$1}${8/.+/': ['*.js'],
+	}
+/})
+endsnippet
+

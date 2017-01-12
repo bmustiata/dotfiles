@@ -23,3 +23,19 @@ ${3:<style${2: scoped}>
 }
 </style>}
 endsnippet
+
+#
+# snippet: vcomponent
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new TypeScript Vue Component
+#
+snippet vcomponent "Create a new TypeScript Vue Component" wm
+import * as Vue from "vue"
+
+export const ${1:application} = Vue.component("$1", {
+	template: require("./$1.html")
+})
+endsnippet
+
+
