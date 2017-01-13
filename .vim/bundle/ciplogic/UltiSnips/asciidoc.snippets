@@ -232,3 +232,17 @@ snippet r3 "Add a 3 column row" wm
 | ${0:}
 endsnippet
 
+#
+# snippet: level
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Increase the level of the titles
+#
+snippet level "Increase the level of the titles" wm
+:leveloffset: +${1:1}
+
+${VISUAL/^$/\/\/ includes
+\/\/ include::otherfile.adoc[]/}
+
+:leveloffset: -$1
+endsnippet

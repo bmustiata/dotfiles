@@ -46,3 +46,18 @@ ${1:registry}:
 #    volumes:
 #     - /tmp/data:/var/lib/registry
 endsnippet
+
+#
+# snippet: ansible
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an ansible playbook
+#
+snippet ansible "Create an ansible playbook" wm
+- name: ${1:Configure webserver with nginx}
+  hosts: ${2:webservers}${3/.+/
+  sudo: /}${3:True}
+  tasks:
+    ${0:${VISUAL/^$/- name: install nginx
+      apt: name=nginx update_cache=yes/}}
+endsnippet
