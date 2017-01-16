@@ -1,5 +1,5 @@
 snippet ckwidget "Add a CKEditor Widget class" wm
-var ${1:WidgetName} = Y.InfinicaBase.create("$1", Y.infinica.composer.document.CKWidget, [], {
+const ${1:WidgetName} = Y.InfinicaBase.create("$1", Y.infinica.composer.document.CKWidget, [], {
 	/**
 	 * Function called after the anchor node was created
 	 * and attached into the DOM of the page.
@@ -78,7 +78,7 @@ endsnippet
 # Add an InfinicaBase class.
 #
 snippet infclass "Adds an InfinicaBase class" mw
-var ${1:ClassName} = Y.InfinicaBase.create("$1", ${2:Y.InfinicaBase}, {
+const ${1:ClassName} = Y.InfinicaBase.create("$1", ${2:Y.InfinicaBase}, {
 	${0:}
 }, { // static
 	ATTRS: {
@@ -95,7 +95,7 @@ endsnippet
 # Create a new CKEditor plugin
 #
 snippet ckplugin "Create a new CKEditor plugin" wm
-let ${1:PluginName} = Y.Base.create('$1', Y.WebFo.CKEditorPluginNew, [], {
+const ${1:PluginName} = Y.Base.create('$1', Y.WebFo.CKEditorPluginNew, [], {
 	_$pluginInitialized : function() {
 		this.createButton("${2:$1}", ${3:msg.INSERT_TABLE}, "${4:table.png}", ${5:callback});
 	}

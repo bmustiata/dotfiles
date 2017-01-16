@@ -72,7 +72,13 @@ endsnippet
 
 priority 0
 
-snippet /(class)/ "Create a JavaScript Class" rwm
+#
+# snippet: class
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a JavaScript Class
+#
+snippet class "Create a JavaScript Class" wm
 /**
  * $1${2/.+/ - /}${2:$1}
  */
@@ -312,7 +318,7 @@ endsnippet
 
 snippet vuecomponent "Create a Vuejs component"
 Y.Vue.component('${1:component-name}', {
-	template: uiDefinition['$1.ui.xml'],
+	template: uiDefinition['$1.html'],
 	data: function() {
 		return {
 			// data definition

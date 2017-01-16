@@ -1,0 +1,49 @@
+#
+# snippet: bitbucket
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Convert an URL to a bitbucket SSH
+#
+snippet bitbucket "Convert an URL to a bitbucket SSH" wm
+`!p
+import re
+
+selected_url = snip.v.text
+
+if not selected_url:
+	selected_url = "https://bitbucket.org/bmustiata/learn"
+
+m = re.match(r'^https?://(.*?)/(.*(\.git)?)$', selected_url)
+
+if not m:
+	snip.rv += selected_url
+else:
+	# git@github.com:bmustiata/core-promise.git
+	snip.rv += "git@%s:%s.git" % (m.group(1), m.group(2))
+endsnippet
+
+#
+# snippet: github
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Convert an URL to a github SSH
+#
+snippet github "Convert an URL to a github SSH" wm
+`!p
+# https://github.com/bmustiata/core-promise.git
+import re
+
+selected_url = snip.v.text
+
+if not selected_url:
+	selected_url = "https://github.com/bmustiata/core-promise.git"
+
+m = re.match(r'^https?://(.*?)/(.*(\.git)?)$', selected_url)
+
+if not m:
+	snip.rv += selected_url
+else:
+	# git@github.com:bmustiata/core-promise.git
+	snip.rv += "git@%s:%s.git" % (m.group(1), m.group(2))
+`
+endsnippet
