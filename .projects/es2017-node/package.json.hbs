@@ -1,10 +1,10 @@
 {
-  "name": "{{name}}",
+  "name": "{{#if arg0}}{{arg0}}{{else}}test{{/if}}",
   "version": "1.0.0",
-  "description": "{{name}}.",
+  "description": "{{#if arg0}}{{arg0}}{{else}}test{{/if}}.",
   {{#if binary}}
   "bin" : {
-    "{{name}}" : "out/main.js"
+    "{{#if arg0}}{{arg0}}{{else}}test{{/if}}" : "out/main.js"
   },
   {{/if}}
   "scripts": {

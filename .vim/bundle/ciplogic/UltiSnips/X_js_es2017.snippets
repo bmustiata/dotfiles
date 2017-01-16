@@ -316,14 +316,88 @@ module.exports = {
 };
 endsnippet
 
-snippet vuecomponent "Create a Vuejs component"
+#
+# snippet: vuefullcomponent
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a vue component with every possible setting.
+#
+snippet vuefullcomponent "Create a vue component with every possible setting." wm
 Y.Vue.component('${1:component-name}', {
 	template: uiDefinition['$1.html'],
+	props: {
+		name: Object
+	},
+
+	beforeCreate: function() {
+	},
+
+	created: function() {
+	},
+
+	beforeMount: function() {
+	},
+
+	mounted: function() {
+	},
+
+	beforeUpdate: function() {
+	},
+
+	updated: function() {
+	},
+
+	beforeDestroy: function() {
+	},
+
+	destroyed: function() {
+	},
+
 	data: function() {
 		return {
-			// data definition
+			key: "value"
 		}
 	}
+});
+
+endsnippet
+
+#
+# snippet: vuecomponent
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a vue js component
+#
+snippet vuecomponent "Create a vue js component" wm
+Y.Vue.component('${1:component-name}', {
+	template: uiDefinition['$1.html'],
+	props: {
+		name: Object
+	},
+
+	data: function() {
+		return {
+			key: "value"
+		}
+	}
+});
+endsnippet
+
+#
+# snippet: vuerender
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Render a vue component/template
+#
+snippet vuerender "Render a vue component/template" wm
+${1/.+/const /}${1:component}${1/.+/ = /}new Y.Vue({
+	el: ${2:this.get("widgetNode").getDOMNode()},
+	template: ${3:${VISUAL/^$/"<take-picture data='pictureData'><\/take-picture>"/}}${4/.+/,
+	data: function() {
+		return {
+			/}${4:pictureData}${4/.+/: initialData
+		}
+	}/}
 });
 endsnippet
 

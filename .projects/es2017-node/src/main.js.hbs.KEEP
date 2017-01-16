@@ -1,1 +1,1 @@
-console.log("Welcome to {{name}}");
+console.log("Welcome to {{arg0}}");

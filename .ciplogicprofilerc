@@ -45,6 +45,8 @@ alias npmg="npm install -g"
 
 alias cddot="cd $(dirname $(readlink -f ${HOME}/.ciplogicprofilerc))"
 
+alias ap="ansible-playbook"
+
 #
 # Powerline Shell
 #
