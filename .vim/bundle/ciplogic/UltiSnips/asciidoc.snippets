@@ -27,7 +27,7 @@ ${VISUAL}${0:}
 endsnippet
 
 snippet a "Create a link snippet link:URL[description]" i
-link:${1:url}[${2:description}]
+link:${1:${VISUAL/^$/url/}}[${2:${VISUAL/^$/description/}}]
 endsnippet
 
 snippet img "Create an image snippet" i
