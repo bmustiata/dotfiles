@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [[ "$1" == "" ]]; then
+    echo "You need to pass the file to diff."
+    exit 1
+fi
+
+if [ ! -f "$1" ]; then
+    echo "You need to pass a file that exists to the diff."
+    exit 1
+fi # [ -f $1 ]
+
+set -e
+
+FULL_PATH=$(readlink -f $1)
+SHORT_NAME=$(basename $FULL_PATH)
+
+git diff $FULL_PATH > /tmp/__diff_content.patch
+cp $FULL_PATH "$FULL_PATH.__original"
+patch -R "$FULL_PATH" < /tmp/__diff_content.patch
+mv "$FULL_PATH" "/tmp/ORIGINAL_$SHORT_NAME"
+mv "$FULL_PATH.__original" "$FULL_PATH"
+rm /tmp/__diff_content.patch
+
+vimdiff -R "$FULL_PATH" "/tmp/ORIGINAL_$SHORT_NAME" \
+    -c ":set noro"
+
+rm "/tmp/ORIGINAL_$SHORT_NAME"
+

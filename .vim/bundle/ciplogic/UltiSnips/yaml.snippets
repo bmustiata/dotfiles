@@ -1,4 +1,4 @@
-snippet rc "Add a replication controller"
+snippet kuberc "Add a replication controller"
 apiVersion: v1
 kind: ReplicationController
 metadata:
@@ -17,7 +17,7 @@ spec:
 			  - containerPort: ${6:80}
 endsnippet
 
-snippet service "Add a service"
+snippet kubeservice "Add a service"
 apiVersion: v1
 kind: Service
 metadata:
@@ -61,3 +61,37 @@ snippet ansible "Create an ansible playbook" wm
     ${0:${VISUAL/^$/- name: install nginx
       apt: name=nginx update_cache=yes/}}
 endsnippet
+
+#
+# snippet: service
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a service entry.
+#
+snippet service "Create a service entry." wm
+- name: Make sure $1 is $2${3/yes/, and is enabled on restart/}.
+  service: name=${1:ntp}${2/.+/ state=/}${2:started}${3/.+/ enabled=/}${3:yes}
+endsnippet
+
+#
+# snippet: apt
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Install a package using apt
+#
+snippet apt "Install a package using apt" wm
+- name: ${0:Install: $1 package from APT.}
+  apt: name=${1:ntp}${2/.+/ update_cache=/}${2:yes}
+endsnippet
+
+#
+# snippet: raw
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run a raw command on the server.
+#
+snippet raw "Run a raw command on the server." wm
+- name: ${0:Run \`$1\`}
+  raw: ${1:pwd}
+endsnippet
+

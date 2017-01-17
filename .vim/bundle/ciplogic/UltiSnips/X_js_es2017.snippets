@@ -274,7 +274,13 @@ snippet .map "Map an array." i
 })${2:;}
 endsnippet
 
-snippet int "parseInt" i
+#
+# snippet: int
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# parseInt
+#
+snippet int "parseInt" wm
 parseInt(${1:${VISUAL}})${0:}
 endsnippet
 

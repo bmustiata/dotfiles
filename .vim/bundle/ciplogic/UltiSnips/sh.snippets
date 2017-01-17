@@ -117,3 +117,12 @@ snippet dir "Get the directory path for the given path" wm
 $(dirname ${VISUAL/^$/filepath/})
 endsnippet
 
+#
+# snippet: var
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a variable around the visible selection
+#
+snippet var "Create a variable around the visible selection" wm
+${2:export }${1:NAME}="${0:${VISUAL}}"
+endsnippet

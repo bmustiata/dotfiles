@@ -1,5 +1,37 @@
+#
+# snippet: eslint
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add the eslint declarations
+#
+snippet eslint "Add the eslint declarations" wm
+/* eslint-env browser */${1/.+/
+\/* eslint no-param-reassign: ["error", { "props": /}${1:false}${1/.+/ }] *\//}
+/* global Y */
+endsnippet
+
+#
+# snippet: esparams
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Allow parameters in eslint
+#
+snippet esparams "Allow parameters in eslint" wm
+/* eslint no-param-reassign: ["error", { "props": false }] */
+endsnippet
+
+#
+# snippet: esconstructor
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Allow lowercase constructors.
+#
+snippet esconstructor "Allow lowercase constructors." wm
+/* eslint new-cap: ["error", { "newIsCapExceptionPattern": ["${VISUAL/^$/CKEDITOR\\..*/}"] }] */
+endsnippet
+
 snippet ckwidget "Add a CKEditor Widget class" wm
-const ${1:WidgetName} = Y.InfinicaBase.create("$1", Y.infinica.composer.document.CKWidget, [], {
+const ${1:WidgetName} = Y.InfinicaBase.create('$1', Y.infinica.composer.document.CKWidget, [], {
 	/**
 	 * Function called after the anchor node was created
 	 * and attached into the DOM of the page.
@@ -7,14 +39,14 @@ const ${1:WidgetName} = Y.InfinicaBase.create("$1", Y.infinica.composer.document
 	 * The node is available as the \`widgetNode\` property.
 	 */
 	$onNodeAttached: function(initialData) {
-		console.log("$1 node attached.");
+		console.log('$1 node attached.');
 	},
 
 	/**
 	 * The widget instance is being destroyed
 	 */
 	$onDestroy: function() {
-		console.log("$1 widget destroyed.");
+		console.log('$1 widget destroyed.');
 	},
 
     /**
@@ -23,7 +55,7 @@ const ${1:WidgetName} = Y.InfinicaBase.create("$1", Y.infinica.composer.document
      * @returns {CKEDITOR.htmlParser.fragment|CKEDITOR.htmlParser.element}
      */
 	$onDowncast: function(element) {
-		console.log("$1 widget being downcasted.");
+		console.log('$1 widget being downcasted.');
 		return element;
 	}
 }, {
@@ -35,11 +67,11 @@ const ${1:WidgetName} = Y.InfinicaBase.create("$1", Y.infinica.composer.document
 	 * @param {Object} initialData Data that will be sent to $onNodeAttached
 	 */
 	$onUpcast: function (element, initialData) {
-		if (element.name != "${2:targetelement}") {
+		if (element.name != '${2:targetelement}') {
 			return false;
 		}
 
-		console.log("$1 widget being upcasted");
+		console.log('$1 widget being upcasted');
 
 		// the virtual DOM structure can still be changed or
 		// replaced on upcast, and the element must be returned instead.
@@ -53,10 +85,10 @@ const ${1:WidgetName} = Y.InfinicaBase.create("$1", Y.infinica.composer.document
 	},
 
 	// Needed by CKEditor
-	NAME: "$1",
+	NAME: '$1',
 
 	ckwidgetDefinition: {
-		"allowedContent": {
+		'allowedContent': {
 			attributes: '*',
 			styles: '*',
 			classes: '*'
