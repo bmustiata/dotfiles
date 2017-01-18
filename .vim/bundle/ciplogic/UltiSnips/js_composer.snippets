@@ -21,6 +21,16 @@ snippet esparams "Allow parameters in eslint" wm
 endsnippet
 
 #
+# snippet: esconsole
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Allow the console in the eslint code.
+#
+snippet esconsole "Allow the console in the eslint code." wm
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+endsnippet
+
+#
 # snippet: esconstructor
 # w (word boundary),
 # m (trim spaces on the right of the script)
@@ -37,7 +47,7 @@ endsnippet
 # Allow some unruliness into the code.
 #
 snippet esallow "Allow some unruliness into the code." wm
-/* eslint ${1:${VISUAL}}: ["error", { "props": false }] */
+/* eslint ${1:${VISUAL}}: ["ignore"] */
 endsnippet
 
 snippet ckwidget "Add a CKEditor Widget class" wm
