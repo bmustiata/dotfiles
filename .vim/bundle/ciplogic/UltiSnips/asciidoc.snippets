@@ -26,6 +26,26 @@ ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
+snippet cfg "Create a config segment"
+[source,cfg]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+#
+# snippet: json
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a JSON snippet
+#
+snippet json "Create a JSON snippet"
+[source,json]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
 snippet a "Create a link snippet link:URL[description]" i
 link:${1:${VISUAL/^$/url/}}[${2:${VISUAL/^$/description/}}]
 endsnippet

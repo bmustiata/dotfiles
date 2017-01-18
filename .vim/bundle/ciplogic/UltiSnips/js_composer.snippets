@@ -30,6 +30,16 @@ snippet esconstructor "Allow lowercase constructors." wm
 /* eslint new-cap: ["error", { "newIsCapExceptionPattern": ["${VISUAL/^$/CKEDITOR\\..*/}"] }] */
 endsnippet
 
+#
+# snippet: esallow
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Allow some unruliness into the code.
+#
+snippet esallow "Allow some unruliness into the code." wm
+/* eslint ${1:${VISUAL}}: ["error", { "props": false }] */
+endsnippet
+
 snippet ckwidget "Add a CKEditor Widget class" wm
 const ${1:WidgetName} = Y.InfinicaBase.create('$1', Y.infinica.composer.document.CKWidget, [], {
 	/**
