@@ -6,6 +6,7 @@ function! JsDefaults()
     au BufRead,BufNewFile gulpfile.js set filetype=gulpfile.X_js_es5.javascript
     au BufRead,BufNewFile *test.js set filetype=mocha_test.X_js_es5.javascript
     au BufRead,BufNewFile *Test.js set filetype=mocha_test.X_js_es5.javascript
+    au BufRead,BufNewFile */lang/*.js set filetype=json
 endfunction
 command JsDefaults call JsDefaults()
 

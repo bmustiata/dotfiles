@@ -87,21 +87,24 @@ ${3:export }class ${1:Class} {
 }
 endsnippet
 
+#
+# snippet: met
+# w (word boundary)
+# m (trim spaces on the right of the script)
 # Create a JavaScript method.
 #
-snippet /(meth?o?d?)/ "Create a JavaScript Method" r
+snippet met "Create a JavaScript Method" wm
 /**
  * $1${3/.+/ - /}${3:$1}
 `!p
-indent = match.string[0: len(match.string) - len(match.group(1))]
 for arg in re.split("\s*,\s*", t[2]):
 	if arg != "":
-		snip.rv += ' * @param {} ' + arg + "\n" + indent
+		snip.rv += ' * @param {} ' + arg + "\n"
 ` * @return {${4:void}}
  */
 ${1:name}(${2:}) {
 	${VISUAL}${0:}
-}
+}${3:,}
 endsnippet
 
 
@@ -215,12 +218,34 @@ snippet @r "Adds a JSDoc return."
 @return {${1:Object}}
 endsnippet
 
-snippet c "Add a comment."
+#
+# snippet: c
+# w (word boundary)
+# m (trim spaces on the right of the script)
+# Create a single line comment.
+#
+snippet c "Add a comment." wm
+// ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: cd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a comment for documentation.
+#
+snippet cd "Add a comment for documentation." wm
 /**
  * ${0:}
  */
 endsnippet
 
+#
+# snippet: cs
+# w (word boundary)
+# m (trim spaces on the right of the script)
+# Create a comment for the section
+#
 snippet cs "Comment section"
 // ==========================================================================
 // ${VISUAL}${0:}
@@ -335,37 +360,38 @@ Y.Vue.component('${1:component-name}', {
 		name: Object
 	},
 
-	beforeCreate: function() {
+	beforeCreate() {
 	},
 
-	created: function() {
+	created() {
 	},
 
-	beforeMount: function() {
+	beforeMount() {
 	},
 
-	mounted: function() {
+	mounted() {
 	},
 
-	beforeUpdate: function() {
+	beforeUpdate() {
 	},
 
-	updated: function() {
+	updated() {
 	},
 
-	beforeDestroy: function() {
+	beforeDestroy() {
 	},
 
-	destroyed: function() {
+	destroyed() {
 	},
 
 	data: function() {
 		return {
-			key: "value"
-		}
-	}
+			key: "value",
+		};
+	},
 });
-
+/* eslint-env browser */
+/* global Y uiDefinition */
 endsnippet
 
 #
@@ -378,15 +404,17 @@ snippet vuecomponent "Create a vue js component" wm
 Y.Vue.component('${1:component-name}', {
 	template: uiDefinition['$1.html'],
 	props: {
-		name: Object
+		name: Object,
 	},
 
-	data: function() {
+	data() {
 		return {
-			key: "value"
-		}
-	}
+			key: 'value',
+		};
+	},
 });
+/* eslint-env browser */
+/* global Y uiDefinition */
 endsnippet
 
 #

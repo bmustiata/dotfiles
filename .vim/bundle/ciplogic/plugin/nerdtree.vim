@@ -18,3 +18,8 @@ endfunction
 " map <c-n> :NERDTreeToggle<cr>
 map <c-n> :call Ciplogic_ToggleNerdTree()<cr>
 
+" -------------------------------------------------------------------------
+" Use icons that don't trash in case unicode support sucks in the term.
+" -------------------------------------------------------------------------
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'

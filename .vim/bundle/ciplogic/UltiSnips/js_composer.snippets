@@ -41,6 +41,17 @@ snippet esconstructor "Allow lowercase constructors." wm
 endsnippet
 
 #
+# snippet: esunusedvars
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Allow some unused variable.
+#
+snippet esunusedvars "Allow some unused variable." wm
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "^${1:msg}$" }] */
+endsnippet
+
+
+#
 # snippet: esallow
 # w (word boundary),
 # m (trim spaces on the right of the script)

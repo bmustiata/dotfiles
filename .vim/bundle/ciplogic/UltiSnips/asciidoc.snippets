@@ -241,6 +241,17 @@ ${4/.+/| x
 endsnippet
 
 #
+# snippet: r2
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a 2 column row
+#
+snippet r2 "Add a 2 column row" wm
+| ${VISUAL}${1:}
+| ${0:}
+endsnippet
+
+#
 # snippet: r3
 # w (word boundary),
 # m (trim spaces on the right of the script)
