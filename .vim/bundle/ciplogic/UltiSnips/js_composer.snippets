@@ -15,9 +15,9 @@ endsnippet
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Allow parameters in eslint
-#
-snippet esparams "Allow parameters in eslint" wm
-/* eslint no-param-reassign: ["error", { "props": false }] */
+# FIXME: the wrap text on empty expression isn't doing what I want.
+snippet esparamreassign "Allow parameters in eslint" wm
+${1/.+/\/* eslint no-param-reassign: ["error", { "props": /}${1:false}${1/.+/ }] *\//}${1/^$/\/* eslint no-param-reassign: "error" *\//}
 endsnippet
 
 #
@@ -35,9 +35,10 @@ endsnippet
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Allow lowercase constructors.
+# FIXME: the wrap text on empty expression isn't doing what I want.
 #
-snippet esconstructor "Allow lowercase constructors." wm
-/* eslint new-cap: ["error", { "newIsCapExceptionPattern": ["${VISUAL/^$/CKEDITOR\\..*/}"] }] */
+snippet esnewcap "Allow lowercase constructors." wm
+${1/.+/\/* eslint new-cap: ["error", { "newIsCapExceptions": ["/}${1:events}${1/.+/"] }] *\//}${1/^$/\/* eslint new-cap: ["error", { "newIsCap": false }] *\//}
 endsnippet
 
 #
