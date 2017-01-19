@@ -46,15 +46,6 @@ function! RegisterAttributeName(name)
 endfunction
 command -nargs=1 RegisterAttributeName call RegisterAttributeName(<f-args>)
 
-function! RegisterVueAttributes()
-    call add(g:syntastic_html_tidy_ignore_errors, ' attribute name ":')
-    call add(g:syntastic_html_tidy_ignore_errors, ' attribute name "@')
-
-    call RegisterAttributeName("v-if")
-    call RegisterAttributeName("v-else")
-    call RegisterAttributeName("v-for")
-endfunction
-
 " -------------------------------------------------------------------------
 " Registes a single tag into the rules of tidy
 " -------------------------------------------------------------------------
@@ -65,16 +56,3 @@ function! RegisterTagName(name)
 endfunction
 command -nargs=1 RegisterTagName call RegisterTagName(<f-args>)
 
-function! InfinicaSyntastic()
-    call RegisterVueAttributes()
-
-    call RegisterAttributeName("v-if")
-    call RegisterAttributeName("v-else")
-    call RegisterAttributeName("v-for")
-
-    call RegisterTagName("infinica-camera")
-    call RegisterTagName("infinica-data-image")
-endfunction
-command InfinicaSyntastic call InfinicaSyntastic()
-
-InfinicaSyntastic
