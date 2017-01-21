@@ -163,3 +163,14 @@ ${VISUAL}${0:}
 """
 endsnippet
 
+#
+# snippet: for
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a for loop.
+#
+snippet for "Create a for loop." wm
+for ${1:item} in ${2:$1s}:
+	${0:${VISUAL}}
+endsnippet
+
