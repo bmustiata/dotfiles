@@ -56,7 +56,7 @@ endsnippet
 snippet ansible "Create an ansible playbook" wm
 - name: ${1:Configure webserver with nginx}
   hosts: ${2:webservers}${3/.+/
-  sudo: /}${3:True}
+  become: /}${3:True}
   tasks:
     ${0:${VISUAL/^$/- name: install nginx
       apt: name=nginx update_cache=yes/}}
