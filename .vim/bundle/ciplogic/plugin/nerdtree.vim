@@ -23,3 +23,9 @@ map <c-n> :call Ciplogic_ToggleNerdTree()<cr>
 " -------------------------------------------------------------------------
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
+
+" -------------------------------------------------------------------------
+" Make the tree by default larger.
+" -------------------------------------------------------------------------
+let g:NERDTreeWinSize = 60
+
