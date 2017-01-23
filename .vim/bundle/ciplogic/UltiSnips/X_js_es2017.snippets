@@ -97,14 +97,19 @@ snippet met "Create a JavaScript Method" wm
 /**
  * $1${3/.+/ - /}${3:$1}
 `!p
+
 for arg in re.split("\s*,\s*", t[2]):
 	if arg != "":
-		snip.rv += ' * @param {} ' + arg + "\n"
-` * @return {${4:void}}
+		snip.rv += snip.mkline(' * @param {object} ' + arg + '\n')
+
+if t[2]:
+	snip.rv += snip.mkline()
+
+` * @return {${4:object}}
  */
 ${1:name}(${2:}) {
 	${VISUAL}${0:}
-}${3:,}
+}${5:,}
 endsnippet
 
 

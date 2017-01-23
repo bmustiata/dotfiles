@@ -36,7 +36,8 @@ let g:syntastic_mode_map = { 'mode': 'active',
 " and knows about the meta value stuff.
 " -------------------------------------------------------------------------
 let g:syntastic_html_tidy_ignore_errors = [
-    \ '<meta> proprietary attribute "value"']
+    \ '<meta> proprietary attribute "value"',
+    \ '<img> lacks "']
 
 "
 " Register an attribute name as known to the html tidy (aka directive)
