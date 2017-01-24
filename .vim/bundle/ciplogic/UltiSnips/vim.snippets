@@ -49,7 +49,7 @@ endsnippet
 
 snippet funp "Create a function that also has a parameter"
 function! ${1:Name}(${2:name})
-	echo a:name
+	echo a:$2
 	${VISUAL}${0:}
 endfunction
 endsnippet

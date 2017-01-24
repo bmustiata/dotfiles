@@ -57,3 +57,11 @@ function! RegisterTagName(name)
 endfunction
 command -nargs=1 RegisterTagName call RegisterTagName(<f-args>)
 
+" -------------------------------------------------------------------------
+" Register some custom text to be ignored.
+" -------------------------------------------------------------------------
+function! RegisterCustomText(text)
+    call add(g:syntastic_html_tidy_ignore_errors, a:text)
+endfunction
+command -nargs=1 RegisterCustomText call RegisterCustomText(<f-args>)
+

@@ -4,9 +4,8 @@
 # m (trim spaces on the right of the script)
 # Add the eslint declarations
 #
-snippet eslint "Add the eslint declarations" wm
+snippet esglobal "Add the eslint declarations" wm
 /* eslint-env browser */${1/.+/
-\/* eslint no-param-reassign: ["error", { "props": /}${1:false}${1/.+/ }] *\//}
 /* global Y */
 endsnippet
 
@@ -27,7 +26,7 @@ endsnippet
 # Allow the console in the eslint code.
 #
 snippet esconsole "Allow the console in the eslint code." wm
-/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+/* eslint no-console: ["error", { allow: ["warn", "error", "log", "info"] }] */
 endsnippet
 
 #

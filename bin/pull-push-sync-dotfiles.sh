@@ -6,6 +6,9 @@ DOTFOLDER=$(readlink -f $(dirname $(readlink -f "$0"))/..)
 
 cd $DOTFOLDER
 
+echo git commit -a -m "sync"
+git commit -a -m "sync"
+
 echo git pull --rebase
 git pull --rebase
 
