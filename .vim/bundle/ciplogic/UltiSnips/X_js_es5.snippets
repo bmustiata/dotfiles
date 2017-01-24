@@ -5,7 +5,7 @@ snippet node "Adds the node launcher"
 endsnippet
 
 snippet on "Create a JavaScript event handler" wm
-on(${1:"click"}, function(${2:ev}) {
+on(${1:'click'}, function(${2:ev}) {
 	${VISUAL}${0:}
 });
 endsnippet
@@ -205,7 +205,7 @@ filter(function(${1:it}) {
 endsnippet
 
 snippet req "Require a module."
-require("$1")${0:}
+require('$1')${0:}
 endsnippet
 
 snippet @p "Add a JsDoc parameter."
@@ -310,7 +310,7 @@ setTimeout(function() {
 endsnippet
 
 snippet .query "create a query" i
-.query("${1:select 1+1 as solution}", function(err, rows, fields) {
+.query('${1:select 1+1 as solution}', function(err, rows, fields) {
 	${VISUAL}${0:}
 });
 endsnippet
