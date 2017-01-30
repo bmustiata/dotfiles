@@ -207,8 +207,14 @@ filter((${1:it}) => {
 })${2:;}
 endsnippet
 
-snippet req "Require a module."
-require("$1")${0:}
+#
+# snippet: req
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Require a module.
+#
+snippet req "Require a module." wm
+import * as ${1:varName} from '${2:module-name}';
 endsnippet
 
 snippet @p "Add a JsDoc parameter."
