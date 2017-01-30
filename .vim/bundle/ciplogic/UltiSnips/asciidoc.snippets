@@ -28,6 +28,19 @@ ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
+#
+# snippet: yml
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a yaml segment
+#
+snippet yml "Create a yaml segment" wm
+[source,${1:yml}]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
 snippet text "Create a text segment"
 [source,text]
 -----------------------------------------------------------------------------
@@ -62,7 +75,7 @@ ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
-snippet a "Create a link snippet link:URL[description]" i
+snippet a "Create a link snippet link:URL[description]" wm
 link:${1:${VISUAL/^$/url/}}[${2:${VISUAL/^$/description/}}]
 endsnippet
 

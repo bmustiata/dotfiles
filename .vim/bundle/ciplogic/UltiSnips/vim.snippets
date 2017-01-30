@@ -54,12 +54,30 @@ function! ${1:Name}(${2:name})
 endfunction
 endsnippet
 
+snippet funr "Create a function that accepts a range."
+function! ${1:Name}(${2:line1}, ${3:line2})
+	echo a:$2
+	echo a:$3
+	${VISUAL}${0:}
+endfunction
+endsnippet
+
 snippet command "Create a command"
 command ${1:CommandName} call ${2:$1}()${0:}
 endsnippet
 
 snippet commandp "Create a command that also has a parameter"
 command -nargs=1 ${1:CommandName} call ${2:$1}(<f-args>)${0:}
+endsnippet
+
+#
+# snippet: commandr
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a command with a range.
+#
+snippet commandr "Create a command with a range." wm
+command! -range ${1:CommandName} <line1>,<line2>call ${2:$1}()${0:}
 endsnippet
 
 snippet au "Associate a file extension or name with a given file type"

@@ -78,6 +78,37 @@ snip.rv += snip.v.text\
 endsnippet
 
 #
+# snippet: htmlesc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Escape the current text as HTML
+#
+snippet htmlesc "Escape the current text as HTML" wm
+`!p
+
+snip.rv += snip.v.text\
+	.replace('&', '&amp;')\
+	.replace('<', '&lt;')\
+	.replace('>', '&gt;')
+`
+endsnippet
+
+#
+# snippet: htmldecode
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Decode the current HTML back into text.
+#
+snippet htmldecode "Decode the current HTML back into text." wm
+`!p
+snip.rv += snip.v.text\
+	.replace('&amp;', '&')\
+	.replace('&lt;', '<')\
+	.replace('&gt;', '>')
+`
+endsnippet
+
+#
 # snippet: sescape
 # w (word boundary),
 # m (trim spaces on the right of the script)
