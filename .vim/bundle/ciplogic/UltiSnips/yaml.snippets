@@ -95,3 +95,18 @@ snippet raw "Run a raw command on the server." wm
   raw: ${1:pwd}
 endsnippet
 
+#
+# snippet: debug
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a debug statement for a specific task
+#
+snippet debug "Add a debug statement for a specific task" wm
+  failed_when: False
+  register: ${1:result}
+
+- debug: var=$1
+
+- fail:
+endsnippet
+

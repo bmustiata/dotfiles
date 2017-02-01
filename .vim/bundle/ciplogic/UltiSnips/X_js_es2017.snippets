@@ -5,7 +5,7 @@ snippet node "Adds the node launcher"
 endsnippet
 
 snippet on "Create a JavaScript event handler" wm
-on(${1:"click"}, (${2:ev}) => {
+on(${2:'${1:click}'}, (${3:ev}) => {
 	${VISUAL}${0:}
 });
 endsnippet
@@ -214,7 +214,7 @@ endsnippet
 # Require a module.
 #
 snippet req "Require a module." wm
-import * as ${1:varName} from '${2:module-name}';
+require('${1:name}');${0:}
 endsnippet
 
 snippet @p "Add a JsDoc parameter."
