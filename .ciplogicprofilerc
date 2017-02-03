@@ -49,6 +49,8 @@ alias cddot="cd $(dirname $(readlink -f ${HOME}/.ciplogicprofilerc))"
 alias ap="ansible-playbook"
 alias a="ansible"
 
+alias api="ansible-playbook -i /home/raptor/learn/learn/adoc/inventory"
+
 #
 # Powerline Shell
 #
