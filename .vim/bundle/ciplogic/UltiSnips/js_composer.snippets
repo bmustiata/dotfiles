@@ -5,7 +5,7 @@
 # Add the eslint declarations
 #
 snippet esglobal "Add the eslint declarations" wm
-/* eslint-env browser */${1/.+/
+/* eslint-env browser */
 /* global Y */
 endsnippet
 
@@ -166,3 +166,17 @@ const ${1:PluginName} = Y.Base.create('$1', Y.WebFo.CKEditorPluginNew, [], {
 
 new $1();
 endsnippet
+
+#
+# snippet: msg
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an i18n message var.
+#
+snippet msg "Add an i18n message var." wm
+const msg = Y.Intl.get('${1:module-name}');
+/* eslint-env browser */
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "^msg$" }] */
+/* global Y */
+endsnippet
+
