@@ -1,3 +1,13 @@
+#
+# snippet: is
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new issue definition
+#
+snippet is "Create a new issue definition" wm
+[ ] (${1:impact}) (${2:points})  ${3:${VISUAL/^$/issue description/}}
+endsnippet
+
 snippet frontpage "The front page settings, with TOC"
 = ${1:Title}
 :toc: left
