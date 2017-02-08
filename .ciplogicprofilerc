@@ -1,7 +1,17 @@
 
+#
+# Byobu
+#
 # you need to add this into the ~/.bashrc that gets executed every
 # time a new bash instance is started. .profile is executed only
 # on login, and byobu trips on new instances.
+#
+# This should be before nvm registrations, etc.
+#
+if [[ "$BYOBU_TTY" == "" ]]; then
+    byobu new-session
+    return
+fi # [[ "$BYOBU_TTY" == "" ]]
 
 export EDITOR=vim
 export PATH="${HOME}/bin:$PATH"
