@@ -7,5 +7,5 @@ docker run --rm \
     -v /etc/passwd:/etc/passwd:ro \
     -v /etc/group:/etc/group:ro \
     asciidoctor/docker-asciidoctor \
-    /usr/bin/sudo -E -u "#$(id -u)" "/usr/local/bin/asciidoctor-pdf" "$@"
+    /usr/bin/sudo -E -u "#$(id -u)" "/usr/local/bin/asciidoctor-pdf" "-r" "asciidoctor-diagram" "$@"
 
