@@ -1,4 +1,3 @@
-
 #
 # Byobu
 #
@@ -8,6 +7,7 @@
 #
 # This should be before nvm registrations, etc.
 #
+
 if [[ "$BYOBU_TTY" == "" ]]; then
     byobu new-session
     return
@@ -36,6 +36,8 @@ alias vim="TERM=xterm-256color vim"
 
 . ~/.nvm/nvm.sh
 . ~/.nvm/bash_completion
+
+nvm use v6
 
 unset CIPLOGIC_ARCHER_CURRENT_JDK
 unset CIPLOGIC_ARCHER_CURRENT_PROJECT
