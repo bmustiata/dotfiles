@@ -7,6 +7,8 @@ cd $DOTFOLDER
 echo git commit -a -m "sync"
 git commit -a -m "sync"
 
+# If the commit is empty, it might fail, so we set -e
+# after we try to do the commit.
 set -e
 
 echo git pull --rebase
