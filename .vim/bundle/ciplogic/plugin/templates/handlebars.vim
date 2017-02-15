@@ -9,4 +9,3 @@ function! Handlebars()
 endfunction
 command Handlebars call Handlebars()
 
-

@@ -18,3 +18,27 @@ snippet modal "Add a modal dialog"
 	</div>
 </div>
 endsnippet
+
+#
+# snippet: buttonicon
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a font awesome button.
+#
+snippet buttonicon "Create a font awesome button." wm
+<a class="btn btn-${1:default}" href="#">
+	<i class="fa fa-${2:adjust}"></i>${0:label}</a>
+endsnippet
+
+#
+# snippet: buttongroup
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a button group
+#
+snippet buttongroup "Create a button group" wm
+<div class="btn-group" role="group"${1/.+/ aria-label="/}${1:buttons}${1/.+/"/}>
+	${VISUAL}${0:}
+</div>
+endsnippet
+

@@ -96,3 +96,22 @@ snippet cs "Add a vim comment section"
 " -------------------------------------------------------------------------
 endsnippet
 
+#
+# snippet: toggle
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a filetype toggle.
+#
+snippet toggle "Create a filetype toggle." wm
+function! ${1:Handlebars}()
+	if &filetype =~ '${2:X_$1}'
+		let l:newType = substitute(&filetype, '$2\.', '', '')
+	else
+		let l:newType =  '$2.' . &filetype
+	endif
+
+	execute 'set filetype=' . l:newType
+endfunction
+command $1 call $1()
+endsnippet
+

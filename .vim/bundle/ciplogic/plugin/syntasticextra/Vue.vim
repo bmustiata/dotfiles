@@ -6,6 +6,11 @@ function! RegisterVueAttributes()
     call RegisterAttributeName("v-if")
     call RegisterAttributeName("v-else")
     call RegisterAttributeName("v-for")
+    call RegisterAttributeName("v-html")
+    call RegisterAttributeName("slot")
+
+    call RegisterTagName("transition")
+    call RegisterTagName("slot")
 endfunction
 
 call RegisterVueAttributes()
