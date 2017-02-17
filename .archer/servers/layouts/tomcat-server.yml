@@ -7,7 +7,12 @@ layout:
         cds: cd $SERVER_HOME
         cdi: cd $SERVER_HOME/infinica
         cdw: cd $SERVER_HOME/webapps
-        serverstop: kill -9 $(ps -efww | grep $SERVER_HOME | grep org.apache.catalina.startup.Bootstrap | tr -s " " " " | cut -f2 -d\ )
+        serverstop: |
+            CURRENT_FOLDER=$(pwd)
+            kill -9 $(ps -efww | grep $SERVER_HOME | grep org.apache.catalina.startup.Bootstrap | tr -s " " " " | cut -f2 -d\ )
+            cds && cd work && rm -fr *
+            cds && cd temp && rm -fr *
+            cd $CURRENT_FOLDER
         serverstart: |
             CURRENT_FOLDER=$(pwd)
             cds

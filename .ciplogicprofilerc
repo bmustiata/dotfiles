@@ -39,14 +39,12 @@ alias vim="TERM=xterm-256color vim"
 
 nvm use v6
 
-unset CIPLOGIC_ARCHER_CURRENT_JDK
 unset CIPLOGIC_ARCHER_CURRENT_PROJECT
 unset CIPLOGIC_ARCHER_CURRENT_PY
 unset CIPLOGIC_ARCHER_CURRENT_SERVER
 
 eval $(archer project)
 eval $(archer server)
-eval $(archer jdk)
 eval $(archer py)
 
 alias p=project

@@ -1,3 +1,4 @@
+# deprecated, just use sdk man
 layout:
     requires: JAVA_HOME
     activate:
