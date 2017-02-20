@@ -1,0 +1,17 @@
+#
+# snippet: wait_for_http
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Waits for an HTTP server to be up
+#
+snippet wait_for_http "Waits for an HTTP server to be up" wm
+- name: ${1:Wait untils Jenkins web API is available}
+  command: curl --head --silent ${2:{{ jenkins_base_url }}/}
+  register: result
+  until: result.stdout.find("200 OK") != -1
+  retries: 24
+  delay: 5
+  changed_when: false
+endsnippet
+
+
