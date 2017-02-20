@@ -12,4 +12,5 @@
 
 [alias]
     serve = !git daemon --reuseaddr --base-path=. --export-all --verbose --enable=receive-pack
+    current = !git rev-parse --abbrev-ref HEAD
 

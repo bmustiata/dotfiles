@@ -2,6 +2,19 @@ snippet c "Add a comment"
 # ${VISUAL}${0:}
 endsnippet
 
+#
+# snippet: cd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a documentation comment
+#
+snippet cd "Add a documentation comment" wm
+#
+# ${1:name}
+# ${0:description}
+#
+endsnippet
+
 snippet cs "Add a comment mega section"
 #############################################################################
 # ${VISUAL}${0:}
@@ -120,3 +133,4 @@ endsnippet
 snippet var "Create a variable around the visible selection" wm
 ${2:export }${1:NAME}="${0:${VISUAL}}"
 endsnippet
+
