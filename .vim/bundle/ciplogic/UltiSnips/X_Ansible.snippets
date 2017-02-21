@@ -5,13 +5,85 @@
 # Waits for an HTTP server to be up
 #
 snippet wait_for_http "Waits for an HTTP server to be up" wm
-- name: ${1:Wait untils Jenkins web API is available}
-  command: curl --head --silent ${2:{{ jenkins_base_url }}/}
-  register: result
-  until: result.stdout.find("200 OK") != -1
-  retries: 24
-  delay: 5
-  changed_when: false
+- name: ${1: wait for http server}
+  wait_for:
+    host: ${2:127.0.0.1}${3/.+/
+    port: /}${3:80}
+    delay: 5
+
+- name: Check if page contains string '${4:wut}'
+  uri:
+    url: http://$2${3/.+/:/}$3/
+    return_content: true
+  register: response
+  failed_when: "'$4' not in response.content"
 endsnippet
 
+#
+# snippet: wait_for_http_200
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Wait for HTTP to return a 200 code
+#
+snippet wait_for_http_200 "Wait for HTTP to return a 200 code" wm
+- name: ${1: wait for http server}
+  wait_for:
+    host: ${2:127.0.0.1}${3/.+/
+    port: /}${3:80}
+    delay: 5
+
+- name: Check page result.
+  uri:
+    url: http://$2${3/.+/:/}$3/
+    return_content: true
+  register: response
+  failed_when: response.status != 200
+endsnippet
+
+
+#
+# snippet: wait_for_https
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Waits for an HTTP server to be up
+#
+snippet wait_for_http "Waits for an HTTPS server to be up" wm
+- name: ${1: wait for httpis server}
+  wait_for:
+    host: ${2:127.0.0.1}${3/.+/
+    port: /}${3:443}
+    delay: 5
+
+- name: Check if page contains string '${4:wut}'
+  uri:
+    url: https://$2${3/.+/:/}$3/
+    return_content: true
+  register: response
+  failed_when: "'$4' not in response.content"
+endsnippet
+
+#
+# snippet: play
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new play
+#
+snippet play "Create a new play" wm
+- name: ${1:Name of the Play}
+  hosts: ${2:all}${3/.+/
+  become: /}${3:true}
+  tasks:
+    ${0:}
+endsnippet
+
+#
+# snippet: -
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new task
+#
+snippet - "Create a new task" wm
+- name: ${1:}
+  ${0:}
+endsnippet
 
