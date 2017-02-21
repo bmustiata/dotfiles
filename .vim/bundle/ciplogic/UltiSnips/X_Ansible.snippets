@@ -5,18 +5,15 @@
 # Waits for an HTTP server to be up
 #
 snippet wait_for_http "Waits for an HTTP server to be up" wm
-- name: ${1: wait for http server}
-  wait_for:
-    host: ${2:127.0.0.1}${3/.+/
-    port: /}${3:80}
-    delay: 5
-
-- name: Check if page contains string '${4:wut}'
+- name: ${1:Wait until server is up}
   uri:
-    url: http://$2${3/.+/:/}$3/
+    url: ${2:{{ jenkins_base_url }}/}
     return_content: true
   register: response
-  failed_when: "'$4' not in response.content"
+  until: response.status == 200 and '${3:}' in response.content
+  delay: ${4:3}
+  retries: ${5:100}
+  changed_when: false
 endsnippet
 
 #
@@ -26,41 +23,17 @@ endsnippet
 # Wait for HTTP to return a 200 code
 #
 snippet wait_for_http_200 "Wait for HTTP to return a 200 code" wm
-- name: ${1: wait for http server}
-  wait_for:
-    host: ${2:127.0.0.1}${3/.+/
-    port: /}${3:80}
-    delay: 5
-
-- name: Check page result.
+- name: ${1:Wait untils Jenkins web API is available}
   uri:
-    url: http://$2${3/.+/:/}$3/
+    url: ${2:{{ jenkins_base_url }}/}
     return_content: true
   register: response
-  failed_when: response.status != 200
+  until: response.status == 200
+  delay: ${3:3}
+  retries: ${4:100}
+  changed_when: false
 endsnippet
 
-
-#
-# snippet: wait_for_https
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# Waits for an HTTP server to be up
-#
-snippet wait_for_http "Waits for an HTTPS server to be up" wm
-- name: ${1: wait for httpis server}
-  wait_for:
-    host: ${2:127.0.0.1}${3/.+/
-    port: /}${3:443}
-    delay: 5
-
-- name: Check if page contains string '${4:wut}'
-  uri:
-    url: https://$2${3/.+/:/}$3/
-    return_content: true
-  register: response
-  failed_when: "'$4' not in response.content"
-endsnippet
 
 #
 # snippet: play
@@ -74,6 +47,52 @@ snippet play "Create a new play" wm
   become: /}${3:true}
   tasks:
     ${0:}
+endsnippet
+
+#
+# snippet: when
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a when statement.
+#
+snippet when "Add a when statement." wm
+when: ${1:result}|failed
+endsnippet
+
+#
+# snippet: whenout
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a when statement that checks the output.
+#
+snippet whenout "Add a when statement that checks the output." wm
+when: ${1:result}|failed or ${2:''} != $1.stdout
+endsnippet
+#
+# snippet: register
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Register a variable for the output
+#
+snippet reg "Register a variable for the output" wm
+register: ${1:result}${2/.+/
+ignore_errors: /}${2:True}
+endsnippet
+
+#
+# snippet: getversion
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Gets the version of a program into a new variable.
+#
+snippet getversion "Gets the version of a program into a new variable." wm
+- name: Get ${1:docker} version.
+  shell: ${2:docker -v}
+  register: result
+  ignore_errors: True
+
+- name: Register the ${1/.+/docker/}_version fact.
+  set_fact: ${1/.+/docker/}_version='{{result.stdout | regex_replace("^Docker version (.*?), build .*$", "\\1")}}'
 endsnippet
 
 #
