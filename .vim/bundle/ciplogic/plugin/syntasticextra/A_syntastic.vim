@@ -29,7 +29,7 @@ let g:syntastic_python_checkers = ['flake8', 'pep8', 'python']
 
 let g:syntastic_mode_map = { 'mode': 'active',
                             \ 'active_filetypes': ['javascript'],
-                            \ 'passive_filetypes': [] }
+                            \ 'passive_filetypes': ['java'] }
 
 " -------------------------------------------------------------------------
 " Make sure that the checks for tidy ignore vue attributes,
