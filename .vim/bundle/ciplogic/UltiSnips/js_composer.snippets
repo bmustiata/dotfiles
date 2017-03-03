@@ -1,4 +1,23 @@
 #
+# snippet: dataimagebutton
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new dataimage button plugin
+#
+snippet dataimagebutton "Create a new dataimage button plugin" wm
+class ${1:InfinicaTakePictureDataImagePlugin} {
+	static isAllowed(dataImage) {
+		return !!dataImage;${0:}
+	}
+}
+
+$1.vueComponentName = '${2:infinica-take-picture-popover-button}';
+
+Y.infinica.composer.document.dataimage.plugins.push($1);
+
+endsnippet
+
+#
 # snippet: eslint
 # w (word boundary),
 # m (trim spaces on the right of the script)

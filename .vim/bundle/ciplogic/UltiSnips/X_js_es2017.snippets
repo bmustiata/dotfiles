@@ -272,21 +272,21 @@ console.error(${VISUAL}${0:});
 endsnippet
 
 snippet fori "for (i = ..; i < c.length; i++)"
-for (${1:let i} = 0; ${1/(.*\s)?(.*?)/$2/} < ${2:list}.length; ${1/(.*\s)?(.*?)/$2/}++) {
+for (${1:let i} = 0; ${1/(.*\s)?(.*?)/$2/} < ${2:list}.length; ${1/(.*\s)?(.*?)/$2/} += 1) {
 	${VISUAL}${0:}
 }
 endsnippet
 
 snippet foria "for (i = ..; i < c.length; i++)"
-for (${1:let i} = 0; ${1/(.*\s)?(.*?)/$2/} < ${2:list}.length; ${1/(.*\s)?(.*?)/$2/}++) {
-	${3:let item} = $2[${1/(.*\s)?(.*?)/$2/}];
+for (${1:let i} = 0; ${1/(.*\s)?(.*?)/$2/} < ${2:list}.length; ${1/(.*\s)?(.*?)/$2/} += 1) {
+	${3:const item} = $2[${1/(.*\s)?(.*?)/$2/}];
 	${VISUAL}${0:}
 }
 endsnippet
 
 snippet foriar "for i reversed"
-for (${1:let i} = ${2:list}.length - 1; ${1/(.*\s)?(.*?)/$2/} >= 0; ${1/(.*\s)?(.*?)/$2/}--) {
-	${3:let item} = $2[${1/(.*\s)?(.*?)/$2/}];
+for (${1:let i} = ${2:list}.length - 1; ${1/(.*\s)?(.*?)/$2/} >= 0; ${1/(.*\s)?(.*?)/$2/} -= 1) {
+	${3:const item} = $2[${1/(.*\s)?(.*?)/$2/}];
 	${VISUAL}${0:}
 }
 endsnippet
