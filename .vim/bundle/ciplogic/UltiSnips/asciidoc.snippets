@@ -12,9 +12,10 @@ snippet frontpage "The front page settings, with TOC"
 = ${1:Title}
 :toc: left
 :experimental:
-//:source-highlighter: pygments
-//:pygments-css: style
+:source-highlighter: pygments
+:pygments-css: style
 :sectanchors:
+:icons: font
 
 :leveloffset: +1
 
@@ -308,4 +309,14 @@ ${VISUAL/^$/\/\/ includes
 \/\/ include::otherfile.adoc[]/}
 
 :leveloffset: -$1
+endsnippet
+
+#
+# snippet: icon
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an icon
+#
+snippet icon "Create an icon" wm
+icon:${1:name}[${2/.+/role="/}${2:blue}${2/.+/"/}]
 endsnippet
