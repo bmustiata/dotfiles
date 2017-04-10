@@ -1,4 +1,25 @@
 #
+# snippet: pic
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an inline picture.
+#
+snippet pic "Add an inline picture." wm
+image:user_guide_en/images/pics/${1:pic.png}[${2:description}]${0:}
+endsnippet
+
+#
+# snippet: picl
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a picture that's large
+#
+snippet picl "Add a picture that's large" wm
+.${2:description}
+image::user_guide_en/images/pics/${1:pic.png}[$2]${0:}
+endsnippet
+
+#
 # snippet: is
 # w (word boundary),
 # m (trim spaces on the right of the script)
@@ -320,3 +341,64 @@ endsnippet
 snippet icon "Create an icon" wm
 icon:${1:name}[${2/.+/role="/}${2:blue}${2/.+/"/}]
 endsnippet
+
+#
+# snippet: h1
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a first level title
+#
+snippet h1 "Add a first level title" wm
+= ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: h2
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a second level title
+#
+snippet h2 "Add a second level title" wm
+== ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: h3
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a third level title
+#
+snippet h3 "Add a third level title" wm
+=== ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: h4
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a fourth level title
+#
+snippet h4 "Add a fourth level title" wm
+==== ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: h5
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a fifth level title
+#
+snippet h5 "Add a fifth level title" wm
+===== ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: h6
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a sixth level title
+#
+snippet h6 "Add a sixth level title" wm
+====== ${VISUAL}${0:}
+endsnippet
+
