@@ -37,10 +37,16 @@ snippet ifi "Create a base inline if statement" wm
 if [${1:[} ${2:condition} ${1/.+/]/}]; then ${VISUAL}${0:}; fi
 endsnippet
 
-snippet iffile "Create a bash if statement that checks for a file if is exists"
-if [ -f ${1:condition} ]; then
+snippet iffile "Create a bash if statement that checks for a file if it exists"
+if [ ${1:! }-f ${2:path} ]; then
 	${VISUAL}${0:}
-fi # [ -f $1 ]
+fi # [ $1-f $2 ]
+endsnippet
+
+snippet ifdir "Create a bash if statement that checks for a directory if it exists"
+if [ ${1:! }-d ${2:path} ]; then
+	${VISUAL}${0:}
+fi # [ $1-d $2 ]
 endsnippet
 
 snippet ife "Create a bash if/else statement"

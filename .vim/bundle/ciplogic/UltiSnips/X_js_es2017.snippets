@@ -523,3 +523,15 @@ endsnippet
 snippet v "var statement" wm
 var ${0:}
 endsnippet
+
+#
+# snippet: while
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a while
+#
+snippet while "Add a while" wm
+while (${1:condition}) {
+	${0:}${VISUAL}
+}
+endsnippet

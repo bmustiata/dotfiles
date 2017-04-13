@@ -11,6 +11,6 @@
     cmd=diffconflicts "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
 
 [alias]
-    serve = !git daemon --reuseaddr --base-path=. --export-all --verbose --enable=receive-pack $@
+    serve = "!f() { git daemon --reuseaddr --base-path=. --export-all --verbose --enable=receive-pack $@; }; f"
     current = !git rev-parse --abbrev-ref HEAD
 
