@@ -5,15 +5,15 @@
 # Add a require
 #
 snippet req "Add a require" wm
-import * as ${1:path} from "${2:$1}"
+import * as ${1:path} from '${2:$1}'
 endsnippet
 
 snippet im "import"
-import { ${1:name} } from "${2:module}"
+import { ${1:name} } from '${2:module}'
 endsnippet
 
 snippet ref "add a reference"
-/// <reference path="${1:../../../typings/}${2:node}/$2.d.ts"/>
+/// <reference path='${1:../../../typings/}${2:node}/$2.d.ts'/>
 endsnippet
 
 snippet class "Add a class"
@@ -22,3 +22,17 @@ export class ${1:name} {
 }
 endsnippet
 
+#
+# snippet: vue
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a vue declaration
+#
+snippet vue "Add a vue declaration" wm
+export default {
+	name: '${1:custom-component}',
+	props: {
+		data: Object,
+	}
+}
+endsnippet

@@ -3,21 +3,22 @@ layout:
     requires: [ PROJECT_HOME ]
     exports:
         PROJECT_BUILD_FOLDER: target/
+        MAVEN_OPTS: -Xmx2048m
     commands:
         build: |
             CURRENT_FOLDER=$(pwd)
             cd $PROJECT_HOME
-            mvn install $@ $EXTRA_MAVEN_PARAMS 
+            mvn install $@ $EXTRA_MAVEN_PARAMS
             cd $CURRENT_FOLDER
         clean: |
             CURRENT_FOLDER=$(pwd)
             cd $PROJECT_HOME
-            mvn clean $@ $EXTRA_MAVEN_PARAMS 
+            mvn clean $@ $EXTRA_MAVEN_PARAMS
             cd $CURRENT_FOLDER
         test: |
             CURRENT_FOLDER=$(pwd)
             cd $PROJECT_HOME
-            mvn test $@ $EXTRA_MAVEN_PARAMS 
+            mvn test $@ $EXTRA_MAVEN_PARAMS
             cd $CURRENT_FOLDER
         cdproj: |
             cd $PROJECT_HOME

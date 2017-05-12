@@ -187,6 +187,19 @@ new $1();
 endsnippet
 
 #
+# snippet: yuiclass
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an YUI class
+#
+snippet yuiclass "Add an YUI class" wm
+const ${1:Clazz} = Y.Base.create('$1', ${2:Y.Widget}, [], {
+	${0:}
+}, { // static
+});
+endsnippet
+
+#
 # snippet: msg
 # w (word boundary),
 # m (trim spaces on the right of the script)

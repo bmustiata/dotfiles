@@ -25,6 +25,25 @@ ${3:<style${2: scoped}>
 endsnippet
 
 #
+# snippet: vuecomponent
+# Create a new Vue Component
+#
+snippet vuets "Create a new Vue TypeScript Component" wm
+<template>
+	<div class="${1:component-name}">
+		${0:}
+	</div>
+</template>
+
+<script src="./${4:}" lang="ts"></script>
+
+${3:<style${2: scoped}>
+.$1 {
+	border: solid black 1px;
+}
+</style>}
+endsnippet
+#
 # snippet: vcomponent
 # w (word boundary),
 # m (trim spaces on the right of the script)

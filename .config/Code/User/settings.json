@@ -9,5 +9,6 @@
     // Controls the font size in pixels.
     "editor.fontSize": 14,
     "workbench.colorTheme": "Ciplogic",
+    "alt-editor.name": "vim",
     "workbench.iconTheme": "vs-minimal"
 }
