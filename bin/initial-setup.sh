@@ -11,10 +11,16 @@ npm install -g project-archer
 npm install -g fast-live-reload
 npm install -g version-manager
 
+# for all the sweet projects in the .projects folder
+nmp install -g ars
+
 # needed by the befautify commands in vim
 npm install -g js-beautify
 
 npm install -g eslint
 npm install -g eslint-plugin-import
 npm install -g eslint-config-airbnb-base
+
+# static site generation
+npm install -g hexo
 
