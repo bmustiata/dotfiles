@@ -9,7 +9,7 @@ snippet vue "Create a new Vue Component" wm
 	</div>
 </template>
 
-<script>
+<script src='./${2:TM_FILENAME}' lang='ts'>
 export default {
 	name: '${1:component}',
 	props: {
@@ -17,11 +17,8 @@ export default {
 };
 </script>
 
-${3:<style${2: scoped}>
-.$1 {
-	border: solid black 1px;
-}
-</style>}
+<style${3: scoped}>
+</style>
 endsnippet
 
 #

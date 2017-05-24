@@ -13,4 +13,5 @@
 [alias]
     serve = "!f() { git daemon --reuseaddr --base-path=. --export-all --verbose --enable=receive-pack $@; }; f"
     current = !git rev-parse --abbrev-ref HEAD
+    rpull = !git pull --rebase
 

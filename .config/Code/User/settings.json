@@ -10,5 +10,6 @@
     "editor.fontSize": 14,
     "workbench.colorTheme": "Ciplogic",
     "alt-editor.name": "vim",
-    "workbench.iconTheme": "vs-minimal"
+    "workbench.iconTheme": "vs-minimal",
+    "window.zoomLevel": 0
 }

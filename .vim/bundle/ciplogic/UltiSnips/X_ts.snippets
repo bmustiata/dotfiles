@@ -4,22 +4,8 @@
 # m (trim spaces on the right of the script)
 # Add a require
 #
-snippet req "Add a require" wm
-import * as ${1:path} from '${2:$1}'
-endsnippet
-
-snippet im "import"
-import { ${1:name} } from '${2:module}'
-endsnippet
-
 snippet ref "add a reference"
 /// <reference path='${1:../../../typings/}${2:node}/$2.d.ts'/>
-endsnippet
-
-snippet class "Add a class"
-export class ${1:name} {
-	$0
-}
 endsnippet
 
 #
@@ -36,3 +22,40 @@ export default {
 	}
 }
 endsnippet
+
+#
+# snippet: mocha
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a mocha basic test
+#
+snippet mocha "Add a mocha basic test" wm
+import * as chai from 'chai'
+
+describe('${1:Class}', () => {
+	it('${2:should work}', () => {
+		${0:}
+	})
+})
+endsnippet
+
+#
+# snippet: asserteq
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Assert equals with chai
+#
+snippet asserteq "Assert equals with chai" wm
+chai.assert.equal(${0:})
+endsnippet
+
+#
+# snippet: assertf
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Assert is false with chai
+#
+snippet assertf "Assert is false with chai" wm
+chai.assert.isFalse(${0:})
+endsnippet
+
