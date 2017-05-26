@@ -11,5 +11,8 @@
     "workbench.colorTheme": "Ciplogic",
     "alt-editor.name": "vim",
     "workbench.iconTheme": "vs-minimal",
-    "window.zoomLevel": 0
+    "window.zoomLevel": 0,
+    "gitlens.codeLens.recentChange.enabled": false,
+    "gitlens.codeLens.authors.enabled": false,
+    "gitlens.blame.annotation.activeLine": "off"
 }

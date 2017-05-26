@@ -1,4 +1,17 @@
 #
+# snippet: foria
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# for i .. assigned
+#
+snippet foria "for i .. assigned" wm
+for (let ${1:i} = 0; $1 < ${2:arr}.length; $1 += 1) {
+	const ${3:item} = $2[$1];
+	${0:}
+}
+endsnippet
+
+#
 # snippet: req
 # w (word boundary),
 # m (trim spaces on the right of the script)
