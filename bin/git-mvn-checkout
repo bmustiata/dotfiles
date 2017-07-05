@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+set -e
+
+MAVEN_GROUP_IDS=$(git config --get-all mvn-cache.groupId)
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+GIT_ROOT_FOLDER=$(git root)
+TARGET_BRANCH="$1"
+
+if [[ "$MAVEN_GROUP_IDS" == "" ]]; then
+    echo "ERROR: You need to specify the group ids to copy: " >&2
+    echo "git config mvn-cache.groupId com.ciplogic.test"
+fi # [[ "$MAVEN_GROUP_IDS" == "" ]]
+
+if [[ "$TARGET_BRANCH" == "$CURRENT_BRANCH" ]]; then
+    echo "ERROR: Already on branch $CURRENT_BRANCH" >&2
+    exit 1
+fi # [[ "$TARGET_BRANCH" == "$CURRENT_BRANCH" ]]
+
+cd $GIT_ROOT_FOLDER
+
+#############################################################################
+# Utility functions
+#############################################################################
+
+function cache_folder() {
+    echo "$GIT_ROOT_FOLDER/.git/mvn-cache/$1"
+}
+
+function initialize_cache() {
+    rm -fr $1
+    mkdir -p $1
+}
+
+function maven_dir() {
+    echo ${1//.//}
+}
+
+#############################################################################
+# Store the current artifacts
+#############################################################################
+
+echo "Backup the current artifacts"
+
+ROOT_CACHE=$(cache_folder $CURRENT_BRANCH)
+initialize_cache $ROOT_CACHE
+
+CACHE_DIR="$ROOT_CACHE/targets"
+mkdir -p $CACHE_DIR
+
+# move the target folders into the cache
+for f in $(find . -name target -type d); do
+    mkdir -p $(dirname "$CACHE_DIR/$f")
+    mv $f "$CACHE_DIR/$f"
+done
+
+# copy the specified packages into the maven cache
+MAVEN_CACHE_DIR="$CACHE_DIR/maven/"
+mkdir -p "$MAVEN_CACHE_DIR"
+
+for f in $MAVEN_GROUP_IDS; do
+    PACKAGE_FOLDER=$(maven_dir $f)
+    mkdir -p "$MAVEN_CACHE_DIR/$PACKAGE_FOLDER"
+    cp -R "$HOME/.m2/repository/$PACKAGE_FOLDER" "$MAVEN_CACHE_DIR/$PACKAGE_FOLDER"
+done
+
+#############################################################################
+# Restore the other branch artifacts if present
+#############################################################################
+echo "Restore the current artifacts"
+
+TARGET_ROOT_CACHE=$(cache_folder $TARGET_BRANCH)
+TARGET_CACHE_DIR="$TARGET_ROOT_CACHE/targets"
+
+# restore the target folders
+if [[ -d "$TARGET_CACHE_DIR" ]]; then
+    cp -R "$TARGET_CACHE_DIR/*" .
+fi # [[ -d "$TARGET_CACHE_DIR" ]]
+
+# restore the .m2 folders
+TARGET_MAVEN_CACHE_DIR="$TARGET_CACHE_DIR/maven/"
+if [[ -d "$TARGET_MAVEN_CACHE_DIR" ]]; then
+    cp -R "$TARGET_MAVEN_CACHE_DIR/*" "$HOME/.m2/repository"
+fi # [[ "$TARGET_MAVEN_CACHE_DIR" ]]
+
+rm -fr $TARGET_ROOT_CACHE
+
+#############################################################################
+# Do the actual branch checkout
+#############################################################################
+git checkout $1 $2
+

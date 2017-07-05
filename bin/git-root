@@ -1,0 +1,24 @@
+#!/bin/bash
+
+CURDIR=$(pwd)
+INITIAL_FOLDER="$CURDIR"
+
+while [[ true ]]; do
+    if [[ -d "$CURDIR/.git" ]]; then
+        echo $CURDIR
+        exit 0
+    fi
+
+    if [[ "$CURDIR" == "." ]]; then
+        echo "Unable to find git root from $INITIAL_FOLDER." >&2
+        exit 1
+    fi # [[ "$CURDIR" == "." ]]
+
+    if [[ "$CURDIR" == "/" ]]; then
+        echo "Unable to find git root from $INITIAL_FOLDER." >&2
+        exit 1
+    fi # [[ "$CURDIR" == "/" ]]
+
+    CURDIR=$(dirname $CURDIR)
+done
+
