@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+COMMAND=$(git push 2>&1 | grep "git push")
+echo $COMMAND
+$COMMAND
+
