@@ -75,7 +75,8 @@ echo "$CURRENT_BRANCH: Caching the target folders."
 TARGET_FOLDERS=$(find . -name target -type d -not -path '*/\.*')
 
 for f in $TARGET_FOLDERS; do
-    mkdir -p $(readlink -f $(dirname "$CACHE_DIR/$f"))
+    echo "folder: $f -> $(readlink -f $(dirname $CACHE_DIR/$f))"
+    mkdir -p $(dirname "$CACHE_DIR/$f")
     mv $f $(readlink -f "$CACHE_DIR/$f")
 done
 
