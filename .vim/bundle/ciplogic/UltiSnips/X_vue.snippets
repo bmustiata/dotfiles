@@ -4,42 +4,16 @@
 #
 snippet vue "Create a new Vue Component" wm
 <template>
-	<div class="$1">
-		${0:}
+	<div>
 	</div>
 </template>
 
-<script src='./${2:TM_FILENAME}' lang='ts'>
-export default {
-	name: '${1:component}',
-	props: {
-	},
-};
-</script>
+<script src='./${1:TM_FILENAME}${0:}' lang='ts'></script>
 
-<style${3: scoped}>
+<style scoped>
 </style>
 endsnippet
 
-#
-# snippet: vuecomponent
-# Create a new Vue Component
-#
-snippet vuets "Create a new Vue TypeScript Component" wm
-<template>
-	<div class="${1:component-name}">
-		${0:}
-	</div>
-</template>
-
-<script src="./${4:}" lang="ts"></script>
-
-${3:<style${2: scoped}>
-.$1 {
-	border: solid black 1px;
-}
-</style>}
-endsnippet
 #
 # snippet: vcomponent
 # w (word boundary),
