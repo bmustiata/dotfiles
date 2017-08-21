@@ -75,7 +75,6 @@ echo "$CURRENT_BRANCH: Caching the target folders."
 TARGET_FOLDERS=$(find . -name target -type d -not -path '*/\.*')
 
 for f in $TARGET_FOLDERS; do
-    echo "folder: $f -> $(readlink -f $(dirname $CACHE_DIR/$f))"
     mkdir -p $(dirname "$CACHE_DIR/$f")
     mv $f $(readlink -f "$CACHE_DIR/$f")
 done
@@ -106,14 +105,14 @@ echo "$TARGET_BRANCH: restoring target folders"
 
 # restore the target folders
 if [[ -d "$TARGET_CACHE_DIR" ]] && [[ "$(ls -A $TARGET_CACHE_DIR)" ]]; then
-    cp -Rl "$TARGET_CACHE_DIR"/* .
+    cp -Rlf "$TARGET_CACHE_DIR"/* .
 fi # [[ -d "$TARGET_CACHE_DIR" ]]
 
 # restore the .m2 folders
 echo "$TARGET_BRANCH: restoring maven folders"
 TARGET_MAVEN_CACHE_DIR="$TARGET_ROOT_CACHE/maven/"
 if [[ -d "$TARGET_MAVEN_CACHE_DIR" ]] && [[ "$(ls -A $TARGET_MAVEN_CACHE_DIR)" ]]; then
-    cp -Rl "$TARGET_MAVEN_CACHE_DIR"/* "$HOME/.m2/repository"
+    cp -Rlf "$TARGET_MAVEN_CACHE_DIR"/* "$HOME/.m2/repository"
 fi # [[ "$TARGET_MAVEN_CACHE_DIR" ]]
 
 rm -fr $TARGET_ROOT_CACHE
