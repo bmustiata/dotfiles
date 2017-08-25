@@ -1,8 +1,12 @@
+#!/usr/bin/env bash
+
+VIDEO_FILE="$(readlink -f $1)"
+OUTPUT_FILE="$(readlink -f $2)"
 
 docker run \
     --rm \
-    -v $1:/tmp/in/test.avi \
-    -v $(dirname $2):/tmp/write \
-    -e OUTPUT_FILE_NAME=$(basename $2) \
+    -v $VIDEO_FILE:/tmp/in/test.avi \
+    -v $(dirname $OUTPUT_FILE):/tmp/write \
+    -e OUTPUT_FILE_NAME=$(basename $OUTPUT_FILE) \
     bmst/gif-create
 

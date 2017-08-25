@@ -84,6 +84,17 @@ finally:
 	${1:pass}
 endsnippet
 
+#
+# snippet: while
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a whle block
+#
+snippet while "Add a whle block" wm
+while ${1:condition}:
+	${VISUAL}${0:}
+endsnippet
+
 snippet trygermanium "Add a germanium try/except/finally block"
 try:
 	${VISUAL}${0:}
