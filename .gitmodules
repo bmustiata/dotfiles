@@ -109,3 +109,6 @@
 [submodule "bin/docker/docker-compose-kubernetes"]
 	path = bin/docker/docker-compose-kubernetes
 	url = https://github.com/vyshane/docker-compose-kubernetes
+[submodule ".vim/bundle/thrift.vim"]
+	path = .vim/bundle/thrift.vim
+	url = https://github.com/solarnz/thrift.vim
