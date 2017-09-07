@@ -1,0 +1,233 @@
+#
+# snippet: props
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a bunch of properties that must be filled by the user
+#
+snippet params "Add a bunch of properties that must be filled by the user" wm
+properties([
+	parameters([
+		${0:}
+	])
+])
+endsnippet
+
+#
+# snippet: string
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a string property
+#
+snippet string "Add a string property" wm
+string(name: '${1:LOCAL_PROXY}', defaultValue: '${2:172.17.0.1:3128}',
+		description: '${3:Squid proxy to use for fetching resources}')${0:}
+endsnippet
+
+#
+# snippet: bool
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a boolean property
+#
+snippet bool "Add a boolean property" wm
+booleanParam(name: '${1:RUN_FIREFOX_TESTS}', defaultValue: ${2:true},
+		description: '${3:Should the firefx tests run}')${0:}
+endsnippet
+
+#
+# snippet: vbool
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Convert a proprty to a Boolean
+#
+snippet boolval "Convert a proprty to a Boolean" wm
+${1:${VISUAL}} = Boolean.valueOf($1)
+endsnippet
+
+#
+# snippet: stage
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a stage
+#
+snippet stage "Add a stage" wm
+stage('${1:Build Germanium Drivers}') {
+	${VISUAL}${0:}
+}
+endsnippet
+
+#
+# snippet: sh
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add some shell calls
+#
+snippet sh "Add some shell calls" wm
+sh """
+	${VISUAL}${0:}
+"""
+endsnippet
+
+#
+# snippet: dockerBuild
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a docker build
+#
+snippet dockerbuild "Add a docker build" wm
+dockerBuild file: '${1:./Dockerfile}'${2:,
+	build_args: [
+		"http_proxy=http://${LOCAL_PROXY}",
+		"https_proxy=http://${LOCAL_PROXY}",
+		"ftp_proxy=http://${LOCAL_PROXY}"
+	]}${3/.+/,
+	tags: ['/}${3:germanium_drivers_test}${3/.+/']/}
+endsnippet
+
+#
+# snippet: dockerrun
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a docker run
+#
+snippet dockerrun "Add a docker run" wm
+dockerRun image: '${1:image_name}'${2/.+/,
+	name: '/}${2:container_name}${2/.+/'/}${3/.+/,
+	privileged: /}${3:true}${4/.+/,
+	remove: /}${4:true}${5/.+/,
+	env: [
+		'/}${5:DISPLAY=vnc:0}${5/.+/'
+	]/}${6/.+/,
+	links: [
+		'/}${6:nexus:nexus}${6/.+/'
+	]/}${7/.+/,
+	ports: [
+		'/}${7:8080:80}${7/.+/'
+	]/}${8/.+/,
+	volumes: [
+		'/}${8:/opt/host:/opt/container:rw}${8/.+/'
+	]/}${9/.+/,
+	command: '/}${9:/scripts/test-drivers.sh}${9/.+/'/}
+endsnippet
+
+#
+# snippet: parallel
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run something in parallel
+#
+snippet parallel "Run something in parallel" wm
+parallel '${1:first branch}': {
+	${VISUAL}${0:}
+}, '${2:second branch}': {
+
+}
+endsnippet
+
+#
+# snippet: parallelif
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run something in parallel with if branching
+#
+snippet parallelif "Run something in parallel with if branching" wm
+def ${1:parallelVariable} = [:]
+
+if (${2:TEST_BOOL_VARIABLE}) {
+	$1."${3:$2}" = {
+		node {
+			${4:dockerrun}${0:}
+		}
+	}
+}
+
+parallel($1)
+endsnippet
+
+#
+# snippet: pif
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run a parallel branch with an if check
+#
+snippet pif "Run a parallel branch with an if check" wm
+if (${2:TEST_BOOL_VARIABLE}) {
+	${1:parallelVariable}."${3:$2}" = {
+		node {
+			${4:dockerrun}${0:}
+		}
+	}
+}
+endsnippet
+
+#
+# snippet: node
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run something on a node
+#
+snippet node "Run something on a node" wm
+node${1/.+/('/}${1:node-name}${1/.+/')/} {
+	${VISUAL}${0:}
+}
+endsnippet
+
+#
+# snippet: credfile
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a file credential
+#
+snippet credfile "Add a file credential" wm
+withCredentials([file(credentialsId: '${1:VARNAME}', variable: '${2:$1}')]) {
+	sh """
+		cp ${env.$2} /tmp/$2
+		chmod 666 /tmp/$2
+	"""
+}
+endsnippet
+
+#
+# snippet: ws
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a workspace
+#
+snippet ws "Add a workspace" wm
+ws${1/.+/('/}${1:ws-name}${1/.+/')/} {
+	${VISUAL}${0:}
+}
+endsnippet
+
+#
+# snippet: confirm
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a confirmation input
+#
+snippet confirm "Add a confirmation input" wm
+input message: '${1:Install into global PyPI?}'
+endsnippet
+
+#
+# snippet: env
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# An environment variable.
+#
+snippet env "An environment variable." wm
+${env.${1:NAME}}
+endsnippet
+
+#
+# snippet: checkout
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Checkout the sources, and cleanup the current folder.
+#
+snippet checkout "Checkout the sources, and cleanup the current folder." wm
+deleteDir()
+
+checkout scm
+endsnippet
+
