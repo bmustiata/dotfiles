@@ -6,6 +6,9 @@ module.exports = {
   output: {
     filename: 'out/public/js/client.js',
   },
+  resolve: {
+    extensions: ['', '.ts', '.tsx', '.js']
+  },
   module: {
     loaders: [
       {
@@ -17,7 +20,19 @@ module.exports = {
         }
       },
       {
-        test: /\.tsx?$/,
+        test: function(name) {
+          console.log(name);
+
+          if (/\.tsx?$/.test(name)) {
+            return true;
+          }
+
+          if (!/\./.test(name)) {
+            return true;
+          }
+
+          return false;
+        },
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader?presets=es2015!ts-loader',
       }
