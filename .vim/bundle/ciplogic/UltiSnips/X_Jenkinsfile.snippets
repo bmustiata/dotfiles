@@ -173,17 +173,19 @@ node${1/.+/('/}${1:node-name}${1/.+/')/} {
 endsnippet
 
 #
-# snippet: credfile
+# snippet: secretfile
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Add a file credential
 #
-snippet credfile "Add a file credential" wm
+snippet secretfile "Add a secret file credential" wm
 withCredentials([file(credentialsId: '${1:VARNAME}', variable: '${2:$1}')]) {
 	sh """
-		cp ${env.$2} /tmp/$2
-		chmod 666 /tmp/$2
-	"""
+		cp ${env.$2} ${3:/tmp/$2}
+		chmod 666 $3
+	"""${VISUAL/.+/
+
+	/}${VISUAL}
 }
 endsnippet
 
