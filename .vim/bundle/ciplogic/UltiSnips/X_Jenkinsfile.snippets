@@ -117,11 +117,15 @@ endsnippet
 # Run something in parallel
 #
 snippet parallel "Run something in parallel" wm
-parallel '${1:first branch}': {
-	${VISUAL}${0:}
-}, '${2:second branch}': {
+def ${1:parallelVariable} = [:]
 
+$1."${2:Test}" = {
+	node {
+		${4:dockerrun}${0:}
+	}
 }
+
+parallel($1)
 endsnippet
 
 #
