@@ -74,16 +74,5 @@ if [ "$TERM" != "linux" ]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
 
-#
-# MOTD
-#
-WEEKLY_FILE="$HOME/learn/learn/plan/$(date '+%Y')/weekly/week$(date '+%W').adoc"
-if [[ -f $WEEKLY_FILE ]]; then
-    cat $WEEKLY_FILE
-fi # [[ -f  ]]
-
-DAILY_FILE="$HOME/learn/learn/plan/$(date '+%Y')/daily/$(date '+%Y.%m.%d').adoc"
-if [[ -f $DAILY_FILE ]]; then
-    cat $DAILY_FILE
-fi # [[ -f  ]]
+show-plan.sh
 
