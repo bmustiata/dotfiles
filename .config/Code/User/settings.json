@@ -11,8 +11,8 @@
     "alt-editor.name": "vim",
     "workbench.iconTheme": "vs-minimal",
     "window.zoomLevel": 0,
-    "workbench.colorTheme": "Ciplogic",
     "gitlens.codeLens.recentChange.enabled": false,
     "gitlens.codeLens.authors.enabled": false,
-    "gitlens.blame.annotation.activeLine": "off"
+    "gitlens.blame.annotation.activeLine": "off",
+    "workbench.colorTheme": "Default Light+"
 }
