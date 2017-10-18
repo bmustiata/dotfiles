@@ -185,3 +185,38 @@ for ${1:item} in ${2:$1s}:
 	${0:${VISUAL}}
 endsnippet
 
+#
+# snippet: decorator
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a decorator
+#
+snippet decorator "Create a decorator" wm
+def ${1:decorator_name}(f):
+	@functools.wraps(f)
+	def wrapper(*args, **kw):
+		${0:}
+		return f(*args, **params)
+
+	return wrapper
+endsnippet
+
+#
+# snippet: decoratorp
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a decorator with parameters
+#
+snippet decoratorp "Create a decorator with parameters" wm
+def ${1:decorator_name}(${2:p}):
+	def wrapper_builder(f):
+		@functools.wraps(f)
+		def wrapper(*args, **kw):
+			${0:}
+			return f(*args, **kw)
+
+		return wrapper
+
+	return wrapper_builder
+endsnippet
+
