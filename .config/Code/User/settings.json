@@ -14,5 +14,5 @@
     "gitlens.codeLens.recentChange.enabled": false,
     "gitlens.codeLens.authors.enabled": false,
     "gitlens.blame.annotation.activeLine": "off",
-    "workbench.colorTheme": "Default Light+"
+    "workbench.colorTheme": "Ciplogic"
 }
