@@ -76,7 +76,19 @@ endsnippet
 
 snippet for "Create a for loop"
 for ${1:f} in ${2:\`ls\`}; do
-	${0:}
+	${VISUAL}${0:}
+done
+endsnippet
+
+#
+# snippet: foria
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a for loop assigned over an array
+#
+snippet foria "Create a for loop assigned over an array" wm
+for ${1:e} in "${${2:array}[@]}"; do
+	${VISUAL}${0:}
 done
 endsnippet
 
@@ -150,3 +162,12 @@ snippet var "Create a variable around the visible selection" wm
 ${2:export }${1:NAME}="${0:${VISUAL}}"
 endsnippet
 
+#
+# snippet: split
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Split a string into an array
+#
+snippet split "Split a string into an array" wm
+IFS='${1:,}' read -r -a ${2:outputarray} <<< "${3:$inputstr}"
+endsnippet
