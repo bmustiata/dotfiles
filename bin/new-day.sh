@@ -22,11 +22,35 @@ compute_file_name() {
     echo "$HOME/learn/learn/plan/$computed_year/daily/${day_prefix}_$computed_day.adoc"
 }
 
-if [[ "-w" == "$1" ]]; then
+read_day_prefix() {
+    #
+    # Reads the day prefix if is set in the given argument.
+    # Returns "home" or "work" depending on what is set.
+    #
+    if [[ "-w" == "$1" ]]; then
+        day_prefix="work"
+        echo "$day_prefix"
+    fi
+
+    if [[ "-h" == "$1" || "-p" == "$1" ]]; then
+        day_prefix="home"
+        echo "$day_prefix"
+    fi # [[ "-h" == "$1" || "-p" == "$1" ]]
+}
+
+#
+# Find the source of the plan, that can be either `home` or `work`.
+# 1. This checks any `-h` or `-w` arguments, else
+# 2. it reads the CIPLOGIC_PLAN_SCOPE environment variable
+# 3. else it defaults to "home".
+#
+day_prefix="home"
+read_day_prefix $CIPLOGIC_PLAN_SCOPE
+
+READ_DAY=$(read_day_prefix $1)
+if [[ "$READ_DAY" != "" ]]; then
+    day_prefix="$READ_DAY"
     shift
-    day_prefix="work"
-else
-    day_prefix="home"
 fi
 
 if [[ "$@" != "" ]]; then

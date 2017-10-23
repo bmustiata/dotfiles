@@ -23,13 +23,37 @@ compute_week_file_name() {
     echo "$HOME/learn/learn/plan/$computed_year/weekly/${week_prefix}_week$computed_week.adoc"
 }
 
-if [[ "-w" == "$1" ]]; then
-    shift
-    week_prefix="work"
-else
-    week_prefix="home"
-fi
+read_week_prefix() {
+    #
+    # Reads the week prefix if is set in the given argument.
+    # Returns "home" or "work" depending on what is set.
+    #
+    if [[ "-w" == "$1" ]]; then
+        week_prefix="work"
+        echo "$week_prefix"
+    fi
 
+    if [[ "-h" == "$1" || "-p" == "$1" ]]; then
+        week_prefix="home"
+        echo "$week_prefix"
+    fi # [[ "-h" == "$1" || "-p" == "$1" ]]
+}
+
+#
+# Find the source of the plan, that can be either `home` or `work`.
+# 1. This checks any `-h` or `-w` arguments, else
+# 2. it reads the CIPLOGIC_PLAN_SCOPE environment variable
+# 3. else it defaults to "home".
+#
+week_prefix="home"
+read_week_prefix $CIPLOGIC_PLAN_SCOPE
+
+READ_WEEK=$(read_week_prefix $1)
+if [[ "$READ_WEEK" != "" ]]; then
+    echo "read week redurned: $READ_WEEK"
+    week_prefix="$READ_WEEK"
+    shift
+fi
 
 if [[ "$@" != "" ]]; then
     weeks_from_user="$@"
