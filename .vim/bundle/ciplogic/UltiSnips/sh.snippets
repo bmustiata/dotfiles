@@ -68,6 +68,24 @@ elif [[ ${1:condition} ]]; then
 	${VISUAL}${0:}
 endsnippet
 
+
+#
+# snippet: case
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a case statement
+#
+snippet case "Add a case statement" wm
+case "${1:$VARIABLE}" in
+	"${2:value}")
+		${VISUAL}${0:}
+	;;
+	*)
+		# default
+	;;
+esac
+endsnippet
+
 snippet fun "Create a function"
 function ${1:name}() {
 	${VISUAL}${0:}

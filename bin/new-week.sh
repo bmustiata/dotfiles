@@ -20,8 +20,16 @@ compute_week_file_name() {
         computed_year=$(dateutils.dadd -i $DAY_FORMAT $(date "+$DAY_FORMAT") -f $YEAR_FORMAT ${1}w)
     fi   # else [[ $1 == "" ]]
 
-    echo "$HOME/learn/learn/plan/$computed_year/weekly/week$computed_week.adoc"
+    echo "$HOME/learn/learn/plan/$computed_year/weekly/${week_prefix}_week$computed_week.adoc"
 }
+
+if [[ "-w" == "$1" ]]; then
+    shift
+    week_prefix="work"
+else
+    week_prefix="home"
+fi
+
 
 if [[ "$@" != "" ]]; then
     weeks_from_user="$@"

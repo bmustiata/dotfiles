@@ -19,8 +19,15 @@ compute_file_name() {
         computed_year=$(dateutils.dadd -i $DAY_FORMAT $(date "+$DAY_FORMAT") -f $YEAR_FORMAT ${1}d)
     fi   # else [[ $1 == "" ]]
 
-    echo "$HOME/learn/learn/plan/$computed_year/daily/$computed_day.adoc"
+    echo "$HOME/learn/learn/plan/$computed_year/daily/${day_prefix}_$computed_day.adoc"
 }
+
+if [[ "-w" == "$1" ]]; then
+    shift
+    day_prefix="work"
+else
+    day_prefix="home"
+fi
 
 if [[ "$@" != "" ]]; then
     days_from_user="$@"

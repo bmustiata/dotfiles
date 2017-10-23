@@ -74,5 +74,6 @@ if [ "$TERM" != "linux" ]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
 
-show-plan.sh
+plan $CIPLOGIC_PLAN_SCOPE
+
 
