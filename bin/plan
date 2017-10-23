@@ -5,6 +5,10 @@ case "$1" in
         show_personal=0
         show_work=1
     ;;
+    "-h")
+        show_personal=1
+        show_work=0
+    ;;
     "-p")
         show_personal=1
         show_work=0
@@ -22,6 +26,7 @@ esac
 #
 # MOTD
 #
+echo WEEK
 if [[ $show_work -ne 0 ]]; then
     WEEKLY_FILE="$HOME/learn/learn/plan/$(date '+%Y')/weekly/work_week$(date '+%W').adoc"
     if [[ -f $WEEKLY_FILE ]]; then
@@ -35,6 +40,9 @@ if [[ $show_personal -ne 0 ]]; then
         cat $WEEKLY_FILE
     fi # [[ -f  ]]
 fi # [[ $show_personal -ne 0 ]]
+
+echo
+echo DAY
 
 if [[ $show_work -ne 0 ]]; then
     DAILY_FILE="$HOME/learn/learn/plan/$(date '+%Y')/daily/work_$(date '+%Y.%m.%d').adoc"
