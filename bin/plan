@@ -18,8 +18,8 @@ case "$1" in
         show_work=1
     ;;
     *)
-        show_work=1
-        show_personal=0
+        show_work=0
+        show_personal=1
     ;;
 esac
 
