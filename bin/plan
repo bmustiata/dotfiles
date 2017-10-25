@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-case "$1" in
+PLAN_TYPE="$CIPLOGIC_PLAN_SCOPE"
+
+if [[ "$1" != "" ]]; then
+    PLAN_TYPE="$1"
+fi # [[ "$1" != "" ]]
+
+case "$PLAN_TYPE" in
     "-w")
         show_personal=0
         show_work=1
