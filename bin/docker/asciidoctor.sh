@@ -6,6 +6,7 @@ docker run --rm \
     -v $PROJECT_FOLDER:/documents \
     -v /etc/passwd:/etc/passwd:ro \
     -v /etc/group:/etc/group:ro \
-    asciidoctor/docker-asciidoctor \
-    /usr/bin/sudo -E -u "#$(id -u)" "/usr/local/bin/asciidoctor" "$@"
+    -u $(id -u):$(id -g) \
+    bmst/docker-asciidoctor \
+    "/usr/bin/asciidoctor" "$@"
 
