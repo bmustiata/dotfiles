@@ -42,3 +42,17 @@ snippet buttongroup "Create a button group" wm
 </div>
 endsnippet
 
+#
+# snippet: input
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# A new form input
+#
+snippet input "A new form input" wm
+<div class="form-group">
+	<label>${1:label}</label>
+	<input class='form-control'></input>
+	<small class="form-text text-muted">${2:help text}</small>
+</div>
+
+endsnippet
