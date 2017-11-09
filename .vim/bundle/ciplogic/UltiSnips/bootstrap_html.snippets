@@ -54,5 +54,21 @@ snippet input "A new form input" wm
 	<input class="form-control"></input>
 	<small class="help-text">${2:help text}</small>
 </div>
-
 endsnippet
+
+#
+# snippet: checkbox
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a checkbox
+#
+snippet check "Add a checkbox" wm
+<div class="form-check">
+	<label class="form-check-label">
+		<input type='checkbox' class="form-check-input"></input>
+		${1:label}
+	</label>
+	<div class="help-text">${2:help text}</div>
+</div>
+endsnippet
+
