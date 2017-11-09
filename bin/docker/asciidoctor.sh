@@ -8,5 +8,5 @@ docker run --rm \
     -v /etc/group:/etc/group:ro \
     -u $(id -u):$(id -g) \
     bmst/docker-asciidoctor \
-    "/usr/bin/asciidoctor" "$@"
+    "/usr/bin/asciidoctor" "-r" "asciidoctor-diagram" "$@"
 
