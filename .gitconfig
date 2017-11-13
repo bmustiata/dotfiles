@@ -15,3 +15,5 @@
     current = !git rev-parse --abbrev-ref HEAD
     rpull = !git pull --rebase
 
+[commit]
+template = ~/.gitmessage
