@@ -28,6 +28,18 @@ fi # [[ $1 ]]
 endsnippet
 
 #
+# snippet: while
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a while statement
+#
+snippet while "Add a while statement" wm
+while [[ ${1:condition} ]]; do
+	${VISUAL}${0:}
+done # [[ $1 ]]
+endsnippet
+
+#
 # snippet: ifi
 # w (word boundary),
 # m (trim spaces on the right of the script)
@@ -86,6 +98,18 @@ case "${1:$VARIABLE}" in
 esac
 endsnippet
 
+#
+# snippet: cb
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Case branch
+#
+snippet cb "Case branch" wm
+"${1:VALUE}")
+	${VISUAL}${0:}
+;;
+endsnippet
+
 snippet fun "Create a function"
 function ${1:name}() {
 	${VISUAL}${0:}
@@ -120,10 +144,22 @@ ${VISUAL}${0:}
 $2
 endsnippet
 
+#
+# snippet: catmls
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Displays a multiline string on the screen using cat.
+#
+snippet catmls "Displays a multiline string on the screen using cat." wm
+cat << ${2:EOM}
+${VISUAL}${0:}
+$2
+endsnippet
+
 # The extra readlink is there to get the absolute path
 # even if there are linked folders.
 snippet curdir "Get the current directory in a bash script as an absolute path" i
-$(readlink -f $(dirname $(readlink -f "\$0"))${VISUAL})
+$(readlink -f $(dirname "\$0")${VISUAL})
 endsnippet
 
 #
@@ -133,7 +169,7 @@ endsnippet
 # Get the project dir into a variable
 #
 snippet projectdir "Get the project dir into a variable" wm
-${1:PROJECT_FOLDER}=$(readlink -f $(dirname $(readlink -f "\$0"))${VISUAL/^$/\/../})
+${1:PROJECT_FOLDER}=$(readlink -f $(dirname "\$0")${VISUAL/^$/\/../})
 endsnippet
 
 snippet path "Add an item to the PATH"
