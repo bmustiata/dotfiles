@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+
+MAVEN_GROUP_IDS=$(git config --get-all mvn-cache.groupId)
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+GIT_ROOT_FOLDER=$(git root)
+TARGET_BRANCH="$1"
+
+set -e
+
+if [[ "$MAVEN_GROUP_IDS" == "" ]]; then
+    echo "ERROR: You need to specify the group ids to copy: " >&2
+    echo "git config mvn-cache.groupId com.ciplogic.test" >&2
+    exit 1
+fi # [[ "$MAVEN_GROUP_IDS" == "" ]]
+
+if [[ "$TARGET_BRANCH" == "-b" ]]; then
+    TARGET_BRANCH="$2"
+fi # [[ "$TARGET_BRANCH" == "-b" ]]
+
+if [[ "$TARGET_BRANCH" == "" ]]; then
+    TARGET_BRANCH=$(git current)
+    echo "Using current branch: $TARGET_BRANCH"
+fi # [[ "$TARGET_BRANCH" == "" ]]
+
+cd $GIT_ROOT_FOLDER
+
+#############################################################################
+# Utility functions
+#############################################################################
+
+function cache_folder() {
+    echo "$GIT_ROOT_FOLDER/.git/mvn-cache/$1"
+}
+
+function initialize_cache() {
+    rm -fr $1
+    mkdir -p $1
+}
+
+function maven_dir() {
+    echo ${1//.//}
+}
+
+#############################################################################
+# Restore the other branch artifacts if present
+#############################################################################
+echo "Restore the artifacts from cached $TARGET_BRANCH"
+
+TARGET_ROOT_CACHE=$(cache_folder $TARGET_BRANCH)
+TARGET_CACHE_DIR="$TARGET_ROOT_CACHE/targets"
+
+echo "$TARGET_BRANCH: restoring target folders"
+
+# restore the target folders
+if [[ -d "$TARGET_CACHE_DIR" ]] && [[ "$(ls -A $TARGET_CACHE_DIR)" ]]; then
+    cp -Rlf "$TARGET_CACHE_DIR"/* .
+fi # [[ -d "$TARGET_CACHE_DIR" ]]
+
+# restore the .m2 folders
+echo "$TARGET_BRANCH: restoring maven folders"
+TARGET_MAVEN_CACHE_DIR="$TARGET_ROOT_CACHE/maven/"
+if [[ -d "$TARGET_MAVEN_CACHE_DIR" ]] && [[ "$(ls -A $TARGET_MAVEN_CACHE_DIR)" ]]; then
+    cp -Rlf "$TARGET_MAVEN_CACHE_DIR"/* "$HOME/.m2/repository"
+fi # [[ "$TARGET_MAVEN_CACHE_DIR" ]]
+
+

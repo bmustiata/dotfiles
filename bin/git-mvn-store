@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+
+MAVEN_GROUP_IDS=$(git config --get-all mvn-cache.groupId)
+GIT_ROOT_FOLDER=$(git root)
+TARGET_BRANCH="$1"
+
+set -e
+
+if [[ "$MAVEN_GROUP_IDS" == "" ]]; then
+    echo "ERROR: You need to specify the group ids to copy: " >&2
+    echo "git config mvn-cache.groupId com.ciplogic.test" >&2
+    exit 1
+fi # [[ "$MAVEN_GROUP_IDS" == "" ]]
+
+if [[ "$TARGET_BRANCH" == "-b" ]]; then
+    TARGET_BRANCH="$2"
+fi # [[ "$TARGET_BRANCH" == "-b" ]]
+
+if [[ "$TARGET_BRANCH" == "" ]]; then
+    TARGET_BRANCH=$(git current)
+    echo "Using current branch: $TARGET_BRANCH"
+fi # [[ "$TARGET_BRANCH" == "" ]]
+
+cd $GIT_ROOT_FOLDER
+
+#############################################################################
+# Utility functions
+#############################################################################
+
+function cache_folder() {
+    echo "$GIT_ROOT_FOLDER/.git/mvn-cache/$1"
+}
+
+function initialize_cache() {
+    rm -fr $1
+    mkdir -p $1
+}
+
+function maven_dir() {
+    echo ${1//.//}
+}
+
+#############################################################################
+# Store the current artifacts
+#############################################################################
+
+echo "Backup the current artifacts"
+
+ROOT_CACHE=$(cache_folder $TARGET_BRANCH)
+initialize_cache $ROOT_CACHE
+
+CACHE_DIR="$ROOT_CACHE/targets"
+mkdir -p $CACHE_DIR
+
+echo "$TARGET_BRANCH: Caching the target folders."
+
+# move the target folders into the cache
+TARGET_FOLDERS=$(find . -name target -type d -not -path '*/\.*')
+
+for f in $TARGET_FOLDERS; do
+    mkdir -p $(dirname "$CACHE_DIR/$f")
+    cp -R $f $(readlink -f "$CACHE_DIR/$f")
+done
+
+# copy the specified packages into the maven cache
+echo "$TARGET_BRANCH: Caching the maven folders."
+
+MAVEN_CACHE_DIR="$ROOT_CACHE/maven/"
+mkdir -p "$MAVEN_CACHE_DIR"
+
+for f in $MAVEN_GROUP_IDS; do
+    PACKAGE_FOLDER=$(maven_dir $f)
+    mkdir -p "$MAVEN_CACHE_DIR/$PACKAGE_FOLDER"
+    if [[ -d "$HOME/.m2/repository/$PACKAGE_FOLDER" ]]; then
+        cp -R "$HOME/.m2/repository/$PACKAGE_FOLDER" $(dirname "$MAVEN_CACHE_DIR/$PACKAGE_FOLDER")
+    fi
+done
+
