@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -f
+
+TARGET_REPOSITORY="$1"
+shift
+
+CURDIR=$(pwd)
+cd $TARGET_REPOSITORY
+BRANCH=$(git current)
+shift
+cd $CURDIR
+
+git checkout $@ $BRANCH
+
