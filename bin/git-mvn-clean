@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+
+GIT_ROOT_FOLDER=$(git root)
+TARGET_BRANCH="$1"
+
+set -e
+
+if [[ "$TARGET_BRANCH" == "" ]]; then
+    TARGET_BRANCH=$(git current)
+fi # [[ "$TARGET_BRANCH" == "" ]]
+
+cd $GIT_ROOT_FOLDER
+
+#############################################################################
+# Utility functions
+#############################################################################
+
+cache_folder() {
+    echo "$GIT_ROOT_FOLDER/.git/mvn-cache/$1"
+}
+
+#############################################################################
+# Clear the cache command
+#############################################################################
+
+if [[ "$TARGET_BRANCH" == "--all" ]]; then
+    rm -fr $(readlink -f $(cache_folder .))
+    echo "Cache cleared for all branches."
+    exit 0
+else
+    ROOT_CACHE=$(cache_folder $TARGET_BRANCH)
+    echo "Cache cleared for branch $TARGET_BRANCH. Use --all do remove all branches."
+    rm -fr $ROOT_CACHE
+fi
+
