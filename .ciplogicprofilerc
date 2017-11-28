@@ -62,6 +62,9 @@ alias a="ansible"
 alias ai="ansible -i /home/raptor/learn/learn/adoc/inventory"
 alias api="ansible-playbook -i /home/raptor/learn/learn/adoc/inventory"
 
+alias dc="docker-compose"
+alias d="docker"
+
 #
 # Powerline Shell
 #
