@@ -5,11 +5,14 @@ set -f
 TARGET_REPOSITORY="$1"
 shift
 
+EXTRA_PARAMETERS="$@"
+
 CURDIR=$(pwd)
 cd $TARGET_REPOSITORY
 BRANCH=$(git current)
 shift
 cd $CURDIR
 
-git checkout $@ $BRANCH
+echo git checkout $EXTRA_PARAMETERS $BRANCH
+git checkout $EXTRA_PARAMETERS $BRANCH
 
