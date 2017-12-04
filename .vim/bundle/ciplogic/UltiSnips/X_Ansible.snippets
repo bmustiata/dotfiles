@@ -118,15 +118,17 @@ snippet docker "Create a docker container" wm
 	docker_container:
 		name: ${2:node-firefox}
 		image: ${3:germaniumhq/node-firefox}${4/.+/
-		volumes:
-			- '/}${4:/host:/container:rw}${4/.+/'/}${5/.+/
+		state: /}${4:started}${4/.+/
+		/}${5/.+/restart_policy: /}${5:always}${5/.+/
+		/}${6/.+/volumes:
+			- '/}${6:/host:/container:rw}${6/.+/'/}${7/.+/
 		published_ports:
-			- "/}${5:15902:5901}${5/.+/"/}${6/.+/
+			- "/}${7:15902:5901}${7/.+/"/}${8/.+/
 		links:
-			- "/}${6:germanium-hub:hub}${6/.+/"/}${7/.+/
+			- "/}${8:germanium-hub:hub}${8/.+/"/}${9/.+/
 		env:
-			/}${7:NODE_MAX_SESSION: '10'}
-	register: ${8:firefox}_node
+			/}${9:NODE_MAX_SESSION: '10'}
+	register: ${10:firefox}_node
 endsnippet
 
 #
