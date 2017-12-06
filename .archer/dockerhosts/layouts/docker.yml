@@ -1,0 +1,4 @@
+layout:
+  name: docker
+  requires: DOCKER_HOST
+

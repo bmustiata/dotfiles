@@ -1,0 +1,4 @@
+layout:
+  name: kubernetes
+  requires: [ KUBECONFIG ]
+
