@@ -40,19 +40,12 @@ endsnippet
 # Add a vue declaration
 #
 snippet vue "Add a vue declaration" wm
-import { store, VueComponent } from '@store'
-import { router, routes } from '@router'
+import Vue from 'vue'
+import { Component, Provide, Prop, Emit, Watch } from 'vue-property-decorator'
 
-interface ${1:ViewSingleAnimal} extends VueComponent<$1> {
-//	animal?: AnimalDefinition
+@Component
+export default class ${TM_FILENAME_BASE} extends Vue {
 }
-
-const COMPONENT : $1 = {
-	name: '${2:view-single-animal}',
-}
-
-export default COMPONENT;
-
 endsnippet
 
 #
