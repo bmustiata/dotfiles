@@ -1,3 +1,40 @@
+snippet compose "Docker compose"
+${1:registry}:
+	image: ${2:$1}
+	ports:
+	 - ${3:5000}:${4:$3}
+#    environment:
+#    volumes:
+#     - /tmp/data:/var/lib/registry
+endsnippet
+
+#
+# snippet: service
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a service entry.
+#
+snippet service "Create a service entry." wm
+- name: Make sure $1 is $2${3/yes/, and is enabled on restart/}.
+  service: name=${1:ntp}${2/.+/ state=/}${2:started}${3/.+/ enabled=/}${3:yes}
+endsnippet
+
+#
+# snippet: ansible
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an ansible playbook
+#
+snippet ansible "Create an ansible playbook" wm
+- name: ${1:Configure webserver with nginx}
+  hosts: ${2:webservers}${3/.+/
+  become: /}${3:True}
+  tasks:
+    ${0:${VISUAL/^$/- name: install nginx
+      apt: name=nginx update_cache=yes/}}
+endsnippet
+
+
 #
 # snippet: wait_for_http
 # w (word boundary),
@@ -169,3 +206,41 @@ snippet inc "Include another ansible task list" wm
 	include: ${2:./install.yml}${3/.+/
 	when: /}${3:result}
 endsnippet
+
+#
+# snippet: apt
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Install a package using apt
+#
+snippet apt "Install a package using apt" wm
+- name: ${0:Install: $1 package from APT.}
+  apt: name=${1:ntp}${2/.+/ update_cache=/}${2:yes}
+endsnippet
+
+#
+# snippet: raw
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run a raw command on the server.
+#
+snippet raw "Run a raw command on the server." wm
+- name: ${0:Run \`$1\`}
+  raw: ${1:pwd}
+endsnippet
+
+#
+# snippet: debug
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a debug statement for a specific task
+#
+snippet debug "Add a debug statement for a specific task" wm
+  failed_when: False
+  register: ${1:result}
+
+- debug: var=$1
+
+- fail:
+endsnippet
+
