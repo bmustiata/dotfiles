@@ -1,16 +1,44 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python
 
-BRANCH_NAME=$(git branch -a | grep $1 | head -n 1)
+import subprocess
+import sys
+import re
 
-if [[ "$BRANCH_NAME" == "" ]]; then
-    echo "No branch found for $1"
-    exit 1
-fi # [[ "$BRANCH_NAME" == "" ]]
+BACKPORT_BRANCH = re.compile(r'^(remotes/origin/)?.+?/\d+\.\d+/.*$')
+FEATURE_BRANCH = re.compile(r'^(bugfix|feature)/.*$')
 
-if [[ $BRANCH_NAME == "remotes/origin/" ]]; then
-    BRANCH_NAME=${BRANCH_NAME:15}
-fi # [[ $BRANCH_NAME == "remotes/origin/" ]]
+def print_usage():
+    print("You need to call: git checkout-issue ISSUEID")
 
-echo git checkout $BRANCH_NAME
-git checkout $BRANCH_NAME
+if len(sys.argv) <= 1:
+    print_usage()
+    exit(1)
 
+issue_id = sys.argv[1] + '-'
+
+matching_branches = filter(lambda line: issue_id in line, 
+                           subprocess.check_output(["git", "branch", "-a"]).split("\n"))
+
+if len(matching_branches) == 0:
+    print("No branch exists for issue: %s" % sys.argv[1])
+    exit(2)
+
+found_branch_name = None
+
+for branch in matching_branches:
+    branch_name = branch.strip()
+
+    if FEATURE_BRANCH.match(branch) and not BACKPORT_BRANCH.match(branch):
+        found_branch_name = branch_name
+        break
+
+    if branch_name.startswith('remotes/origin/') and not BACKPORT_BRANCH.match(branch_name):
+        found_branch_name = branch_name[15:]
+        break
+    
+if not found_branch_name:
+    print("Unable to find the branch.")
+    exit(2)
+
+print("git checkout %s" % found_branch_name)
+subprocess.check_call(["git", "checkout", found_branch_name])
