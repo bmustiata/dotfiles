@@ -4,37 +4,61 @@ import subprocess
 import sys
 import re
 
-BACKPORT_BRANCH = re.compile(r'^(remotes/origin/)?.+?/\d+\.\d+/.*$')
+BACKPORT_BRANCH = re.compile(r'^(remotes/origin/)?.+?/(\d+\.\d+)/.*$')
 FEATURE_BRANCH = re.compile(r'^(bugfix|feature)/.*$')
 
 def print_usage():
-    print("You need to call: git checkout-issue ISSUEID")
+    print("You need to call: git checkout-issue ISSUEID [VERSION]")
+
+
+def find_develop_branch_name(matching_branches):
+    for branch in matching_branches:
+        if FEATURE_BRANCH.match(branch) and not BACKPORT_BRANCH.match(branch):
+            return branch
+
+        if branch.startswith('remotes/origin/') and not BACKPORT_BRANCH.match(branch):
+            return branch[15:]
+
+    return None
+
+
+def find_backport_branch_name(matching_branches, backport_version):
+    for branch in matching_branches:
+        backport_match = BACKPORT_BRANCH.match(branch)
+
+        if not backport_match:
+            continue
+
+        if backport_match.group(2) != backport_version:
+            continue
+
+        if branch.startswith('remotes/origin/'):
+            return branch[15:]
+
+        return branch
+
+    return None
+
+target_version = None
 
 if len(sys.argv) <= 1:
     print_usage()
     exit(1)
 
+if len(sys.argv) >= 3:
+    target_version = sys.argv[2]
+
 issue_id = sys.argv[1] + '-'
+branches = map(lambda line: line.strip(),
+               filter(lambda line: issue_id in line and not ' ' in line.strip(), 
+                      subprocess.check_output(["git", "branch", "-a"]).split("\n")))
 
-matching_branches = filter(lambda line: issue_id in line, 
-                           subprocess.check_output(["git", "branch", "-a"]).split("\n"))
-
-if len(matching_branches) == 0:
+if len(branches) == 0:
     print("No branch exists for issue: %s" % sys.argv[1])
     exit(2)
 
-found_branch_name = None
-
-for branch in matching_branches:
-    branch_name = branch.strip()
-
-    if FEATURE_BRANCH.match(branch) and not BACKPORT_BRANCH.match(branch):
-        found_branch_name = branch_name
-        break
-
-    if branch_name.startswith('remotes/origin/') and not BACKPORT_BRANCH.match(branch_name):
-        found_branch_name = branch_name[15:]
-        break
+found_branch_name = find_develop_branch_name(branches) if not target_version else\
+                    find_backport_branch_name(branches, target_version)
     
 if not found_branch_name:
     print("Unable to find the branch.")
