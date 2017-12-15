@@ -3,8 +3,8 @@ import subprocess
 
 
 BACKPORT_BRANCH_CHECK = re.compile(r'^.*?/\d+\.\d+(\.\d+)?/.*$')
-BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/\d+\.\d+(\.\d+)?)?/(.*$)')
-
+BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/\d+\.\d+(\.\d+)?)?/(.*)$')
+ISSUE_ID_PARSER=re.compile(r'^.+/(\w+-\d+).+?$')
 
 def get_branch_name_for_different_version(existing_branch_name, version):
     m = BRANCH_NAME_PARSER.match(existing_branch_name)
@@ -31,9 +31,18 @@ def is_backport_branch(branch_name):
     return result
 
 
-def checked_out_branch_name():
+def get_checked_out_branch_name():
     return subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"]).strip()
 
+def get_checkout_issue_number():
+    current_branch = get_checked_out_branch_name()
+
+    m = ISSUE_ID_PARSER.match(current_branch)
+
+    if not m:
+        raise Exception("Unable to find the issue number from: %s" % current_branch)
+
+    return m.group(1)
 
 def local_branch_name(branch_name):
     return branch_name if not branch_name.startswith("remotes/origin/") else branch_name[15:]

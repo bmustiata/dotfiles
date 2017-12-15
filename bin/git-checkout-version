@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 from git_utils import get_branch_name_for_different_version, \
-        checked_out_branch_name, \
+        get_checked_out_branch_name, \
         get_base_branch, \
         all_branches
 
@@ -17,7 +17,7 @@ if sys.argv[1] == "-b":
 else:
     target_version = sys.argv[1]
 
-to_branch = get_branch_name_for_different_version(checked_out_branch_name(), target_version)
+to_branch = get_branch_name_for_different_version(get_checked_out_branch_name(), target_version)
 
 if to_branch not in all_branches():
     raise Exception("You need to call: git checkout-version -b %s" % target_version)

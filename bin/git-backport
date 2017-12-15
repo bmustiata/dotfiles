@@ -8,31 +8,42 @@ from git_utils import find_branch_by_issue_id, \
                       get_branch_name_for_different_version, \
                       all_branches, \
                       get_commits_for_branch, \
-                      get_base_branch
+                      get_base_branch, \
+                      get_checked_out_branch_name, \
+                      get_checkout_issue_number
 
 issue_id = None
 from_version = None
 to_version = None
 
-if len(sys.argv) > 3:
+if len(sys.argv) <= 2:
+    issue_id = get_checkout_issue_number()
+    from_version = get_checked_out_branch_name()
+    to_version = sys.argv[2]
+elif len(sys.argv) <= 3:
+    issue_id = sys.argv[1]
+    from_version = get_checked_out_branch_name()
+    to_version = sys.argv[2]
+else:
     issue_id = sys.argv[1]
     from_version = sys.argv[2]
     to_version = sys.argv[3]
-else:
-    issue_id = sys.argv[1]
-    from_version = "develop"  # FIXME master?
-    to_version = sys.argv[2]
 
 
 def print_usage():
     print("""
     You need to call it like this:
 
-    git backport [-sp|--single-patch] [-ib|--ignore-branch] ISSUE-ID [FROM_VERSION] TO_VERSION
+    git backport ISSUE-ID FROM_VERSION TO_VERSION
+    git backport ISSUE-ID TO_VERSION
+    git backport TO_VERSION
 
     This will take care of everything that's needed for the backport.
     If the FROM_VERSION is missing, it assumes there is a branch
-     targeted for merging in develop/master.
+    targeted for merging in develop/master.
+
+    If the ISSUE-ID is missing, it assumes it's the issue fixed 
+    in the current branch.
 """)
 
 from_branch = find_branch_by_issue_id(from_version, issue_id)
