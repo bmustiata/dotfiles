@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+
+import subprocess
+import sys
+
+from git_utils import get_branch_name_for_different_version, \
+        checked_out_branch_name, \
+        get_base_branch, \
+        all_branches
+
+create_branch = False
+target_version = None
+
+if sys.argv[1] == "-b":
+    create_branch = True
+    target_version = sys.argv[2]
+else:
+    target_version = sys.argv[1]
+
+to_branch = get_branch_name_for_different_version(checked_out_branch_name(), target_version)
+
+if to_branch not in all_branches():
+    raise Exception("You need to call: git checkout-version -b %s" % target_version)
+
+if not create_branch:
+    subprocess.check_call(["git", "checkout", to_branch])
+    exit(0)
+
+subprocess.check_call(["git", "checkout", "-b", to_branch, get_base_branch(target_version)])
