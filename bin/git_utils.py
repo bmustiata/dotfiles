@@ -4,7 +4,15 @@ import subprocess
 
 BACKPORT_BRANCH_CHECK = re.compile(r'^.*?/\d+\.\d+(\.\d+)?/.*$')
 BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/\d+\.\d+(\.\d+)?)?/(.*)$')
-ISSUE_ID_PARSER=re.compile(r'^.+/(\w+-\d+).+?$')
+BRANCH_ISSUE_ID_PARSER=re.compile(r'^.+/(\w+-\d+).+?$')
+
+
+
+def normalize_issue_name(issue_id):
+    if re.compile(r'\d+').match(issue_id):
+        return "WEBUI-%s" % issue_id
+    
+    return issue_id.upper()
 
 def get_branch_name_for_different_version(existing_branch_name, version):
     m = BRANCH_NAME_PARSER.match(existing_branch_name)
@@ -37,7 +45,7 @@ def get_checked_out_branch_name():
 def get_checkout_issue_number():
     current_branch = get_checked_out_branch_name()
 
-    m = ISSUE_ID_PARSER.match(current_branch)
+    m = BRANCH_ISSUE_ID_PARSER.match(current_branch)
 
     if not m:
         raise Exception("Unable to find the issue number from: %s" % current_branch)
@@ -71,15 +79,15 @@ def all_branches(use_cache=True):
 def find_branch_by_issue_id(version, issue_id):
     branches = None
 
+    issue_id = normalize_issue_name(issue_id)
+
     version_substring = '/%s/' % version
     issue_substring = '/%s-' % issue_id
 
     if version == "master" or version == "develop":
-        print("gonna find develop")
         branches = filter(lambda branch: not is_backport_branch(branch) and issue_substring in branch,
                           all_branches())
     else:        
-        print("gonna find backport")
         branches = filter(lambda line: version_substring in line and issue_substring in line,
                           all_branches())
 
@@ -107,12 +115,17 @@ def get_base_branch(version):
     raise Exception("Unable to find a maint/%s nor a release/%s branch." % (version, version))
 
 def get_commits_for_branch(branch_name, issue_id = None):
+    if branch_name not in all_branches():
+        raise Exception("Unable to find branch: %s" % branch_name)
+    
     all_commits = map(lambda arr: Commit(arr[0], arr[1]),
-                      map(lambda line: line.strip().split(' ', 1),
-                          subprocess.check_output(["git", "log", '--pretty=format:%H %s', branch_name]).split("\n")))
+                      map(lambda line: line.strip().split(' ', 1),                         
+                          subprocess.check_output(["git", "log", '--pretty=format:%H %s', "remotes/origin/" + branch_name]).split("\n")))
 
     if not issue_id:
         return all_commits
+
+    issue_id = normalize_issue_name(issue_id)
 
     issue_marker = re.compile('%s\W' % issue_id)  # FIXME: not so great
     merge_test = re.compile('^Merge')

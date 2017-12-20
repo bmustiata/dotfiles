@@ -18,11 +18,11 @@ to_version = None
 
 if len(sys.argv) <= 2:
     issue_id = get_checkout_issue_number()
-    from_version = get_checked_out_branch_name()
+    from_version = 'develop'
     to_version = sys.argv[2]
 elif len(sys.argv) <= 3:
     issue_id = sys.argv[1]
-    from_version = get_checked_out_branch_name()
+    from_version = 'develop'
     to_version = sys.argv[2]
 else:
     issue_id = sys.argv[1]
@@ -56,7 +56,8 @@ commits_to_apply = list(reversed(get_commits_for_branch(from_branch, issue_id)))
 
 print("Going to try:")
 print("====================================================================================")
-print("git checkout -b %s %s" % (to_branch, get_base_branch(to_version)))
+print("git checkout %s" % get_base_branch(to_version))
+print("git checkout -b %s" % to_branch)
 for commit in commits_to_apply:
     print("# %s" % commit.message)
     print("git cherry-pick %s" % commit.hash)
@@ -65,8 +66,10 @@ print("=========================================================================
 
 raw_input("Press Enter to continue...")
 
-print("git checkout -b %s %s" % (to_branch, get_base_branch(to_version)))
-subprocess.check_call(["git", "checkout", "-b", to_branch, get_base_branch(to_version)])
+print("git checkout %s" % get_base_branch(to_version))
+subprocess.check_call(["git", "checkout", get_base_branch(to_version)])
+print("git checkout -b %s" % to_branch)
+subprocess.check_call(["git", "checkout", "-b", to_branch])
 
 for commit in commits_to_apply:
     print("# %s" % commit.message)
