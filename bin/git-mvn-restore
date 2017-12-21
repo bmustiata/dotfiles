@@ -30,7 +30,7 @@ cd $GIT_ROOT_FOLDER
 #############################################################################
 
 function cache_folder() {
-    echo "$GIT_ROOT_FOLDER/.git/mvn-cache/$1"
+    echo "$GIT_ROOT_FOLDER/.git/mvn-cache/${1/\//-}"
 }
 
 function initialize_cache() {
