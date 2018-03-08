@@ -46,36 +46,77 @@ def print_usage():
     in the current branch.
 """)
 
+current_branch = get_checked_out_branch_name()
 from_branch = find_branch_by_issue_id(from_version, issue_id)
 to_branch = get_branch_name_for_different_version(from_branch, to_version)
 
+def do_full_backport():
+    commits_to_apply = list(reversed(get_commits_for_branch(from_branch, issue_id)))
+
+    print("Going to try:")
+    print("====================================================================================")
+    print("git checkout %s" % get_base_branch(to_version))
+    print("git checkout -b %s" % to_branch)
+    for commit in commits_to_apply:
+        print("# %s" % commit.message)
+        print("git cherry-pick %s" % commit.hash)
+    print("git push --set-upstream origin %s" % to_branch)
+    print("git checkout %s" % current_branch)
+    print("====================================================================================")
+
+    raw_input("Press Enter to continue...")
+
+    print("git checkout %s" % get_base_branch(to_version))
+    subprocess.check_call(["git", "checkout", get_base_branch(to_version)])
+    print("git checkout -b %s" % to_branch)
+    subprocess.check_call(["git", "checkout", "-b", to_branch])
+
+    for commit in commits_to_apply:
+        print("# %s" % commit.message)
+        print("git cherry-pick %s" % commit.hash)
+        subprocess.check_call(["git", "cherry-pick", commit.hash])
+
+    print("git push --set-upstream origin %s" % to_branch)
+    subprocess.check_call(["git", "push", "--set-upstream", "origin", to_branch])
+    print("git checkout %s" % current_branch)
+    subprocess.check_call(["git", "checkout", current_branch])
+
+
+def do_partial_backport():
+    commits_to_apply = list(reversed(get_commits_for_branch(from_branch, issue_id)))
+    commits_already_applied = list(reversed(get_commits_for_branch(to_branch, issue_id)))
+
+    remaining_commits = commits_to_apply[len(commits_already_applied):]
+
+    print("Going to try:")
+    print("====================================================================================")
+    print("git checkout %s" % to_branch)
+    for commit in remaining_commits:
+        print("# %s" % commit.message)
+        print("git cherry-pick %s" % commit.hash)
+    print("git push")
+    print("git checkout %s" % current_branch)
+    print("====================================================================================")
+
+    raw_input("Press Enter to continue...")
+
+    print("git checkout %s" % to_branch)
+    subprocess.check_call(["git", "checkout", to_branch])
+
+    for commit in remaining_commits:
+        print("# %s" % commit.message)
+        print("git cherry-pick %s" % commit.hash)
+        subprocess.check_call(["git", "cherry-pick", commit.hash])
+
+    print("git push")
+    subprocess.check_call(["git", "push"])
+    print("git checkout %s" % current_branch)
+    subprocess.check_call(["git", "checkout", current_branch])
+
+
 if to_branch in all_branches():
-    raise Exception("Branch %s already exists." % to_branch)
-
-commits_to_apply = list(reversed(get_commits_for_branch(from_branch, issue_id)))
-
-print("Going to try:")
-print("====================================================================================")
-print("git checkout %s" % get_base_branch(to_version))
-print("git checkout -b %s" % to_branch)
-for commit in commits_to_apply:
-    print("# %s" % commit.message)
-    print("git cherry-pick %s" % commit.hash)
-print("git push --set-upstream origin %s" % to_branch)
-print("====================================================================================")
-
-raw_input("Press Enter to continue...")
-
-print("git checkout %s" % get_base_branch(to_version))
-subprocess.check_call(["git", "checkout", get_base_branch(to_version)])
-print("git checkout -b %s" % to_branch)
-subprocess.check_call(["git", "checkout", "-b", to_branch])
-
-for commit in commits_to_apply:
-    print("# %s" % commit.message)
-    print("git cherry-pick %s" % commit.hash)
-    subprocess.check_call(["git", "cherry-pick", commit.hash])
-
-subprocess.check_call(["git", "push", "--set-upstream", "origin", to_branch])
+    do_partial_backport()
+else:
+    do_full_backport()
 
 print("DONE")

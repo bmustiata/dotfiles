@@ -8,6 +8,5 @@ docker run -it \
     --rm \
     -v $CURRENT_DIR:$CURRENT_DIR \
     -u $(id -u):$(id -g) \
-    thrift:0.10 bash -c "cd $CURRENT_DIR; thrift $ALL_PARAMETERS"
-
+    fbthrift-dev bash -c "cd $CURRENT_DIR; /usr/bin/thrift1 $ALL_PARAMETERS"
 

@@ -129,6 +129,20 @@ parallel($1)
 endsnippet
 
 #
+# snippet: parralelb
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a parallel branch
+#
+snippet parallelb "Add a parallel branch" wm
+${1:parallelVariable}."${2:Test}" = {
+	node {
+		${4:dockerrun}${0:}
+	}
+}
+endsnippet
+
+#
 # snippet: parallelif
 # w (word boundary),
 # m (trim spaces on the right of the script)

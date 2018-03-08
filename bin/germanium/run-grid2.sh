@@ -17,6 +17,9 @@ docker run -d \
     --name germanium-node-chrome \
     -e NODE_MAX_SESSION=10 \
     -e NODE_MAX_INSTANCES=10 \
+    -e VNC_SERVER_WIDTH=1920 \
+    -e VNC_SERVER_HEIGHT=1080 \
+    -v /dev/shm:/dev/shm \
     -p 15901:5901 \
     --link germanium-hub:hub \
     germaniumhq/node-chrome

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+GIT_ROOT_FOLDER=$(git root)
+
+function cache_folder() {
+    echo "$GIT_ROOT_FOLDER/.git/mvn-cache/${1/\//-}"
+}
+
+ls $(cache_folder .)
