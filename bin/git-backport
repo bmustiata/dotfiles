@@ -53,7 +53,7 @@ to_branch = get_branch_name_for_different_version(from_branch, to_version)
 def do_full_backport():
     commits_to_apply = list(reversed(get_commits_for_branch(from_branch, issue_id)))
 
-    print("Going to try:")
+    print("FULL backport. Going to try:")
     print("====================================================================================")
     print("git checkout %s" % get_base_branch(to_version))
     print("git checkout -b %s" % to_branch)
@@ -88,7 +88,7 @@ def do_partial_backport():
 
     remaining_commits = commits_to_apply[len(commits_already_applied):]
 
-    print("Going to try:")
+    print("PARTIAL backport. Going to try:")
     print("====================================================================================")
     print("git checkout %s" % to_branch)
     for commit in remaining_commits:
