@@ -143,6 +143,20 @@ ${1:parallelVariable}."${2:Test}" = {
 endsnippet
 
 #
+# snippet: parallelb
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run a branch in parallel
+#
+snippet parallelb "Run something in parallel" wm
+${1:parallelVariable}."${2:Test}" = {
+	node {
+		${4:dockerrun}${0:}
+	}
+}
+endsnippet
+
+#
 # snippet: parallelif
 # w (word boundary),
 # m (trim spaces on the right of the script)
