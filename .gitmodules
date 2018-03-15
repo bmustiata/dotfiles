@@ -109,3 +109,6 @@
 [submodule ".vim/bundle/thrift.vim"]
 	path = .vim/bundle/thrift.vim
 	url = https://github.com/solarnz/thrift.vim
+[submodule ".vim/bundle/vim-uc4"]
+	path = .vim/bundle/vim-uc4
+	url = git@github.com:bmustiata/vim-uc4.git
