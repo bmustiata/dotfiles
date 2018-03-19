@@ -104,6 +104,14 @@ def find_branch_by_issue_id(version, issue_id):
 
 def get_base_branch(version):
     if version == "master" or version == "develop":
+        other_branch = {
+            "master": "develop",
+            "develop": "master"
+        }
+
+        if not version in all_branches():
+            return other_branch[version]
+        
         return version
 
     if ('maint/' + version) in all_branches():

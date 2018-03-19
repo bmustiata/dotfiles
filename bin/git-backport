@@ -10,33 +10,42 @@ from git_utils import find_branch_by_issue_id, \
                       get_commits_for_branch, \
                       get_base_branch, \
                       get_checked_out_branch_name, \
-                      get_checkout_issue_number
+                      get_checkout_issue_number, \
+                      normalize_issue_name
+
+argv = list(sys.argv)
 
 issue_id = None
 from_version = None
 to_version = None
 
-if len(sys.argv) <= 2:
+squash_commits = False
+
+if argv[1] == "--squash" or argv[1] == "-s":
+    squash_commits = True
+    del argv[1]
+
+if len(argv) <= 2:
     issue_id = get_checkout_issue_number()
     from_version = 'develop'
-    to_version = sys.argv[1]
-elif len(sys.argv) <= 3:
-    issue_id = sys.argv[1]
+    to_version = argv[1]
+elif len(argv) <= 3:
+    issue_id = argv[1]
     from_version = 'develop'
-    to_version = sys.argv[2]
+    to_version = argv[2]
 else:
-    issue_id = sys.argv[1]
-    from_version = sys.argv[2]
-    to_version = sys.argv[3]
+    issue_id = argv[1]
+    from_version = argv[2]
+    to_version = argv[3]
 
 
 def print_usage():
     print("""
     You need to call it like this:
 
-    git backport ISSUE-ID FROM_VERSION TO_VERSION
-    git backport ISSUE-ID TO_VERSION
-    git backport TO_VERSION
+    git backport [-s|--squash] ISSUE-ID FROM_VERSION TO_VERSION
+    git backport [-s|--squash] ISSUE-ID TO_VERSION
+    git backport [-s|--squash] TO_VERSION
 
     This will take care of everything that's needed for the backport.
     If the FROM_VERSION is missing, it assumes there is a branch
@@ -114,7 +123,47 @@ def do_partial_backport():
     subprocess.check_call(["git", "checkout", current_branch])
 
 
-if to_branch in all_branches():
+def do_squash_backport():
+    print("SQUASH backport. Going to try:")
+    print("====================================================================================")
+    print("git checkout -b backport_%s_to_%s" % (normalize_issue_name(issue_id), to_version))
+    print("git reset --soft %s" %  get_base_branch(from_version))
+    print("git commit -m 'Port issue %s to version %s.'" % (normalize_issue_name(issue_id), to_version))
+    print("git checkout -b %s %s" % (to_branch, get_base_branch(to_version)))
+    print("git cherry-pick backport_%s_to_%s" % (normalize_issue_name(issue_id), to_version))
+    print("git branch -D backport_%s_to_%s" % (normalize_issue_name(issue_id), to_version))
+    print("git push --set-upstream origin %s" % to_branch)
+    print("git checkout %s" % current_branch)
+    print("====================================================================================")
+    raw_input("Press Enter to continue...")
+
+    print("git checkout -b backport_%s_to_%s" % (normalize_issue_name(issue_id), to_version))
+    subprocess.check_call(["git", "checkout", "-b", "backport_%s_to_%s" % (normalize_issue_name(issue_id), to_version)])
+
+    print("git reset --soft %s" % get_base_branch(from_version))
+    subprocess.check_call(["git", "reset", "--soft", get_base_branch(from_version)])
+
+    print("git commit -m 'Port issue %s to version %s.'" % (normalize_issue_name(issue_id), to_version))
+    subprocess.check_call(["git", "commit", "-m", "Port issue %s to version %s." % (normalize_issue_name(issue_id), to_version)])
+
+    print("git checkout -b %s %s" % (to_branch, get_base_branch(to_version)))
+    subprocess.check_call(["git", "checkout", "-b", to_branch, get_base_branch(to_version)])
+
+    print("git cherry-pick backport_%s_to_%s" % (normalize_issue_name(issue_id), to_version))
+    subprocess.check_call(["git", "cherry-pick", "backport_%s_to_%s" % (normalize_issue_name(issue_id), to_version)])
+
+    print("git branch -D backport_%s_to_%s" % (normalize_issue_name(issue_id), to_version))
+    subprocess.check_call(["git", "branch", "-D", "backport_%s_to_%s" % (normalize_issue_name(issue_id), to_version)])
+
+    print("git push --set-upstream origin %s" % to_branch)
+    #subprocess.check_call(["git", "push", "--set-upstream", "origin", to_branch])
+
+    print("git checkout %s" % current_branch)
+    #subprocess.check_call(["git", "checkout", current_branch])
+
+if squash_commits:
+    do_squash_backport()
+elif to_branch in all_branches():
     do_partial_backport()
 else:
     do_full_backport()
