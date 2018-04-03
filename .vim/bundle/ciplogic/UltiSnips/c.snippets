@@ -11,7 +11,19 @@ for (${1:i} = 0; i < ${2:max}; i++)
 }
 endsnippet
 
-snippet #in "include"
+snippet in "include"
 #include <${1:stdio.h}>
 endsnippet
 
+#
+# snippet: main
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# main function
+#
+snippet main "main function" wm
+int main(int argc, const char * argv[]) {
+	${VISUAL}${0:}
+	return 0;
+}
+endsnippet
