@@ -34,7 +34,12 @@ case "$CURRENT_SYSTEM_VERSION" in
         npm install -g hexo
         ;;&
     "0")
+        # this is used for newday/newweek planning
         sudo apt install dateutils
+        ;;&
+    "1")
+        # this is used for json queries
+        sudo apt install jq
 esac
 
 echo "$TARGET_SYSTEM_VERSION" > $HOME/.ciplogicdataversion
