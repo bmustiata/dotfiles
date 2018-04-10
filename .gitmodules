@@ -112,3 +112,6 @@
 [submodule ".vim/bundle/vim-uc4"]
 	path = .vim/bundle/vim-uc4
 	url = git@github.com:bmustiata/vim-uc4.git
+[submodule ".vim/bundle/jedi-vim"]
+	path = .vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim

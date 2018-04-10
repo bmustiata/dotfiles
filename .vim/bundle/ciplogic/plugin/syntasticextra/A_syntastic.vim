@@ -25,7 +25,7 @@ let g:syntastic_check_on_wq = 0
 " Enable the eslint checker for javascript files.
 " -------------------------------------------------------------------------
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_python_checkers = ['flake8', 'pep8', 'python']
+let g:syntastic_python_checkers = ['mypy']
 
 let g:syntastic_mode_map = { 'mode': 'active',
                             \ 'active_filetypes': ['javascript'],
