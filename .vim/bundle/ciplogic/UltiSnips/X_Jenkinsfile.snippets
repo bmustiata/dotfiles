@@ -265,3 +265,26 @@ deleteDir()
 checkout scm
 endsnippet
 
+#
+# snippet: dockerrm
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Remove docker containers or images
+#
+snippet dockerrm "Remove docker containers and/or images" wm
+dockerRm ${1/.+/containers: [/}${1:'container'}${1/.+/],
+	/}${2/.+/images: [/}${2:'image'}${2/.+/]/}
+endsnippet
+
+#
+# snippet: dir
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run in a different folder
+#
+snippet dir "Run in a different folder" wm
+dir(${1:"/path/to/folder"}) {
+	${VISUAL}${0:}
+}
+endsnippet
+
