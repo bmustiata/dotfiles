@@ -17,6 +17,19 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+
+" -------------------------------------------------------------------------
+" Increase the size of the preview, the documentation text for function
+" from python jedi for example.
+" -------------------------------------------------------------------------
+set previewheight=50
+au BufEnter,WinEnter ?* call PreviewHeightWorkAround()
+func PreviewHeightWorkAround()
+    if &previewwindow
+        exec 'setlocal winheight='.&previewheight
+    endif
+endfunc
+
 " -------------------------------------------------------------------------
 " = eslint installation.
 " In order to get eslint working in vim, you need to:
