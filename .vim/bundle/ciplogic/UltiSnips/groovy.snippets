@@ -16,3 +16,17 @@ snippet cs "Comment section" wm
 // -------------------------------------------------------------------
 endsnippet
 
+#
+# snippet: try
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a try block
+#
+snippet tryf "Create a try/finally block" wm
+try {
+	${VISUAL}
+} finally {
+	${0:}
+}
+endsnippet
+

@@ -6,6 +6,12 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_style_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
+let g:syntastic_style_warning_symbol = "⚠"
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -25,10 +31,11 @@ let g:syntastic_check_on_wq = 0
 " Enable the eslint checker for javascript files.
 " -------------------------------------------------------------------------
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_python_checkers = ['mypy']
+let g:syntastic_python_checkers = ['mypy', 'flake8']
+au BufRead,BufNewFile */site-packages/* let b:syntastic_mode = 'passive'
 
-let g:syntastic_mode_map = { 'mode': 'active',
-                            \ 'active_filetypes': ['javascript'],
+let g:syntastic_mode_map = { 'mode': 'passive',
+                            \ 'active_filetypes': ['javascript', 'python'],
                             \ 'passive_filetypes': ['java'] }
 
 " -------------------------------------------------------------------------

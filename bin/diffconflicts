@@ -72,14 +72,7 @@ if [[ -z $@ || $# != "4" ]] ; then
     exit 1
 fi
 
-if [[ "$DISPLAY" == "" ]]; then
-    cmd=vim
-else # not [[ "$DISPLAY" != "" ]]
-    cmd=gvim
-    if [[ "$USE_CONSOLE_VIM" != "" ]]; then
-        cmd=vim
-    fi # [[ "$USE_CONSOLE_VIM" != "" ]]
-fi   # else [[ "$DISPLAY" != "" ]]
+cmd=nvim
 
 BASE="$1"
 LOCAL="$2"

@@ -13,7 +13,7 @@ if [[ "$BYOBU_TTY" == "" ]]; then
     return
 fi # [[ "$BYOBU_TTY" == "" ]]
 
-export EDITOR=vim
+export EDITOR=nvim
 export PATH="${HOME}/bin:$PATH"
 export PATH="${HOME}/bin/docker/:$PATH"
 
@@ -30,7 +30,7 @@ export GOPATH="$HOME/programs/go/tools"
 export PATH="$GOPATH/bin:$PATH"
 
 # this is for byobu usage
-alias vim="TERM=xterm-256color vim"
+alias vim="TERM=xterm-256color nvim"
 
 . ~/bin/async
 
