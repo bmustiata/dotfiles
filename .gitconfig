@@ -2,7 +2,7 @@
 	email = bogdan.mustiata@gmail.com
 	name = Bogdan Mustiata
 [push]
-	default = matching
+	default = current
 [credential]
 	helper = cache --timeout=86400
 [merge]
