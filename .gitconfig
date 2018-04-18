@@ -9,6 +9,8 @@
     tool = diffconflicts
 [mergetool "diffconflicts"]
     cmd=diffconflicts "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+[mergetool "diffuse"]
+    cmd=diffuse "$LOCAL" "$BASE" "$REMOTE"
 
 [alias]
     serve = "!f() { git daemon --reuseaddr --base-path=. --export-all --verbose --enable=receive-pack $@; }; f"
