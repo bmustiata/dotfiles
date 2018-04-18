@@ -85,6 +85,17 @@ dockerBuild file: '${1:./Dockerfile}'${2:,
 endsnippet
 
 #
+# snippet: dbuild
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Started docker.build
+#
+snippet dbuild "Started docker.build" wm
+docker.build('${1:tag_name}'${2/.+/,
+			 '/}${2:-p extra}${2/.+/'/})
+endsnippet
+
+#
 # snippet: dockerrun
 # w (word boundary),
 # m (trim spaces on the right of the script)

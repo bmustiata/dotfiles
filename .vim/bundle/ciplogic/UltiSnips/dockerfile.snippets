@@ -23,3 +23,103 @@ endsnippet
 snippet MAINT "Add a maintainer" wm
 MAINTAINER Bogdan Mustiata <bogdan.mustiata@${1:gmail}.com>
 endsnippet
+
+#
+# snippet: gbs
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a gbs build section
+#
+snippet gbs "Add a gbs build section" wm
+${1/.+/USER /}${1:root}${1/.+/
+
+/}COPY _gbs /_gbs/
+
+RUN chmod +x _gbs/start.sh && \
+    chmod +x _gbs/run/* && \
+    chmod +x _gbs/build/*/*.sh _gbs/build/*.sh _gbs/*.sh && \
+    mkdir /src && \
+    chown -R ${2:germanium}:$2 /src /_gbs
+
+#======================================
+# Install prerequisite software
+#======================================
+ONBUILD COPY --chown=$2:$2  _gbs/build/install-software /src/_gbs/build/install-software
+ONBUILD RUN /_gbs/start.sh _gbs/build/install-software/install-software.sh
+
+#======================================
+# Prepare dependencies for download
+#======================================
+ONBUILD USER $2
+
+# build1
+ONBUILD COPY --chown=$2:$2 _gbs/build/prepare-build1 /src/_gbs/build/prepare-build1
+ONBUILD RUN /_gbs/start.sh _gbs/build/prepare-build1/prepare-build1.sh
+
+# build2
+ONBUILD COPY --chown=$2:$2 _gbs/build/prepare-build2 /src/_gbs/build/prepare-build2
+ONBUILD RUN /_gbs/start.sh _gbs/build/prepare-build2/prepare-build2.sh
+
+# build3
+ONBUILD COPY --chown=$2:$2 _gbs/build/prepare-build3 /src/_gbs/build/prepare-build3
+ONBUILD RUN /_gbs/start.sh _gbs/build/prepare-build3/prepare-build3.sh
+
+# sources are copied only after stage 3
+ONBUILD COPY --chown=$2:$2 . /src
+
+#======================================
+# Do the actual build.
+#======================================
+ONBUILD CMD /_gbs/start.sh _gbs/build/run-build.sh
+endsnippet
+
+#
+# snippet: gbsc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a gbs child build
+#
+snippet gbsc "Add a gbs child build" wm
+${1/.+/USER /}${1:root}${1/.+/
+
+/}COPY _gbs /_gbs/
+
+RUN chmod +x _gbs/start.sh && \
+    chmod +x _gbs/run/* && \
+    chmod +x _gbs/build/*/*.sh _gbs/build/*.sh _gbs/*.sh && \
+    mkdir /src && \
+    chown -R ${2:germanium}:$2 /src /_gbs
+
+#======================================
+# Install prerequisite software
+#======================================
+ONBUILD COPY --chown=$2:$2  _gbs/build/install-software /src/_gbs/build/install-software
+ONBUILD RUN /_gbs/start.sh _gbs/build/install-software/install-software.sh
+
+#======================================
+# Prepare dependencies for download
+#======================================
+ONBUILD USER $2
+
+ONBUILD COPY --chown=$2:$2 --from=${3:child-image} ${4:/m2} $4${0:}
+
+# build1
+ONBUILD COPY --chown=$2:$2 _gbs/build/prepare-build1 /src/_gbs/build/prepare-build1
+ONBUILD RUN /_gbs/start.sh _gbs/build/prepare-build1/prepare-build1.sh
+
+# build2
+ONBUILD COPY --chown=$2:$2 _gbs/build/prepare-build2 /src/_gbs/build/prepare-build2
+ONBUILD RUN /_gbs/start.sh _gbs/build/prepare-build2/prepare-build2.sh
+
+# build3
+ONBUILD COPY --chown=$2:$2 _gbs/build/prepare-build3 /src/_gbs/build/prepare-build3
+ONBUILD RUN /_gbs/start.sh _gbs/build/prepare-build3/prepare-build3.sh
+
+# sources are copied only after stage 3
+ONBUILD COPY --chown=$2:$2 . /src
+
+#======================================
+# Do the actual build.
+#======================================
+ONBUILD CMD /_gbs/start.sh _gbs/build/run-build.sh
+endsnippet
