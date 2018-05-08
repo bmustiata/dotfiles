@@ -70,7 +70,7 @@ ONBUILD COPY --chown=$2:$2 . /src
 #======================================
 # Do the actual build.
 #======================================
-ONBUILD CMD /_gbs/start.sh _gbs/build/run-build.sh
+ONBUILD RUN /_gbs/start.sh _gbs/build/run-build.sh
 endsnippet
 
 #
@@ -121,5 +121,5 @@ ONBUILD COPY --chown=$2:$2 . /src
 #======================================
 # Do the actual build.
 #======================================
-ONBUILD CMD /_gbs/start.sh _gbs/build/run-build.sh
+ONBUILD RUN /_gbs/start.sh _gbs/build/run-build.sh
 endsnippet
