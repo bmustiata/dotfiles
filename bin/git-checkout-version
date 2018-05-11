@@ -24,6 +24,6 @@ if to_branch not in all_branches():
 
 if not create_branch:
     subprocess.check_call(["git", "checkout", to_branch])
-    exit(0)
+    sys.exit(0)
 
 subprocess.check_call(["git", "checkout", "-b", to_branch, get_base_branch(target_version)])

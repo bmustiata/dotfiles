@@ -2,18 +2,24 @@
 
 import subprocess
 import sys
-from git_utils import all_branches, normalize_issue_name, find_branch_by_issue_id
+from git_utils import find_branch_by_issue_id
 
 
 def print_usage():
     print("You need to call: git checkout-issue ISSUEID [VERSION]")
 
 
+if len(sys.argv) == 2 and (
+        sys.argv[1] == "-h" or
+        sys.argv[1] == "help"):
+    print_usage()
+    sys.exit(0)
+
 target_version = "develop"
 
 if len(sys.argv) <= 1:
     print_usage()
-    exit(1)
+    sys.exit(1)
 
 if len(sys.argv) >= 3:
     target_version = sys.argv[2]
@@ -21,10 +27,10 @@ if len(sys.argv) >= 3:
 issue_id = sys.argv[1]
 
 found_branch_name = find_branch_by_issue_id(target_version, issue_id)
-    
+
 if not found_branch_name:
     print("Unable to find the branch.")
-    exit(2)
+    sys.exit(2)
 
 print("git checkout %s" % found_branch_name)
 subprocess.check_call(["git", "checkout", found_branch_name])
