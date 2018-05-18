@@ -30,3 +30,17 @@ try {
 }
 endsnippet
 
+#
+# snippet: try
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a try/catch block
+#
+snippet try "Add a try/catch block" wm
+try {
+	${VISUAL}
+} catch (Exception ${1:e}) {
+	${0:}
+}
+endsnippet
+

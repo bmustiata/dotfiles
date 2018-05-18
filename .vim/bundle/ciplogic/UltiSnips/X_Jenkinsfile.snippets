@@ -122,6 +122,34 @@ dockerRun image: '${1:image_name}'${2/.+/,
 endsnippet
 
 #
+# snippet: dockerinside
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a docker.inside
+#
+snippet dockerinside "Add a docker.inside" wm
+dockerInside image: '${1:image_name}'${2/.+/,
+	name: '/}${2:container_name}${2/.+/'/}${3/.+/,
+	privileged: /}${3:true}${4/.+/,
+	remove: /}${4:true}${5/.+/,
+	env: [
+		'/}${5:DISPLAY=vnc:0}${5/.+/'
+	]/}${6/.+/,
+	links: [
+		'/}${6:nexus:nexus}${6/.+/'
+	]/}${7/.+/,
+	ports: [
+		'/}${7:8080:80}${7/.+/'
+	]/}${8/.+/,
+	volumes: [
+		'/}${8:/opt/host:/opt/container:rw}${8/.+/'
+	]/},
+	code: {
+		${VISUAL}${0:}
+	}
+endsnippet
+
+#
 # snippet: parallel
 # w (word boundary),
 # m (trim spaces on the right of the script)
