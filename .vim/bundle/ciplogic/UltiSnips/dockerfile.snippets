@@ -30,7 +30,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Add a gbs build section
 #
-snippet gbs "Add a gbs build section" wm
+snippet gbsc "Add a gbs build section" wm
 ${1/.+/USER /}${1:root}${1/.+/
 
 /}COPY _gbs /_gbs/
@@ -79,7 +79,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Add a gbs child build
 #
-snippet gbsc "Add a gbs child build" wm
+snippet gbs "Add a gbs (child) build" wm
 ${1/.+/USER /}${1:root}${1/.+/
 
 /}COPY _gbs /_gbs/
@@ -100,9 +100,8 @@ ONBUILD RUN /_gbs/start.sh _gbs/build/install-software/install-software.sh
 # Prepare dependencies for download
 #======================================
 ONBUILD USER $2
-
-ONBUILD COPY --chown=$2:$2 --from=${3:child-image} ${4:/m2} $4${0:}
-
+${3/.+/
+ONBUILD COPY --chown=germanium:germanium --from=/}${3:child-image}${3/.+/ m2 m2/}${0:}
 # build1
 ONBUILD COPY --chown=$2:$2 _gbs/build/prepare-build1 /src/_gbs/build/prepare-build1
 ONBUILD RUN /_gbs/start.sh _gbs/build/prepare-build1/prepare-build1.sh
