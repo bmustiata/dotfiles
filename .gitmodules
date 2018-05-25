@@ -121,3 +121,9 @@
 [submodule ".vim/bundle/vim-easygrep"]
 	path = .vim/bundle/vim-easygrep
 	url = https://github.com/dkprice/vim-easygrep
+[submodule ".vim/bundle/vim-test"]
+	path = .vim/bundle/vim-test
+	url = https://github.com/janko-m/vim-test
+[submodule ".vim/bundle/vim-dispatch"]
+	path = .vim/bundle/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch
