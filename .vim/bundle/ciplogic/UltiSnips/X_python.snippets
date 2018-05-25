@@ -175,9 +175,9 @@ endsnippet
 # Create a decorator
 #
 snippet decorator "Create a decorator" wm
-def ${1:decorator_name}(f):
+def ${1:decorator_name}(f: Callable[..., T]) -> Callable[..., T]:
 	@functools.wraps(f)
-	def wrapper(*args, **kw):
+	def wrapper(*args, **kw) -> T:
 		${0:}
 		return f(*args, **params)
 
@@ -191,10 +191,10 @@ endsnippet
 # Create a decorator with parameters
 #
 snippet decoratorp "Create a decorator with parameters" wm
-def ${1:decorator_name}(${2:p}):
-	def wrapper_builder(f):
+def ${1:decorator_name}(${2:p}) -> Callable[..., Callable[..., T]]:
+	def wrapper_builder(f: Callable[..., T]) -> Callable[..., T]:
 		@functools.wraps(f)
-		def wrapper(*args, **kw):
+		def wrapper(*args, **kw) -> T:
 			${0:}
 			return f(*args, **kw)
 
