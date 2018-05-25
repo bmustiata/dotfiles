@@ -29,3 +29,4 @@ let g:NERDTreeDirArrowCollapsible = '-'
 " -------------------------------------------------------------------------
 let g:NERDTreeWinSize = 60
 
+let NERDTreeIgnore = ['\.pyc$']
