@@ -21,6 +21,18 @@ snippet cs "Add a comment mega section"
 #############################################################################
 endsnippet
 
+#
+# snippet: ecs
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an echo comment mega section
+#
+snippet ecs "Add an echo comment mega section" wm
+echo '#############################################################################'
+echo '# ${VISUAL}${0:}'
+echo '#############################################################################'
+endsnippet
+
 snippet if "Create a bash if statement"
 if [[ ${1:condition} ]]; then
 	${VISUAL}${0:}
