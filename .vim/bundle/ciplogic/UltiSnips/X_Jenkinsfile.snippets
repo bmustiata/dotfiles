@@ -6,10 +6,12 @@
 #
 snippet params "Add a bunch of properties that must be filled by the user" wm
 properties([
-	parameters([
+	safeParameters(this, [
 		${0:}
 	])
 ])
+
+safeParametersCheck(this)
 endsnippet
 
 #
@@ -21,6 +23,21 @@ endsnippet
 snippet string "Add a string property" wm
 string(name: '${1:LOCAL_PROXY}', defaultValue: '${2:172.17.0.1:3128}',
 		description: '${3:Squid proxy to use for fetching resources}')${0:}
+endsnippet
+
+#
+# snippet: upstream
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an upstream dependency
+#
+snippet upstream "Add an upstream dependency" wm
+pipelineTriggers([
+	upstream(
+		threshold: 'SUCCESS',
+		upstreamProjects: '${1:/build-system/germaniumhq-python-build-system}'
+	)
+])
 endsnippet
 
 #
