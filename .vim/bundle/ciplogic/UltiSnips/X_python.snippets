@@ -237,3 +237,35 @@ if __name__ == '__main__':
 	${VISUAL}${0:}
 endsnippet
 
+#
+# snippet: launch
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a launcher script
+#
+snippet launch "Create a launcher script" wm
+from ${1:thriftgen.mainapp} import main
+
+
+def launch():
+	main()
+
+
+if __name__ == '__main__':
+	main()
+endsnippet
+
+#
+# snippet: entry
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an entry point console script
+#
+snippet entry "Create an entry point console script" wm
+entry_points = {
+	"console_scripts": [
+		"thriftgen = ${1:thriftgen}.launcher:${2:launch}"
+	]
+},
+endsnippet
+

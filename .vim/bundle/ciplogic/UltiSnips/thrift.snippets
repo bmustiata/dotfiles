@@ -1,0 +1,68 @@
+#
+# snippet: struct
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a structure
+#
+snippet struct "Add a structure" wm
+struct ${1:ProcessResult} {
+	${0:${VISUAL:1: ProcessState state,
+	2: i32 exitCode}}
+}
+endsnippet
+
+#
+# snippet: service
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a service
+#
+snippet service "Add a service" wm
+service ${1:ProcessExecution} {
+	${0:${VISUAL:SessionToken createSession(1: string provider) throws (1: ProcessError error),
+
+    Volume createVolume(1: SessionToken sessionToken,
+                        2: binary data)
+                        throws (1: ProcessError error)}}
+}
+endsnippet
+
+#
+# snippet: enum
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an enum
+#
+snippet enum "Create an enum" wm
+enum ${1:ProcessState} {
+    ${0:${VISUAL:NOT_CREATED,
+	RUNNING,
+	STOPPING}}
+}
+endsnippet
+
+#
+# snippet: exception
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an exception
+#
+snippet ex "Add an exception" wm
+exception ${1:ProcessError} {
+	${0:${VISUAL:1: string message,
+    2: string stack}}
+}
+endsnippet
+
+#
+# snippet: cd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Documentation comment
+#
+snippet c "Documentation comment" wm
+/**
+ * ${0:${VISUAL}}
+ */
+endsnippet
+

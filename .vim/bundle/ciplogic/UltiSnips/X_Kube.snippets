@@ -1,0 +1,111 @@
+#
+# snippet: pod
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new pod
+#
+snippet pod "Create a new pod" wm
+apiVersion: v1
+kind: Pod
+metadata:
+	name: ${1:hello-pod}
+	labels:
+		${0:zone: prod}
+spec:
+	containers:
+	- name: ${2:container-name}
+	  image: ${3:ubuntu}${4/.+/
+	  ports:
+	  - containerPort: /}${4:8080}
+endsnippet
+
+#
+# snippet: rs
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# replica set
+#
+snippet rs "replica set" wm
+apiVersion: apps/v1beta2
+kind: ReplicaSet
+metadata:
+	name: ${1:web-rs}
+spec:
+	replicas: ${2:8}
+	selector:
+		matchLabels:
+			${3:app: hello-world}
+	template:
+		metadata:
+			labels:
+				$3
+		spec:
+			containers:
+			- name: ${4:hello-ctr}
+			  image: ${5:nigelpoulton/k8sbook:latest}${6/.+/
+			  ports:
+			  - containerPort: /}${6:8080}
+endsnippet
+
+#
+# snippet: service
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a service
+#
+snippet service "Create a service" wm
+apiVersion: v1
+kind: Service
+metadata:
+	name: ${1:hello-svc}
+	labels:
+		${4:app: hello-world}
+spec:
+	type: NodePort
+	ports:
+	- port: ${2:8080}
+	  nodePort: ${3:30001}
+	  protocol: TCP
+	selector:
+		${0:app: hello-world}
+endsnippet
+
+snippet kuberc "Add a replication controller"
+apiVersion: v1
+kind: ReplicationController
+metadata:
+	name: ${1:my-nginx}
+spec:
+	replicas: ${2:1}
+	template:
+		metadata:
+			labels:
+				app: ${3:$1}
+		spec:
+			containers:
+			- name: ${4:$3}
+			  image: ${5:$3}
+			  ports:
+			  - containerPort: ${6:80}
+endsnippet
+
+snippet kubeservice "Add a service"
+apiVersion: v1
+kind: Service
+metadata:
+	labels:
+		name: ${2:$1}
+	name: ${1:servicename}
+spec:
+	publicIPs: [${3:10.5.1.1}]
+	ports:
+		# port = container port
+		- port: ${4:8080}
+		  nodePort: ${5:32000}
+	# Label keys and values that must match in order to receive traffic for this service.
+	selector:
+		app: ${6:$1}
+	# or NodeService
+	type: ${7:LoadBalancer}
+endsnippet
+
