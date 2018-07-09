@@ -122,23 +122,29 @@ endsnippet
 # Create a setup section.
 #
 snippet setup "Create a setup section." wm
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.rst') as readme_file:
 	readme = readme_file.read()
 
+install_requires = []
+with open('requirements.txt', mode='r') as requirements_file:
+	for line in requirements_file.readlines():
+		if line and not line.startswith('#'):
+			install_requires.append(line)
+
+packages = find_packages()
+
 setup(
 	name='${1:germanium}',
 	version='${2:1.10.5}',
-	description='${3:The germanium project: Selenium WebDriver testing API that doesn\'t disappointa.}',
-	long_description = readme,
+	description='${3:The germanium project: Selenium WebDriver testing API that doesn\'t disappoint.}',
+	long_description=readme,
 	author='${4:Bogdan Mustiata}',
 	author_email='${5:bogdan.mustiata@gmail.com}',
 	license='${6:BSD}',
-${7/.+/	install_requires=[
-		'/}${7:germaniumdrivers==1.10.5}${7/.+/'
-	],
-/}	packages=['$1']${8/.+/,
+	install_requires=install_requires,
+	packages=packages${8/.+/,
 	package_data={
 		'/}${8:$1}${8/.+/': ['*.js'],
 	}
@@ -264,9 +270,21 @@ endsnippet
 snippet entry "Create an entry point console script" wm
 entry_points = {
 	"console_scripts": [
-		"thriftgen = ${1:thriftgen}.launcher:${2:launch}"
+		"${1:thriftgen} = ${2:thriftgen}.launcher:${3:launch}"
 	]
 },
+endsnippet
+
+#
+# snippet: data
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add some package data in the setup.py
+#
+snippet data "Add some package data in the setup.py" wm
+package_data={
+	'': ['*.txt', '*.rst']
+}
 endsnippet
 
 #

@@ -237,3 +237,14 @@ endsnippet
 snippet split "Split a string into an array" wm
 IFS='${1:,}' read -r -a ${2:outputarray} <<< "${3:$inputstr}"
 endsnippet
+
+#
+# snippet: contains
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Check if a string variable contains another text value
+#
+snippet contains "Check if a string variable contains another text value" wm
+${1:\$VAR} = *"${2:contained text}"*
+endsnippet
+

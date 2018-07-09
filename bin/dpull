@@ -1,0 +1,8 @@
+docker pull sami:5000/$1
+docker tag sami:5000/$1 $1
+
+if [[ ! $1 = *":"* ]]; then
+    docker rm -f $1
+    docker run --name $1 $1 ls
+fi # [[ $? -eq 0 ]]
+

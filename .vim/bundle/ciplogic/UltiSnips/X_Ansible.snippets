@@ -155,7 +155,7 @@ snippet docker "Create a docker container" wm
 	docker_container:
 		name: ${2:node-firefox}
 		image: ${3:germaniumhq/node-firefox}${4/.+/
-		state: /}${4:started}${4/.+/
+		state: /}${4:unless-stopped}${4/.+/
 		/}${5/.+/restart_policy: /}${5:always}${5/.+/
 		/}${6/.+/volumes:
 			- '/}${6:/host:/container:rw}${6/.+/'/}${7/.+/
