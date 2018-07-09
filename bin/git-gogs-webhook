@@ -4,7 +4,7 @@ import configparser
 import re
 
 
-NAME_EXTRACTOR = re.compile(r'^.*/(.*?)(.git)$')
+NAME_EXTRACTOR = re.compile(r'^.*/(.*?)(.git)?$')
 
 config = configparser.SafeConfigParser()
 config.read_file(open('.git/config'))

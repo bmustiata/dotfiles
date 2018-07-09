@@ -1,0 +1,4 @@
+service {{arg0}} {
+    string echo(1: string message)
+}
+

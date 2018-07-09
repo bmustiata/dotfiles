@@ -1,0 +1,29 @@
+from thrift.transport import TSocket
+from thrift.transport import TTransport
+from thrift.protocol import TBinaryProtocol
+from thrift.server import TServer
+
+from .server_api.{{arg0}} import {{arg0}}ServiceServer
+from .server_api.{{arg0}} import {{arg0}}Service
+
+
+class {{arg0}}Handler({{arg0}}ServiceServer.{{arg0}}Service):
+    def echo(self, message: str) -> str:
+        return "processed: " + message
+
+    def log_message(self, message: str) -> None:
+        pass
+
+
+def main():
+    handler = {{arg0}}Handler()
+    processor = {{arg0}}Service.Processor(handler)
+    transport = TSocket.TServerSocket(port=7000)
+    tfactory = TTransport.TBufferedTransportFactory()
+    pfactory = TBinaryProtocol.TBinaryProtocolFactory()
+
+    server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)
+
+    print("Starting python server...")
+    server.serve()
+    print("done!")
