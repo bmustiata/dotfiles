@@ -269,3 +269,12 @@ entry_points = {
 },
 endsnippet
 
+#
+# snippet: curdir
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# The current dir
+#
+snippet curdir "The current project dir" wm
+PROJECT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
+endsnippet

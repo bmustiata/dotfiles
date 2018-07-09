@@ -1,0 +1,10 @@
+# {{arg0}}
+
+{{arg0}} program.
+
+## Installation
+
+```sh
+pip install {{arg0}}
+```
+

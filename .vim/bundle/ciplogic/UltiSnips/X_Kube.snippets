@@ -134,3 +134,13 @@ volumeMounts:
   mountPath: ${2:/var/jenkins_home}
 endsnippet
 
+#
+# snippet: nodeselect
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a node selector
+#
+snippet nodeselect "Create a node selector (containers sibling)" wm
+nodeSelector:
+	${1:kubernetes.io/hostname}: ${2:musbo01}
+endsnippet
