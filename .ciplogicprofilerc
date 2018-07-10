@@ -17,9 +17,6 @@ export EDITOR=nvim
 export PATH="${HOME}/bin:$PATH"
 export PATH="${HOME}/bin/docker/:$PATH"
 
-# AWS elastic beantalk
-export PATH="${HOME}/programs/py-3.6-awsbin/bin:$PATH"
-
 export ARS_PROJECTS_FOLDER="/home/raptor/projects/dotfiles/.projects"
 export VIM_ULTISNIPS_FOLDER="/home/raptor/.vim/bundle/ciplogic/UltiSnips"
 
