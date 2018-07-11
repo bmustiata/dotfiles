@@ -1,6 +1,5 @@
 import flask
 from flask import send_file
-import os
 
 from .flask_utils import form_params
 
