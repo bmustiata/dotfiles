@@ -1,0 +1,7 @@
+uwsgi:
+  socket: /tmp/uwsgi.sock
+  master: 1
+  workers: 3
+  #  uid: 101
+  #git: 101
+

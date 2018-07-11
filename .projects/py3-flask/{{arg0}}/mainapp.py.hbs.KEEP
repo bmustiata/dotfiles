@@ -1,0 +1,24 @@
+import flask
+from flask import send_file
+import os
+
+from .flask_utils import form_params
+
+
+app = flask.Flask("{{arg0}}")
+
+
+@app.route('/rest', methods=['POST'])
+@form_params
+def print_yolo(a):
+    return "yolo %s" % a
+
+
+@app.route('/', methods=['GET'])
+def index_page():
+    return send_file("../static/web/index.html")
+
+
+@app.route('/<path:filename>', methods=['GET'])
+def static_file(filename):
+    return send_file("../static/web/%s" % filename)

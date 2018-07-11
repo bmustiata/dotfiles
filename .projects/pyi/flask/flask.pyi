@@ -34,3 +34,7 @@ def abort(return_code: int,
 def send_from_directory(folder: str,
                         file_name: str) -> str:
     pass
+
+
+def send_file(file: str) -> str:
+    pass

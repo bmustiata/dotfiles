@@ -1,0 +1,26 @@
+version: "3"
+services:
+  npmlive:
+    image: node:8
+    ports:
+      - 7000:7000
+    volumes:
+      - ../{{arg0}}-web:/src/:rw
+    working_dir: /src
+    links:
+      - {{arg0}}
+    environment:
+      HOST: 0.0.0.0
+      PORT: 7000
+    command: ["npm", "run", "dev"]
+
+  {{arg0}}:
+    image: {{arg0}}
+    volumes:
+      - .:/src:ro
+    working_dir: /src
+    environment:
+      PYTHONPATH: .
+    command: ["python", "{{arg0}}/launcher.py"]
+    # uwsgi --thunder-lock --http :7000 --wsgi-file {{arg0}}/mainapp.py
+
