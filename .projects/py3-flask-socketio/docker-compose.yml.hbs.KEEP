@@ -22,7 +22,7 @@ services:
       "--uid", "101",
       "--gid", "101",
       "--gevent", "1000",
-      "--socket", ":8001",
+      "--socket", ":7001",
       "--http-websockets",
       "--wsgi-file", "{{arg0}}/launcher.py",
       "--callable", "app"]

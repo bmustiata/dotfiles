@@ -11,7 +11,7 @@ server {
     }
 
     location /rest {
-        proxy_pass http://{{arg0}}:7000/rest;
+        proxy_pass http://{{arg0}}:7001/rest;
     }
 
     location /socket.io {
@@ -20,7 +20,7 @@ server {
         proxy_buffering off;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";
-        proxy_pass http://{{arg0}}:7000/socket.io;
+        proxy_pass http://{{arg0}}:7001/socket.io;
     }
     #error_page  404              /404.html;
 
