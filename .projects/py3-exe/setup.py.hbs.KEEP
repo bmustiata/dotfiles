@@ -16,7 +16,7 @@ setup(
     license='BSD',
     entry_points={
         "console_scripts": [
-            "{{arg0}} = {{arg0}}.launcher:launch"
+            "{{arg0}} = {{arg0}}.mainapp:main"
         ]
     },
     install_requires=[],
