@@ -7,7 +7,3 @@ RUN cd /src && \
 COPY . /src
 
 WORKDIR /src
-
-RUN apt update -y
-RUN apt install -y strace
-

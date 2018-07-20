@@ -21,7 +21,6 @@ services:
     command: ["uwsgi", "--thunder-lock",
       "--uid", "101",
       "--gid", "101",
-      "--socket", ":8001",
-      "--wsgi-file", "application.py",
-      "--callable", "app"]
+      "--socket", ":7001",
+      "--wsgi-file", "application.py"]
 

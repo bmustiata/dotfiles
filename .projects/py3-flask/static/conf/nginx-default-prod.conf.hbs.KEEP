@@ -11,7 +11,7 @@ server {
     }
 
     location /rest {
-        uwsgi_pass {{arg0}}:8001;
+        uwsgi_pass {{arg0}}:7001;
         include uwsgi_params;
     }
 
