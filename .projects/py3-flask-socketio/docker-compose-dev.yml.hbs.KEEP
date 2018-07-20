@@ -21,6 +21,6 @@ services:
     working_dir: /src
     environment:
       PYTHONPATH: .
-    command: ["python", "{{arg0}}/launcher.py"]
+    command: ["python", "application.py"]
     # uwsgi --thunder-lock --http :7000 --wsgi-file {{arg0}}/mainapp.py
 
