@@ -22,6 +22,6 @@ services:
       "--uid", "101",
       "--gid", "101",
       "--socket", ":8001",
-      "--wsgi-file", "{{arg0}}/launcher.py",
+      "--wsgi-file", "application.py",
       "--callable", "app"]
 
