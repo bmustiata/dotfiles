@@ -24,6 +24,5 @@ services:
       "--gevent", "1000",
       "--socket", ":7001",
       "--http-websockets",
-      "--wsgi-file", "application.py",
-      "--callable", "app"]
+      "--wsgi-file", "application.py"]
 
