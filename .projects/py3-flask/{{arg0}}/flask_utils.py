@@ -2,7 +2,7 @@ import functools
 import inspect
 from flask import request, jsonify  # type: ignore
 
-from typing import Any, TypeVar, Callable, Dict, List, Union  # NOQA
+from typing import TypeVar, Callable
 T = TypeVar('T')
 
 
