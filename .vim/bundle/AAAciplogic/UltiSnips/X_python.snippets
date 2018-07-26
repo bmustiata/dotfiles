@@ -296,3 +296,41 @@ endsnippet
 snippet curdir "The current project dir" wm
 PROJECT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
 endsnippet
+
+#
+# snippet: class
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new class
+#
+snippet class "Create a new class" wm
+`!p
+def notype(x: str) -> str:
+	return re.sub(r"\s*\:.*$", "", x)
+
+def noval(x: str) -> str:
+	return re.sub(r"\s*\=.*$", "", x)
+`
+class ${1:ThriftyService}(${2:object}):
+	"""
+	${3:$1 documentation.}
+	"""
+`!p
+#
+# generate member declarations
+#
+for arg in map(lambda it: it.strip(), re.split("\s*,\s*", t[4])):
+	if arg != "":
+		snip.rv += f'    {noval(arg)}\n'
+`
+	def __init__(self${4:, name: str}) -> None:
+`!p
+#
+# generate self assignments
+#
+for arg in map(lambda it: it.strip(), re.split("\s*,\s*", t[4])):
+	if arg != "":
+		snip.rv += f'        self.{notype(arg)} = {notype(arg)}\n'
+`        ${0:pass}
+
+endsnippet

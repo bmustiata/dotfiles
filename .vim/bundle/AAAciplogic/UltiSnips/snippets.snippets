@@ -121,3 +121,17 @@ snippet cd "Add a snippet for documentation for the snippet." wm
 # ${2:Description of the snippet}
 #
 endsnippet
+
+#
+# snippet: pyparamseach
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Iterate over parameters in a python block
+#
+snippet paramiter "Iterate over parameters in a python block" wm
+\`!p
+for ${1:arg} in map(lambda it: it.strip(), re.split("\s*,\s*", t[${2:1}])):
+	if $1 != "":
+		snip.rv += '    ' + $1 + '\n'
+\`
+endsnippet
