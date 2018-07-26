@@ -8,8 +8,8 @@ COPY . /src
 
 WORKDIR /src
 
-ENV PYTHONPATH=. SERVERMODE=production
+ENV PYTHONPATH=. SERVER_MODE=production
 
 EXPOSE 7001
 
-CMD ["uwsgi", "--thunder-lock", "--uid", "101", "--gid", "101", "--gevent", "1000", "--socket", ":7001", "-b", "32768", "--http-websockets", "--wsgi-file", "application.py"]
+CMD ["uwsgi", "--thunder-lock", "--uid", "101", "--gid", "101", "--gevent", "1000", "--http", ":7001", "-b", "32768", "--http-websockets", "--wsgi-file", "application.py"]

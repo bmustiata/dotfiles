@@ -28,3 +28,7 @@ def magenta(text: str, bold=False, underline=False) -> str:
 
 def white(text: str, bold=False, underline=False) -> str:
     pass
+
+
+def eprint(*args) -> None:
+    pass
