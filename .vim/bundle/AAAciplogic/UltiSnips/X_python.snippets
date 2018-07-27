@@ -25,15 +25,6 @@ snippet /^(\s*)sdef$/ "Define a static method" r
 `!p snip.rv += match.group(1)`${3/.+/    """ /}${3:documentation}${3/.+/ """\n/}`!p snip.rv += match.group(1)`    ${VISUAL}${0:}
 endsnippet
 
-snippet class "Create a new class."
-class ${1:ClassName}(${2:object}):
-	"""
-	${3:Class Documentation}
-	"""
-	def __init__(self${4:}) -> None:
-		${0:pass}
-endsnippet
-
 snippet c "Add a comment"
 ${VISUAL/^(\s*)(.*?)$/$1/}#  ${VISUAL/^(\s*)(.*?)$/$2/}${0:}
 endsnippet
