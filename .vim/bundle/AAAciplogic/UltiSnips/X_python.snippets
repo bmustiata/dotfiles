@@ -219,8 +219,8 @@ endsnippet
 # with open...
 #
 snippet open "with open..." wm
-with open(${1:'filename'}) as ${2:f}:
-	${3:content = $2.read()}
+with open(${1:'filename'}${2/.+/, '/}${2:r}${2/.+/'/}${3/.+/, encoding='/}${3:utf-8}${3/.+/'/}) as ${4:f}:
+	${5:content} = $4.read()
 endsnippet
 
 #

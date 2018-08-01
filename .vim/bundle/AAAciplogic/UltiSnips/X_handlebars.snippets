@@ -79,3 +79,35 @@ endsnippet
 snippet eachi "Add an inline each statement" wm
 {{#each ${1:expression}}}${VISUAL}${0:}{{/each}}
 endsnippet
+
+#
+# snippet: switch
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a switch statement.
+#
+snippet switch "Create a switch statement." wm
+{{#switch ${1:expression}}}
+${0:${VISUAL}}
+{{/switch}}
+endsnippet
+
+#
+# snippet: case
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a case statement
+#
+snippet case "Create a case statement" wm
+{{#case ${1:'value'}}}${0:${VISUAL}}{{/case}}
+endsnippet
+
+#
+# snippet: default
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a default statement in a switch
+#
+snippet default "Create a default statement in a switch" wm
+{{#default}}${0:$VISUAL}{{/default}}
+endsnippet

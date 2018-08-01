@@ -4,6 +4,7 @@ set hidden
 " ts requires javascript-typescript-langserver
 let g:LanguageClient_serverCommands = {
     \ 'X_python.python': ['pyls'],
+    \ 'X_test_python.X_python.python': ['pyls'],
     \ 'X_python': ['pyls'],
     \ 'python': ['pyls'],
     \ 'typescript': ['javascript-typescript-stdio'],
