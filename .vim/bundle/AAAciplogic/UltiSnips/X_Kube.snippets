@@ -14,9 +14,9 @@ metadata:
 spec:
 	containers:
 	- name: ${2:container-name}
-	  image: ${3:ubuntu}${4/.+/
-	  ports:
-	  - containerPort: /}${4:8080}
+		image: ${3:ubuntu}${4/.+/
+		ports:
+		- containerPort: /}${4:8080}
 endsnippet
 
 #
@@ -26,7 +26,7 @@ endsnippet
 # replica set
 #
 snippet rs "replica set" wm
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
 	name: ${1:web-rs}
@@ -42,9 +42,9 @@ spec:
 		spec:
 			containers:
 			- name: ${4:hello-ctr}
-			  image: ${5:nigelpoulton/k8sbook:latest}${6/.+/
-			  ports:
-			  - containerPort: /}${6:8080}
+				image: ${5:nigelpoulton/k8sbook:latest}${6/.+/
+				ports:
+				- containerPort: /}${6:8080}
 endsnippet
 
 #
@@ -64,8 +64,8 @@ spec:
 	type: NodePort
 	ports:
 	- port: ${2:8080}
-	  nodePort: ${3:30001}
-	  protocol: TCP
+		nodePort: ${3:30001}
+		protocol: TCP
 	selector:
 		${0:app: hello-world}
 endsnippet
@@ -84,9 +84,9 @@ spec:
 		spec:
 			containers:
 			- name: ${4:$1}
-			  image: ${5:$1}
-			  ports:
-			  - containerPort: ${6:80}
+				image: ${5:$1}
+				ports:
+				- containerPort: ${6:80}
 endsnippet
 
 snippet kubeservice "Add a service"
@@ -101,7 +101,7 @@ spec:
 	ports:
 		# port = container port
 		- port: ${4:8080}
-		  nodePort: ${5:32000}
+			nodePort: ${5:32000}
 	# Label keys and values that must match in order to receive traffic for this service.
 	selector:
 		app: ${6:$1}
@@ -115,11 +115,30 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Add a volume for a template.
 #
-snippet volume "Add a volume for a template." wm
+snippet volume_host "Add a volume directly on the host for a pod." wm
 volumes:
-  - name: ${1:jenkins-home}
+	- name: ${1:jenkins-home}
 	hostPath:
-	  path: ${2:/var/jenkins_home}
+		path: ${2:/var/jenkins_home}
+endsnippet
+
+#
+# snippet: volume_longhorn
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a volume on longhorn.
+#
+snippet volume_longhorn "Add a volume on longhorn." wm
+volumes:
+	- name: ${1:volume-name}
+		flexVolume:
+			driver: "rancher.io/longhorn"
+			fsType: "ext4"
+			options:
+				size: "2Gi"
+				numberOfReplicas: "3"
+				staleReplicaTimeout: "20"
+				fromBackup: ""
 endsnippet
 
 #
@@ -131,7 +150,7 @@ endsnippet
 snippet mount "Add a mount for a container" wm
 volumeMounts:
 - name: ${1:jenkins-home}
-  mountPath: ${2:/var/jenkins_home}
+	mountPath: ${2:/var/jenkins_home}
 endsnippet
 
 #
@@ -143,4 +162,47 @@ endsnippet
 snippet nodeselect "Create a node selector (containers sibling)" wm
 nodeSelector:
 	${1:kubernetes.io/hostname}: ${2:musbo01}
+endsnippet
+
+
+#
+# snippet: deploy
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a deployment
+#
+snippet deploy "Create a deployment" wm
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: ${1:nginx-deployment}
+	labels:
+		${2:app: nginx}
+spec:
+	replicas: ${3:3}
+	selector:
+		matchLabels:
+			${4:app: nginx}
+	template:
+		metadata:
+			labels:
+				$4
+		spec:
+			containers:
+			- name: ${5:nginx}
+				image: ${6:nginx:1.7.9}${7/.+/
+				ports:
+				- containerPort: /}${7:80}
+endsnippet
+
+#
+# snippet: env
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create environment variables for the container
+#
+snippet env "Create environment variables for the container" wm
+env:
+- name: ${1:YOLO_NAME}
+	value: ${2:value}
 endsnippet
