@@ -1,7 +1,7 @@
 #
 # Current date
 #
-snippet date "Adds the current date." i
+snippet date "Adds the current date." wm
 `!p
 import datetime
 
@@ -11,9 +11,12 @@ snip.rv += "%04d-%02d-%02d" % (now.year, now.month, now.day)
 endsnippet
 
 #
+# snippet: time
+# w (word boundary),
+# m (trim spaces on the right of the script)
 # Current time
 #
-snippet time "Adds the current time" i
+snippet time "Current time" wm
 `!p
 import datetime
 
@@ -25,7 +28,7 @@ endsnippet
 #
 # Current folder.
 #
-snippet pwd "Adds the current folder" i
+snippet pwd "Adds the current folder" wm
 `!p
 import os
 
@@ -33,15 +36,21 @@ snip.rv += os.getcwd()
 `
 endsnippet
 
-snippet bm "Bogdan Mustiata" i
+snippet bm "Bogdan Mustiata" wm
 Bogdan Mustiata
 endsnippet
 
-snippet bme "Bogdan Mustiata <bogdan.mustiata@gmail.com>" i
+snippet bme "Bogdan Mustiata <bogdan.mustiata@gmail.com>" wm
 Bogdan Mustiata <${1:bogdan.mustiata@gmail.com}>
 endsnippet
 
-snippet tstamp "Add a timestamp" i
+#
+# snippet: dtime
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add the current timestamp
+#
+snippet dtime "Add the current timestamp" wm
 `!p
 import datetime
 

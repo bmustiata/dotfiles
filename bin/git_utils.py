@@ -2,8 +2,8 @@ import re
 import subprocess
 from typing import Dict, Iterator, Set, List  # NOQA
 
-BACKPORT_BRANCH_CHECK = re.compile(r'^.*?/\d+\.\d+(\.\d+)?/.*$')
-BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/\d+\.\d+(\.\d+)?)?/(.*)$')
+BACKPORT_BRANCH_CHECK = re.compile(r'^.*?/\d+\.\d+(.+)?/.*$')
+BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/\d+\.\d+(.+)?)?/(.*)$')
 BRANCH_ISSUE_ID_PARSER = re.compile(r'^.+/(\w+-\d+).+?$')
 
 
@@ -107,9 +107,9 @@ def find_branch_by_issue_id(version: str, issue_id: str) -> str:
         if issue_id in branch_by_issue_id_cache:
             return branch_by_issue_id_cache[issue_id]
 
-        print("Multiple branches were found for version %s, and issue %s: %s. \
-               Please select the index of the branch to use." %
-              (version, issue_id, branches))
+        print("Multiple branches were found for version %s, and issue %s: \n  %s\n"
+              "Please select the index of the branch to use." %
+              (version, issue_id, "\n  ".join(branches)))
 
         index = int(input())  # NOQA
 

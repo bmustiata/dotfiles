@@ -14,6 +14,34 @@ properties([
 safeParametersCheck(this)
 endsnippet
 
+
+#
+# snippet: paramsold
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a bunch of properties the old way
+#
+snippet paramsold "Add a bunch of properties the old way" wm
+properties([
+	parameters([
+		${0:}
+	])
+])
+endsnippet
+
+
+#
+# snippet: pcheck
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# parameter check
+#
+snippet pcheck "parameter check" wm
+${1:PARAMETER_NAME} = params.$1 ?: ${2:'default_value'}
+endsnippet
+
+
+
 #
 # snippet: string
 # w (word boundary),
