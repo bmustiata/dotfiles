@@ -1,6 +1,6 @@
 import re
 import subprocess
-from typing import Dict, Iterator, Set, List  # NOQA
+from typing import Set, List, Dict
 
 BACKPORT_BRANCH_CHECK = re.compile(r'^.*?/\d+\.\d+(.+)?/.*$')
 BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/\d+\.\d+(.+)?)?/(.*)$')
@@ -85,7 +85,15 @@ def all_branches(use_cache=True) -> Set[str]:
     return _all_branches_cache
 
 
-branch_by_issue_id_cache = dict()  # type: Dict[str, str]
+branch_by_issue_id_cache: Dict[str, str] = dict()
+
+
+def find_branches_for_issue_id(issue_id: str) -> List[str]:
+    issue_substring = '/%s-' % issue_id
+
+    branches = list(filter(lambda branch: issue_substring in branch, all_branches()))
+
+    return branches
 
 
 def find_branch_by_issue_id(version: str, issue_id: str) -> str:
@@ -164,6 +172,6 @@ def get_commits_for_branch(branch_name, issue_id=None) -> List[Commit]:
     issue_marker = re.compile('%s\W' % issue_id)  # FIXME: not so great
     merge_test = re.compile('^Merge')
 
-    return list(filter(lambda commit: issue_marker.match(commit.message)
-                       and not merge_test.match(commit.message),
+    return list(filter(lambda commit: issue_marker.match(commit.message) and
+                       not merge_test.match(commit.message),
                        all_commits))

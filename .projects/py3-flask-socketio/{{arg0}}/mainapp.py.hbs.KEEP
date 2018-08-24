@@ -3,7 +3,7 @@ from flask_socketio import SocketIO, send
 from flask import send_file
 import os
 
-from .flask_utils import form_params
+from {{arg0}}.flask_utils import form_params
 
 
 app = flask.Flask("{{arg0}}")

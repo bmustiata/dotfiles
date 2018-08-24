@@ -1,0 +1,10 @@
+#!/usr/bin/env python
+
+from git_utils import find_branches_for_issue_id, \
+    get_checkout_issue_number
+
+
+branches = find_branches_for_issue_id(get_checkout_issue_number())
+
+for branch in reversed(sorted(branches)):
+    print(branch)

@@ -371,3 +371,14 @@ dir(${1:"/path/to/folder"}) {
 }
 endsnippet
 
+#
+# snippet: ansiColor
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an ansiColor block
+#
+snippet ansiColor "Add an ansiColor block" wm
+ansiColor('xterm') {
+	${VISUAL}${0:}
+}
+endsnippet
