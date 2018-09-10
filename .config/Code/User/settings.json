@@ -14,9 +14,9 @@
     "gitlens.codeLens.recentChange.enabled": false,
     "gitlens.codeLens.authors.enabled": false,
     "gitlens.blame.annotation.activeLine": "off",
-    "workbench.colorTheme": "Ciplogic",
 
     // python
     "python.linting.mypyEnabled": true,
-    "python.linting.pylintEnabled": false
+    "python.linting.pylintEnabled": false,
+    "typescript.updateImportsOnFileMove.enabled": "always"
 }

@@ -7,12 +7,13 @@ from {{arg0}}.flask_utils import form_params
 
 
 app = flask.Flask("{{arg0}}")
-if 'SERVER_MODE' in os.environ and os.environ['SERVER_MODE'] == 'production':
+if 'SERVER_MODE' not in os.environ or os.environ['SERVER_MODE'] == 'production':
     print("Running gevent_uwsgi async mode")
     socketio = SocketIO(app, async_mode="gevent_uwsgi")
 else:
-    print("Running eventlet async mode")
-    socketio = SocketIO(app, async_mode="eventlet")
+    print("Running gevent async mode")
+    socketio = SocketIO(async_mode="gevent")
+    socketio.init_app(app, cors_allowed_origins="*")
 
 
 @app.route('/rest', methods=['POST'])

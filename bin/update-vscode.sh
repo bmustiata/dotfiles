@@ -2,7 +2,7 @@
 
 set -e
 
-ARCHIVE=$(readlink -f $(ls -t ~/Downloads/code-stable-code*.tar.gz | head -n 1))
+ARCHIVE=$(readlink -f $(ls -t ~/Downloads/code-stable-*.tar.gz | head -n 1))
 
 rm -fr ~/programs/VSCode-linux-x64
 cd ~/programs

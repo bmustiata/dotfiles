@@ -1,0 +1,8 @@
+layout:
+    name: title
+    requires: [ PROJECT_TITLE ]
+    activate: |
+      echo -e '\\033k$PROJECT_TITLE\\033\\\\'
+
+
+
