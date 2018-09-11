@@ -39,7 +39,7 @@ alias vim="TERM=xterm-256color nvim"
 . ~/.nvm/nvm.sh
 . ~/.nvm/bash_completion
 
-nvm use v6
+nvm use v8
 
 unset CIPLOGIC_ARCHER_CURRENT_PROJECT
 unset CIPLOGIC_ARCHER_CURRENT_PY

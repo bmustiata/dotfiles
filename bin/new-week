@@ -50,7 +50,7 @@ read_week_prefix $CIPLOGIC_PLAN_SCOPE
 
 READ_WEEK=$(read_week_prefix $1)
 if [[ "$READ_WEEK" != "" ]]; then
-    echo "read week redurned: $READ_WEEK"
+    echo "read week returned: $READ_WEEK"
     week_prefix="$READ_WEEK"
     shift
 fi
