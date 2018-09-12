@@ -20,9 +20,6 @@ case "$CURRENT_SYSTEM_VERSION" in
         npm install -g fast-live-reload
         npm install -g version-manager
 
-        # for all the sweet projects in the .projects folder
-        nmp install -g ars
-
         # needed by the befautify commands in vim
         npm install -g js-beautify
 
