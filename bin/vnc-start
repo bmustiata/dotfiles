@@ -1,4 +1,5 @@
 #!/bin/bash
 
-vnc4server -geometry 1366x768 > /dev/null 2>&1 &
+#vnc4server -geometry 1366x768 > /dev/null 2>&1 &
+vnc4server -geometry 1920x1080 > /dev/null 2>&1 &
 
