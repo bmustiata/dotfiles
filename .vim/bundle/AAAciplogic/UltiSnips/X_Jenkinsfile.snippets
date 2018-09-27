@@ -213,20 +213,6 @@ parallel($1)
 endsnippet
 
 #
-# snippet: parralelb
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# Add a parallel branch
-#
-snippet parallelb "Add a parallel branch" wm
-${1:parallelVariable}."${2:Test}" = {
-	node {
-		${4:dockerrun}${0:}
-	}
-}
-endsnippet
-
-#
 # snippet: parallelb
 # w (word boundary),
 # m (trim spaces on the right of the script)
@@ -382,3 +368,14 @@ ansiColor('xterm') {
 	${VISUAL}${0:}
 }
 endsnippet
+
+#
+# snippet: archive
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Archive artifacts
+#
+snippet archive "Archive artifacts" wm
+archiveArtifacts artifacts: '${1:/src/dist/main.exe}'${2/.+/, fingerprint: /}${2:true}
+endsnippet
+

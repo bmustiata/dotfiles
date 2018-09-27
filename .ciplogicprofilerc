@@ -70,6 +70,9 @@ alias api="ansible-playbook -i /home/raptor/learn/learn/adoc/inventory"
 alias dc="docker-compose"
 alias d="docker"
 
+alias kubef="kubectl apply -f"
+alias kubedel="kubectl delete"
+
 # antlr
 alias antlr4='java -jar /home/raptor/programs/antlr-4.7.1-complete.jar'
 alias grun='java -cp /home/raptor/programs/antlr-4.7.1-complete.jar org.antlr.v4.gui.TestRig'

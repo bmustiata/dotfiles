@@ -22,3 +22,5 @@
 
 [commit]
 template = ~/.gitmessage
+[diff "sopsdiffer"]
+	textconv = sops -d
