@@ -17,7 +17,7 @@ if not m:
 
 project_name = m.group(1)
 
-webhook_expression = "http://172.17.0.1:8080/git/notifyCommit?"\
-                     "url=http://git-server:10080/germanium/%s.git" % project_name
+webhook_expression = "http://jenkins:8080/git/notifyCommit?"\
+                     "url=http://git-server/germanium/%s.git" % project_name
 
 print(webhook_expression)
