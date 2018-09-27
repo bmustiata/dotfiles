@@ -68,5 +68,6 @@ for day in "${days_planned[@]}"; do
     files_to_edit="$files_to_edit $(compute_file_name $day)"
 done
 
+echo "vim -p $files_to_edit"
 vim -p $files_to_edit
 
