@@ -118,8 +118,8 @@ endsnippet
 snippet volume_host "Add a volume directly on the host for a pod." wm
 volumes:
 	- name: ${1:jenkins-home}
-	hostPath:
-		path: ${2:/var/jenkins_home}
+		hostPath:
+			path: ${2:/var/jenkins_home}
 endsnippet
 
 #
@@ -193,6 +193,20 @@ spec:
 				image: ${6:nginx:1.7.9}${7/.+/
 				ports:
 				- containerPort: /}${7:80}
+endsnippet
+
+#
+# snippet: port
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a new NodePort into a service
+#
+snippet port "Add a new NodePort into a service" wm
+- name: ${1: name}
+	port: ${2:8080}
+	nodePort: ${3:38080}${4/.+/
+	targetPort: /}${4:$2}${5/.+/
+	protocol: /}${5:TCP}
 endsnippet
 
 #

@@ -1,6 +1,7 @@
 set hidden
 
 " pyls requires: pip install python-language-server, pyls-mypy, mypy
+" go-langserver requires: go get -u github.com/sourcegraph/go-langserver
 " ts requires javascript-typescript-langserver
 let g:LanguageClient_serverCommands = {
     \ 'X_python.python': ['pyls'],
@@ -8,6 +9,7 @@ let g:LanguageClient_serverCommands = {
     \ 'X_python': ['pyls'],
     \ 'python': ['pyls'],
     \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'go': ['go-langserver'],
     \ }
 
 function! FindReferences()
