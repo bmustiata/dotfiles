@@ -325,3 +325,23 @@ for arg in map(lambda it: it.strip(), re.split("\s*,\s*", t[4])):
 `        ${0:pass}
 
 endsnippet
+
+#
+# snippet: opt
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Optional var
+#
+snippet opt "Optional var" wm
+Optional[${1:${VISUAL}}]${2/.+/=/}${2:None}${0:}
+endsnippet
+
+#
+# snippet: optn
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Optional None var
+#
+snippet optn "Optional None var" wm
+Optional[${VISUAL}${1:}]=None${0:}
+endsnippet

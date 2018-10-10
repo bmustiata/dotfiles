@@ -16,16 +16,16 @@ services:
 endsnippet
 
 #
-# snippet: container
+# snippet: service
 # w (word boundary),
 # m (trim spaces on the right of the script)
-# Add a new container
+# Add a new service
 #
-snippet container "Add a new container" wm
-${1:name}
+snippet service "Add a new service container" wm
+${1:name}:
 	image: "${2:image}"
 	ports:
-	- "8081:8081"
+		- "8081:8081"
 	volumes:
-	- "/tmp:/tmp"
+		- "/tmp:/tmp"
 endsnippet
