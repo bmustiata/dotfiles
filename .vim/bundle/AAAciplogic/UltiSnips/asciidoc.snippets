@@ -118,8 +118,12 @@ snippet a "Create a link snippet link:URL[description]" wm
 link:${1:${VISUAL/^$/url/}_url}[${2:${VISUAL/^$/description/}}]
 endsnippet
 
-snippet img "Create an image snippet" i
+snippet img "Create an image snippet" wm
 image:${1:url}[${2:description}]
+endsnippet
+
+snippet imgl "Create a large image" wm
+image::${1:url}[${2:description}]
 endsnippet
 
 snippet py "Create a python segment"
@@ -423,4 +427,43 @@ snippet cs "Add a comment section" wm
 /////////////////////////////////////////////////////////////////////////////
 // ${1:${VISUAL}}
 /////////////////////////////////////////////////////////////////////////////${0:}
+endsnippet
+#
+# snippet: kbd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a keyboard shortcut
+#
+snippet kbd "Add a keyboard shortcut" wm
+kbd:[${1:"Ctrl+Shift+N"}]${0:}
+endsnippet
+
+#
+# snippet: menu
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a menu entry
+#
+snippet menu "Add a menu entry" wm
+menu:${0:View[Zoom > Reset]}
+endsnippet
+
+#
+# snippet: bnt
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a button entry
+#
+snippet btn "Add a button entry" wm
+btn:[${1:OK}]
+endsnippet
+
+#
+# snippet: pexels
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Pexels credit
+#
+snippet pexels "Pexels credit" wm
+[small]#_Article Photo taken from Pexels:_ ${VISUAL}#
 endsnippet
