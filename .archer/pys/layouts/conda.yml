@@ -1,0 +1,17 @@
+layout:
+  name: MiniConda Python Layout
+  requires: [MINICONDA_HOME]
+  activate: |
+    OLDDIR=$(pwd)
+    cd $MINICONDA_HOME/bin/
+    pwd
+    . activate
+    cd $OLDDIR
+  deactivate: |
+    OLDDIR=$(pwd)
+    cd $MINICONDA_HOME/bin/
+    . deactivate
+    cd $OLDDIR
+  commands:
+    cdb: cd $MINICONDA_HOME/bin
+

@@ -1,0 +1,219 @@
+
+#
+# snippet: vpc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a VPC
+#
+snippet vpc "Create a VPC" wm
+${1:PublicVPC}:
+	Type: 'AWS::EC2::VPC'
+	Properties:
+		CidrBlock: ${2:172.31.0.0}/${3:16}
+		Tags:
+			- Key: Name
+			  Value: !Join [_, [!Ref 'AWS::StackName'${4/.+/,/}${4:$1}]]
+
+${0:}
+endsnippet
+
+#
+# snippet: net
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a subnet
+#
+snippet net "Create a subnet" wm
+${1:Subnet1}:
+	Type: 'AWS::EC2::Subnet'
+	Properties:
+		VpcId: !Ref ${2:VpcResource}
+		AvailabilityZone:
+			Fn::Select:
+			- ${3:0}
+			- Fn::GetAZs: ""
+		CidrBlock: ${4:172.31.0.0}/${5:24}
+		MapPublicIpOnLaunch: true
+		Tags:
+		- Key: Name
+		  Value: !Join [_, [!Ref 'AWS::StackName'${6/.+/,/}${6:$1}]]
+
+${0:}
+endsnippet
+
+#
+# snippet: ig
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Crete an internet Gateway
+#
+snippet ig "Crete an Internet Gateway" wm
+${1:InternetGateway}:
+	Type: 'AWS::EC2::InternetGateway'
+	Properties:
+		Tags:
+		- Key: Name
+		  Value: !Join [_, [!Ref 'AWS::StackName'${2/.+/,/}${2:$1}]]
+
+${0:}
+endsnippet
+
+#
+# snippet: gw2i
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Gatewiay to Internet
+#
+snippet gw2i "Gateway to Internet" wm
+${1:GatewayToInternet}:
+	Type: 'AWS::EC2::VPCGatewayAttachment'
+	Properties:
+		VpcId: !Ref ${2:PublicVPCResourceName}
+		InternetGatewayId: !Ref ${3:InternetGatewayResourceName}
+
+${0:}
+endsnippet
+
+#
+# snippet: routetable
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a route table
+#
+snippet routetable "Create a route table" wm
+${1:PublicRouteTable}:
+	Type: 'AWS::EC2::RouteTable'
+	Properties:
+		VpcId: !Ref ${2:PublicVPCResourceName}
+
+${0:}
+endsnippet
+
+#
+# snippet: route
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a route
+#
+snippet route "Create a route" wm
+${1:PublicRoute}:
+	Type: 'AWS::EC2::Route'
+	DependsOn: ${2:GatewayToInternetResourceName}
+	Properties:
+		RouteTableId: !Ref ${3:PublicRouteTableResourceName}
+		DestinationCidrBlock: ${4:0.0.0.0}/${5:0}
+		GatewayId: !Ref ${6:InternetGatewayResourceName}
+
+${0:}
+endsnippet
+
+#
+# snippet: routeassoc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a route association to a subnet
+#
+snippet routeassoc "Create a route table association to a subnet" wm
+${1:PublicSubnetRouteTableAssociation}:
+	Type: 'AWS::EC2::SubnetRouteTableAssociation'
+	Properties:
+		SubnetId: !Ref ${2:PublicSubnetResourceName}
+		RouteTableId: !Ref ${3:PublicRouteTable}
+
+${0:}
+endsnippet
+
+#
+# snippet: out
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an output
+#
+snippet out "Create an output" wm
+${1:PublicVPCID}:
+	Description: ${2:What this resource is}
+	Value: !Ref "${3:PublicVPCResourceName}"
+	Export:
+		Name: ${4:$1}
+
+${0:}
+endsnippet
+
+#
+# snippet: potato
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# A new potato type
+#
+snippet potato "A new potato type" wm
+${1:Potato}:
+	Type: 'AWS::EC2::PotatoRe'
+	Properties:
+		FriedVpcId: !Ref ${2:PublicVpc}
+
+${0:}
+endsnippet
+
+#
+# snippet: aws
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new aws declaration
+#
+snippet aws "Create a new aws declaration" wm
+AWSTemplateFormatVersion: '2010-09-09'
+Description: ${1:Description of the stack.}
+${2:Parameters}${2/.+/:
+	DesiredCapacity:
+		Type: Number
+		Default: '3'
+		Description: Number of EC2 instances to launch in your ECS cluster.
+/}${3:Mappings}${3/.+/:
+	SubnetConfig:
+	VPC:
+		CIDR: '10.0.0.0\/16'
+	PublicOne:
+		CIDR: '10.0.0.0\/24'
+	PublicTwo:
+		CIDR: '10.0.1.0\/24'
+/}Resources:
+	${0:}
+endsnippet
+
+#
+# snippet: param
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a parameter in the parameters list
+#
+snippet param "Create a parameter in the parameters list" wm
+${1:DesiredCapacity}:
+	Type: ${2:Number}${3/.+/
+	Default: '/}${3:3}${3/.+/'/}${4/.+/
+	Description: /}${4:Number of EC2 instances to launch in your ECS cluster.}
+endsnippet
+
+#
+# snippet: ec2
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an ec2 instance
+#
+snippet ec2 "Create an ec2 instance" wm
+${1:myEC2Instance}:
+	Type: "AWS::EC2::Instance"
+	Properties:
+		ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
+		InstanceType: m1.small
+endsnippet
+
+#
+# snippet: region
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get a rfeference to the current region
+#
+snippet reg "Get a rfeference to the current region" wm
+!Ref "AWS::Region"
+endsnippet
+

@@ -1,0 +1,17 @@
+layout:
+  name: Python Virtual Environment
+  requires: [VIRTUAL_ENVIRONMENT_HOME]
+  activate: |
+    OLDDIR=`pwd`
+    cd $VIRTUAL_ENVIRONMENT_HOME/bin
+    . activate
+    cd $OLDDIR
+  deactivate: |
+    deactivate
+  commands:
+    aws-validate: |
+      aws cloudformation validate-template --template-body file://$(readlink -f $1)
+    aws-create: |
+      aws cloudformation create-stack --stack-name $1 --template-body file://$(readlink -f $2)
+    aws-delete: |
+      aws cloudformation delete-stack --stack-name $1

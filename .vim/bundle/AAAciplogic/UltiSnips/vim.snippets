@@ -112,6 +112,6 @@ function! ${1:Handlebars}()
 
 	execute 'set filetype=' . l:newType
 endfunction
-command $1 call $1()
+command ${3:$1} call $1()
 endsnippet
 

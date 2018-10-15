@@ -379,3 +379,17 @@ snippet archive "Archive artifacts" wm
 archiveArtifacts artifacts: '${1:/src/dist/main.exe}'${2/.+/, fingerprint: /}${2:true}
 endsnippet
 
+#
+# snippet: junit
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a junit report
+#
+snippet junit "Create a junit report" wm
+try {
+	${VISUAL}${0:}
+} finally {
+	junit '${1:reports/*.xml}'
+}
+endsnippet
+
