@@ -78,12 +78,12 @@ snippet wraptext "Adds a text only if the wrapped variable matches." i
 endsnippet
 
 #
-# snippet: wraptextonempty
+# snippet: wrapnottext
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Adds a value if the wrapped variable does not match
 #
-snippet wraptextonempty "Adds a value if the wrapped variable does not match" wm
+snippet wrapnottext "Adds a value if the wrapped variable does not match" wm
 \${${1:VISUAL}/^$/${2:${VISUAL/([\\\/])/\\$1/g}}/}
 endsnippet
 

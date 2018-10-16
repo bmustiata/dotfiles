@@ -275,16 +275,16 @@ node${1/.+/('/}${1:node-name}${1/.+/')/} {
 endsnippet
 
 #
-# snippet: secretfile
+# snippet: cred
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Add a file credential
 #
-snippet secretfile "Add a secret file credential" wm
+snippet cred "Add a secret file credential" wm
 withCredentials([file(credentialsId: '${1:VARNAME}', variable: '${2:$1}')]) {
 	sh """
 		cp ${env.$2} ${3:/tmp/$2}
-		chmod 666 $3
+		chmod ${4:666} $3
 	"""${VISUAL/.+/
 
 	/}${VISUAL}
@@ -377,6 +377,18 @@ endsnippet
 #
 snippet archive "Archive artifacts" wm
 archiveArtifacts artifacts: '${1:/src/dist/main.exe}'${2/.+/, fingerprint: /}${2:true}
+endsnippet
+
+#
+# snippet: plugin
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new shared lib command
+#
+snippet plugin "Create a new shared lib command" wm
+def call(${1:config}) {
+	${0:${VISUAL/^$/sh "hello world"/}}
+}
 endsnippet
 
 #
