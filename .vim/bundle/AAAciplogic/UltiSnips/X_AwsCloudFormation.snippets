@@ -47,7 +47,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Crete an internet Gateway
 #
-snippet ig "Crete an Internet Gateway" wm
+snippet ig "Create an Internet Gateway" wm
 ${1:InternetGateway}:
 	Type: 'AWS::EC2::InternetGateway'
 	Properties:
@@ -123,21 +123,6 @@ ${1:PublicSubnetRouteTableAssociation}:
 ${0:}
 endsnippet
 
-#
-# snippet: out
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# Create an output
-#
-snippet out "Create an output" wm
-${1:PublicVPCID}:
-	Description: ${2:What this resource is}
-	Value: !Ref "${3:PublicVPCResourceName}"
-	Export:
-		Name: ${4:$1}
-
-${0:}
-endsnippet
 
 #
 # snippet: potato
@@ -203,8 +188,11 @@ snippet ec2 "Create an ec2 instance" wm
 ${1:myEC2Instance}:
 	Type: "AWS::EC2::Instance"
 	Properties:
-		ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
-		InstanceType: m1.small
+		ImageId: ${2:!FindInMap [RegionMap, !Ref "AWS::Region", HVM64]}
+		InstanceType: ${3:t3.micro}${4/.+/
+		SubnetId: !Ref /}${4:SubnetResourceName}${5/.+/
+		SecurityGroups:
+			- !Ref /}${5:SecurityGroupResourceName}
 endsnippet
 
 #
@@ -217,3 +205,283 @@ snippet reg "Get a rfeference to the current region" wm
 !Ref "AWS::Region"
 endsnippet
 
+#
+# snippet: ref
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get a reference to a previously specified resource.
+#
+snippet ref "Get a reference to a previously specified resource." wm
+!Ref ${1:ResourceName}
+endsnippet
+
+#
+# snippet: getattr
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get an attribute from another object
+#
+snippet getattr "Get an attribute from another object" wm
+{ "Fn::GetAtt": ["${1:ObjectResourceName}", ${2:AttributeName}] }
+endsnippet
+
+#
+# snippet: getatt
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get an attribute from another object (short version)
+#
+snippet getatt "Get an attribute from another object (short version)" wm
+!GetAtt ${1:ObjectResourceName.AttributeName}
+endsnippet
+
+#
+# snippet: az
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an availabilty zone reference id
+#
+snippet az "Create an availabilty zone reference id" wm
+Fn::Select: [${3:0}, {"Fn::GetAZs": ""}]
+endsnippet
+
+#
+# snippet: cache
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a cache cluster
+#
+snippet cache "Create a cache cluster" wm
+${1:cacheResourceName}:
+	Type: 'AWS::ElastiCache::CacheCluster'
+	Properties:${2:
+		AutoMinorVersionUpgrade: }${2:true}${3/.+/
+		AZMode: "/}${3:cross-az}${1/.+/"/}
+		CacheNodeType: ${4:cache.m3.medium}${5/.+/
+		CacheSubnetGroupName: !Ref /}${5:subnetGroup}
+		Engine: ${7:redis}${8/.+/
+		EngineVersion: "/}${8:latest}${8/.+/"/}${9/.+/
+		NotificationTopicArn: "/}${9:snsTopicArn}${9/.+/"/}
+		NumCacheNodes: ${10:3}${11/.+/
+		PreferredAvailabilityZones:
+			- /}${11:eu-central-1a}${12/.+/
+		Tags:
+			- /}${12:CacheCluster}${13/.+/
+		VpcSecurityGroupIds:
+			- !Ref /}${13:vpcSecurityGroupId}
+${0:}
+endsnippet
+
+#
+# snippet: cachesng
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a cache subnet group
+#
+snippet cachesng "Create a cache subnet group" wm
+${1:CacheSubnetGroup}:
+	Type: 'AWS::ElastiCache::SubnetGroup'
+	Properties:
+		CacheSubnetGroupName: !Join [_, [!Ref 'AWS::StackName'${2/.+/,/}${2:$1}]]${3/.+/
+		Description: "/}${3:Description for the subnet group}${3/.+/"/}
+		SubnetIds:
+		- ${0:}
+endsnippet
+
+#
+# snippet: sg
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Security Group
+#
+snippet sg "Security Group" wm
+${1:WebServerSecurityGroup}:
+	Type: 'AWS::EC2::SecurityGroup'
+	Properties:
+		GroupName: !Join [_, [!Ref 'AWS::StackName'${2/.+/,/}${2:$1}]]
+		GroupDescription: "${3:Group description}"${4/.+/
+		VpcId: !Ref /}${4:VpcResourceName}
+		SecurityGroupIngress:
+			${0:}
+endsnippet
+
+#
+# snippet: ingress
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an ingress rule in a security group
+#
+snippet ingress "Add an ingress rule in a security group" wm
+- IpProtocol: tcp
+	FromPort: ${1:0}
+	ToPort: ${2:0}
+	CidrIp: ${3/.+/"/}${3:0.0.0.0/0}${3/.+/"/}
+endsnippet
+
+#
+# snippet: groupname
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a group name from the stack name
+#
+snippet groupname "Create a group name from the stack name" wm
+GroupName: !Join [_, [!Ref 'AWS::StackName',${1:FrontendSshSecurityGroup}]]
+endsnippet
+
+#
+# snippet: out
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an ew output
+#
+snippet out "Create a new output" wm
+${1:VariableName}:${2/.+/
+	Description: /}${2:Information about the value}
+	Value: ${3:Value to return}${4/.+/
+	Export:
+		/}${4:Name}${4/.+/: /}${0:}
+endsnippet
+
+#
+# snippet: task
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new task definition
+#
+snippet taskdef "Create a new task definition" wm
+${1:TaskDefinitionName}:
+	Type: AWS::ECS::TaskDefinition
+	Properties:
+		RequiresCompatibilities:
+		- "EC2"
+		ContainerDefinitions:
+		- Name: "${2:containername}"
+			Image: "${3:884819480303.dkr.ecr.us-west-2.amazonaws.com/dhw}"
+			PortMappings:
+			- ContainerPort: "${4:8080}"
+				HostPort: "${5:0}"
+			Memory: "${6:500}"${7/.+/
+			Environment:
+			- Name: /}${7:ENV_VAR_DB_LOCATION}${7/.+/
+				Value: /}${0:}
+endsnippet
+
+#
+# snippet: service
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new EcsService
+# FIXME: not finished
+snippet service "Create a new EcsService" wm
+${1:ServiceName}:
+	Type: AWS::ECS::Service
+	DependsOn:
+	- ${2:LoadBalancerResource}
+	Properties:
+		Cluster: !Ref ${3:ClusterName}
+		ServiceName: ${4:$1}
+		DesiredCount: ${5:4}
+		TaskDefinition: !Ref ${6:TaskDefinitionName}
+		LoadBalancers:
+		- TargetGroupArn: !Ref ${7:TargetGroupName}
+			ContainerPort: ${8:8080}
+			ContainerName: ${9:dhw}
+endsnippet
+
+#
+# snippet: elb
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Elastic Load Balancer
+#
+snippet elb "Elastic Load Balancer" wm
+${1:PublicLoadBalancer}:
+	Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
+	Properties:
+		Scheme: ${2:internet-facing}
+		LoadBalancerAttributes:
+		- Key: idle_timeout.timeout_seconds
+			Value: '30'
+		Subnets:
+			- !Ref ${3:PublicSubnetOne}
+		SecurityGroups:
+			- !Ref '${4:PublicLoadBalancerSG}'
+endsnippet
+
+#
+# snippet: cluster
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new cluster
+#
+snippet cluster "Create a new cluster" wm
+${1:FargateEcsCluster}:
+	Type: AWS::ECS::Cluster
+	Properties:
+		ClusterName: !Ref AWS::StackName
+${0:}
+endsnippet
+
+#
+# snippet: tag
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new tag
+#
+snippet t "Create a new tag" wm
+Key: ${1:KeyName}
+Value: ${0:}
+endsnippet
+
+#
+# snippet: tname
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# A name tag
+#
+snippet tname "A name tag" wm
+Key: Name
+Value: !Join [_, [!Ref 'AWS::StackName',${1:FrontendVpc}]]
+endsnippet
+
+#
+# snippet: target
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a target group
+#
+snippet target "Create a target group" wm
+${1:TargetGroupName}:
+	Type: AWS::ElasticLoadBalancingV2::TargetGroup
+	Properties:
+		HealthCheckIntervalSeconds: ${2:6}
+		HealthCheckPath: ${3:/}
+		HealthCheckProtocol: ${4:HTTP}
+		HealthCheckTimeoutSeconds: ${5:5}
+		HealthyThresholdCount: ${6:2}
+		UnhealthyThresholdCount: ${7:2}
+		Name: !Join ['-', [!Ref 'AWS::StackName', ${8:$1}]]
+		Port: ${9:80}
+		Protocol: ${10:HTTP}
+		VpcId: !Ref '${11:VPC}'
+endsnippet
+
+#
+# snippet: lblistener
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a load balancer listener
+#
+snippet lblistener "Create a load balancer listener" wm
+${1:PublicLoadBalancerListener}:
+	Type: AWS::ElasticLoadBalancingV2::Listener
+	DependsOn:
+		- $3
+	Properties:
+		DefaultActions:
+			- TargetGroupArn: !Ref '${2:TargetGroupName}'
+				Type: 'forward'
+		LoadBalancerArn: !Ref '${3:PublicLoadBalancer}'
+		Port: ${4:80}
+		Protocol: ${5:HTTP}
+endsnippet
