@@ -485,3 +485,13 @@ ${1:PublicLoadBalancerListener}:
 		Port: ${4:80}
 		Protocol: ${5:HTTP}
 endsnippet
+
+#
+# snippet: name
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a name for an item in the stack
+#
+snippet name "Create a name for an item in the stack" wm
+!Join [_, [!Ref 'AWS::StackName', ${1:Name}]]
+endsnippet

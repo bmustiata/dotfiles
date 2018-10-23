@@ -405,3 +405,13 @@ try {
 }
 endsnippet
 
+#
+# snippet: desc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Adda build description
+#
+snippet desc "Adda build description" wm
+currentBuild.description = "${1:build description}"
+endsnippet
+
