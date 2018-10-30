@@ -495,3 +495,192 @@ endsnippet
 snippet name "Create a name for an item in the stack" wm
 !Join [_, [!Ref 'AWS::StackName', ${1:Name}]]
 endsnippet
+
+#
+# snippet: lambda
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a lambda function
+#
+snippet lambda "Create a lambda function" wm
+${1:LambdaName}:
+	Type: AWS::Lambda::Function
+	DependsOn:
+		- $4
+	Properties:
+		Handler: ${2:lambda_source.s3copy.lambda_handler}
+		CodeUri: ${3:./lambda_source}
+		Role: !GetAtt ${4:LambdaExecutionRole}.Arn
+		Runtime: python3.6
+endsnippet
+
+#
+# snippet: lambdacall
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a cloud formation lambda call via a custom object
+#
+snippet lambdacall "Create a cloud formation lambda call via a custom object" wm
+${1:LambdaName}:
+	Type: AWS::Lambda::Function
+	Properties:
+		Handler: ${2:lambda_source.s3copy.lambda_handler}
+		CodeUri: ${3:./lambda_source}
+		Role: !GetAtt ${4:LambdaExecutionRole}.Arn
+		Runtime: python3.6
+
+${5:$1Call}:
+	Type: Custom::${6:$5}
+	DependsOn:
+		- $1
+	Properties:
+		ServiceToken: !GetAtt $1.Arn
+		${7/.+/# extra parameters into the lambda
+		S3BucketName: !Ref /}${7:RecommendationS3Storage}
+endsnippet
+
+#
+# snippet: custom call
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a custom object bound to a lambda
+#
+snippet call "Create a custom object bound to a lambda" wm
+${1:LambdaCall}:
+	Type: Custom::${2:$1}
+	DependsOn:
+		- ${3:LambdaName}
+	Properties:
+		ServiceToken: !GetAtt $3.Arn${4/.+/
+		# extra parameters into the lambda
+		S3BucketName: !Ref /}${4:RecommendationS3Storage}
+endsnippet
+
+#
+# snippet: lambdarole
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a lambda execution role that can log things.
+#
+snippet lambdarole "Create a lambda execution role that can log things, and write to S3 buckets" wm
+${1:LambdaExecutionRole}:
+	Type: AWS::IAM::Role
+	Properties:
+		AssumeRolePolicyDocument:
+			Version: '2012-10-17'
+			Statement:
+			- Effect: Allow
+				Principal:
+					Service:
+					- lambda.amazonaws.com
+				Action:
+				- sts:AssumeRole
+		Path: "/"
+		Policies:
+		- PolicyName: root
+			PolicyDocument:
+				Version: '2012-10-17'
+				Statement:
+				- Effect: Allow
+					Action:
+					- logs:*
+					Resource: arn:aws:logs:*:*:*
+				- Effect: Allow
+					Action:
+					- s3:PutObject
+					Resource: "*"
+endsnippet
+
+
+#
+# snippet: apigwrest
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a REST API for the API Gw
+#
+snippet apigwrest "Create a REST API for the API Gw" wm
+${1:ApiGwRestApi}:
+	Type: AWS::ApiGateway::RestApi
+	Properties:
+		Name: ${2:$1}
+		EndpointConfiguration:
+			Types:
+				- EDGE
+endsnippet
+
+
+#
+# snippet: apigwresource
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a resource on the API Gw
+#
+snippet apigwresource "Create a resource on the API Gw" wm
+${1:ApiGwResource}:
+	Type: AWS::ApiGateway::Resource
+	Properties:
+		ParentId: !GetAtt ${2:ApiGwRestApi}.RootResourceId
+		PathPart: ${3:invite}
+		RestApiId: !Ref $2
+endsnippet
+
+#
+# snippet: apigwmethod
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a method call on a resource in the API Gw
+#
+snippet apigwmethod "Create a method call on a resource in the API Gw" wm
+${1:ApiGwMethodCall}:
+	Type: AWS::ApiGateway::Method
+	Properties:
+		RestApiId: !Ref ${2:ApiGwRestApi}
+		ResourceId: !Ref ${3:ApiGwResource}
+		HttpMethod: ${4:ANY}
+		AuthorizationType: ${5:NONE}
+		Integration:
+			IntegrationHttpMethod: ${5:$4}
+			Type: AWS_PROXY
+			Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${${6:LambdaToCall}.Arn}/invocations
+endsnippet
+
+#
+# snippet: apigwdeploy
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an API Gw deployment
+#
+snippet apigwdeploy "Create an API Gw deployment" wm
+${1:AwsGwDeployment}:
+	DependsOn:
+	- ${2:AwsGwMethod}
+	Type: AWS::ApiGateway::Deployment
+	Properties:
+		RestApiId: !Ref ${3:ApiGatewayRestApi}
+		Description: "${4:My deployment}"
+		StageName: ${5:dev}
+endsnippet
+
+#
+# snippet: sub
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a substitution snippet
+#
+snippet sub "Create a substitution snippet" wm
+!Sub
+- "${3:key is: $\{$1\}}"
+- ${1:key}: ${2:value}
+	${0:}
+endsnippet
+
+#
+# snippet: stack
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a stack name reference
+#
+snippet stack "Create a stack name reference" wm
+!Ref "AWS::StackName"
+endsnippet
+

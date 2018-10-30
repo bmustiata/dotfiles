@@ -38,7 +38,7 @@ endsnippet
 # Create a simple variable around a selected text
 #
 snippet var "Create a simple variable around a selected text" wm
-\${${1:1}:${VISUAL/^$/var/}${0:}}
+\${${1:1}:${2:${VISUAL/^$/var/}}}${0:}
 endsnippet
 
 #
