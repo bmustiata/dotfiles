@@ -19,5 +19,6 @@
     "python.linting.mypyEnabled": true,
     "python.linting.pylintEnabled": false,
     "typescript.updateImportsOnFileMove.enabled": "always",
-    "explorer.confirmDelete": false
+    "explorer.confirmDelete": false,
+    "terminal.integrated.rendererType": "dom"
 }
