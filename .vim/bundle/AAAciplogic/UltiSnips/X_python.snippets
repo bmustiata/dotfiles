@@ -176,7 +176,7 @@ def ${1:decorator_name}(f: Callable[..., T]) -> Callable[..., T]:
 	@functools.wraps(f)
 	def wrapper(*args, **kw) -> T:
 		${0:}
-		return f(*args, **params)
+		return f(*args, **kw)
 
 	return wrapper
 endsnippet
@@ -389,3 +389,78 @@ def sendResponseCfn(event, context, responseStatus):
 	requests.put(event['ResponseURL'], data=json.dumps(response_body))
 
 endsnippet
+
+#
+# snippet: ui
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an UI resource
+#
+snippet ui "Create an UI resource" wm
+from PySide2.QtWidgets import $2
+
+from germanium_build_monitor.ui.Ui_$1 import Ui_$1
+
+
+class ${1:MainWindow}(${2:QMainWindow}, Ui_$1):
+	def __init__(self) -> None:
+		super($1, self).__init__()
+
+		self.setupUi(self)
+		${0:}
+endsnippet
+
+#
+# snippet: uif
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an UI resource
+#
+snippet uif "Create an UI frame resource" wm
+from PySide2.QtWidgets import QWidget
+
+from germanium_build_monitor.ui.Ui_$1 import Ui_Form
+
+
+class ${1:CoolFrame}(QWidget, Ui_Form):
+	def __init__(self, *args, **kw) -> None:
+		super().__init__(*args, **kw)
+
+		self.setupUi(self)
+		${0:}
+endsnippet
+
+#
+# snippet: uid
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an UI resource
+#
+snippet uid "Create an UI dialog resource" wm
+from PySide2.QtWidgets import QDialog
+
+from germanium_build_monitor.ui.Ui_$1 import Ui_Dialog
+
+
+class ${1:CoolFrame}(QDialog, Ui_Dialog):
+	def __init__(self, *args, **kw) -> None:
+		super().__init__(*args, **kw)
+
+		self.setupUi(self)
+		${0:}
+endsnippet
+
+#
+# snippet: proxy
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# create a proxy
+#
+snippet proxy "create a proxy" wm
+@action
+def ${1:name}(self, *argv, **kw):
+	result = super().$1(*argv, **kw)
+	self._mopyx_model._mopyx_register_refresh(self._mopyx_property_name)
+	return result
+endsnippet
+

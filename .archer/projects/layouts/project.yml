@@ -1,6 +1,7 @@
 layout:
-    name: project
-    requires: [ PROJECT_HOME ]
-    commands:
-        cdproj: cd $PROJECT_HOME
-
+  name: project
+  requires: [ PROJECT_HOME ]
+  commands:
+    cdproj: cd $PROJECT_HOME
+  activate: |
+    cd $PROJECT_HOME

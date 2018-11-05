@@ -1,0 +1,60 @@
+#!/usr/local/bin/python3
+
+import argparse
+import sys
+import subprocess
+import os
+import colorama
+from termcolor_util import cyan
+
+
+def print_build(args):
+    print_stage_file(args.prefix, "_gbs/install-software/install-software.sh", "INSTALL SOFTWARE")
+    print_stage_file(args.prefix, "_gbs/prepare-build1/prepare-build1.sh", "PREPARE BUILD 1")
+    print_stage_file(args.prefix, "_gbs/prepare-build2/prepare-build2.sh", "PREPARE BUILD 2")
+    print_stage_file(args.prefix, "_gbs/prepare-build3/prepare-build3.sh", "PREPARE BUILD 3")
+    print_stage_file(args.prefix, "_gbs/run-build.sh", "RUN BUILD")
+
+
+def print_test(args):
+    print_stage_file(args.prefix, "_gbs/install-software/install-software.sh", "INSTALL SOFTWARE")
+    print_stage_file(args.prefix, "_gbs/prepare-build1/prepare-build1.sh", "PREPARE BUILD 1")
+    print_stage_file(args.prefix, "_gbs/prepare-build2/prepare-build2.sh", "PREPARE BUILD 2")
+    print_stage_file(args.prefix, "_gbs/prepare-build3/prepare-build3.sh", "PREPARE BUILD 3")
+    print_stage_file(args.prefix, "_gbs/prepare-test1/prepare-test1.sh", "PREPARE TEST 1")
+    print_stage_file(args.prefix, "_gbs/prepare-test2/prepare-test2.sh", "PREPARE TEST 2")
+
+
+def print_stage_file(prefix: str,
+                     file_name: str,
+                     stage_title: str) -> None:
+    print(cyan("# ###########################################################"))
+    print(cyan("#"), cyan(stage_title, bold=True))
+    print(cyan("# ###########################################################"))
+
+    full_name = os.path.join(prefix, file_name)
+
+    with open(full_name, "r") as f:
+        print(f.read())
+
+
+def main():
+    parser = argparse.ArgumentParser("gbs")
+    subparsers = parser.add_subparsers()
+
+    print_parser = subparsers.add_parser("print")
+    print_parser.add_argument("--prefix", default="./")
+    print_parser.set_defaults(func=print_build)
+
+    test_parser = subparsers.add_parser("test")
+    test_parser.add_argument("--prefix", default="./")
+    test_parser.set_defaults(func=print_test)
+
+    colorama.init()
+
+    x = parser.parse_args(sys.argv[1:])
+    x.func(x)
+
+
+if __name__ == "__main__":
+    main()
