@@ -399,7 +399,7 @@ endsnippet
 snippet ui "Create an UI resource" wm
 from PySide2.QtWidgets import $2
 
-from germanium_build_monitor.ui.Ui_$1 import Ui_$1
+from germanium_build_monitor.ui.generated.Ui_$1 import Ui_$1
 
 
 class ${1:MainWindow}(${2:QMainWindow}, Ui_$1):
@@ -419,12 +419,12 @@ endsnippet
 snippet uif "Create an UI frame resource" wm
 from PySide2.QtWidgets import QWidget
 
-from germanium_build_monitor.ui.Ui_$1 import Ui_Form
+from germanium_build_monitor.ui.generated.Ui_$1 import Ui_Form
 
 
 class ${1:CoolFrame}(QWidget, Ui_Form):
-	def __init__(self, *args, **kw) -> None:
-		super().__init__(*args, **kw)
+	def __init__(self) -> None:
+		super().__init__()
 
 		self.setupUi(self)
 		${0:}
@@ -439,7 +439,7 @@ endsnippet
 snippet uid "Create an UI dialog resource" wm
 from PySide2.QtWidgets import QDialog
 
-from germanium_build_monitor.ui.Ui_$1 import Ui_Dialog
+from germanium_build_monitor.ui.generated.Ui_$1 import Ui_Dialog
 
 
 class ${1:CoolFrame}(QDialog, Ui_Dialog):
