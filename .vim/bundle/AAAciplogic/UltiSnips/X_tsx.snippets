@@ -1,15 +1,15 @@
 snippet rreq "Add a react require"
 import React = require('react');
+
+import { observer } from "mobx-react";
 endsnippet
 
 snippet rcomponent "Create a react component"
 export interface $1Props extends React.Props<any> {
 }
 
-export interface $1State {
-}
-
-export class ${1:ClassName} extends React.Component<$1Props, $1State> {
+@observer
+export class ${1:ClassName} extends React.Component<$1Props, {}> {
 	render() {
 		return (
 			$0
