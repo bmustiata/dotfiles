@@ -30,5 +30,8 @@
         "suppressNoRepositoryWarning": false,
         "suppressUpdateNotice": false,
         "suppressWelcomeNotice": true
-    }
+    },
+    "workbench.activityBar.visible": true,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "none"
 }
