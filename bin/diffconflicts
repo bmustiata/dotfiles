@@ -72,7 +72,7 @@ if [[ -z $@ || $# != "4" ]] ; then
     exit 1
 fi
 
-cmd=nvim
+cmd=nvim-qt
 
 BASE="$1"
 LOCAL="$2"

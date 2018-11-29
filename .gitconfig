@@ -7,6 +7,7 @@
 	helper = cache --timeout=86400
 [merge]
     tool = diffconflicts
+	tool = kdiff3
 [mergetool "diffconflicts"]
     cmd=diffconflicts "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
 [mergetool "diffuse"]
@@ -26,3 +27,11 @@
 template = ~/.gitmessage
 [diff "sopsdiffer"]
 	textconv = sops -d
+[mergetool "kdiff3"]
+	path = /usr/bin/kdiff3
+	trustExitCode = false
+[diff]
+	guitool = kdiff3
+[difftool "kdiff3"]
+	trustExitCode = false
+	trustExitCode = false

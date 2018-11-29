@@ -5,6 +5,9 @@
 
     // Controls the font weight.
     "editor.fontWeight": "normal",
+    "editor.folding": false,
+    "editor.smoothScrolling": true,
+    "diffEditor.ignoreTrimWhitespace": false,
 
     // Controls the font size in pixels.
     "editor.fontSize": 14,
@@ -31,7 +34,7 @@
         "suppressUpdateNotice": false,
         "suppressWelcomeNotice": true
     },
-    "workbench.activityBar.visible": true,
     "editor.minimap.enabled": false,
-    "editor.renderWhitespace": "none"
+    "editor.renderWhitespace": "none",
+    "workbench.activityBar.visible": false
 }

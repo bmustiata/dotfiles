@@ -124,3 +124,6 @@
 [submodule ".vim/bundle/deoplete.nvim"]
 	path = .vim/bundle/deoplete.nvim
 	url = https://github.com/Shougo/deoplete.nvim
+[submodule ".vim/bundle/greplace"]
+	path = .vim/bundle/greplace
+	url = https://github.com/yegappan/greplace
