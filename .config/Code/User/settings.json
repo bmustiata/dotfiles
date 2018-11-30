@@ -36,5 +36,6 @@
     },
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "none",
+    "window.titleBarStyle": "custom",
     "workbench.activityBar.visible": false
 }
