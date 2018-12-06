@@ -5,5 +5,5 @@ docker run \
     --volume="/data/packages" \
     -p 8081:8080 \
     --restart=no \
-    pypiserver -P /.htaccess -v --overwrite
+    pypiserver/pypiserver -P /.htaccess -v --overwrite
 
