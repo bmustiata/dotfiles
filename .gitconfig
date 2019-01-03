@@ -22,6 +22,7 @@
     cleanup-github = "!git branch -r --merged | grep -v master | sed 's/origin\\///' | xargs -n 1 git push --delete github"
     cleanup-local = "!git branch --merged | grep -v master | xargs git branch -d"
     mtag = "!f() { git tag -m $1 $1; }; f"
+    lc = log master..@ --pretty=format:"%C(yellow)%h\\ %Cred%s%Cblue\\ [%cn]"  --decorate --reverse --numstat
 
 [commit]
 template = ~/.gitmessage

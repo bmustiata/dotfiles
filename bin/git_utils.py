@@ -144,7 +144,7 @@ def get_base_branch(version):
         return version
 
     if ('maint/' + version) in all_branches():
-        return 'maint/' + version
+        return 'origin/maint/' + version
 
     if ('release/' + version) in all_branches():
         return 'release/' + version
