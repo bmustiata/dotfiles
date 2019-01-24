@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 if [[ "$1" == "" ]]; then
+    CURRENT_NAMESPACE=$(kubectl config view -o jsonpath={.contexts[].context.namespace})
     echo "You need to specify the namespace name."
+    echo "Current namespace: $CURRENT_NAMESPACE"
     exit 1
 fi # [[ "$1" == "" ]]
 

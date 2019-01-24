@@ -92,4 +92,5 @@ fi
 
 plan $CIPLOGIC_PLAN_SCOPE
 
+. ~/bin/kubens.bash.complete.sh
 
