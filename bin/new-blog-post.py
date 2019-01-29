@@ -1,12 +1,20 @@
 #!/usr/bin/env python3
 
+from typing import List, Dict, Set
+
 import argparse
 import textwrap
 import datetime
+import subprocess
+import os
+
+SITE_LOCATION = "/tmp/x"
+IMAGE_LOCATION = "assets/img/posts"
+
 
 # selecting a tag will automatically pick its dependents
 # the map of tags is defined in germanium-site/tags.mm
-AVAILABLE_TAGS = {
+AVAILABLE_TAGS: Dict[str, List[str]] = {
     "germanium-api": ["germanium"],
     "germanium": ["selenium"],
     "germanium-drivers": ["germanium", "webdriver"],
@@ -25,19 +33,26 @@ AVAILABLE_TAGS = {
     "felix-build-monitor": ["jenkins"],
 }
 
-CURL_COMMAND='curl https://www.pexels.com/photo/person-on-a-bridge-near-a-lake-747964/ | grep pexels-photo | grep fm=jpg | grep " download>" | cut -f2 -d\" | head -n1'
+CURL_COMMAND = 'curl -s {url} | grep pexels-photo | grep fm=jpg | grep " download>" | cut -f2 -d\\" | head -n1'
+WGET_COMMAND = "wget '{url}' -O '{file_name}'"
 
 
-def get_title(args):
+def get_image_url(image_page: str) -> str:
+    return subprocess.check_output(['bash', '-c', CURL_COMMAND.format(url=image_page)])\
+        .decode('utf-8')\
+        .strip()
+
+
+def get_title(args) -> str:
     if isinstance(args.title, str):
         return args.title
 
     return " ".join(args.title)
 
 
-def generate_tags(tags_str):
+def generate_tags(tags_str: str) -> str:
     tags_to_process = list(tags_str.split(','))
-    processed_tags = set()
+    processed_tags: Set[str] = set()
     resolved_tags = list()
 
     for tag in tags_to_process:
@@ -53,7 +68,7 @@ def generate_tags(tags_str):
     return "\n".join([f"- {tag}" for tag in resolved_tags])
 
 
-def generate_article(args):
+def generate_article(args, image_name):
     tags = generate_tags(args.tags)
     template = textwrap.dedent("""\
         title: {title}
@@ -64,30 +79,38 @@ def generate_article(args):
         lede: |
             LEDE CONTENT
         # thumbnail should be: 1280x720
-        thumbnail: /assets/img/posts/{image}
+        thumbnail: /assets/img/posts/{image_name}
         ---
 
         ++++
         <div class="image-strip">
-        <img src="/assets/img/posts/{image}">
+        <img src="/assets/img/posts/{image_name}">
         </div>
         ++++
 
         == {title}
 
         LEDE CONTENT
+
+        # photo taken from {image_url}
     """).format(
         title=get_title(args),
         date=args.date,
         tags=tags,
         category=args.category,
-        image=args.image
+        image_url=args.image,
+        image_name=image_name,
     )
 
     return template
 
 
-def display_available_tags():
+def get_image_name(args) -> str:
+    title = args.title.replace(" ", "-")
+    return f"{args.date}-{title}.jpg"
+
+
+def display_available_tags() -> None:
     available_tags = set()
 
     for k, v in AVAILABLE_TAGS.items():
@@ -98,10 +121,41 @@ def display_available_tags():
     print(available_tags)
 
 
+def download_image(args) -> str:
+    image_url = get_image_url(args.image)
+    image_name = get_image_name(args)
+    path = f"/tmp/{image_name}"
+
+    subprocess.check_call([
+        "bash",
+        "-c",
+        WGET_COMMAND.format(
+            url=image_url,
+            file_name=path
+        )
+    ])
+
+    return path
+
+
+def resize_image_to_blog_size(args, image_path: str) -> str:
+    image_name = os.path.basename(image_path)
+    output_path = os.path.join(SITE_LOCATION, IMAGE_LOCATION, image_name)
+
+    subprocess.check_call([
+        "blog-photo.sh",
+        image_path,
+        output_path,
+    ])
+
+    print(f"{image_path} -> {output_path}")
+
+    return image_name
+
+
 def main():
     """ Generate a new blog post """
     current_date = datetime.datetime.today().strftime('%Y-%m-%d')
-
 
     parser = argparse.ArgumentParser(description="Create new blog post")
     parser.add_argument('-i', '--image')
@@ -112,13 +166,24 @@ def main():
     parser.add_argument('title', nargs='*')
 
     args = parser.parse_args()
+    args.title = " ".join(args.title)
 
     if args.available_tags:
         display_available_tags()
         exit(0)
 
-    print(generate_article(args))
+    if not args.tags:
+        raise Exception("You need to pass in tags")
+
+    if not args.image:
+        raise Exception("You need to pass in an image")
+
+    local_image = download_image(args)
+    image_name = resize_image_to_blog_size(args, local_image)
+
+    print(generate_article(args, image_name))
 
 
 if __name__ == '__main__':
     main()
+
