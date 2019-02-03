@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from typing import List, Dict, Set
+from titlecase import titlecase
 
 import argparse
 import textwrap
@@ -8,8 +9,8 @@ import datetime
 import subprocess
 import os
 
-SITE_LOCATION = "/tmp/x"
-IMAGE_LOCATION = "assets/img/posts"
+SITE_LOCATION = "/home/raptor/projects/germanium-site"
+IMAGE_LOCATION = "source/assets/img/posts"
 
 
 # selecting a tag will automatically pick its dependents
@@ -22,6 +23,7 @@ AVAILABLE_TAGS: Dict[str, List[str]] = {
     "jenkins": ["devops"],
     "docker": ["devops"],
     "kubernetes": ["devops"],
+    "automation": ["devops"],
     "germanium-selector-builder": ["germanium-selectors"],
     "selenium-selectors": ["selenium"],
     "webdriver": ["selenium"],
@@ -31,16 +33,39 @@ AVAILABLE_TAGS: Dict[str, List[str]] = {
     "integration-testing": ["testing"],
     "automated-test": ["testing"],
     "felix-build-monitor": ["jenkins"],
+    "ansible": ["devops"],
+    "eclipse": ["java-development"],
+    "gnome": ["desktop"],
+
+    "desktop": [],
+    "selenium": [],
+    "release": [],
+    "development": [],
+    "testing": [],
+    "devops": [],
 }
 
-CURL_COMMAND = 'curl -s {url} | grep pexels-photo | grep fm=jpg | grep " download>" | cut -f2 -d\\" | head -n1'
+AVAILABLE_CATEGORIES = (
+    "Tutorial",
+    "Opinion",
+    "News",
+)
+
+CURL_COMMAND = 'curl {url} | grep pexels-photo | grep fm=jpg | grep " download" | head -n1 | perl -pe "s/^.*href=\\"(.*?)\\".*$/\\1/"'
 WGET_COMMAND = "wget '{url}' -O '{file_name}'"
 
 
 def get_image_url(image_page: str) -> str:
-    return subprocess.check_output(['bash', '-c', CURL_COMMAND.format(url=image_page)])\
+    curl = CURL_COMMAND.format(url=image_page)
+
+    print(curl)
+    result = subprocess.check_output(['bash', '-c', curl])\
         .decode('utf-8')\
         .strip()
+
+    print("url: " + result)
+
+    return result
 
 
 def get_title(args) -> str:
@@ -58,6 +83,9 @@ def generate_tags(tags_str: str) -> str:
     for tag in tags_to_process:
         if tag in processed_tags:
             continue
+
+        if tag not in AVAILABLE_TAGS:
+            raise Exception(f"Tag '{tag}' not found in available tags: {AVAILABLE_TAGS.keys()}")
 
         resolved_tags.append(tag)
 
@@ -92,7 +120,7 @@ def generate_article(args, image_name):
 
         LEDE CONTENT
 
-        # photo taken from {image_url}
+        [small]#_Article Photo taken from Pexels:_ {image_url}#
     """).format(
         title=get_title(args),
         date=args.date,
@@ -121,7 +149,15 @@ def display_available_tags() -> None:
     print(available_tags)
 
 
+def display_available_categories() -> None:
+    print(AVAILABLE_CATEGORIES)
+
+
 def download_image(args) -> str:
+    # if it's a regular file don't download it
+    if args.image.startswith("/"):
+        return args.image
+
     image_url = get_image_url(args.image)
     image_name = get_image_name(args)
     path = f"/tmp/{image_name}"
@@ -142,6 +178,7 @@ def resize_image_to_blog_size(args, image_path: str) -> str:
     image_name = os.path.basename(image_path)
     output_path = os.path.join(SITE_LOCATION, IMAGE_LOCATION, image_name)
 
+    print(f"blog-photo.sh {image_path} {output_path}")
     subprocess.check_call([
         "blog-photo.sh",
         image_path,
@@ -163,13 +200,20 @@ def main():
     parser.add_argument('-c', '--category')
     parser.add_argument('-d', '--date', default=current_date)
     parser.add_argument('--available-tags', action='store_true')
+    parser.add_argument('--available-categories', action='store_true')
     parser.add_argument('title', nargs='*')
 
     args = parser.parse_args()
-    args.title = " ".join(args.title)
+    args.title = titlecase(" ".join(args.title))
+
+    print(args)
 
     if args.available_tags:
         display_available_tags()
+        exit(0)
+
+    if args.available_categories:
+        display_available_categories()
         exit(0)
 
     if not args.tags:
@@ -178,11 +222,21 @@ def main():
     if not args.image:
         raise Exception("You need to pass in an image")
 
+    if not args.title:
+        raise Exception("You need to pass in a title")
+
+    if args.category not in AVAILABLE_CATEGORIES:
+        raise Exception(f"Category can be only one of {AVAILABLE_CATEGORIES}")
+
     local_image = download_image(args)
     image_name = resize_image_to_blog_size(args, local_image)
 
-    print(generate_article(args, image_name))
+    article_name = f"{SITE_LOCATION}/source/_posts/{args.date}-{args.title.replace(' ', '-')}.adoc"
 
+    with open(article_name, "w") as f:
+        f.write(generate_article(args, image_name))
+
+    print(article_name)
 
 if __name__ == '__main__':
     main()
