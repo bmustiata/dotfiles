@@ -127,3 +127,6 @@
 [submodule ".vim/bundle/greplace"]
 	path = .vim/bundle/greplace
 	url = https://github.com/yegappan/greplace
+[submodule ".vim/bundle/vim-wordy"]
+	path = .vim/bundle/vim-wordy
+	url = https://github.com/reedes/vim-wordy
