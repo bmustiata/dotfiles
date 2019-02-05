@@ -36,6 +36,7 @@ AVAILABLE_TAGS: Dict[str, List[str]] = {
     "ansible": ["devops"],
     "eclipse": ["java-development"],
     "gnome": ["desktop"],
+    "security": ["devops"],
 
     "desktop": [],
     "selenium": [],
