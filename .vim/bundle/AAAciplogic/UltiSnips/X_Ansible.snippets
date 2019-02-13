@@ -214,8 +214,8 @@ endsnippet
 #
 snippet inc "Include another ansible task list" wm
 - name: ${1:Do this or another}
-	include: ${2:./install.yml}${3/.+/
-	when: /}${3:result}
+	include${2:_tasks}: ${3:./install.yml}${4/.+/
+	when: /}${4:result}
 endsnippet
 
 #
@@ -253,5 +253,18 @@ snippet debug "Add a debug statement for a specific task" wm
 - debug: var=$1
 
 - fail:
+endsnippet
+
+#
+# snippet: sh
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run a shell command
+#
+snippet sh "Run a shell command" wm
+- name: "${1:name}"
+	shell: |
+		${VISUAL}${0:}${2/.+/
+	when: /}${2:condition}
 endsnippet
 
