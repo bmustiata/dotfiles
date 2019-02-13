@@ -119,7 +119,7 @@ link:${1:${VISUAL/^$/url/}_url}[${2:${VISUAL/^$/description/}}]
 endsnippet
 
 snippet img "Create an image snippet" wm
-image:${1:url}[${2:description}]
+image:${1:${VISUAL/^$/url/}}[${2:${VISUAL/^$/description/}}]
 endsnippet
 
 snippet imgl "Create a large image" wm
@@ -465,5 +465,16 @@ endsnippet
 # Pexels credit
 #
 snippet pexels "Pexels credit" wm
-[small]#_Article Photo taken from Pexels:_ ${VISUAL}#
+[small]#_Article Photo from Pexels:_ ${VISUAL}#
+endsnippet
+
+#
+# snippet: fun
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# create a function
+#
+snippet fun "create a function" wm
+def ${1:function_name}():
+	${2:pass}
 endsnippet

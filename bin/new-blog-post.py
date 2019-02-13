@@ -16,34 +16,35 @@ IMAGE_LOCATION = "source/assets/img/posts"
 # selecting a tag will automatically pick its dependents
 # the map of tags is defined in germanium-site/tags.mm
 AVAILABLE_TAGS: Dict[str, List[str]] = {
-    "germanium-api": ["germanium"],
     "germanium": ["selenium"],
-    "germanium-drivers": ["germanium", "webdriver"],
-    "germanium-selectors": ["germanium", "selenium-selectors"],
-    "jenkins": ["devops"],
-    "docker": ["devops"],
-    "kubernetes": ["devops"],
-    "automation": ["devops"],
-    "germanium-selector-builder": ["germanium-selectors"],
-    "selenium-selectors": ["selenium"],
-    "webdriver": ["selenium"],
-    "selenium-grid": ["selenium", "devops"],
-    "python-development": ["development"],
-    "java-development": ["development"],
-    "integration-testing": ["testing"],
-    "automated-test": ["testing"],
-    "felix-build-monitor": ["jenkins"],
-    "ansible": ["devops"],
-    "eclipse": ["java-development"],
-    "gnome": ["desktop"],
-    "security": ["devops"],
-
-    "desktop": [],
-    "selenium": [],
-    "release": [],
-    "development": [],
-    "testing": [],
+        "germanium-api": ["germanium"],
+        "germanium-drivers": ["germanium", "webdriver"],
+        "germanium-selectors": ["germanium", "selenium-selectors"],
     "devops": [],
+        "jenkins": ["devops"],
+        "docker": ["devops"],
+        "kubernetes": ["devops"],
+        "automation": ["devops"],
+        "ansible": ["devops"],
+        "security": ["devops"],
+    "germanium-selector-builder": ["germanium-selectors"],
+    "selenium": [],
+        "selenium-selectors": ["selenium"],
+        "webdriver": ["selenium"],
+        "selenium-grid": ["selenium", "devops"],
+    "development": [],
+        "python-development": ["development"],
+        "java-development": ["development"],
+        "ide": ["development"],
+            "eclipse": ["ide", "java-development"],
+            "vim": ["ide"],
+    "testing": [],
+        "integration-testing": ["testing"],
+        "automated-test": ["testing"],
+    "felix-build-monitor": ["jenkins"],
+    "desktop": [],
+        "gnome": ["desktop"],
+    "release": [],
 }
 
 AVAILABLE_CATEGORIES = (
@@ -52,7 +53,8 @@ AVAILABLE_CATEGORIES = (
     "News",
 )
 
-CURL_COMMAND = 'curl {url} | grep pexels-photo | grep fm=jpg | grep " download" | head -n1 | perl -pe "s/^.*href=\\"(.*?)\\".*$/\\1/"'
+CURL_COMMAND = 'curl https://www.pexels.com/photo/wooden-robot-6069/ | grep "fm=jpg" | grep "_blank" | grep btn__primary | head -n1 | perl -pe "s/^.*href=\\"(.*?)\\".*$/\\1/"'
+# CURL_COMMAND = 'curl {url} | grep pexels-photo | grep fm=jpg | grep " download" | head -n1 | perl -pe "s/^.*href=\\"(.*?)\\".*$/\\1/"'
 WGET_COMMAND = "wget '{url}' -O '{file_name}'"
 
 
@@ -88,6 +90,7 @@ def generate_tags(tags_str: str) -> str:
         if tag not in AVAILABLE_TAGS:
             raise Exception(f"Tag '{tag}' not found in available tags: {AVAILABLE_TAGS.keys()}")
 
+        processed_tags.add(tag)
         resolved_tags.append(tag)
 
         for dependent_tag in AVAILABLE_TAGS.get(tag, []):
@@ -100,7 +103,7 @@ def generate_tags(tags_str: str) -> str:
 def generate_article(args, image_name):
     tags = generate_tags(args.tags)
     template = textwrap.dedent("""\
-        title: {title}
+        title: "{title}"
         date: {date}
         tags:
         {tags}
@@ -108,7 +111,7 @@ def generate_article(args, image_name):
         lede: |
             LEDE CONTENT
         # thumbnail should be: 1280x720
-        thumbnail: /assets/img/posts/{image_name}
+        thumbnail: "/assets/img/posts/{image_name}"
         ---
 
         ++++
@@ -121,7 +124,7 @@ def generate_article(args, image_name):
 
         LEDE CONTENT
 
-        [small]#_Article Photo taken from Pexels:_ {image_url}#
+        [small]#_Article Photo from Pexels:_ {image_url}#
     """).format(
         title=get_title(args),
         date=args.date,
@@ -199,7 +202,7 @@ def main():
     parser.add_argument('-i', '--image')
     parser.add_argument('-t', '--tags')
     parser.add_argument('-c', '--category')
-    parser.add_argument('-d', '--date', default=current_date)
+    parser.add_argument('-d', '--date', default=current_date, help='format: YYYY-MM-DD')
     parser.add_argument('--available-tags', action='store_true')
     parser.add_argument('--available-categories', action='store_true')
     parser.add_argument('title', nargs='*')
