@@ -362,3 +362,18 @@ spec:
 		requests:
 			storage: ${4:1Mi}
 endsnippet
+
+#
+# snippet: configmap
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a config map
+#
+snippet configmap "Create a config map" wm
+apiVersion: v1
+kind: ConfigMap
+metadata:
+	name: ${1:test-config}
+data:
+	${2:KEY1}: ${3:VALUE}
+endsnippet

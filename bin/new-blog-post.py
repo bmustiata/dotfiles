@@ -53,7 +53,7 @@ AVAILABLE_CATEGORIES = (
     "News",
 )
 
-CURL_COMMAND = 'curl https://www.pexels.com/photo/wooden-robot-6069/ | grep "fm=jpg" | grep "_blank" | grep btn__primary | head -n1 | perl -pe "s/^.*href=\\"(.*?)\\".*$/\\1/"'
+CURL_COMMAND = 'curl {url} | grep "fm=jpg" | grep "_blank" | grep btn__primary | head -n1 | perl -pe "s/^.*href=\\"(.*?)\\".*$/\\1/"'
 # CURL_COMMAND = 'curl {url} | grep pexels-photo | grep fm=jpg | grep " download" | head -n1 | perl -pe "s/^.*href=\\"(.*?)\\".*$/\\1/"'
 WGET_COMMAND = "wget '{url}' -O '{file_name}'"
 
@@ -235,7 +235,7 @@ def main():
     local_image = download_image(args)
     image_name = resize_image_to_blog_size(args, local_image)
 
-    article_name = f"{SITE_LOCATION}/source/_posts/{args.date}-{args.title.replace(' ', '-')}.adoc"
+    article_name = f"{SITE_LOCATION}/source/_posts/{args.date}-{args.title.replace(' ', '-').replace('(', '').replace(')', '')}.adoc"
 
     with open(article_name, "w") as f:
         f.write(generate_article(args, image_name))
