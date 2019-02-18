@@ -1,5 +1,5 @@
-docker pull sami:5000/$1
-docker tag sami:5000/$1 $1
+docker pull ge-registry/$1
+docker tag ge-registry/$1 $1
 
 if [[ ! $1 = *":"* ]]; then
     docker rm -f $1
