@@ -1,0 +1,21 @@
+#!/bin/bash
+
+PROJECT_FOLDER=$(pwd)
+
+# create a temp file, and remove the header from the adoc file
+for f in $@; do
+    LAST_ARGUMENT="$f"
+done
+
+cat ${LAST_ARGUMENT} | grep '\---' -A 100000 | tail -n +2 > ${LAST_ARGUMENT}.hexo
+
+docker run --rm \
+    -v $PROJECT_FOLDER:/documents \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/group:/etc/group:ro \
+    -u $(id -u):$(id -g) \
+    bmst/docker-asciidoctor \
+    "asciidoctor" "$@.hexo"
+
+rm ${LAST_ARGUMENT}.hexo
+
