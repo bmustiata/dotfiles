@@ -103,3 +103,13 @@ snippet foreach "for-each"
 	${VISUAL}${0:}
 </xsl:for-each>
 endsnippet
+
+#
+# snippet: attr
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# create an attribute
+#
+snippet attr "create an attribute" wm
+<xsl:attribute name="${1:attribute-name}"${2/.+/ namespace="/}${2:uri-reference}${2/.+/"/}>${0:}</xsl:attribute>
+endsnippet

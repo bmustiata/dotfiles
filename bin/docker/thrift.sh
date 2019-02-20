@@ -8,6 +8,6 @@ docker run -it \
     --rm \
     -v $CURRENT_DIR:$CURRENT_DIR \
     -u $(id -u):$(id -g) \
-    thrift:0.11 bash -c "cd $CURRENT_DIR; thrift $ALL_PARAMETERS"
+    thrift:0.12 bash -c "cd $CURRENT_DIR; thrift $ALL_PARAMETERS"
 
 

@@ -38,6 +38,8 @@ AVAILABLE_TAGS: Dict[str, List[str]] = {
         "ide": ["development"],
             "eclipse": ["ide", "java-development"],
             "vim": ["ide"],
+        "command-line": ["development", "devops"],
+        "xslt": ["development"],
     "testing": [],
         "integration-testing": ["testing"],
         "automated-test": ["testing"],
