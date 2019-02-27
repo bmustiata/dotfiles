@@ -43,6 +43,7 @@ AVAILABLE_TAGS: Dict[str, List[str]] = {
     "testing": [],
         "integration-testing": ["testing"],
         "automated-test": ["testing"],
+        "accessibility-testing": ["testing"],
     "felix-build-monitor": ["jenkins"],
     "desktop": [],
         "gnome": ["desktop"],
