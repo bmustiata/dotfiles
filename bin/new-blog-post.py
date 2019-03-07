@@ -34,6 +34,7 @@ AVAILABLE_TAGS: Dict[str, List[str]] = {
         "selenium-grid": ["selenium", "devops"],
     "development": [],
         "python-development": ["development"],
+        "javascript-development": ["development"],
         "java-development": ["development"],
         "ide": ["development"],
             "eclipse": ["ide", "java-development"],

@@ -1,7 +1,12 @@
 "
 " Asciidoc
 "
-au BufRead,BufNewFile *.adoc set filetype=asciidoc
-au BufRead,BufNewFile *.ad set filetype=asciidoc
+function! AsciiDocFile()
+    set filetype=asciidoc
+    NextWordy
+endfunction
+
+au BufRead,BufNewFile *.adoc call AsciiDocFile()
+au BufRead,BufNewFile *.ad call AsciiDocFile()
 
 
