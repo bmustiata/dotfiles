@@ -10,7 +10,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " core init:
-Plugin 'file://.bundle/AAAciplogic'
+Plugin 'file://.vim/bundle/AAAciplogic'
 
 " Cool feature plugins
 Plugin 'scrooloose/nerdtree'             " NERDTree, basic navigation
@@ -20,7 +20,7 @@ Plugin 'powerline/fonts'                 " make sure the powerline fonts are the
 Plugin 'bmustiata/ultisnips'             " UltiSnips
 
 " core final init
-Plugin 'file://.bundle/zzzciplogic'
+Plugin 'file://.vim/bundle/zzzciplogic'
 
 call vundle#end()
 filetype plugin indent on
