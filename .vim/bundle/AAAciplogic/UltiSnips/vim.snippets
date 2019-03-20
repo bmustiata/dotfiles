@@ -115,3 +115,13 @@ endfunction
 command ${3:$1} call $1()
 endsnippet
 
+#
+# snippet: p
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Plugin
+#
+snippet p "Plugin" wm
+Plugin '${1:${VISUAL}}'
+endsnippet
+
