@@ -1,1 +1,17 @@
-call pathogen#infect()
+
+set nocp
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" vundle plugins
+Plugin 'VundleVim/Vundle.vim'
+
+" Plugins
+Plugin 'scrooloose/nerdtree'             " NERDTree, basic navigation
+Plugin 'vim-scripts/guicolorscheme.vim'  " 256 color support
+Plugin 'bling/vim-airline'               " cooler status bar
+
+call vundle#end()
+filetype plugin indent on
+

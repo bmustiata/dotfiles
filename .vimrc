@@ -1,2 +1,1 @@
-call pathogen#infect()
-
+.vim/vimrc
