@@ -1,0 +1,17 @@
+snippet tsconfig "Add a tsconfig"
+{
+	"compilerOptions": {
+${1/.+/		"target": "/}${1:ES2015}"${2/.+/,
+		"module": "/}${2:commonjs}${2/.+/"/}${3/.+/,
+		"experimentalDecorators" : /}${3:true}${4/.+/,
+		"moduleResolution": "/}${4:node}${4/.+/"/}${5/.+/,
+		"sourceMap": /}${5:true}${6/.+/,
+		"jsx": "/}${6:react}${6/.+/"/}${7/.+/,
+		"typeRoots": [
+			"/}${7:typings}${7/.+/", "node_modules\/@types", "node_modules"
+		]
+/}	}
+}
+endsnippet
+
+

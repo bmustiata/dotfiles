@@ -1,0 +1,19 @@
+snippet yuimodule "Create a YUI module"
+{
+	"name": "${1:webfo-navibar}",
+	"builds": {
+		"$1": {
+			"jsfiles": [
+${2/.+/				"i18n.js",
+/}${3/.+/\t\t\t\t"/}${3:ui.js}${3/.+/",
+/}				"$1.js"
+			],
+			"config": {
+				"requires": [
+				]${2/.+/,
+				"lang": [ "/}${2:de}${2/.+/" ]/}
+			}
+		}
+	}
+}
+endsnippet

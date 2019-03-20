@@ -1,0 +1,11 @@
+#
+# snippet: wrapcode
+# Wraps the given code into an anonymous function.
+#
+snippet wrapcode "Wraps the given code into an anonymous function" wm
+//noinspection JSAnnotator,JSUnresolvedVariable,ThisExpressionReferencesGlobalObjectJS,JSReferencingArgumentsOutsideOfFunction
+return (function() {
+	${VISUAL}${0:}
+}.apply(this, arguments));
+endsnippet
+

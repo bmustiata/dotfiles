@@ -5,12 +5,22 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " vundle plugins
+" You need to install them first:
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 Plugin 'VundleVim/Vundle.vim'
 
-" Plugins
+" core init:
+Plugin 'file://.bundle/AAAciplogic'
+
+" Cool feature plugins
 Plugin 'scrooloose/nerdtree'             " NERDTree, basic navigation
 Plugin 'vim-scripts/guicolorscheme.vim'  " 256 color support
 Plugin 'bling/vim-airline'               " cooler status bar
+Plugin 'powerline/fonts'                 " make sure the powerline fonts are there
+Plugin 'bmustiata/ultisnips'             " UltiSnips
+
+" core final init
+Plugin 'file://.bundle/zzzciplogic'
 
 call vundle#end()
 filetype plugin indent on

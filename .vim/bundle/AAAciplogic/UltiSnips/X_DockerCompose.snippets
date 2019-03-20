@@ -1,0 +1,31 @@
+#
+# snippet: compose
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a new docker-compose entry
+#
+snippet compose "Add a new docker-compose entry" wm
+version: '3'
+services:
+	web:
+		build: .
+		ports:
+		- "5000:5000"
+	${1:mysql}:
+		image: "$1${2/.+/:/}${2:latest}"
+endsnippet
+
+#
+# snippet: service
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a new service
+#
+snippet service "Add a new service container" wm
+${1:name}:
+	image: "${2:image}"
+	ports:
+		- "8081:8081"
+	volumes:
+		- "/tmp:/tmp"
+endsnippet

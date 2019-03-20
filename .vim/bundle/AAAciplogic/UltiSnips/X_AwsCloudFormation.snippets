@@ -1,0 +1,686 @@
+
+#
+# snippet: vpc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a VPC
+#
+snippet vpc "Create a VPC" wm
+${1:PublicVPC}:
+	Type: 'AWS::EC2::VPC'
+	Properties:
+		CidrBlock: ${2:172.31.0.0}/${3:16}
+		Tags:
+			- Key: Name
+			  Value: !Join [_, [!Ref 'AWS::StackName'${4/.+/,/}${4:$1}]]
+
+${0:}
+endsnippet
+
+#
+# snippet: net
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a subnet
+#
+snippet net "Create a subnet" wm
+${1:Subnet1}:
+	Type: 'AWS::EC2::Subnet'
+	Properties:
+		VpcId: !Ref ${2:VpcResource}
+		AvailabilityZone:
+			Fn::Select:
+			- ${3:0}
+			- Fn::GetAZs: ""
+		CidrBlock: ${4:172.31.0.0}/${5:24}
+		MapPublicIpOnLaunch: true
+		Tags:
+		- Key: Name
+		  Value: !Join [_, [!Ref 'AWS::StackName'${6/.+/,/}${6:$1}]]
+
+${0:}
+endsnippet
+
+#
+# snippet: ig
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Crete an internet Gateway
+#
+snippet ig "Create an Internet Gateway" wm
+${1:InternetGateway}:
+	Type: 'AWS::EC2::InternetGateway'
+	Properties:
+		Tags:
+		- Key: Name
+		  Value: !Join [_, [!Ref 'AWS::StackName'${2/.+/,/}${2:$1}]]
+
+${0:}
+endsnippet
+
+#
+# snippet: gw2i
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Gatewiay to Internet
+#
+snippet gw2i "Gateway to Internet" wm
+${1:GatewayToInternet}:
+	Type: 'AWS::EC2::VPCGatewayAttachment'
+	Properties:
+		VpcId: !Ref ${2:PublicVPCResourceName}
+		InternetGatewayId: !Ref ${3:InternetGatewayResourceName}
+
+${0:}
+endsnippet
+
+#
+# snippet: routetable
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a route table
+#
+snippet routetable "Create a route table" wm
+${1:PublicRouteTable}:
+	Type: 'AWS::EC2::RouteTable'
+	Properties:
+		VpcId: !Ref ${2:PublicVPCResourceName}
+
+${0:}
+endsnippet
+
+#
+# snippet: route
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a route
+#
+snippet route "Create a route" wm
+${1:PublicRoute}:
+	Type: 'AWS::EC2::Route'
+	DependsOn: ${2:GatewayToInternetResourceName}
+	Properties:
+		RouteTableId: !Ref ${3:PublicRouteTableResourceName}
+		DestinationCidrBlock: ${4:0.0.0.0}/${5:0}
+		GatewayId: !Ref ${6:InternetGatewayResourceName}
+
+${0:}
+endsnippet
+
+#
+# snippet: routeassoc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a route association to a subnet
+#
+snippet routeassoc "Create a route table association to a subnet" wm
+${1:PublicSubnetRouteTableAssociation}:
+	Type: 'AWS::EC2::SubnetRouteTableAssociation'
+	Properties:
+		SubnetId: !Ref ${2:PublicSubnetResourceName}
+		RouteTableId: !Ref ${3:PublicRouteTable}
+
+${0:}
+endsnippet
+
+
+#
+# snippet: potato
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# A new potato type
+#
+snippet potato "A new potato type" wm
+${1:Potato}:
+	Type: 'AWS::EC2::PotatoRe'
+	Properties:
+		FriedVpcId: !Ref ${2:PublicVpc}
+
+${0:}
+endsnippet
+
+#
+# snippet: aws
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new aws declaration
+#
+snippet aws "Create a new aws declaration" wm
+AWSTemplateFormatVersion: '2010-09-09'
+Description: ${1:Description of the stack.}
+${2:Parameters}${2/.+/:
+	DesiredCapacity:
+		Type: Number
+		Default: '3'
+		Description: Number of EC2 instances to launch in your ECS cluster.
+/}${3:Mappings}${3/.+/:
+	SubnetConfig:
+	VPC:
+		CIDR: '10.0.0.0\/16'
+	PublicOne:
+		CIDR: '10.0.0.0\/24'
+	PublicTwo:
+		CIDR: '10.0.1.0\/24'
+/}Resources:
+	${0:}
+endsnippet
+
+#
+# snippet: param
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a parameter in the parameters list
+#
+snippet param "Create a parameter in the parameters list" wm
+${1:DesiredCapacity}:
+	Type: ${2:Number}${3/.+/
+	Default: '/}${3:3}${3/.+/'/}${4/.+/
+	Description: /}${4:Number of EC2 instances to launch in your ECS cluster.}
+endsnippet
+
+#
+# snippet: ec2
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an ec2 instance
+#
+snippet ec2 "Create an ec2 instance" wm
+${1:myEC2Instance}:
+	Type: "AWS::EC2::Instance"
+	Properties:
+		ImageId: ${2:!FindInMap [RegionMap, !Ref "AWS::Region", HVM64]}
+		InstanceType: ${3:t3.micro}${4/.+/
+		SubnetId: !Ref /}${4:SubnetResourceName}${5/.+/
+		SecurityGroups:
+			- !Ref /}${5:SecurityGroupResourceName}
+endsnippet
+
+#
+# snippet: region
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get a rfeference to the current region
+#
+snippet reg "Get a rfeference to the current region" wm
+!Ref "AWS::Region"
+endsnippet
+
+#
+# snippet: ref
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get a reference to a previously specified resource.
+#
+snippet ref "Get a reference to a previously specified resource." wm
+!Ref ${1:ResourceName}
+endsnippet
+
+#
+# snippet: getattr
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get an attribute from another object
+#
+snippet getattr "Get an attribute from another object" wm
+{ "Fn::GetAtt": ["${1:ObjectResourceName}", ${2:AttributeName}] }
+endsnippet
+
+#
+# snippet: getatt
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get an attribute from another object (short version)
+#
+snippet getatt "Get an attribute from another object (short version)" wm
+!GetAtt ${1:ObjectResourceName.AttributeName}
+endsnippet
+
+#
+# snippet: az
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an availabilty zone reference id
+#
+snippet az "Create an availabilty zone reference id" wm
+Fn::Select: [${3:0}, {"Fn::GetAZs": ""}]
+endsnippet
+
+#
+# snippet: cache
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a cache cluster
+#
+snippet cache "Create a cache cluster" wm
+${1:cacheResourceName}:
+	Type: 'AWS::ElastiCache::CacheCluster'
+	Properties:${2:
+		AutoMinorVersionUpgrade: }${2:true}${3/.+/
+		AZMode: "/}${3:cross-az}${1/.+/"/}
+		CacheNodeType: ${4:cache.m3.medium}${5/.+/
+		CacheSubnetGroupName: !Ref /}${5:subnetGroup}
+		Engine: ${7:redis}${8/.+/
+		EngineVersion: "/}${8:latest}${8/.+/"/}${9/.+/
+		NotificationTopicArn: "/}${9:snsTopicArn}${9/.+/"/}
+		NumCacheNodes: ${10:3}${11/.+/
+		PreferredAvailabilityZones:
+			- /}${11:eu-central-1a}${12/.+/
+		Tags:
+			- /}${12:CacheCluster}${13/.+/
+		VpcSecurityGroupIds:
+			- !Ref /}${13:vpcSecurityGroupId}
+${0:}
+endsnippet
+
+#
+# snippet: cachesng
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a cache subnet group
+#
+snippet cachesng "Create a cache subnet group" wm
+${1:CacheSubnetGroup}:
+	Type: 'AWS::ElastiCache::SubnetGroup'
+	Properties:
+		CacheSubnetGroupName: !Join [_, [!Ref 'AWS::StackName'${2/.+/,/}${2:$1}]]${3/.+/
+		Description: "/}${3:Description for the subnet group}${3/.+/"/}
+		SubnetIds:
+		- ${0:}
+endsnippet
+
+#
+# snippet: sg
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Security Group
+#
+snippet sg "Security Group" wm
+${1:WebServerSecurityGroup}:
+	Type: 'AWS::EC2::SecurityGroup'
+	Properties:
+		GroupName: !Join [_, [!Ref 'AWS::StackName'${2/.+/,/}${2:$1}]]
+		GroupDescription: "${3:Group description}"${4/.+/
+		VpcId: !Ref /}${4:VpcResourceName}
+		SecurityGroupIngress:
+			${0:}
+endsnippet
+
+#
+# snippet: ingress
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an ingress rule in a security group
+#
+snippet ingress "Add an ingress rule in a security group" wm
+- IpProtocol: tcp
+	FromPort: ${1:0}
+	ToPort: ${2:0}
+	CidrIp: ${3/.+/"/}${3:0.0.0.0/0}${3/.+/"/}
+endsnippet
+
+#
+# snippet: groupname
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a group name from the stack name
+#
+snippet groupname "Create a group name from the stack name" wm
+GroupName: !Join [_, [!Ref 'AWS::StackName',${1:FrontendSshSecurityGroup}]]
+endsnippet
+
+#
+# snippet: out
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an ew output
+#
+snippet out "Create a new output" wm
+${1:VariableName}:${2/.+/
+	Description: /}${2:Information about the value}
+	Value: ${3:Value to return}${4/.+/
+	Export:
+		/}${4:Name}${4/.+/: /}${0:}
+endsnippet
+
+#
+# snippet: task
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new task definition
+#
+snippet taskdef "Create a new task definition" wm
+${1:TaskDefinitionName}:
+	Type: AWS::ECS::TaskDefinition
+	Properties:
+		RequiresCompatibilities:
+		- "EC2"
+		ContainerDefinitions:
+		- Name: "${2:containername}"
+			Image: "${3:884819480303.dkr.ecr.us-west-2.amazonaws.com/dhw}"
+			PortMappings:
+			- ContainerPort: "${4:8080}"
+				HostPort: "${5:0}"
+			Memory: "${6:500}"${7/.+/
+			Environment:
+			- Name: /}${7:ENV_VAR_DB_LOCATION}${7/.+/
+				Value: /}${0:}
+endsnippet
+
+#
+# snippet: service
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new EcsService
+# FIXME: not finished
+snippet service "Create a new EcsService" wm
+${1:ServiceName}:
+	Type: AWS::ECS::Service
+	DependsOn:
+	- ${2:LoadBalancerResource}
+	Properties:
+		Cluster: !Ref ${3:ClusterName}
+		ServiceName: ${4:$1}
+		DesiredCount: ${5:4}
+		TaskDefinition: !Ref ${6:TaskDefinitionName}
+		LoadBalancers:
+		- TargetGroupArn: !Ref ${7:TargetGroupName}
+			ContainerPort: ${8:8080}
+			ContainerName: ${9:dhw}
+endsnippet
+
+#
+# snippet: elb
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Elastic Load Balancer
+#
+snippet elb "Elastic Load Balancer" wm
+${1:PublicLoadBalancer}:
+	Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
+	Properties:
+		Scheme: ${2:internet-facing}
+		LoadBalancerAttributes:
+		- Key: idle_timeout.timeout_seconds
+			Value: '30'
+		Subnets:
+			- !Ref ${3:PublicSubnetOne}
+		SecurityGroups:
+			- !Ref '${4:PublicLoadBalancerSG}'
+endsnippet
+
+#
+# snippet: cluster
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new cluster
+#
+snippet cluster "Create a new cluster" wm
+${1:FargateEcsCluster}:
+	Type: AWS::ECS::Cluster
+	Properties:
+		ClusterName: !Ref AWS::StackName
+${0:}
+endsnippet
+
+#
+# snippet: tag
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new tag
+#
+snippet t "Create a new tag" wm
+Key: ${1:KeyName}
+Value: ${0:}
+endsnippet
+
+#
+# snippet: tname
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# A name tag
+#
+snippet tname "A name tag" wm
+Key: Name
+Value: !Join [_, [!Ref 'AWS::StackName',${1:FrontendVpc}]]
+endsnippet
+
+#
+# snippet: target
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a target group
+#
+snippet target "Create a target group" wm
+${1:TargetGroupName}:
+	Type: AWS::ElasticLoadBalancingV2::TargetGroup
+	Properties:
+		HealthCheckIntervalSeconds: ${2:6}
+		HealthCheckPath: ${3:/}
+		HealthCheckProtocol: ${4:HTTP}
+		HealthCheckTimeoutSeconds: ${5:5}
+		HealthyThresholdCount: ${6:2}
+		UnhealthyThresholdCount: ${7:2}
+		Name: !Join ['-', [!Ref 'AWS::StackName', ${8:$1}]]
+		Port: ${9:80}
+		Protocol: ${10:HTTP}
+		VpcId: !Ref '${11:VPC}'
+endsnippet
+
+#
+# snippet: lblistener
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a load balancer listener
+#
+snippet lblistener "Create a load balancer listener" wm
+${1:PublicLoadBalancerListener}:
+	Type: AWS::ElasticLoadBalancingV2::Listener
+	DependsOn:
+		- $3
+	Properties:
+		DefaultActions:
+			- TargetGroupArn: !Ref '${2:TargetGroupName}'
+				Type: 'forward'
+		LoadBalancerArn: !Ref '${3:PublicLoadBalancer}'
+		Port: ${4:80}
+		Protocol: ${5:HTTP}
+endsnippet
+
+#
+# snippet: name
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a name for an item in the stack
+#
+snippet name "Create a name for an item in the stack" wm
+!Join [_, [!Ref 'AWS::StackName', ${1:Name}]]
+endsnippet
+
+#
+# snippet: lambda
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a lambda function
+#
+snippet lambda "Create a lambda function" wm
+${1:LambdaName}:
+	Type: AWS::Lambda::Function
+	DependsOn:
+		- $4
+	Properties:
+		Handler: ${2:lambda_source.s3copy.lambda_handler}
+		CodeUri: ${3:./lambda_source}
+		Role: !GetAtt ${4:LambdaExecutionRole}.Arn
+		Runtime: python3.6
+endsnippet
+
+#
+# snippet: lambdacall
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a cloud formation lambda call via a custom object
+#
+snippet lambdacall "Create a cloud formation lambda call via a custom object" wm
+${1:LambdaName}:
+	Type: AWS::Lambda::Function
+	Properties:
+		Handler: ${2:lambda_source.s3copy.lambda_handler}
+		CodeUri: ${3:./lambda_source}
+		Role: !GetAtt ${4:LambdaExecutionRole}.Arn
+		Runtime: python3.6
+
+${5:$1Call}:
+	Type: Custom::${6:$5}
+	DependsOn:
+		- $1
+	Properties:
+		ServiceToken: !GetAtt $1.Arn
+		${7/.+/# extra parameters into the lambda
+		S3BucketName: !Ref /}${7:RecommendationS3Storage}
+endsnippet
+
+#
+# snippet: custom call
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a custom object bound to a lambda
+#
+snippet call "Create a custom object bound to a lambda" wm
+${1:LambdaCall}:
+	Type: Custom::${2:$1}
+	DependsOn:
+		- ${3:LambdaName}
+	Properties:
+		ServiceToken: !GetAtt $3.Arn${4/.+/
+		# extra parameters into the lambda
+		S3BucketName: !Ref /}${4:RecommendationS3Storage}
+endsnippet
+
+#
+# snippet: lambdarole
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a lambda execution role that can log things.
+#
+snippet lambdarole "Create a lambda execution role that can log things, and write to S3 buckets" wm
+${1:LambdaExecutionRole}:
+	Type: AWS::IAM::Role
+	Properties:
+		AssumeRolePolicyDocument:
+			Version: '2012-10-17'
+			Statement:
+			- Effect: Allow
+				Principal:
+					Service:
+					- lambda.amazonaws.com
+				Action:
+				- sts:AssumeRole
+		Path: "/"
+		Policies:
+		- PolicyName: root
+			PolicyDocument:
+				Version: '2012-10-17'
+				Statement:
+				- Effect: Allow
+					Action:
+					- logs:*
+					Resource: arn:aws:logs:*:*:*
+				- Effect: Allow
+					Action:
+					- s3:PutObject
+					Resource: "*"
+endsnippet
+
+
+#
+# snippet: apigwrest
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a REST API for the API Gw
+#
+snippet apigwrest "Create a REST API for the API Gw" wm
+${1:ApiGwRestApi}:
+	Type: AWS::ApiGateway::RestApi
+	Properties:
+		Name: ${2:$1}
+		EndpointConfiguration:
+			Types:
+				- EDGE
+endsnippet
+
+
+#
+# snippet: apigwresource
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a resource on the API Gw
+#
+snippet apigwresource "Create a resource on the API Gw" wm
+${1:ApiGwResource}:
+	Type: AWS::ApiGateway::Resource
+	Properties:
+		ParentId: !GetAtt ${2:ApiGwRestApi}.RootResourceId
+		PathPart: ${3:invite}
+		RestApiId: !Ref $2
+endsnippet
+
+#
+# snippet: apigwmethod
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a method call on a resource in the API Gw
+#
+snippet apigwmethod "Create a method call on a resource in the API Gw" wm
+${1:ApiGwMethodCall}:
+	Type: AWS::ApiGateway::Method
+	Properties:
+		RestApiId: !Ref ${2:ApiGwRestApi}
+		ResourceId: !Ref ${3:ApiGwResource}
+		HttpMethod: ${4:ANY}
+		AuthorizationType: ${5:NONE}
+		Integration:
+			IntegrationHttpMethod: ${5:$4}
+			Type: AWS_PROXY
+			Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${${6:LambdaToCall}.Arn}/invocations
+endsnippet
+
+#
+# snippet: apigwdeploy
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an API Gw deployment
+#
+snippet apigwdeploy "Create an API Gw deployment" wm
+${1:AwsGwDeployment}:
+	DependsOn:
+	- ${2:AwsGwMethod}
+	Type: AWS::ApiGateway::Deployment
+	Properties:
+		RestApiId: !Ref ${3:ApiGatewayRestApi}
+		Description: "${4:My deployment}"
+		StageName: ${5:dev}
+endsnippet
+
+#
+# snippet: sub
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a substitution snippet
+#
+snippet sub "Create a substitution snippet" wm
+!Sub
+- "${3:key is: $\{$1\}}"
+- ${1:key}: ${2:value}
+	${0:}
+endsnippet
+
+#
+# snippet: stack
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a stack name reference
+#
+snippet stack "Create a stack name reference" wm
+!Ref "AWS::StackName"
+endsnippet
+

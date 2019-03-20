@@ -1,0 +1,52 @@
+snippet composer "Adds a composer element into the template."
+<composer-element type="${1:custom}">${2:}</composer-element>${0:}
+endsnippet
+
+snippet block "Adds a block."
+<block${1/.+/ margin-top="/}${1:2mm}${1/.+/"/}${2/.+/ margin-left="/}${2:2mm}${2/.+/"/}${3/.+/ margin-bottom="/}${3:2mm}${3/.+/"/}${4/.+/ margin-right="/}${4:2mm}${4/.+/"/}>
+	${VISUAL}${0:}
+</block>
+endsnippet
+
+#
+# snippet: blockcontainer
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Adds a block container
+#
+snippet container "Adds a block container" wm
+<container${1/.+/ editable="/}${1:true}${1/.+/"/}>
+	${VISUAL/^$/<block>
+		<text>
+			<text-contents>text<\/text-contents>
+		<\/text>
+	<\/block>/}
+</container>
+endsnippet
+
+snippet dynamic "Adds a dynamic value." i
+<dynamic-value expression="${VISUAL}${1:xpath}"/>${0:}
+endsnippet
+
+snippet text "Adds a text"
+<text>
+	<text-contents>${VISUAL}${1:}</text-contents>
+</text>${0:}
+endsnippet
+
+snippet input "Adds a input"
+<text-field content-type="${1:date:%d.%m.20%y}"
+	formfield-field-name="${2:Datum}"
+	formfield-target="${3:both}"
+	width="${4:27mm}"/>${0:}
+endsnippet
+
+snippet signature "Adds a signature"
+<composer-element id="${1:Erklaerung1}" type="signature"><data>{"layout" : {"width" : "${2:76.5mm}", "height" : "${3:20mm}"&#13;&#10;}}</data></composer-element>
+endsnippet
+
+snippet script "Adds a script"
+<composer-element type="javascript"><data><![CDATA[
+	${VISUAL}${0:}
+]]></data></composer-element>
+endsnippet

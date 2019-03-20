@@ -1,0 +1,38 @@
+#
+# snippet: unit
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an unit test
+#
+snippet unit "Add a unittest"
+import unittest
+
+
+class ${1:TestClass}(unittest.TestCase):
+	"""
+	${3:}
+	"""
+
+	def test_${2:}(self):
+		"""
+		${4:}
+		"""
+		${VISUAL}${0:}
+
+
+if __name__ == '__main__':
+	unittest.main()
+endsnippet
+
+#
+# snippet: e
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# wut
+#
+snippet e "wut" wm
+@render_call
+def ${1:list_changed_strings}():
+	root_model.$1
+	registered_events.add("$1")
+endsnippet

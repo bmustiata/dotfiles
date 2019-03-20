@@ -1,0 +1,34 @@
+snippet rcomponent "Add a react require"
+import * as React from "react";
+import { observer } from "mobx-react";
+
+export interface $1Props extends React.Props<any> {
+}
+
+@observer
+export class ${1:ClassName} extends React.Component<$1Props, {}> {
+	render() {
+		return (
+			$0
+		);
+	}
+}
+endsnippet
+
+snippet rrender "React DOM Render"
+ReactDOM.render(
+	${1:<div>what</div>},
+	document.getElementById('${2:example}')
+)
+endsnippet
+
+snippet singleton "Create a singleton instance"
+static get() : ${1:type} {
+	if (window["${2:key}"]) {
+		return window["$2"];
+	} else {
+		return window["$2"] = new $1();
+	}
+}
+endsnippet
+

@@ -1,0 +1,487 @@
+#
+# snippet: pic
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an inline picture.
+#
+snippet pic "Add an inline picture." wm
+image:user_guide_en/images/pics/${1:pic.png}[${2:description}]${0:}
+endsnippet
+
+#
+# snippet: picl
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a picture that's large
+#
+snippet picl "Add a picture that's large" wm
+.${2:description}
+image::/assets/posts/2017-07-24-Germanium_Abstract-Selectors/${1:pic.png}[$2]${0:}
+endsnippet
+
+#
+# snippet: is
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new issue definition
+#
+snippet is "Create a new issue definition" wm
+[ ] (${1:impact}) (${2:points})  ${3:${VISUAL/^$/issue description/}}
+endsnippet
+
+snippet frontpage "The front page settings, with TOC"
+= ${1:Title}
+:toc: left
+:experimental:
+:source-highlighter: pygments
+:pygments-css: style
+:sectanchors:
+:icons: font
+
+:leveloffset: +1
+
+// includes
+// include::otherfile.adoc[]
+
+:leveloffset: -1
+endsnippet
+
+snippet src "Create a source segment"
+[source,${1:text}]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet yml "Create a yml segment"
+[source,yaml]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet source "Create a source segment"
+[source,${1:text}]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+#
+# snippet: yml
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a yaml segment
+#
+snippet yml "Create a yaml segment" wm
+[source,${1:yml}]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet text "Create a text segment"
+[source,text]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet cob "Create a cobol segment"
+[source,cob]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet css "Create a css segment"
+[source,css]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet cfg "Create a config segment"
+[source,cfg]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+#
+# snippet: json
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a JSON snippet
+#
+snippet json "Create a JSON snippet"
+[source,json]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet a "Create a link snippet link:URL[description]" wm
+link:${1:${VISUAL/^$/url/}_url}[${2:${VISUAL/^$/description/}}]
+endsnippet
+
+snippet img "Create an image snippet" wm
+image:${1:${VISUAL/^$/\/assets\/img\/posts\/url/}}[${2:${VISUAL/^$/description/}}]
+endsnippet
+
+snippet imgl "Create a large image" wm
+image::${1:url}[${2:description}]
+endsnippet
+
+snippet py "Create a python segment"
+[source,python]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet ts "Create a typescript segment"
+[source,typescript]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet js "Create a javascript segment"
+[source,javascript]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet html "Create a HTML segment"
+[source,html]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet python "Create a source segment"
+[source,python]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet xml "Create a source segment"
+[source,xml]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet java "Create a source segment"
+[source,java]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet sh "Create a shell source segment"
+[source,sh]
+-----------------------------------------------------------------------------
+${VISUAL}${0:}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet uml "Create a UML snippet with plantuml"
+[plantuml, ${1:/documents/public/assets/generated/germanium-selectors-uml}, ${2:svg}]
+------------------------------------------------------------------------------
+${0:class A<T> <<singleton>> {
+	{abstract} -int x
+	{static} #void meta()
+}
+
+class B
+
+A <|-- B}
+------------------------------------------------------------------------------
+endsnippet
+
+snippet ditaa "Draw an ascii diagram with ditaa"
+[ditaa, "${1:selector-left-of}"]
+-----------------------------------------------------------------------------
+${0: Page
++------------------------------+---------------------------+
+|                              |                           |
+|                              +---------------+           |
+|                              |   left_of()   |           |
+|                              |   reference   |           |
+|                              |   element     |           |
+|                              +---------------+           |
+|                              |                           |
+|      Considered Region       |        Excluded Region    |
+|       +---------+            |           +---------+     |
+|       | Input() |            |           | Input() |     |
+|       |     cAEA|            |           |     cD99|     |
+|c9D9   +---------+            |  cA77     +---------+     |
++------------------------------+---------------------------+}
+-----------------------------------------------------------------------------
+endsnippet
+
+snippet api "A single API call"
+*Description*
+
+${VISUAL}${0:}
+
+*Signature*
+
+[source,python]
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+
+*Sample*
+endsnippet
+
+snippet inc "Include another file"
+include::${1:${VISUAL:file.adoc}}[]${0:}
+endsnippet
+
+snippet post "Create a hexo post"
+title: ${1:GermaniumHQ.com is Up!}
+date: `!p
+import datetime
+
+now = datetime.date.today()
+snip.rv += "%04d-%02d-%02d" % (now.year, now.month, now.day)
+`
+tags:
+${0:- Website
+- GermaniumHQ
+- Administration}
+category: ${2:News}
+lede: ${3:The initial version of the Germanium website is finally up. Containing the full documentation, and contact information, it is the first step in reaching out.}
+# thumbnail should be: 1280x720
+thumbnail: /assets/img/posts/${4:${VISUAL}}
+---
+
+++++
+<div class="image-strip">
+<img src="/assets/img/posts/$4">
+</div>
+++++
+
+== $1
+
+$3
+
+endsnippet
+
+#
+# snippet: node
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a node entry for an UML.
+#
+snippet node "Create a node entry for an UML." wm
+node "${1:Node Name}"${2/.+/ <</}${2:virtualEnvironment}${2/.+/>>/} {
+	${VISUAL}${0:}
+}
+endsnippet
+
+
+#
+# snippet: table
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a table for ASCIIDoctor
+#
+snippet table "Create a table for ASCIIDoctor" wm
+.${1:Table Title}
+[align="center",width="100%",options="header"]
+|============================================================================
+| ${2:Column 1} | ${3:Column 2}${4/.+/ | /}${4:Column 3}${5/.+/ | /}${5:Column 4}
+
+| $2${0:}
+| $3
+${4/.+/| x
+/}${5/.+/| x
+/}
+|============================================================================
+endsnippet
+
+#
+# snippet: r2
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a 2 column row
+#
+snippet r2 "Add a 2 column row" wm
+| ${VISUAL}${1:}
+| ${0:}
+endsnippet
+
+#
+# snippet: r3
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a 3 column row
+#
+snippet r3 "Add a 3 column row" wm
+| ${VISUAL}${1:}
+| ${2:}
+| ${0:}
+endsnippet
+
+#
+# snippet: level
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Increase the level of the titles
+#
+snippet level "Increase the level of the titles" wm
+:leveloffset: +${1:1}
+
+${VISUAL/^$/\/\/ includes
+\/\/ include::otherfile.adoc[]/}
+
+:leveloffset: -$1
+endsnippet
+
+#
+# snippet: icon
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an icon
+#
+snippet icon "Create an icon" wm
+icon:${1:name}[${2/.+/role="/}${2:blue}${2/.+/"/}]
+endsnippet
+
+#
+# snippet: h1
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a first level title
+#
+snippet h1 "Add a first level title" wm
+= ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: h2
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a second level title
+#
+snippet h2 "Add a second level title" wm
+== ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: h3
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a third level title
+#
+snippet h3 "Add a third level title" wm
+=== ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: h4
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a fourth level title
+#
+snippet h4 "Add a fourth level title" wm
+==== ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: h5
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a fifth level title
+#
+snippet h5 "Add a fifth level title" wm
+===== ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: h6
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a sixth level title
+#
+snippet h6 "Add a sixth level title" wm
+====== ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: `
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Quote some inline code
+#
+snippet ` "Quote some inline code" wm
+\`${VISUAL}\`
+endsnippet
+
+#
+# snippet: cs
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a comment section
+#
+snippet cs "Add a comment section" wm
+/////////////////////////////////////////////////////////////////////////////
+// ${1:${VISUAL}}
+/////////////////////////////////////////////////////////////////////////////${0:}
+endsnippet
+#
+# snippet: kbd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a keyboard shortcut
+#
+snippet kbd "Add a keyboard shortcut" wm
+kbd:[${1:"Ctrl+Shift+N"}]${0:}
+endsnippet
+
+#
+# snippet: menu
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a menu entry
+#
+snippet menu "Add a menu entry" wm
+menu:${0:View[Zoom > Reset]}
+endsnippet
+
+#
+# snippet: bnt
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a button entry
+#
+snippet btn "Add a button entry" wm
+btn:[${1:OK}]
+endsnippet
+
+#
+# snippet: pexels
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Pexels credit
+#
+snippet pexels "Pexels credit" wm
+[small]#_Article Photo from Pexels:_ ${VISUAL}#
+endsnippet
+
+#
+# snippet: fun
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# create a function
+#
+snippet fun "create a function" wm
+def ${1:function_name}():
+	${2:pass}
+endsnippet

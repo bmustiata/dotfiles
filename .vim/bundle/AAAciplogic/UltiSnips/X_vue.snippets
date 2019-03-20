@@ -1,0 +1,59 @@
+#
+# snippet: vue
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# description
+#
+snippet vue "create a new vue component" wm
+<template>
+	<div>
+		${0:}
+	</div>
+</template>
+
+<script lang='ts'>
+export default {
+	name: '${1:component-tag-name}',
+	props: {},
+	data() {
+		return {
+		}
+	}
+}
+</script>
+
+<style scoped>
+</style>
+endsnippet
+
+#
+# snippet: vuets
+# Create a new Vue Component
+#
+snippet vuets "Create a new Vue Component with its content into a separate file" wm
+<template>
+	<div>
+	</div>
+</template>
+
+<script src='./${1:TM_FILENAME_BASE}${0:}' lang='ts'></script>
+
+<style scoped>
+</style>
+endsnippet
+
+#
+# snippet: vcomponent
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new TypeScript Vue Component
+#
+snippet vcomponent "Create a new TypeScript Vue Component" wm
+import * as Vue from "vue"
+
+export const ${1:application} = Vue.component("$1", {
+	template: require("./$1.html")
+})
+endsnippet
+
+

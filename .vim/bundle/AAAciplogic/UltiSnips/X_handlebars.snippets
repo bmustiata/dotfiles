@@ -1,0 +1,113 @@
+snippet if "Add an if statement" i
+{{#if ${1:expression}}}
+	${VISUAL}${0:}
+{{/if}}
+endsnippet
+
+#
+# snippet: ifi
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an inline if snippet
+#
+snippet ifi "Add an inline if snippet" wm
+{{#if ${1:expression}}}${VISUAL}${0:}{{/if}}
+endsnippet
+
+#
+# snippet: ifn
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an if not snippet.
+#
+snippet ifn "Add an if not snippet." wm
+{{#unless ${1:expression}}}
+	${VISUAL}${0:}
+{{/unless}}
+endsnippet
+
+#
+# snippet: ifni
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an if not inline snippet
+#
+snippet ifni "Add an if not inline snippet" wm
+{{#unless ${1:expression}}}${VISUAL}${0:}{{/unless}}
+endsnippet
+
+#
+# snippet: ife
+# Add an if/else statement
+#
+snippet ife "Add an if/else statement" wm
+{{#if ${1:expression}}}
+	${VISUAL}
+{{else}}
+	${0:}
+{{/if}}
+endsnippet
+
+#
+# snippet: ifei
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an if/else inline statement
+#
+snippet ifei "Add an if/else inline statement" wm
+{{#if ${1:expression}}}${VISUAL}{{else}}${0:}{{/if}}
+endsnippet
+
+#
+# snippet: each
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an each statement.
+#
+snippet each "Add an each statement." wm
+{{#each ${1:expression}}}
+	${VISUAL}${0:}
+{{/each}}
+endsnippet
+
+#
+# snippet: eachi
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an inline each statement
+#
+snippet eachi "Add an inline each statement" wm
+{{#each ${1:expression}}}${VISUAL}${0:}{{/each}}
+endsnippet
+
+#
+# snippet: switch
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a switch statement.
+#
+snippet switch "Create a switch statement." wm
+{{#switch ${1:expression}}}
+${0:${VISUAL}}
+{{/switch}}
+endsnippet
+
+#
+# snippet: case
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a case statement
+#
+snippet case "Create a case statement" wm
+{{#case ${1:'value'}}}${0:${VISUAL}}{{/case}}
+endsnippet
+
+#
+# snippet: default
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a default statement in a switch
+#
+snippet default "Create a default statement in a switch" wm
+{{#default}}${0:$VISUAL}{{/default}}
+endsnippet

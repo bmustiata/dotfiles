@@ -1,0 +1,117 @@
+snippet while "Create a while statement"
+while ${1:condition}
+	${VISUAL}${0:}
+endwhile
+endsnippet
+
+snippet fori "Create a for statement"
+for ${1:i} in range(1, ${2:target})
+	${VISUAL}${0:}
+endfor
+endsnippet
+
+snippet if "Create an if statement"
+if ${1:condition}
+	${VISUAL}${0:}
+endif
+endsnippet
+
+snippet ifn "Create an if not statement"
+if !${1:condition}
+	${VISUAL}${0:}
+endif
+endsnippet
+
+snippet ife "Create an if/else statement"
+if ${1:condition}
+	${VISUAL}${0:}
+else
+
+endif
+endsnippet
+
+snippet elif "Create an elseif statement"
+elseif ${1:condition}
+	${VISUAL}${0:}
+endsnippet
+
+snippet py "Create a python block"
+python << endpython
+${VISUAL}${0:}
+endpython
+endsnippet
+
+snippet fun "Create a function"
+function! ${1:Name}()
+	${VISUAL}${0:}
+endfunction
+endsnippet
+
+snippet funp "Create a function that also has a parameter"
+function! ${1:Name}(${2:name})
+	echo a:$2
+	${VISUAL}${0:}
+endfunction
+endsnippet
+
+snippet funr "Create a function that accepts a range."
+function! ${1:Name}(${2:line1}, ${3:line2})
+	echo a:$2
+	echo a:$3
+	${VISUAL}${0:}
+endfunction
+endsnippet
+
+snippet command "Create a command"
+command ${1:CommandName} call ${2:$1}()${0:}
+endsnippet
+
+snippet commandp "Create a command that also has a parameter"
+command -nargs=1 ${1:CommandName} call ${2:$1}(<f-args>)${0:}
+endsnippet
+
+#
+# snippet: commandr
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a command with a range.
+#
+snippet commandr "Create a command with a range." wm
+command! -range ${1:CommandName} <line1>,<line2>call ${2:$1}()${0:}
+endsnippet
+
+snippet au "Associate a file extension or name with a given file type"
+au BufRead,BufNewFile ${1:*.file} set filetype=${2:type}
+endsnippet
+
+snippet c "Adds a vim comment."
+"
+" ${VISUAL}${0:}
+"
+endsnippet
+
+snippet cs "Add a vim comment section"
+" -------------------------------------------------------------------------
+" ${VISUAL}${0:}
+" -------------------------------------------------------------------------
+endsnippet
+
+#
+# snippet: toggle
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a filetype toggle.
+#
+snippet toggle "Create a filetype toggle." wm
+function! ${1:Handlebars}()
+	if &filetype =~ '${2:X_$1}'
+		let l:newType = substitute(&filetype, '$2\.', '', '')
+	else
+		let l:newType =  '$2.' . &filetype
+	endif
+
+	execute 'set filetype=' . l:newType
+endfunction
+command ${3:$1} call $1()
+endsnippet
+

@@ -1,0 +1,214 @@
+#
+# snippet: dataimagebutton
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new dataimage button plugin
+#
+snippet dataimagebutton "Create a new dataimage button plugin" wm
+class ${1:InfinicaTakePictureDataImagePlugin} {
+	static isAllowed(dataImage) {
+		return !!dataImage;${0:}
+	}
+}
+
+$1.vueComponentName = '${2:infinica-take-picture-popover-button}';
+
+Y.infinica.composer.document.dataimage.plugins.push($1);
+
+endsnippet
+
+#
+# snippet: eslint
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add the eslint declarations
+#
+snippet esglobal "Add the eslint declarations" wm
+/* eslint-env browser */
+/* global Y */
+endsnippet
+
+#
+# snippet: esparams
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Allow parameters in eslint
+# FIXME: the wrap text on empty expression isn't doing what I want.
+snippet esparamreassign "Allow parameters in eslint" wm
+${1/.+/\/* eslint no-param-reassign: ["error", { "props": /}${1:false}${1/.+/ }] *\//}${1/^$/\/* eslint no-param-reassign: "error" *\//}
+endsnippet
+
+#
+# snippet: esconsole
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Allow the console in the eslint code.
+#
+snippet esconsole "Allow the console in the eslint code." wm
+/* eslint no-console: ["error", { allow: ["warn", "error", "log", "info"] }] */
+endsnippet
+
+#
+# snippet: esconstructor
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Allow lowercase constructors.
+# FIXME: the wrap text on empty expression isn't doing what I want.
+#
+snippet esnewcap "Allow lowercase constructors." wm
+${1/.+/\/* eslint new-cap: ["error", { "newIsCapExceptions": ["/}${1:events}${1/.+/"] }] *\//}${1/^$/\/* eslint new-cap: ["error", { "newIsCap": false }] *\//}
+endsnippet
+
+#
+# snippet: esunusedvars
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Allow some unused variable.
+#
+snippet esunusedvars "Allow some unused variable." wm
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "^${1:msg}$" }] */
+endsnippet
+
+
+#
+# snippet: esallow
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Allow some unruliness into the code.
+#
+snippet esallow "Allow some unruliness into the code." wm
+/* eslint ${1:${VISUAL}}: ["ignore"] */
+endsnippet
+
+snippet ckwidget "Add a CKEditor Widget class" wm
+const ${1:WidgetName} = Y.InfinicaBase.create('$1', Y.infinica.composer.document.CKWidget, [], {
+	/**
+	 * Function called after the anchor node was created
+	 * and attached into the DOM of the page.
+	 *
+	 * The node is available as the \`widgetNode\` property.
+	 */
+	$onNodeAttached: function(initialData) {
+		console.log('$1 node attached.');
+	},
+
+	/**
+	 * The widget instance is being destroyed
+	 */
+	$onDestroy: function() {
+		console.log('$1 widget destroyed.');
+	},
+
+    /**
+     * Serialize for saving the Widget.
+     * The virtual DOM structure can still be changed on downcast.
+     * @returns {CKEDITOR.htmlParser.fragment|CKEDITOR.htmlParser.element}
+     */
+	$onDowncast: function(element) {
+		console.log('$1 widget being downcasted.');
+		return element;
+	}
+}, {
+	/**
+	 * Check if we can instantiate the widget.
+	 *
+	 * @static
+	 * @param {CKEDITOR.htmlParser.element} element
+	 * @param {Object} initialData Data that will be sent to $onNodeAttached
+	 */
+	$onUpcast: function (element, initialData) {
+		if (element.name != '${2:targetelement}') {
+			return false;
+		}
+
+		console.log('$1 widget being upcasted');
+
+		// the virtual DOM structure can still be changed or
+		// replaced on upcast, and the element must be returned instead.
+
+		return true;
+	},
+
+	ATTRS: {
+		// wrapperNode // CKWidget base class
+		// widgetNode // CKWidget base class
+	},
+
+	// Needed by CKEditor
+	NAME: '$1',
+
+	ckwidgetDefinition: {
+		'allowedContent': {
+			attributes: '*',
+			styles: '*',
+			classes: '*'
+		}${3/.+/,
+		draggable: /}${3:false}${4/.+/,
+		editables: {
+			content: {
+				selector: '/}${4:.contents}${4/.+/'
+			}
+		}
+/}
+	}
+});
+
+Y.ckWidgetRegistry.registerWidget($1);
+endsnippet
+
+#
+# Add an InfinicaBase class.
+#
+snippet infclass "Adds an InfinicaBase class" mw
+const ${1:ClassName} = Y.InfinicaBase.create("$1", ${2:Y.InfinicaBase}, {
+	${0:}
+}, { // static
+	ATTRS: {
+	}
+});
+
+Y.namespace("${3:infinica.composer.model}").$1 = $1;
+endsnippet
+
+#
+# snippet: ckplugin
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new CKEditor plugin
+#
+snippet ckplugin "Create a new CKEditor plugin" wm
+const ${1:PluginName} = Y.Base.create('$1', Y.WebFo.CKEditorPluginNew, [], {
+	_$pluginInitialized : function() {
+		this.createButton("${2:$1}", ${3:msg.INSERT_TABLE}, "${4:table.png}", ${5:callback});
+	}
+});
+
+new $1();
+endsnippet
+
+#
+# snippet: yuiclass
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an YUI class
+#
+snippet yuiclass "Add an YUI class" wm
+const ${1:Clazz} = Y.Base.create('$1', ${2:Y.Widget}, [], {
+	${0:}
+}, { // static
+});
+endsnippet
+
+#
+# snippet: msg
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an i18n message var.
+#
+snippet msg "Add an i18n message var." wm
+const msg = Y.Intl.get('${1:module-name}');
+/* eslint-env browser */
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "^msg$" }] */
+/* global Y */
+endsnippet
+

@@ -1,0 +1,105 @@
+extends X_xml
+
+snippet /<?html/ "Create a HTML page" rb
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="${1:UTF-8}">
+		<meta name="viewport" value="width=device-width, scale=initial-scale">
+		<title>${2:page}</title>
+	</head>
+	<body>
+		${VISUAL}${0:}
+	</body>
+</html>
+endsnippet
+
+snippet /<?html_mocha/ "Create a Mocha Test HTML page" rb
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="${1:UTF-8}">
+		<title>${2:Mocha Test}</title>
+		<link rel="stylesheet" type="text/css" href="${3/^(.*\/)?.+?$/$1/}mocha.css">
+	</head>
+	<body>
+		<div id="mocha"></div>
+
+		<!--
+			Mocha and external frameworks setup.
+		-->
+		<script type="text/javascript" src="${3:mocha.js}"></script>
+		<script type="text/javascript">
+			mocha.setup('${4:bdd}');
+		</script>
+
+		<!--
+			Actual tests.
+		-->
+		<script type="text/javascript" src="${5:node/DomUtilTest.js}"></script>
+		${0:}
+
+		<!--
+			Run 'em.
+		-->
+		<script type="text/javascript">
+			mocha.checkLeaks();
+			mocha.run();
+		</script>
+	</body>
+</html>
+endsnippet
+
+snippet /<?form/ "Create a form" r
+<form ${1/.+/id="/}${1:formId}${1/.+/" /}action="${2:url}" method="${3:post}">
+	${VISUAL}${0:}
+</form>
+endsnippet
+
+snippet <inp "Add an input" i
+<input name="${1:name}" type="${2:text}"/>
+endsnippet
+
+snippet srcscript "Adds a JS script reference."
+<script type="text/javascript" src="${1:}"></script>${0:}
+endsnippet
+
+snippet css "Adds a CSS reference"
+<link rel="stylesheet" type="text/css" href="${1:theme.css}">${0:}
+endsnippet
+
+snippet /<?script/ "Create a JavaScript tag" rb
+<script type="text/javascript">
+${VISUAL}${0:}
+</script>
+endsnippet
+
+snippet /<?divc/ "Creates a div with a given class" r
+<div class="${1:css-class}">
+	${VISUAL}${0:}
+</div>
+endsnippet
+
+snippet /button|btn/ "Create a button" r
+<button${1/.+/ id="/}${1:buttonId}${1/.+/"/}${2/.+/ class="/}${2:button-class}${2/.+/"/}${3:}>${0:}</button>
+endsnippet
+
+snippet /^(\s*)<?a/ "Create a link element." r
+`!p snip.rv += match.group(1)`<a href="${1:}"${2:}>${VISUAL}${0:}</a>
+endsnippet
+
+snippet <template "Add a template"
+<template name="${1:hello}">
+	${VISUAL}${0:}
+</template>
+endsnippet
+
+#
+# snippet: img
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new image
+#
+snippet img "Create a new image" wm
+<img src="${VISUAL/^$/image.png/}">
+endsnippet

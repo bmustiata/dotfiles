@@ -1,0 +1,537 @@
+extends json
+
+snippet node "Adds the node launcher"
+#!/usr/bin/env node
+endsnippet
+
+snippet on "Create a JavaScript event handler" wm
+on(${2:'${1:click}'}, (${3:ev}) => {
+	${VISUAL}${0:}
+});
+endsnippet
+
+snippet /(func?t?i?o?n?)/ "Create a JavaScript Function" r
+/**
+ * $1 - ${3:}
+`!p
+indent = match.string[0: len(match.string) - len(match.group(1))]
+for arg in re.split("\s*,\s*", t[2]):
+	if arg != "":
+		snip.rv += ' * @param {} ' + arg + "\n" + indent
+` * @return {${4:void}}
+ */
+function ${1:}(${2:}) {
+	${VISUAL}${0:}
+}
+endsnippet
+
+#
+# If a function is a callback, it has priority over regular fully
+# documented functions.
+#
+priority 1
+
+snippet /^((\s*).*?)([\(,].*)\(/ "Create a callback function, that is preceded by a ( or ," r
+`!p snip.rv += match.group(1)``!p snip.rv += match.group(3)`(${1:ev}) => {
+`!p snip.rv += match.group(2)`	${VISUAL}${0:}
+`!p snip.rv += match.group(2)`}${2:);}
+endsnippet
+
+snippet /^(\s*)((.*?)(\w+)(\s*))=(\s*)\(/ "Create a callback function, that is preceded by a =" r
+/**
+ * `!p snip.rv += match.group(4)` - ${3:}
+`!p
+indent = match.group(1)
+for arg in re.split("\s*,\s*", t[2]):
+	if arg != "":
+		snip.rv += ' * @param {} ' + arg + "\n" + indent
+` * @return {${4:void}}
+ */
+`!p snip.rv += indent + match.group(2)`=`!p snip.rv += match.group(5)`function(${2:}) {
+`!p snip.rv += indent`	${VISUAL}${0:}
+`!p snip.rv += indent`}${1/.+/.bind(/}${1:this}${1/.+/)/};
+endsnippet
+
+snippet /^(\s*)((.+)(\s*))\:(.*)func?/ "Create a method, that is preceded by a :" r
+`!p
+indent = match.group(1)
+
+snip.rv += indent + "/**\n"
+snip.rv += indent + " * " + match.group(3)` - ${3:}
+`!p
+for arg in re.split("\s*,\s*", t[2]):
+	if arg != "":
+		snip.rv += indent + ' * @param {} ' + arg + "\n"
+snip.rv += indent
+` * @return {${4:void}}
+`!p snip.rv += indent ` */
+`!p snip.rv += indent + match.group(2)`:`!p snip.rv += match.group(5)`function(${2:}) {
+`!p snip.rv += indent`	${VISUAL}${0:}
+`!p snip.rv += indent`}${5:,}
+endsnippet
+
+priority 0
+
+#
+# snippet: class
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a JavaScript Class
+#
+snippet class "Create a JavaScript Class" wm
+/**
+ * $1${2/.+/ - /}${2:$1}
+ */
+${3:export }class ${1:Class} {
+	${0:}
+}
+endsnippet
+
+#
+# snippet: met
+# w (word boundary)
+# m (trim spaces on the right of the script)
+# Create a JavaScript method.
+#
+snippet met "Create a JavaScript Method" wm
+/**
+ * $1${3/.+/ - /}${3:$1}
+`!p
+
+for arg in re.split("\s*,\s*", t[2]):
+	if arg != "":
+		snip.rv += snip.mkline(' * @param {object} ' + arg + '\n')
+
+if t[2]:
+	snip.rv += snip.mkline()
+
+` * @return {${4:object}}
+ */
+${1:name}(${2:}) {
+	${VISUAL}${0:}
+}${5:,}
+endsnippet
+
+
+#
+# Delegate a JavaScript method.
+#
+snippet /(dele?g?a?t?e?)/ "Delegate a method" r
+/**
+ * $1 - ${3:}
+`!p
+indent = match.string[0: len(match.string) - len(match.group(1))]
+for arg in re.split("\s*,\s*", t[2]):
+	if arg != "":
+		snip.rv += ' * @param {} ' + arg + "\n" + indent
+` * @return {${4:void}}
+ */
+${1:name} : function(${2:}) {
+	var result = this.${5:}.$1.apply(this.$5, arguments);
+	return result;${0:}
+}${6:,}
+
+endsnippet
+
+#
+# Create an if statement, eventually also wrapping the selected code.
+snippet if "Create an if statement." mw
+if (${1:condition}) {${2/.+/ \/\/ /}${2:comment}
+	${VISUAL}${0:}
+}
+endsnippet
+
+# Create a prototype method, and also add the parameters for the
+# method.
+snippet /^(.*).protot?y?p?e?/ "Create a prototype method" r
+/**
+ * $1 - ${3:}
+`!p
+for arg in re.split("\s*,\s*", t[2]):
+	if arg != "":
+		snip.rv += ' * @param {} ' + arg + "\n"
+` * @return {${4:void}}
+ */
+`!p snip.rv = match.group(1)`.prototype.${1:name} = function(${2:}) {
+	${VISUAL}${0:}
+};
+endsnippet
+
+snippet this. "Assign a variable to this"
+this._${1:name} = $1;${0:}
+endsnippet
+
+snippet try "Add a try/catch statement"
+try {
+	${VISUAL}${0:}
+} catch (${1:e}) {
+	// FIXME: implement
+}
+endsnippet
+
+snippet then "Add a then statement" mw
+then((${1:data}) => {
+	${VISUAL}${0:}
+});
+endsnippet
+
+snippet catch "Add a catch statement" mw
+catch((${1:e}) => {
+	${VISUAL}${0:}
+});
+endsnippet
+
+snippet jsscope "Create an anonyomous function for a JS scope" mw
+(function($) {
+
+${VISUAL}${0:}
+
+})(${1:jQuery});
+endsnippet
+
+snippet forEach "A forEach statement" mw
+forEach((${1:it}) => {
+	${VISUAL}${0:}
+});
+endsnippet
+
+snippet each "A forEach statement" mw
+forEach((${1:it}) => {
+	${VISUAL}${0:}
+});
+endsnippet
+
+snippet filter "A filter statement" mw
+filter((${1:it}) => {
+	${VISUAL}${0:}
+})${2:;}
+endsnippet
+
+#
+# snippet: req
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Require a module.
+#
+snippet req "Require a module." wm
+require('${1:name}');${0:}
+endsnippet
+
+snippet @p "Add a JsDoc parameter."
+@param {${1:Object}} ${2:name} ${3:description}
+endsnippet
+
+snippet @t "Add a JsDoc type."
+@type {${1:Object}}
+endsnippet
+
+snippet @r "Adds a JSDoc return."
+@return {${1:Object}}
+endsnippet
+
+#
+# snippet: c
+# w (word boundary)
+# m (trim spaces on the right of the script)
+# Create a single line comment.
+#
+snippet c "Add a comment." wm
+// ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: cd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a comment for documentation.
+#
+snippet cd "Add a comment for documentation." wm
+/**
+ * ${0:}
+ */
+endsnippet
+
+#
+# snippet: cs
+# w (word boundary)
+# m (trim spaces on the right of the script)
+# Create a comment for the section
+#
+snippet cs "Comment section"
+// ==========================================================================
+// ${VISUAL}${0:}
+// ==========================================================================
+endsnippet
+
+snippet log "Add a console.log"
+console.log(${VISUAL}${0:});
+endsnippet
+
+snippet err "Add a console.error"
+console.error(${VISUAL}${0:});
+endsnippet
+
+snippet fori "for (i = ..; i < c.length; i++)"
+for (${1:let i} = 0; ${1/(.*\s)?(.*?)/$2/} < ${2:list}.length; ${1/(.*\s)?(.*?)/$2/} += 1) {
+	${VISUAL}${0:}
+}
+endsnippet
+
+snippet foria "for (i = ..; i < c.length; i++)"
+for (${1:let i} = 0; ${1/(.*\s)?(.*?)/$2/} < ${2:list}.length; ${1/(.*\s)?(.*?)/$2/} += 1) {
+	${3:const item} = $2[${1/(.*\s)?(.*?)/$2/}];
+	${VISUAL}${0:}
+}
+endsnippet
+
+snippet foriar "for i reversed"
+for (${1:let i} = ${2:list}.length - 1; ${1/(.*\s)?(.*?)/$2/} >= 0; ${1/(.*\s)?(.*?)/$2/} -= 1) {
+	${3:const item} = $2[${1/(.*\s)?(.*?)/$2/}];
+	${VISUAL}${0:}
+}
+endsnippet
+
+snippet fork "for (k in ..)"
+for (${1:let k} in ${2:item}) {
+	${VISUAL}${0:}
+}
+endsnippet
+
+snippet forka "for (k in ..) // assigned"
+for (let ${1:k} in ${2:item}) {
+	let ${3:value} = $2[$1];
+	${VISUAL}${0:}
+}
+endsnippet
+
+snippet .map "Map an array." i
+.map((${1:it}) => {
+	${3:return }${0:}
+})${2:;}
+endsnippet
+
+#
+# snippet: int
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# parseInt
+#
+snippet int "parseInt" wm
+parseInt(${1:${VISUAL}})${0:}
+endsnippet
+
+snippet arrcopy "Copy elements as an array."
+let ${1:newArrayNode} = new Array(${2:${VISUAL/^$/copy/}}.length);
+
+for (let ${3:i} = 0; i < $2.length; i++) {
+	$1[$3] = $2[$3];
+}
+endsnippet
+
+snippet ready "Adds the jQuery document ready"
+$(document).ready(function() {
+	${VISUAL}${0:}
+});
+endsnippet
+
+snippet Promise "create a new Promise"
+Promise(function(resolve, reject) {
+	${VISUAL}${0:}
+});
+endsnippet
+
+snippet setTimeout "setTimeout function"
+setTimeout(() => {
+	${VISUAL}${0:}
+}, ${1:0});
+endsnippet
+
+snippet .query "create a query" i
+.query("${1:select 1+1 as solution}", function(err, rows, fields) {
+	${VISUAL}${0:}
+});
+endsnippet
+
+snippet export "Add an export variable" i
+module.exports = {
+	${0:}
+};
+endsnippet
+
+#
+# snippet: vuefullcomponent
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a vue component with every possible setting.
+#
+snippet vuefullcomponent "Create a vue component with every possible setting." wm
+Y.Vue.component('${1:component-name}', {
+	template: uiDefinition['$1.html'],
+	props: {
+		name: Object
+	},
+
+	beforeCreate() {
+	},
+
+	created() {
+	},
+
+	beforeMount() {
+	},
+
+	mounted() {
+	},
+
+	beforeUpdate() {
+	},
+
+	updated() {
+	},
+
+	beforeDestroy() {
+	},
+
+	destroyed() {
+	},
+
+	data: function() {
+		return {
+			key: "value",
+		};
+	},
+});
+/* eslint-env browser */
+/* global Y uiDefinition */
+endsnippet
+
+#
+# snippet: vuecomponent
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a vue js component
+#
+snippet vuecomponent "Create a vue js component" wm
+Y.Vue.component('${1:component-name}', {
+	template: uiDefinition['$1.html'],
+	props: {
+		name: Object,
+	},
+
+	data() {
+		return {
+			key: 'value',
+		};
+	},
+});
+/* eslint-env browser */
+/* global Y uiDefinition */
+endsnippet
+
+#
+# snippet: vuerender
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Render a vue component/template
+#
+snippet vuerender "Render a vue component/template" wm
+${1/.+/const /}${1:component}${1/.+/ = /}new Y.Vue({
+	el: ${2:this.get("widgetNode").getDOMNode()},
+	template: ${3:${VISUAL/^$/"<take-picture data='pictureData'><\/take-picture>"/}}${4/.+/,
+	data: function() {
+		return {
+			/}${4:pictureData}${4/.+/: initialData
+		}
+	}/}
+});
+endsnippet
+
+#
+# snippet: find
+# Finds an element into an array using a for
+#
+snippet find "Finds an element into an array using a for" wm
+let ${1:searched} = null;
+
+for (let ${2:i} = 0; $2 < ${3:myarray}.length; $2++) {
+	let ${4:item} = $3[$2];
+	if (${5:$3}) {
+		$1 = $4;
+		break;
+	}
+}
+
+${0:}
+endsnippet
+
+#
+# snippet: arrrem
+# Array remove, remove an element from an array
+#
+snippet arrrem "Array remove, remove an element from an array" wm
+${1:array}.splice($1.indexOf(${2:value}, 1));
+endsnippet
+
+#
+# snippet: arrifrem
+# Array remove, if an element is in an array
+#
+snippet arrifrem "Array remove, if an element is in an array" wm
+if ($1.indexOf($2) > 0) {
+	${1:array}.splice($1.indexOf(${2:value}, 1));
+}
+endsnippet
+
+
+#
+# snippet: ret
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Return a value
+#
+snippet ret "Return a value" wm
+return ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: l
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# let statement.
+#
+snippet l "let statement." wm
+let ${0:}
+endsnippet
+
+#
+# snippet: co
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# const statement
+#
+snippet co "const statement" wm
+const ${0:}
+endsnippet
+
+
+#
+# snippet: v
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# var statement
+#
+snippet v "var statement" wm
+var ${0:}
+endsnippet
+
+#
+# snippet: while
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a while
+#
+snippet while "Add a while" wm
+while (${1:condition}) {
+	${0:}${VISUAL}
+}
+endsnippet
