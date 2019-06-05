@@ -1,5 +1,5 @@
 snippet a "Create a markdown link" i
-[${2:$1}](${1:${VISUAL}})
+[${1:${VISUAL/^$/url/}}](${2:$1}${3:desc})
 endsnippet
 
 snippet /^\s*image\s*$/ "Create a markdown image" r

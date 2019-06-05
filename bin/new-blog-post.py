@@ -57,7 +57,7 @@ AVAILABLE_CATEGORIES = (
     "News",
 )
 
-CURL_COMMAND = 'curl {url} | grep "fm=jpg" | grep "_blank" | grep rd__button--download | head -n1 | perl -pe "s/^.*href=\\\'(.*?)\\\'.*$/\\1/"'
+CURL_COMMAND = 'curl {url} | grep "fm=jpg" | grep "_blank" | grep js-photo-page-image-download-link | head -n1 | perl -pe "s/^.*href=\\\'(.*?)\\\'.*$/\\1/"'
 # CURL_COMMAND = 'curl {url} | grep pexels-photo | grep fm=jpg | grep " download" | head -n1 | perl -pe "s/^.*href=\\"(.*?)\\".*$/\\1/"'
 WGET_COMMAND = "wget '{url}' -O '{file_name}'"
 
