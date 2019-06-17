@@ -27,6 +27,7 @@ AVAILABLE_TAGS: Dict[str, List[str]] = {
         "automation": ["devops"],
         "ansible": ["devops"],
         "security": ["devops"],
+        "adhesive": ["devops", "jenkins"],
     "germanium-selector-builder": ["germanium-selectors"],
     "selenium": [],
         "selenium-selectors": ["selenium"],
