@@ -1,0 +1,95 @@
+#
+# snippet: {
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a variable/whatevs
+#
+snippet { "Create a variable/whatevs" wm
+{{ ${0:${VISUAL}} }}
+endsnippet
+
+#
+# snippet: var
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a variable
+#
+snippet var "Create a variable" wm
+{{ .Values.${0:replicaCount} }}
+endsnippet
+
+#
+# snippet: with
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a with block
+#
+snippet with "Create a with block" wm
+{{- with ${1:.Values.imagePullSecrets} }}
+${0:${VISUAL}}
+{{- end }}
+endsnippet
+
+#
+# snippet: yaml
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Serialize a variable to yaml
+#
+snippet yaml "Serialize a variable to yaml" wm
+{{- toYaml ${1:.}${2/.+/ | nindent /}${2:8} }}
+endsnippet
+
+#
+# snippet: inc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# include
+#
+snippet inc "include" wm
+{{ include "${1:persistent-postgresql.fullname}" .${2/.+/ | indent /}${2:4} }}
+endsnippet
+
+#
+# snippet: if
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an if condition
+#
+snippet if "Create an if condition" wm
+{{- if ${1:.Values.ingress.enabled} }}
+	${0:${VISUAL}}
+{{- end }}
+endsnippet
+
+#
+# snippet: for
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a range
+#
+snippet for "Create a range" wm
+{{- range ${1:.Values.items} }}
+	- {{ . }}
+{{- end }}
+endsnippet
+
+#
+# snippet: def
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Default value
+#
+snippet def "Default value" wm
+default "${1:value}"
+endsnippet
+
+#
+# snippet: q
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# quot
+#
+snippet q "quote" wm
+quote
+endsnippet
