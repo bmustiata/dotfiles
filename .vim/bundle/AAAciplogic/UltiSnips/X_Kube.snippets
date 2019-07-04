@@ -377,3 +377,81 @@ metadata:
 data:
 	${2:KEY1}: ${3:VALUE}
 endsnippet
+
+#
+# snippet: crd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Custom Resource Definition
+#
+snippet crd "Custom Resource Definition" wm
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+	# name must match the spec fields below, and be in the form: <plural>.<group>
+	name: ${1:potatoes}.${2:bmbzl.com}
+spec:
+	# group name to use for REST API: /apis/<group>/<version>
+	group: $2
+	versions:
+		- name: v1
+			# Each version can be enabled/disabled by Served flag.
+			served: true
+			# One and only one version must be marked as the storage version.
+			storage: true
+	# either Namespaced or Cluster
+	scope: Namespaced
+	names:
+		plural: $1
+		singular: ${3:potato}
+		kind: ${4:Potato}
+		shortNames:
+		- ${5:pt}
+	preserveUnknownFields: false
+	validation:
+		openAPIV3Schema:
+			type: object
+			properties:
+				spec:
+					type: object
+					properties:
+						${0:weight:
+							type: integer
+						color:
+							type: string
+						replicas:
+							type: integer}
+endsnippet
+
+#
+# snippet: cr
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a Custom Resource
+#
+snippet cr "Create a Custom Resource" wm
+apiVersion: ${1:v1}
+kind: ${2:Potato}
+metadata:
+	name: ${3:best-potato}
+spec:
+	${0:weight: 10
+	color: yellow
+	replicas: 1}
+endsnippet
+
+#
+# snippet: sc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Storage class
+#
+snippet sc "Storage class" wm
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+	name: ${1:local-storage}
+provisioner: ${2:kubernetes.io/no-provisioner}
+volumeBindingMode: WaitForFirstConsumer
+endsnippet
+

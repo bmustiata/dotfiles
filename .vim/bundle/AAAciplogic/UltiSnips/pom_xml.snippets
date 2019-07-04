@@ -8,7 +8,13 @@ snippet pom "Create a POM file"
 </project>
 endsnippet
 
-snippet dependency "Add a maven dependency"
+#
+# snippet: dep
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a new dependency
+#
+snippet dep "Add a new dependency" wm
 <dependency>
 	<groupId>${1:group}</groupId>
 	<artifactId>${2:artifact}</artifactId>
@@ -16,4 +22,18 @@ snippet dependency "Add a maven dependency"
 </dependency>
 endsnippet
 
+
+#
+# snippet: repo
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a repository
+#
+snippet repo "Create a repository" wm
+<repository>
+	<id>${1:analytics-repo}</id>
+	<name>${2:Analytics Repository}</name>
+	<url>${3:https://storage.googleapis.com/esd-auto-artifacts/maven/release/}</url>
+</repository>
+endsnippet
 

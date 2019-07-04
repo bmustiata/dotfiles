@@ -29,7 +29,7 @@ snippet is "Create a new issue definition" wm
 [ ] (${1:impact}) (${2:points})  ${3:${VISUAL/^$/issue description/}}
 endsnippet
 
-snippet frontpage "The front page settings, with TOC"
+snippet book "The front page settings, with TOC"
 = ${1:Title}
 :toc: left
 :experimental:
@@ -475,13 +475,3 @@ snippet pexels "Pexels credit" wm
 [small]#_Article Photo from Pexels:_ ${VISUAL}#
 endsnippet
 
-#
-# snippet: fun
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# create a function
-#
-snippet fun "create a function" wm
-def ${1:function_name}():
-	${2:pass}
-endsnippet

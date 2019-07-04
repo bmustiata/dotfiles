@@ -82,13 +82,28 @@ alias grun='java -cp /home/raptor/programs/antlr-4.7.1-complete.jar org.antlr.v4
 # Powerline Shell
 #
 
+if [ ! -f ~/.shell/powerline-shell.py ]; then
+cat << EOM
+    You need to link powerline to ~/.shell/powerline-shell.py Try:
+
+    pip install powerline
+    ln -s \$(which powerline-shell) ~/.shell/powerline-shell.py
+    PROMPT_COMMAND="_update_ps1; \$PROMPT_COMMAND"
+EOM
+fi # [ ! -f ~/.shell/powerline-shell.py ]
+
 function _update_ps1() {
     PS1="$(~/.shell/powerline-shell.py $? 2> /dev/null)"
 }
 
-if [ "$TERM" != "linux" ]; then
+if [ "$TERM" != "linux" ] && [ -f ~/.shell/powerline-shell.py ]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
+
+# WSL workaround
+if [[ "$(umask)" == "0000" ]]; then
+    umask 022
+fi # [[ "$(umask)" == "0000" ]]
 
 plan $CIPLOGIC_PLAN_SCOPE
 
