@@ -20,15 +20,16 @@ snippet service "Create a service entry." wm
 endsnippet
 
 #
-# snippet: ansible
+# snippet: play
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Create an ansible playbook
 #
-snippet ansible "Create an ansible playbook" wm
+snippet play "Create an ansible playbook" wm
 - name: ${1:Configure webserver with nginx}
   hosts: ${2:webservers}${3/.+/
-  become: /}${3:True}
+  become: /}${3:True}${4/.+/
+  gather_facts: /}${4:True}
   tasks:
     ${0:${VISUAL/^$/- name: install nginx
       apt: name=nginx update_cache=yes/}}
@@ -36,54 +37,21 @@ endsnippet
 
 
 #
-# snippet: wait_for_http
+# snippet: probe_http
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Waits for an HTTP server to be up
 #
-snippet wait_for_http "Waits for an HTTP server to be up" wm
+snippet probe_http "Waits for an HTTP server to be up" wm
 - name: ${1:Wait until server is up}
   uri:
-    url: ${2:{{ jenkins_base_url }}/}
-    return_content: true
+    url: ${2:{{ jenkins_base_url }}/}${3/.+/
+    return_content: true/}
   register: response
-  until: response.status == 200 and '${3:}' in response.content
+  until: response.status == 200${3/.+/ and '/}${3:content}${3/.+/' in response.content/}
   delay: ${4:3}
   retries: ${5:100}
   changed_when: false
-endsnippet
-
-#
-# snippet: wait_for_http_200
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# Wait for HTTP to return a 200 code
-#
-snippet wait_for_http_200 "Wait for HTTP to return a 200 code" wm
-- name: ${1:Wait untils Jenkins web API is available}
-  uri:
-    url: ${2:{{ jenkins_base_url }}/}
-    return_content: true
-  register: response
-  until: response.status == 200
-  delay: ${3:3}
-  retries: ${4:100}
-  changed_when: false
-endsnippet
-
-
-#
-# snippet: play
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# Create a new play
-#
-snippet play "Create a new play" wm
-- name: ${1:Name of the Play}
-  hosts: ${2:all}${3/.+/
-  become: /}${3:true}
-  tasks:
-    ${0:}
 endsnippet
 
 #
@@ -128,20 +96,21 @@ ignore_errors: /}${2:True}
 endsnippet
 
 #
-# snippet: getversion
+# snippet: getstdout
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Gets the version of a program into a new variable.
 #
-snippet getversion "Gets the version of a program into a new variable." wm
-- name: Get ${1:docker} version.
-	shell: ${2:docker -v}
-	register: result
+snippet getstdout "Gets the stdout of a program into a new variable." wm
+- name: ${1:Get docker version}
+	shell: |
+		${2:docker -v}
+	register: ${3:result}
 	ignore_errors: True
 	changed_when: False
 
-- name: Register the ${1/.+/docker/}_version fact.
-	set_fact: ${1/.+/docker/}_version='{{result.stdout | regex_replace("^Docker version (.*?), build .*$", "\\1")}}'
+- name: ${4:Register the docker version fact.}
+	set_fact: ${5:$3}='{{$3.stdout${6/.+/ | regex_replace("/}${6:^Docker version (.*?), build .*$}${6/.+/", "\\\\1")/}}}'
 endsnippet
 
 #

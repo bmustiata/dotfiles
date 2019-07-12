@@ -63,6 +63,16 @@ snippet if "Create an if condition" wm
 endsnippet
 
 #
+# snippet: ifi
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Creat an inline if
+#
+snippet ifi "Creat an inline if" wm
+{{ if ${1:.Values.ingress.enabled} }}${0:${VISUAL}}{{ end }}
+endsnippet
+
+#
 # snippet: for
 # w (word boundary),
 # m (trim spaces on the right of the script)

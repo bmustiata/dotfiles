@@ -48,6 +48,32 @@ spec:
 endsnippet
 
 #
+# snippet: ds
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# daemon set
+#
+snippet ds "daemon set" wm
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+	name: ${1:web-rs}
+spec:
+	selector:
+		matchLabels:
+			${3:app: hello-world}
+	template:
+		metadata:
+			labels:
+				$3
+		spec:
+			containers:
+			- name: ${4:hello-ctr}
+				image: ${5:nigelpoulton/k8sbook:latest}${6/.+/
+				ports:
+				- containerPort: /}${6:8080}
+endsnippet
+#
 # snippet: service
 # w (word boundary),
 # m (trim spaces on the right of the script)
