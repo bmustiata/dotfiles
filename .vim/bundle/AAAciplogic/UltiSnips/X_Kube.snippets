@@ -296,7 +296,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Create environment vars from the config map
 #
-snippet env_config "Create environment vars from the config map" wm
+snippet envconfig "Create environment vars from the config map" wm
 env:
 - name: ${1:VAR_NAME}
 	valueFrom:
@@ -305,8 +305,37 @@ env:
 			key: ${3:password}
 endsnippet
 
+#
+# snippet: e
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a new environment key
+#
+snippet esec "Add a new environment key from a secret" wm
+- name: ${1:VAR_NAME}
+	valueFrom:
+		secretKeyRef:
+			name: ${2:secret-name}
+			key: ${3:password}
+endsnippet
+
+#
+# snippet: e
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a new environment key
+#
+snippet econf "Add a new environment key from a configmap" wm
+- name: ${1:VAR_NAME}
+	valueFrom:
+		configMapKeyRef:
+			name: ${2:secret-name}
+			key: ${3:password}
+endsnippet
+
+
 # inject secrets into the environment
-snippet env_secret "Create environment variables from secret" wm
+snippet envsecret "Create environment variables from secret" wm
 env:
 - name: ${1:VAR_NAME}
 	valueFrom:

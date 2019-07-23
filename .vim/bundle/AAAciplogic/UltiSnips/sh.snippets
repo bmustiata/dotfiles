@@ -3,6 +3,36 @@ snippet c "Add a comment"
 endsnippet
 
 #
+# snippet: dbuild
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Docker build
+#
+snippet dbuild "Docker build" wm
+docker build ${1:.}${2/.+/ -f /}${2:Dockerfile}${3/.+/ -t /}${3:tag}
+endsnippet
+
+#
+# snippet: dregtag
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Docker registry tag
+#
+snippet dregtag "Docker registry tag" wm
+docker tag ${1:jwp:$tag} ${2:$REGISTRY}/$1
+endsnippet
+
+#
+# snippet: dpush
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# docker push
+#
+snippet dpush "docker push" wm
+docker push ${1:tag}
+endsnippet
+
+#
 # snippet: cd
 # w (word boundary),
 # m (trim spaces on the right of the script)
@@ -246,5 +276,15 @@ endsnippet
 #
 snippet contains "Check if a string variable contains another text value" wm
 ${1:\$VAR} = *"${2:contained text}"*
+endsnippet
+
+#
+# snippet: e
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# echo
+#
+snippet e "echo" wm
+echo ${VISUAL}${0:}
 endsnippet
 

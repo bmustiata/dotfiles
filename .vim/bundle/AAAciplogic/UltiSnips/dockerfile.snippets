@@ -80,3 +80,13 @@ ONBUILD COPY --chown=$2:$2 . /src
 #======================================
 ONBUILD RUN /_gbs/start.sh /src${GBS_PREFIX}_gbs/build/run-build.sh
 endsnippet
+
+#
+# snippet: cmd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a command
+#
+snippet cmd "Add a command" wm
+CMD ["${1:${VISUAL}}"${0:}]
+endsnippet
