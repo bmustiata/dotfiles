@@ -90,3 +90,77 @@ endsnippet
 snippet cmd "Add a command" wm
 CMD ["${1:${VISUAL}}"${0:}]
 endsnippet
+
+#
+# snippet: u
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Set the user
+#
+snippet u "Set the user" wm
+USER ${0:name}
+endsnippet
+
+#
+# snippet: cp
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# COPY
+#
+snippet cp "COPY" wm
+COPY ${1:local} ${0:image}
+endsnippet
+
+#
+# snippet: r
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# RUN
+#
+snippet r "RUN" wm
+RUN ${0:command}
+endsnippet
+
+#
+# snippet: f
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# FROM
+#
+snippet f "FROM" wm
+FROM ${1:ubuntu}${2/.+/:/}${2:18.04}
+endsnippet
+
+#
+# snippet: osc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# OpenShift Change Permissions
+#
+snippet osc "OpenShift Change Permissions" wm
+${1/.+/# OpenShift requirement
+/}${1:RUN}${1/.+/ /}chgrp -R 0 ${2:/some/directory} && \
+${1/.+/	/}chmod -R g=u $2${1/.+/
+USER 1001/}
+endsnippet
+
+#
+# snippet: e
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# ENV
+#
+snippet e "ENV" wm
+ENV ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: entry
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# ENTRYPOINT
+#
+snippet entry "ENTRYPOINT" wm
+ENTRYPOINT ["${0:}"]
+endsnippet
+

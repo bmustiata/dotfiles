@@ -20,6 +20,29 @@ spec:
 endsnippet
 
 #
+# snippet: job
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new job
+#
+snippet job "Create a new job" wm
+apiVersion: batch/v1
+kind: Job
+metadata:
+	name: ${1:job-name}
+spec:
+	template:
+		spec:
+			containers:
+			- name: ${2:container-name}
+				image: ${3:perl}${4:
+				imagePullPolicy: }${4:IfNotPresent}
+				command: [${0:"perl",	"-Mbignum=bpi", "-wle", "print bpi(2000)"}]${5/.+/
+			restartPolicy: /}${5:Never}${6/.+/
+	backoffLimit: /}${6:4}
+endsnippet
+
+#
 # snippet: rs
 # w (word boundary),
 # m (trim spaces on the right of the script)
@@ -43,8 +66,9 @@ spec:
 			containers:
 			- name: ${4:hello-ctr}
 				image: ${5:nigelpoulton/k8sbook:latest}${6/.+/
+				imagePullPolicy: /}${6:IfNotPresent}${7/.+/
 				ports:
-				- containerPort: /}${6:8080}
+				- containerPort: /}${7:8080}
 endsnippet
 
 #
@@ -309,6 +333,17 @@ endsnippet
 # snippet: e
 # w (word boundary),
 # m (trim spaces on the right of the script)
+# Add a new environment key/value pair
+#
+snippet e "Add a new environment key/value pair" wm
+- name: ${1:VAR_NAME}
+	value: ${2:value}
+endsnippet
+
+#
+# snippet: e
+# w (word boundary),
+# m (trim spaces on the right of the script)
 # Add a new environment key
 #
 snippet esec "Add a new environment key from a secret" wm
@@ -485,10 +520,10 @@ endsnippet
 # Create a Custom Resource
 #
 snippet cr "Create a Custom Resource" wm
-apiVersion: ${1:v1}
-kind: ${2:Potato}
+apiVersion: ${1:bmbzl.com}${1/.+/\//}${2:v1}
+kind: ${3:Potato}
 metadata:
-	name: ${3:best-potato}
+	name: ${4:best-potato}
 spec:
 	${0:weight: 10
 	color: yellow

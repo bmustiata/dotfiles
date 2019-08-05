@@ -180,22 +180,22 @@ snippet bash "Adds a bash #!/usr/bin/env declaration."
 #!/usr/bin/env bash${0:}
 endsnippet
 
-snippet mls "Add a multiline string value"
+snippet mlsvar "Add a multiline string value"
 read -r -d '' ${1:VALUE} << ${2:EOM}
 ${VISUAL}${0:}
 $2
 endsnippet
 
 #
-# snippet: catmls
+# snippet: mls
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Displays a multiline string on the screen using cat.
 #
-snippet catmls "Displays a multiline string on the screen using cat." wm
-cat << ${2:EOM}
+snippet mls "Displays a multiline string on the screen using cat." wm
+${2:cat}${1/.+/ /}${1/.+/> /}${1:FILE_NAME} << ${3:EOM}
 ${VISUAL}${0:}
-$2
+$3
 endsnippet
 
 # The extra readlink is there to get the absolute path
@@ -285,6 +285,6 @@ endsnippet
 # echo
 #
 snippet e "echo" wm
-echo ${VISUAL}${0:}
+echo "${VISUAL}${1:}"
 endsnippet
 

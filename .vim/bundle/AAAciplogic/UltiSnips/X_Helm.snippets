@@ -103,3 +103,14 @@ endsnippet
 snippet q "quote" wm
 quote
 endsnippet
+
+#
+# snippet: b64
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Encode as base64
+#
+snippet b64 "Encode as base64" wm
+{{b64enc ${1:.Values.database.jdbc}}}
+endsnippet
+
