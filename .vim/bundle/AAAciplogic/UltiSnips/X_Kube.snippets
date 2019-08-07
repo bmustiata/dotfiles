@@ -109,12 +109,15 @@ kind: Service
 metadata:
 	name: ${1:hello-svc}
 	labels:
-		${4:app: hello-world}
+		${4:app: hello-world}${5/.+/
+	annotations:
+		cloud.google.com\/neg: '\{"ingress": true}'
+		beta.cloud.google.com\/backend-config: '\{"ports": \{"8080":"/}${5:my-bsc-backendconfig}${5/.+/"}}'/}
 spec:
 	type: NodePort
 	ports:
-	- port: ${2:8080}
-		nodePort: ${3:30001}
+	- port: ${2:8080}${3/.+/
+		nodePort: /}${3:30001}
 		protocol: TCP
 	selector:
 		${0:app: hello-world}
@@ -543,5 +546,22 @@ metadata:
 	name: ${1:local-storage}
 provisioner: ${2:kubernetes.io/no-provisioner}
 volumeBindingMode: WaitForFirstConsumer
+endsnippet
+
+#
+# snippet: gcloudbconfig
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a backend config
+#
+snippet gcloudbconfig "Create a backend config" wm
+apiVersion: cloud.google.com/v1beta1
+kind: BackendConfig
+metadata:
+	name: ${1:my-bsc-backendconfig}
+spec:${2/.+/
+	timeoutSec: /}${2:40}${3/.+/
+	connectionDraining:
+		drainingTimeoutSec: /}${3:60}
 endsnippet
 
