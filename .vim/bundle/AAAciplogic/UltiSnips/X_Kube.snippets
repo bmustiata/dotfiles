@@ -565,3 +565,42 @@ spec:${2/.+/
 		drainingTimeoutSec: /}${3:60}
 endsnippet
 
+#
+# snippet: oshiftroute
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an openshift route
+#
+snippet openshiftroute "Add an openshift route" wm
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+	name: ${1:route-name}
+spec:
+	host: ${4:yolo-automic-automation.app.gdue4.saasdev.broadcom.com}
+	port:
+		targetPort: ${3:http}
+	to:
+		kind: Service
+		name: ${2:service-name}
+		weight: 100
+	wildcardPolicy: None
+status:
+	ingress:
+	- conditions: []
+endsnippet
+
+#
+# snippet: container
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new container
+#
+snippet container "Create a new container" wm
+- name: ${1:container-name}
+	image: ${2:image-name}${3/.+/
+	tty: /}${3:true}${4/.+/
+	command:
+	- /}${4:/bin/cat}
+endsnippet
+

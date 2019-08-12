@@ -7,5 +7,5 @@ else # not [[ "$2" == "" ]]
     CONTAINER_COMMAND=$2
 fi   # else [[ "$2" == "" ]]
 
-docker exec -it $CONTAINER_ID /bin/bash
+docker exec -it $CONTAINER_ID $CONTAINER_COMMAND
 docker rm -f $CONTAINER_ID
