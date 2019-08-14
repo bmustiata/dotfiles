@@ -84,9 +84,10 @@ endsnippet
 # Adds a value if the wrapped variable does not match
 #
 snippet wrapnottext "Adds a value if the wrapped variable does not match" wm
-\${${1:VISUAL}/^$/${2:${VISUAL/([\\\/])/\\$1/g}}/}
+\`!p snip.rv += "" if t[${1:1}] != "" else "${2:${VISUAL}}"`
 endsnippet
 
+#
 snippet /matchval/ "Adds the value of a group match" r
 \`!p snip.rv += match.group(${1:1})\`${0:}
 endsnippet

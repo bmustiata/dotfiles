@@ -299,8 +299,8 @@ endsnippet
 #
 snippet port "Add a new NodePort into a service" wm
 - name: ${1: name}
-	port: ${2:8080}
-	nodePort: ${3:38080}${4/.+/
+	port: ${2:8080}${3/.+/
+	nodePort: /}${3:38080}${4/.+/
 	targetPort: /}${4:$2}${5/.+/
 	protocol: /}${5:TCP}
 endsnippet
@@ -602,5 +602,60 @@ snippet container "Create a new container" wm
 	tty: /}${3:true}${4/.+/
 	command:
 	- /}${4:/bin/cat}
+endsnippet
+
+
+#
+# snippet: probehttp
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a liveness/readiness HTTP probe
+#
+snippet probehttp "Create a liveness/readiness HTTP probe" wm
+${1:liveness}Probe:
+	http${2:Get}:
+		port: ${3:liveness-port}
+		path: ${4:${VISUAL}}${5/.+/
+	initialDelaySeconds: /}${5:5}${6/.+/
+	periodSeconds: /}${6:5}${7/.+/
+	timeoutSeconds: /}${7:1}${8/.+/
+	successThreshold: /}${8:1}${9/.+/
+	failureThreshold: /}${9:3}
+endsnippet
+
+#
+# snippet: probetcp
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a liveness/readiness TCP probe
+#
+snippet probetcp "Create a liveness/readiness TCP probe" wm
+${1:liveness}Probe:
+	tcpSocket:
+		port: ${2:8080}${3/.+/
+	initialDelaySeconds: /}${3:5}${4/.+/
+	periodSeconds: /}${4:5}${5/.+/
+	timeoutSeconds: /}${5:1}${6/.+/
+	successThreshold: /}${6:1}${7/.+/
+	failureThreshold: /}${7:3}
+endsnippet
+
+#
+# snippet: probecmd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a liveness/readiness probe that execs something
+#
+snippet probecmd "Create a liveness/readiness probe that execs something" wm
+${1:liveness}Probe:
+	exec:
+		command:
+		- ${2:cat
+		- /tmp/healthy}${3/.+/
+	initialDelaySeconds: /}${3:5}${4/.+/
+	periodSeconds: /}${4:5}${5/.+/
+	timeoutSeconds: /}${5:1}${6/.+/
+	successThreshold: /}${6:1}${7/.+/
+	failureThreshold: /}${7:3}
 endsnippet
 
