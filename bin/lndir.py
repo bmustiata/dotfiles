@@ -24,7 +24,6 @@ def print_usage(custom_message):
 
 
 def link_file(source_path, target_path):
-    print("%s -> %s" % (target_path, source_path))
     if os.path.islink(target_path):
         if os.path.realpath(target_path) == os.path.realpath(source_path):
             return
