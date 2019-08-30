@@ -12,6 +12,7 @@ files_to_skip = {
     ".ssh",
     ".svn"
 }
+ignored_folder = None
 
 
 def print_usage(custom_message):
@@ -23,14 +24,19 @@ def print_usage(custom_message):
 
 
 def link_file(source_path, target_path):
-    print("ln %s -> %s" % (source_path, target_path))
+    print("%s -> %s" % (target_path, source_path))
+    if os.path.islink(target_path):
+        if os.path.realpath(target_path) == os.path.realpath(source_path):
+            return
+
+        os.remove(target_path)
+
+    os.symlink(os.path.realpath(source_path), target_path)
 
 
 def mkdirp(path):
-    print("mkdir -p %s" % path)
     try:
-        #os.makedirs(path)
-        pass
+        os.makedirs(path)
     except OSError as exc:  # Python >2.5
         if exc.errno == errno.EEXIST and os.path.isdir(path):
             pass
@@ -39,24 +45,37 @@ def mkdirp(path):
 
 
 def lndir_folders(source_folder, target_folder):
-    source_path = os.path.abspath(source_folder)
-    for path, folders, files in os.walk(source_path):
-        relative_path = source_path[len(path):]
+    global ignored_folder
+
+    for path, folders, files in os.walk(source_folder):
+        relative_path = path[len(source_folder):]
+
         if not relative_path:
             relative_path = "."
-        print("source path: %s, path: %s, relative: %s" % (source_path, path, relative_path))
+        else:
+            relative_path = relative_path[1:]
 
-        if path in files_to_skip:
+        base_path = os.path.basename(relative_path)
+        target_folder_relative = os.path.abspath(os.path.join(target_folder, relative_path))
+
+        if base_path in files_to_skip:
+            ignored_folder = target_folder_relative
             continue
 
-        print("path is %s" % path)
-        target_path = os.path.join(target_folder, path)
-        print("target path is %s" % target_path)
+        if ignored_folder and target_folder_relative.startswith(ignored_folder):
+            continue
 
-        mkdirp(target_path)
+        if ignored_folder:
+            ignored_folder = None
+
+        mkdirp(target_folder_relative)
 
         for file_name in files:
-            source_path = os.path.join(source_folder, path, file_name)
+            if file_name in files_to_skip:
+                continue
+
+            source_path = os.path.join(path, file_name)
+            target_path = os.path.join(target_folder_relative, file_name)
             link_file(source_path, target_path)
 
 
@@ -76,7 +95,7 @@ def main():
         print_usage("The target folder is not actually a folder")
         sys.exit(3)
 
-    lndir_folders(from_folder, to_folder)
+    lndir_folders(os.path.abspath(from_folder), os.path.abspath(to_folder))
 
 if __name__ == '__main__':
     main()

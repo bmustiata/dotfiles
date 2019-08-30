@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+
+import subprocess
+import sys
+
+
+def sh(command: str) -> str:
+    return subprocess\
+        .check_output(["/bin/sh", "-c", command])\
+        .decode('utf-8')
+
+
+def main():
+    print(sh("ls -la"))
+
+
+if __name__ == "__main__":
+    main()
+

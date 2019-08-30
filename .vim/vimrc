@@ -21,6 +21,7 @@ Plugin 'reedes/vim-wordy'                " Wordy - check texts for bad writing
 Plugin 'scrooloose/nerdcommenter.git'    " Comment sections of code <leader>cc
 Plugin 'ntpeters/vim-better-whitespace'  " Whitespace highlight at the end, and chars
 Plugin 'bmustiata/vim-todo'              " TODO lists created with ease
+Plugin 'ycm-core/YouCompleteMe'          " Autocomplete that integrates with ultisnips
 
 " Navigation
 Plugin 'scrooloose/nerdtree'             " NERDTree, basic navigation

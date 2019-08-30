@@ -12,7 +12,7 @@ case "$CURRENT_SYSTEM_VERSION" in
         wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
         export NVM_DIR="$HOME/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-        nvm install v6
+        nvm install v8
 
         npm install -g npm
 
