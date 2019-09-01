@@ -474,3 +474,13 @@ parser.add_argument('--sum', dest='accumulate', action='store_const',
 args = parser.parse_args()
 endsnippet
 
+#
+# snippet: if
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an if statement
+#
+snippet if "Add an if statement" wm
+if ${1:expression}:
+	${VISUAL}${0:}
+endsnippet
