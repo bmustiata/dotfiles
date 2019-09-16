@@ -46,63 +46,56 @@ snippet book "The front page settings, with TOC"
 :leveloffset: -1
 endsnippet
 
-snippet src "Create a source segment"
-[source,${1:text}]
+#
+# snippet: src
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a source segment
+#
+snippet src "Create a source segment" wm
+[source,${1:text}${2/.+/,/}${2:linenums}${3/.+/,highlight=/}${3:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
-snippet yml "Create a yml segment"
-[source,yaml]
+snippet yml "Create a yml segment" wm
+[source,yaml${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
 snippet source "Create a source segment"
-[source,${1:text}]
------------------------------------------------------------------------------
-${VISUAL}${0:}
------------------------------------------------------------------------------
-endsnippet
-
-#
-# snippet: yml
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# Create a yaml segment
-#
-snippet yml "Create a yaml segment" wm
-[source,${1:yml}]
+[source,${1:text}${2/.+/,/}${2:linenums}${3/.+/,highlight=/}${3:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
 snippet text "Create a text segment"
-[source,text]
+[source,text${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
-snippet cob "Create a cobol segment"
-[source,cob]
+snippet cobol "Create a cobol segment"
+[source,cobol${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
 snippet css "Create a css segment"
-[source,css]
+[source,css${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
 snippet cfg "Create a config segment"
-[source,cfg]
+[source,cfg${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
@@ -115,7 +108,7 @@ endsnippet
 # Create a JSON snippet
 #
 snippet json "Create a JSON snippet"
-[source,json]
+[source,json${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
@@ -134,56 +127,56 @@ image::${1:url}[${2:description}]
 endsnippet
 
 snippet py "Create a python segment"
-[source,python]
+[source,python${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
 snippet ts "Create a typescript segment"
-[source,typescript]
+[source,typescript${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
 snippet js "Create a javascript segment"
-[source,javascript]
+[source,javascript${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
 snippet html "Create a HTML segment"
-[source,html]
+[source,html${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
 snippet python "Create a source segment"
-[source,python]
+[source,python${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
 snippet xml "Create a source segment"
-[source,xml]
+[source,xml${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
 snippet java "Create a source segment"
-[source,java]
+[source,java${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
 endsnippet
 
 snippet sh "Create a shell source segment"
-[source,sh]
+[source,sh${1/.+/,/}${1:linenums}${2/.+/,highlight=/}${2:1..2}]
 -----------------------------------------------------------------------------
 ${VISUAL}${0:}
 -----------------------------------------------------------------------------
@@ -240,7 +233,7 @@ ${VISUAL}${0:}
 endsnippet
 
 snippet inc "Include another file"
-include::${1:${VISUAL:file.adoc}}[]${0:}
+include::${1:${VISUAL:file.adoc}}[${2/.+/tags=/}${2:tagName}]${0:}
 endsnippet
 
 snippet post "Create a hexo post"

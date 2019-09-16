@@ -38,4 +38,14 @@ endsnippet
 
 priority 0
 
-
+#
+# snippet: atag
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a xml tag node
+#
+snippet atag "Create a xml tag node" wm
+<!-- tag::${1:tagName}[] -->
+${VISUAL}${0:}
+<!-- end::$1[] -->
+endsnippet
