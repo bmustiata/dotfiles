@@ -25,6 +25,18 @@ def ${2:apt_install}(context${3/.+/, /}${3:package_names}):
 	""")}
 endsnippet
 
+#
+# snippet: lane
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new lane
+#
+snippet lane "Create a new lane" wm
+@adhesive.lane('${1:lane name}')
+def ${2:lane_function}(context):
+	${0:yield context.workspace}
+endsnippet
+
 
 #
 # snippet: gw
