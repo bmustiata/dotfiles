@@ -278,6 +278,17 @@ node "${1:Node Name}"${2/.+/ <</}${2:virtualEnvironment}${2/.+/>>/} {
 }
 endsnippet
 
+#
+# snippet: note
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a note entry for an UML
+#
+snippet note "Create a note entry for an UML" wm
+note "${3:note content}" as ${2:$1Note}
+$2 .. ${1:object}
+endsnippet
+
 
 #
 # snippet: table

@@ -28,6 +28,7 @@ Plugin 'scrooloose/nerdtree'             " NERDTree, basic navigation
 Plugin 'ctrlpvim/ctrlp.vim'              " Fuzzy navigate buffers, and files
 Plugin 'dkprice/vim-easygrep'            " Grep across multiple files <leader>vv
 Plugin 'yegappan/greplace'               " Replace across multiple files
+Plugin 'brooth/far.vim'                  " Replace across multiple files
 
 " languages support
 Plugin 'posva/vim-vue'

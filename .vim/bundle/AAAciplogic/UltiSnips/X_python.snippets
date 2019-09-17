@@ -14,9 +14,18 @@ snippet self "Create an assignment"
 self._${1:name} = $1${0:}
 endsnippet
 
-snippet /^(\s*)def$/ "Define a method or function" r
-`!p snip.rv += match.group(1)`def ${1:name}(${2:self}):
-`!p snip.rv += match.group(1)`${3/.+/    """ /}${3:documentation}${3/.+/ """\n/}`!p snip.rv += match.group(1)`    ${VISUAL}${0:}
+#
+# snippet: def
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Define a method or function
+#
+snippet def "Define a method or function" wm
+def ${1:name}(${2:self})${3/.+/ -> /}${3:None}:${4/.+/
+	"""
+	/}${4:documentation}${4/.+/
+	"""/}
+	${0:pass}
 endsnippet
 
 snippet /^(\s*)sdef$/ "Define a static method" r
@@ -26,7 +35,19 @@ snippet /^(\s*)sdef$/ "Define a static method" r
 endsnippet
 
 snippet c "Add a comment"
-${VISUAL/^(\s*)(.*?)$/$1/}#  ${VISUAL/^(\s*)(.*?)$/$2/}${0:}
+# ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: cs
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a comment section
+#
+snippet cs "Add a comment section" wm
+# ####################################################################
+# ${VISUAL}${0:}
+# ####################################################################
 endsnippet
 
 snippet """ "Add a pydoc comment"
@@ -92,18 +113,6 @@ endsnippet
 
 snippet print "Add a print"
 print(${0:})
-endsnippet
-
-#
-# snippet: cs
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# Add a comment section.
-#
-snippet cs "Add a comment section." wm
-# ====================================================
-# ${VISUAL}${0:}
-# ====================================================
 endsnippet
 
 #
@@ -483,4 +492,38 @@ endsnippet
 snippet if "Add an if statement" wm
 if ${1:expression}:
 	${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: log
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a logger
+#
+snippet logger "Create a logger" wm
+import logging
+
+LOG = logging.getLogger(__name__)
+endsnippet
+
+#
+# snippet: repr
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# create a __repr__ for the object
+#
+snippet repr "create a __repr__ for the object" wm
+def __repr__(self) -> str:
+	${0:}
+endsnippet
+
+#
+# snippet: enum
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an enum
+#
+snippet enum "Create an enum" wm
+class ${1:EnumName}(Enum):
+	${2:NEW} = '$2'
 endsnippet
