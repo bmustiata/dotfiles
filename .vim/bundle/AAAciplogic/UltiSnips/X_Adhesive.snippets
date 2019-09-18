@@ -78,3 +78,16 @@ ${0:}
 
 adhesive.${1/.+/bpmn_/}build(${1/.+/"/}${1:test.bpmn}${1/.+/"/})
 endsnippet
+
+#
+# snippet: test
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a unittest
+#
+snippet test "Create a unittest" wm
+import unittest
+
+
+test = unittest.TestCase()
+endsnippet
