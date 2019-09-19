@@ -86,6 +86,11 @@ def lndir_folders(source_folder, target_folder):
 
 
 def main():
+    logging.basicConfig(
+        level=logging.INFO,
+        stream=sys.stdout,
+        format='%(asctime)-15s %(levelname)-8s %(message)s')
+
     if len(sys.argv) < 3:
         print_usage("You need to pass a source and target folder")
         sys.exit(1)

@@ -507,6 +507,19 @@ LOG = logging.getLogger(__name__)
 endsnippet
 
 #
+# snippet: logconfig
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a default log configuration
+#
+snippet logconfig "Create a default log configuration" wm
+logging.basicConfig(
+	level=logging.INFO,
+	stream=sys.stdout,
+	format='%(asctime)-15s %(levelname)-8s %(message)s')
+endsnippet
+
+#
 # snippet: repr
 # w (word boundary),
 # m (trim spaces on the right of the script)
@@ -527,3 +540,4 @@ snippet enum "Create an enum" wm
 class ${1:EnumName}(Enum):
 	${2:NEW} = '$2'
 endsnippet
+
