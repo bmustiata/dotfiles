@@ -4,6 +4,9 @@ import sys
 import os
 import textwrap
 import errno
+import logging
+
+LOG = logging.getLogger(__name__)
 
 
 files_to_skip = {
@@ -29,6 +32,10 @@ def link_file(source_path, target_path):
             return
 
         os.remove(target_path)
+
+    if os.path.exists(target_path):
+        LOG.warn("%s already exists" % target_path)
+        return
 
     os.symlink(os.path.realpath(source_path), target_path)
 
