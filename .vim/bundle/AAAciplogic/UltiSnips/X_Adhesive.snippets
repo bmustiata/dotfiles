@@ -91,3 +91,34 @@ import unittest
 
 test = unittest.TestCase()
 endsnippet
+
+#
+# snippet: ssh
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a ssh workspace
+#
+snippet ssh "Create a ssh workspace" wm
+with ssh.inside(
+		${1:context.workspace},
+		"${2:localhost}"${3/.+/,
+		username="/}${3:root}${3/.+/"/}${4/.+/,
+		key_filename="/}${4:/home/raptor/.ssh/id_rsa}${4/.+/",
+	/}) as ${5:ssh_workspace}:
+	${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: docker
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a docker workspace
+#
+snippet docker "Create a docker workspace" wm
+with docker.inside(
+	${1:context.workspace},
+	"${2:ubuntu:18.04}"${3/.+/,
+	"/}${3:-v /tmp:/tmp}${3/.+/"/}) as ${4:docker_workspace}:
+	${VISUAL}${0:}
+endsnippet
+
