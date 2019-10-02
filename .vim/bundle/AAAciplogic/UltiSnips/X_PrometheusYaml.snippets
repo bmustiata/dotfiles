@@ -1,0 +1,37 @@
+#
+# snippet: job
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new scrape job definition
+#
+snippet job "Create a new scrape job definition" wm
+- job_name: '${1:Job Name}'
+	static_configs:
+	- targets: ['${2:localhost:9090}']
+endsnippet
+
+#
+# snippet: jobfile
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new scrape job definition from a file
+#
+snippet jobfile "Create a new scrape job definition from a file" wm
+- job_name: '${1:Job Name}'
+  file_sd_configs:
+  - ${2/.+/refresh_interval: /}${2:5m}${2/.+/
+    /}files:
+    - "${3:filname.pattern}"
+endsnippet
+
+#
+# snippet: jobrest
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new scrape job from a REST endpoint
+#
+snippet jobrest "Create a new scrape job from a REST endpoint" wm
+- job_name: '${1:Job Name}'
+	remote_read:
+		url: "${2:http://172.17.0.1:7000/}"
+endsnippet
