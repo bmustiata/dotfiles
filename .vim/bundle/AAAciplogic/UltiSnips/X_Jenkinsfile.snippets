@@ -280,7 +280,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Add a file credential
 #
-snippet cred "Add a secret file credential" wm
+snippet secret "Add a secret file credential" wm
 withCredentials([file(credentialsId: '${1:VARNAME}', variable: '${2:$1}')]) {
 	sh """
 		cp ${env.$2} ${3:/tmp/$2}

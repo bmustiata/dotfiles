@@ -5,9 +5,9 @@
 # Run some code
 #
 snippet run "Run some code" wm
-context.workspace.run("""
+${1:context.workspace}.run("""
 	${VISUAL}${0:}
-"""${1/.+/, capture_stdout=/}${1:True})
+"""${2/.+/, capture_stdout=/}${2:True})
 endsnippet
 
 
@@ -120,5 +120,19 @@ with docker.inside(
 	"${2:ubuntu:18.04}"${3/.+/,
 	"/}${3:-v /tmp:/tmp}${3/.+/"/}) as ${4:docker_workspace}:
 	${VISUAL}${0:}
+endsnippet
+
+
+#
+# snippet: secret
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a secret
+#
+snippet secret "Create a secret from adhesive.secrets" wm
+with secret(${1:context.workspace},
+            "${2:SECRET_NAME}",
+            "${3:/secret/location}"):
+	${VISUAL}
 endsnippet
 
