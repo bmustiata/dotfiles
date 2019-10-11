@@ -1,12 +1,12 @@
 import adhesive
 
 
-@adhesive.task('Install\ vim\ package')
+@adhesive.task('Install vim package')
 def install_vim_package(context):
     pass
 
 
-@adhesive.task('Vundle\ init')
+@adhesive.task('Vundle init')
 def vundle_init(context):
     context.workspace.run("""
         if [ ! -d $HOME/.vim/bundle/Vundle.vim ]; then
@@ -16,12 +16,12 @@ def vundle_init(context):
     """)
 
 
-@adhesive.task('Install\ vundle\ packages')
+@adhesive.task('Install vundle packages')
 def install_vundle_packages(context):
     context.workspace.run('vim "+silent! PluginInstall" +qall')
 
 
-@adhesive.task('YouCompleteMe\ Post\ Install')
+@adhesive.task('YouCompleteMe Post Install')
 def youcompleteme_post_install(context):
     context.workspace.run("""
         cd $HOME/.vim/bundle/YouCompleteMe
@@ -29,7 +29,7 @@ def youcompleteme_post_install(context):
     """)
 
 
-@adhesive.task('Install\ fonts')
+@adhesive.task('Install fonts')
 def install_fonts(context):
     pass
 
