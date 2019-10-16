@@ -3,7 +3,9 @@ import adhesive
 
 @adhesive.task('Install vim package')
 def install_vim_package(context):
-    pass
+    context.workspace.run("""
+        sudo apt-get install -y neovim cmake
+    """)
 
 
 @adhesive.task('Vundle init')

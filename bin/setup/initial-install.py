@@ -4,7 +4,7 @@ import adhesive
 @adhesive.task('Install packages')
 def install_packages(context):
     context.workspace.run(f"""
-        sudo apt-get install -y jq dateutils vim neovim zip unzip
+        sudo apt-get install -y jq dateutils vim neovim zip unzip curl
     """)
 
 
