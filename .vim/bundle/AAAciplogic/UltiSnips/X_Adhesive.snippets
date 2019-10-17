@@ -12,14 +12,46 @@ endsnippet
 
 
 #
+# snippet: user
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new task
+#
+snippet user "Create a new usertask" wm
+@adhesive.usertask('${1:ask user}')
+def ${2:apt_install}(context, ui):
+	${0:ui.add_input_text("name")}
+endsnippet
+
+#
+# snippet: scm
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# import scm
+#
+snippet scm "import scm" wm
+from adhesive import scm
+endsnippet
+
+#
+# snippet: checkout
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# scm.checkout
+#
+snippet checkout "scm.checkout" wm
+scm.checkout(${1:context.workspace})
+endsnippet
+
+#
 # snippet: task
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Create a new task
 #
 snippet task "Create a new task" wm
-@adhesive.task('${1:^apt install (.*)$}')
-def ${2:apt_install}(context${3/.+/, /}${3:package_names}):
+@adhesive.task('${1:apt install wut}')
+def ${2:apt_install}(context):
 	${0:context.workspace.run(f"""
 		sudo apt install -y {package_names}
 	""")}
@@ -117,8 +149,8 @@ endsnippet
 snippet docker "Create a docker workspace" wm
 with docker.inside(
 	${1:context.workspace},
-	"${2:ubuntu:18.04}"${3/.+/,
-	"/}${3:-v /tmp:/tmp}${3/.+/"/}) as ${4:docker_workspace}:
+	${3/.+/"/}${2:ubuntu:18.04}${3:"}${4/.+/,
+	"/}${4:-v /tmp:/tmp}${4/.+/"/}) as ${5:docker_workspace}:
 	${VISUAL}${0:}
 endsnippet
 

@@ -288,3 +288,13 @@ snippet e "echo" wm
 echo "${VISUAL}${1:}"
 endsnippet
 
+#
+# snippet: zip
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a zip archive
+#
+snippet zip "Create a zip archive" wm
+zip -r ${1:filename.zip} ${2:files/}
+endsnippet
+

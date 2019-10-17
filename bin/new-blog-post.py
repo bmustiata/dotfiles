@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from typing import List, Dict, Set
+import click
 from titlecase import titlecase
 
 import argparse
@@ -76,13 +77,6 @@ def get_image_url(image_page: str) -> str:
     return result
 
 
-def get_title(args) -> str:
-    if isinstance(args.title, str):
-        return args.title
-
-    return " ".join(args.title)
-
-
 def generate_tags(tags_str: str) -> str:
     tags_to_process = list(tags_str.split(','))
     processed_tags: Set[str] = set()
@@ -105,9 +99,10 @@ def generate_tags(tags_str: str) -> str:
     return "\n".join([f"- {tag}" for tag in resolved_tags])
 
 
-def generate_article(args, image_name):
-    tags = generate_tags(args.tags)
-    template = textwrap.dedent("""\
+def generate_article(*, title, category, tags, date, image_name, image_url):
+    tags = generate_tags(tags)
+
+    template = textwrap.dedent(f"""\
         title: "{title}"
         date: {date}
         tags:
@@ -130,21 +125,14 @@ def generate_article(args, image_name):
         LEDE CONTENT
 
         [small]#_Article Photo from Pexels:_ {image_url}#
-    """).format(
-        title=get_title(args),
-        date=args.date,
-        tags=tags,
-        category=args.category,
-        image_url=args.image,
-        image_name=image_name,
-    )
+    """)
 
     return template
 
 
-def get_image_name(args) -> str:
-    title = args.title.replace(" ", "-")
-    return f"{args.date}-{title}.jpg"
+def get_image_name(date, title) -> str:
+    image_title = title.replace(" ", "-")
+    return f"{date}-{image_title}.jpg"
 
 
 def display_available_tags() -> None:
@@ -162,13 +150,13 @@ def display_available_categories() -> None:
     print(AVAILABLE_CATEGORIES)
 
 
-def download_image(args) -> str:
+def download_image(date: str, image: str, title: str) -> str:
     # if it's a regular file don't download it
-    if args.image.startswith("/"):
-        return args.image
+    if image.startswith("/"):
+        return image
 
-    image_url = get_image_url(args.image)
-    image_name = get_image_name(args)
+    image_url = get_image_url(image)
+    image_name = get_image_name(date, title)
     path = f"/tmp/{image_name}"
 
     subprocess.check_call([
@@ -183,7 +171,7 @@ def download_image(args) -> str:
     return path
 
 
-def resize_image_to_blog_size(args, image_path: str) -> str:
+def resize_image_to_blog_size(image_path: str) -> str:
     image_name = os.path.basename(image_path)
     output_path = os.path.join(SITE_LOCATION, IMAGE_LOCATION, image_name)
 
@@ -199,51 +187,46 @@ def resize_image_to_blog_size(args, image_path: str) -> str:
     return image_name
 
 
-def main():
+current_date = datetime.datetime.today().strftime('%Y-%m-%d')
+
+
+@click.command()
+@click.option('-i', '--image')
+@click.option('-t', '--tags')
+@click.option('-c', '--category')
+@click.option('-d', '--date', default=current_date)
+@click.option('--available-tags', is_flag=True)
+@click.option('--available-categories', is_flag=True)
+@click.argument('title', nargs=-1)
+def main(title, image, tags, category, date, available_tags, available_categories):
     """ Generate a new blog post """
-    current_date = datetime.datetime.today().strftime('%Y-%m-%d')
+    title = titlecase(" ".join(title))
 
-    parser = argparse.ArgumentParser(description="Create new blog post")
-    parser.add_argument('-i', '--image')
-    parser.add_argument('-t', '--tags')
-    parser.add_argument('-c', '--category')
-    parser.add_argument('-d', '--date', default=current_date, help='format: YYYY-MM-DD')
-    parser.add_argument('--available-tags', action='store_true')
-    parser.add_argument('--available-categories', action='store_true')
-    parser.add_argument('title', nargs='*')
-
-    args = parser.parse_args()
-    args.title = titlecase(" ".join(args.title))
-
-    print(args)
-
-    if args.available_tags:
+    if available_tags:
         display_available_tags()
         exit(0)
 
-    if args.available_categories:
+    if available_categories:
         display_available_categories()
         exit(0)
 
-    if not args.tags:
-        raise Exception("You need to pass in tags")
-
-    if not args.image:
-        raise Exception("You need to pass in an image")
-
-    if not args.title:
-        raise Exception("You need to pass in a title")
-
-    if args.category not in AVAILABLE_CATEGORIES:
+    if category not in AVAILABLE_CATEGORIES:
         raise Exception(f"Category can be only one of {AVAILABLE_CATEGORIES}")
 
-    local_image = download_image(args)
-    image_name = resize_image_to_blog_size(args, local_image)
+    local_image = download_image(date, image, title)
+    image_name = resize_image_to_blog_size(local_image)
 
-    article_name = f"{SITE_LOCATION}/source/_posts/{args.date}-{args.title.replace(' ', '-').replace('(', '').replace(')', '')}.adoc"
+    article_name = f"{SITE_LOCATION}/source/_posts/{date}-{title.replace(' ', '-').replace('(', '').replace(')', '')}.adoc"
 
     with open(article_name, "w") as f:
-        f.write(generate_article(args, image_name))
+        f.write(generate_article(
+            title = title,
+            category = category,
+            tags = tags,
+            date = date,
+            image_url=image,
+            image_name=image_name
+        ))
 
     print(article_name)
 
