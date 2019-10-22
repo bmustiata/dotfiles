@@ -15,18 +15,18 @@ def lane_default(context):
 @adhesive.task('Render AsciiDoc to DocBook')
 def convert_asciidoc_to_docbook(context):
     with docker.inside(
-        context.workspace,
-        "bmst/docker-asciidoctor") as dw:
+            context.workspace,
+            "bmst/docker-asciidoctor") as dw:
         dw.run("""
             asciidoctor -b docbook -o README.docbook.xml README.adoc
         """)
 
 
 @adhesive.task('Render AsciiDoc to PDF')
-def convert_asciidoc_to_docbook(context):
+def convert_asciidoc_to_pdf(context):
     with docker.inside(
-        context.workspace,
-        "bmst/docker-asciidoctor") as dw:
+            context.workspace,
+            "bmst/docker-asciidoctor") as dw:
         dw.run("""
             asciidoctor-pdf -o README.pdf README.adoc
         """)
@@ -35,19 +35,26 @@ def convert_asciidoc_to_docbook(context):
 @adhesive.task('Convert DocBook to Markdown')
 def convert_docbook_to_markdown(context):
     with docker.inside(
-        context.workspace,
-        "pandoc/core") as dw:
+            context.workspace,
+            "pandoc/core") as dw:
         dw.run("""
-            pandoc --from docbook --to markdown_strict README.docbook.xml -o README.md
+            pandoc --from docbook \\
+                   --to markdown_strict \\
+                   README.docbook.xml \\
+                   -o README.md
         """)
+
 
 @adhesive.task('Convert DocBook to ReStructuredText')
 def convert_docbook_to_restructuredtext(context):
     with docker.inside(
-        context.workspace,
-        "pandoc/core") as dw:
+            context.workspace,
+            "pandoc/core") as dw:
         dw.run("""
-            pandoc --from docbook --to rst README.docbook.xml -o README.rst
+            pandoc --from docbook \\
+                   --to rst \\
+                   README.docbook.xml \\
+                   -o README.rst
         """)
 
 
@@ -58,6 +65,8 @@ def remove_docbook_documentation(context):
     """)
 
 
+# we ignore broken indents for flake8
+# flake8: noqa: E131
 adhesive.process_start()\
     .sub_process_start("Render Documents", lane="local")\
         .branch_start()\

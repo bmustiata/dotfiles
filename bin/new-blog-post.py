@@ -7,8 +7,8 @@ from titlecase import titlecase
 import argparse
 import textwrap
 import datetime
-import subprocess
 import os
+import subprocess
 
 SITE_LOCATION = "/home/raptor/projects/germanium-site"
 IMAGE_LOCATION = "source/assets/img/posts"
@@ -96,7 +96,8 @@ def generate_tags(tags_str: str) -> str:
             if dependent_tag not in processed_tags:
                 tags_to_process.append(dependent_tag)
 
-    return "\n".join([f"- {tag}" for tag in resolved_tags])
+    # we need the spacing to match the dedent identation in `generate_article`
+    return "\n        ".join([f"- {tag}" for tag in resolved_tags])
 
 
 def generate_article(*, title, category, tags, date, image_name, image_url):
@@ -190,6 +191,16 @@ def resize_image_to_blog_size(image_path: str) -> str:
 current_date = datetime.datetime.today().strftime('%Y-%m-%d')
 
 
+def edit_article(article_name: str) -> None:
+    """
+    Open the editor
+    """
+    subprocess.check_call([
+        os.environ.get("EDITOR", "vim"),
+        article_name,
+    ])
+
+
 @click.command()
 @click.option('-i', '--image')
 @click.option('-t', '--tags')
@@ -229,6 +240,7 @@ def main(title, image, tags, category, date, available_tags, available_categorie
         ))
 
     print(article_name)
+    edit_article(article_name)
 
 if __name__ == '__main__':
     main()

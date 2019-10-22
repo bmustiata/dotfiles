@@ -541,3 +541,18 @@ class ${1:EnumName}(Enum):
 	${2:NEW} = '$2'
 endsnippet
 
+#
+# snippet: typeddict
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a Typed Dict
+#
+snippet typeddict "Create a Typed Dict" wm
+class $1Required(TypedDict):
+	pass
+
+
+class ${1:PipelineConfig}($1Required, total=False):
+	${0:}
+endsnippet
+
