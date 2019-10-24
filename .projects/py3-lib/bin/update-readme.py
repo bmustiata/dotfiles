@@ -36,7 +36,7 @@ def convert_asciidoc_to_pdf(context):
 def convert_docbook_to_markdown(context):
     with docker.inside(
             context.workspace,
-            "pandoc/core") as dw:
+            "bmst/pandoc") as dw:
         dw.run("""
             pandoc --from docbook \\
                    --to markdown_strict \\
@@ -49,7 +49,7 @@ def convert_docbook_to_markdown(context):
 def convert_docbook_to_restructuredtext(context):
     with docker.inside(
             context.workspace,
-            "pandoc/core") as dw:
+            "bmst/pandoc") as dw:
         dw.run("""
             pandoc --from docbook \\
                    --to rst \\
