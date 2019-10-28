@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+import adhesive
+import shlex
+
+
+@adhesive.task('Reading Available Contexts')
+def read_kube_contexts(context):
+    kubernetes_contexts = context.workspace.run("""
+        kubectl config get-contexts --no-headers | tr -s " "
+    """, capture_stdout=True).strip().split('\n')
+
+    context.data.contexts = []
+    context.data.active_context = None
+
+    for kubernetes_context in kubernetes_contexts:
+        context_tokens = kubernetes_context.split()
+
+        context_name = context_tokens[1] if kubernetes_context.startswith('*') else context_tokens[0]
+        context.data.contexts.append(context_name)
+
+        if kubernetes_context.startswith('*'):
+            context.data.active_context = context_name
+
+
+@adhesive.usertask('Pick Active Context')
+def choose_kubernetes_contexts(context, ui):
+    ui.add_radio_group("new_active_context",
+        title="Contexts",
+        values=context.data.contexts,
+        value=context.data.active_context)
+
+
+@adhesive.task('Switch Kubernetes Context')
+def switch_kubernetes_context(context):
+    context.workspace.run(f"""
+        kubectl config use-context {shlex.quote(context.data.new_active_context)}
+    """)
+
+
+adhesive.build()

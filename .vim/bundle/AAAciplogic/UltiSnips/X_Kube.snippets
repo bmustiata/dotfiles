@@ -15,8 +15,11 @@ spec:
 	containers:
 	- name: ${2:container-name}
 		image: ${3:ubuntu}${4/.+/
+		tty: /}${4:true}${5/.+/
+		command:
+		- /}${5:cat}${6/.+/
 		ports:
-		- containerPort: /}${4:8080}
+		- containerPort: /}${6:8080}
 endsnippet
 
 #
@@ -114,7 +117,7 @@ metadata:
 		cloud.google.com\/neg: '\{"ingress": true}'
 		beta.cloud.google.com\/backend-config: '\{"ports": \{"8080":"/}${5:my-bsc-backendconfig}${5/.+/"}}'/}
 spec:
-	type: NodePort
+	type: `!p snip.rv += "" if t[3] != "" else "ClusterIP"`${3/.+/NodePort/}
 	ports:
 	- port: ${2:8080}${3/.+/
 		nodePort: /}${3:30001}
