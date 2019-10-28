@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+import adhesive
+import shlex
+
+
+@adhesive.task('Reading Available Namespaces')
+def read_kube_contexts(context):
+    kubernetes_namespaces = context.workspace.run("""
+        kubectl get ns --no-headers
+    """, capture_stdout=True).strip().split('\n')
+
+    current_namespace = context.workspace.run("""
+        kubectl config view -o jsonpath={.contexts[].context.namespace}
+    """, capture_stdout=True)
+
+    context.data.active_namespace = current_namespace if current_namespace else "default"
+
+    context.data.namespaces = []
+    for kubernetes_namespace_line in kubernetes_namespaces:
+        context_tokens = kubernetes_namespace_line.split()
+        context_name = context_tokens[0]
+        context.data.namespaces.append(context_name)
+
+
+@adhesive.usertask('Pick Active Namespace')
+def choose_kubernetes_contexts(context, ui):
+    ui.add_radio_group("new_active_namespace",
+        title="Namespaces",
+        values=context.data.namespaces,
+        value=context.data.active_namespace)
+
+
+@adhesive.task('Switch Kubernetes Namespace')
+def switch_kubernetes_context(context):
+    context.workspace.run(f"""
+        kubectl config set-context $(kubectl config current-context) --namespace={context.data.new_active_namespace}
+    """)
+
+
+adhesive.build()
