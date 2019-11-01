@@ -1,0 +1,35 @@
+#
+# snippet: option
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# A new click option
+#
+snippet option "A new click option" wm
+@click.option("--${1:title}"${2/.+/,
+              help="/}${2:option help}${2/.+/"/}${3/.+/,
+              default=/}${3:"default value"})
+endsnippet
+
+#
+# snippet: click
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new click script
+#
+snippet click "Create a new click script" wm
+#!/usr/bin/env python3
+import click
+
+
+@click.command()
+@click.argument("image_name")
+@click.option("--title", help="Postfix of the folder to add (i.e. 2019-10-10-{title})")
+def main(image_name, title) -> None:
+    print("hello click")
+
+
+if __name__ == '__main__':
+    main()
+endsnippet
+
+
