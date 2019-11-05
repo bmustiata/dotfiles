@@ -282,7 +282,7 @@ import os
 
 
 def add_enter_segment(powerline):
-    powerline.append('\n', 0, 0)
+    powerline.append('\n', 0, 16)
 
 
 def add_virtual_env_segment(powerline):
@@ -539,6 +539,8 @@ def add_git_segment(powerline):
     powerline.append('%s' % branch, Color.READONLY_FG, Color.READONLY_BG)
     stats.add_to_powerline(powerline, Color)
 
+    return True
+
 
 import os
 import subprocess
@@ -618,6 +620,7 @@ def add_svn_segment(powerline):
 
     try:
         _add_svn_segment(powerline)
+        return True
     except OSError:
         pass
     except subprocess.CalledProcessError:
@@ -641,6 +644,7 @@ def add_jobs_segment(powerline):
 
     if num_jobs > 0:
         powerline.append(' %d ' % num_jobs, Color.JOBS_FG, Color.JOBS_BG)
+        return True
 
 
 def add_root_segment(powerline):
@@ -658,15 +662,24 @@ def add_root_segment(powerline):
 
 add_enter_segment(powerline)
 
-add_virtual_env_segment(powerline)
-add_java_segment(powerline)
-add_kubernetes_segment(powerline)
-add_enter_segment(powerline)
+segment_content = False
+segment_content = add_virtual_env_segment(powerline) or segment_content
+segment_content = add_java_segment(powerline) or segment_content
+segment_content = add_kubernetes_segment(powerline) or segment_content
 
-add_git_segment(powerline)
-add_svn_segment(powerline)
-add_jobs_segment(powerline)
-add_enter_segment(powerline)
+if segment_content:
+    add_enter_segment(powerline)
+
+# ####################################################################
+# source status
+# ####################################################################
+segment_content = False
+segment_content = add_git_segment(powerline) or segment_content
+segment_content = add_svn_segment(powerline) or segment_content
+segment_content = add_jobs_segment(powerline) or segment_content
+
+if segment_content:
+    add_enter_segment(powerline)
 
 add_username_segment(powerline)
 add_ssh_segment(powerline)
