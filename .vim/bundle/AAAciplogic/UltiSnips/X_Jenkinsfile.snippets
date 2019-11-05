@@ -40,6 +40,15 @@ snippet pcheck "parameter check" wm
 ${1:PARAMETER_NAME} = params.$1 ?: ${2:'default_value'}
 endsnippet
 
+#
+# snippet: pboolcheck
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# parameter check boolean
+#
+snippet pcheckb "parameter check boolean" wm
+${1:PARAMETER_NAME} = params.containsKey("$1") ? Boolean.valueOf(params.$1) : ${2:true}
+endsnippet
 
 
 #

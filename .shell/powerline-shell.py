@@ -280,18 +280,44 @@ class Color(DefaultColor):
 
 import os
 
+
+def add_enter_segment(powerline):
+    powerline.append('\n', 0, 0)
+
+
 def add_virtual_env_segment(powerline):
     env = os.getenv('VIRTUAL_ENV') or os.getenv('CONDA_ENV_PATH')
-    if env is None:
-        return
 
-    env_name = os.path.basename(env)
+    if env is None:
+        env_name = "default"
+    else:
+        env_name = os.path.basename(env)
+
     bg = Color.VIRTUAL_ENV_BG
     fg = Color.VIRTUAL_ENV_FG
-    powerline.append(' %s ' % env_name, fg, bg)
+    powerline.append(u'🐍 %s ' % env_name, fg, bg)
+
+    return True
 
 
-add_virtual_env_segment(powerline)
+def add_java_segment(powerline):
+    env = os.getenv('JAVA_HOME')
+
+    if env is None:
+        return False
+
+    bg = Color.VIRTUAL_ENV_BG
+    fg = Color.VIRTUAL_ENV_FG
+    powerline.append(u'☕ %s ' % "java", fg, bg)
+
+    return True
+
+
+def add_kubernetes_segment(powerline):
+    bg = Color.VIRTUAL_ENV_BG
+    fg = Color.VIRTUAL_ENV_FG
+    powerline.append(u'📦 %s ' % "kube", fg, bg)
+
 
 def add_username_segment(powerline):
     import os
@@ -310,7 +336,6 @@ def add_username_segment(powerline):
     powerline.append(user_prompt, Color.USERNAME_FG, bgcolor)
 
 
-add_username_segment(powerline)
 import os
 
 def add_ssh_segment(powerline):
@@ -319,7 +344,6 @@ def add_ssh_segment(powerline):
         powerline.append(' %s ' % powerline.network, Color.SSH_FG, Color.SSH_BG)
 
 
-add_ssh_segment(powerline)
 import os
 
 ELLIPSIS = u'\u2026'
@@ -414,7 +438,6 @@ def add_cwd_segment(powerline):
                          separator, separator_fg)
 
 
-add_cwd_segment(powerline)
 import os
 
 def add_read_only_segment(powerline):
@@ -424,7 +447,6 @@ def add_read_only_segment(powerline):
         powerline.append(' %s ' % powerline.lock, Color.READONLY_FG, Color.READONLY_BG)
 
 
-add_read_only_segment(powerline)
 import re
 import subprocess
 import os
@@ -513,11 +535,11 @@ def add_git_segment(powerline):
         bg = Color.REPO_DIRTY_BG
         fg = Color.REPO_DIRTY_FG
 
-    powerline.append('%s' % branch, fg, bg)
+    powerline.append('git:', fg, bg)
+    powerline.append('%s' % branch, Color.READONLY_FG, Color.READONLY_BG)
     stats.add_to_powerline(powerline, Color)
 
 
-add_git_segment(powerline)
 import os
 import subprocess
 
@@ -602,7 +624,6 @@ def add_svn_segment(powerline):
         pass
 
 
-add_svn_segment(powerline)
 import os
 import re
 import subprocess
@@ -622,7 +643,6 @@ def add_jobs_segment(powerline):
         powerline.append(' %d ' % num_jobs, Color.JOBS_FG, Color.JOBS_BG)
 
 
-add_jobs_segment(powerline)
 def add_root_segment(powerline):
     root_indicators = {
         'bash': '\\$',
@@ -636,6 +656,22 @@ def add_root_segment(powerline):
         bg = Color.CMD_FAILED_BG
     powerline.append(root_indicators[powerline.args.shell], fg, bg)
 
+add_enter_segment(powerline)
+
+add_virtual_env_segment(powerline)
+add_java_segment(powerline)
+add_kubernetes_segment(powerline)
+add_enter_segment(powerline)
+
+add_git_segment(powerline)
+add_svn_segment(powerline)
+add_jobs_segment(powerline)
+add_enter_segment(powerline)
+
+add_username_segment(powerline)
+add_ssh_segment(powerline)
+add_cwd_segment(powerline)
+add_read_only_segment(powerline)
 
 add_root_segment(powerline)
 sys.stdout.write(powerline.draw())
