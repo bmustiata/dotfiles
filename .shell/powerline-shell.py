@@ -300,15 +300,24 @@ def add_virtual_env_segment(powerline):
     return True
 
 
+def readlink(path):
+    if os.path.islink(path):
+        return os.readlink(path)
+
+    return path
+
+
 def add_java_segment(powerline):
     env = os.getenv('JAVA_HOME')
 
     if env is None:
         return False
 
+    env_name = os.path.basename(readlink(env))
+
     bg = Color.VIRTUAL_ENV_BG
     fg = Color.VIRTUAL_ENV_FG
-    powerline.append(u'☕ %s ' % "java", fg, bg)
+    powerline.append(u'☕ %s ' % env_name, fg, bg)
 
     return True
 
