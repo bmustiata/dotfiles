@@ -488,7 +488,7 @@ def add_cwd_segment(powerline):
 
         powerline.append('%s' % maybe_shorten_name(powerline, name), fg, bg,
                          separator, separator_fg)
-        return True
+    return True
 
 
 def add_read_only_segment(powerline):
@@ -707,11 +707,11 @@ def add_root_segment(powerline):
 add_enter_segment(powerline)
 segment_content = False
 segment_content = add_kubernetes_segment(powerline) or segment_content
-if segment_content:
-    add_enter_segment(powerline)
+#if segment_content:
+#    add_enter_segment(powerline)
 
 # active java/python
-segment_content = False
+#segment_content = False
 segment_content = add_virtual_env_segment(powerline) or segment_content
 segment_content = add_java_segment(powerline) or segment_content
 if segment_content:

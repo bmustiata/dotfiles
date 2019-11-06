@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+
+
+import adhesive
+from adhesive.workspace.kube.api import KubeApi
+import yaml
+import os
+import addict
+
+
+RESOURCE_TYPES = {
+    "pod": "Pod",
+    "service": "Service",
+    "deploy": "Deployment",
+    "cm": "ConfigMap",
+    "secret": "Secret",
+}
+
+
+
+@adhesive.task('Read current data')
+def read_current_data(context):
+    # read the contexts
+    with open(os.path.join(os.getenv('HOME'), '.kube', 'config'), "r") as f:
+        kube_config = addict.Dict(yaml.safe_load(f))
+
+    print(kube_config.get('current-context'))
+    context.data.kube_context = kube_config.get('current-context')
+    context.data.kube_contexts = [it.name for it in kube_config.contexts]
+
+    current_context = None
+    for context in kube_config.contexts:
+        print(f"{context.name} -> {context.data.kube_context}")
+        if context.name == context.data.kube_context:
+            print("context found")
+            current_context = context
+            break
+
+    context.data.kube_namespace = current_context.get("namespace", "default")
+
+    kubeapi = KubeApi(context.workspace, namespace=context.data.kube_namespace)
+    namespaces = kubeapi.getall(kind="ns")
+
+    context.data.kube_namespaces = [it.metadata.name for it in namespaces]
+
+
+@adhesive.usertask('Select resource')
+def select_resource(context, ui):
+    ui.add_combobox("kube_context",
+            title="Context",
+            value=context.data.kube_context,
+            values=context.data.kube_contexts)
+    ui.add_combobox("kube_namespace",
+            title="Namespace",
+            values=("a"))
+    ui.add_combobox("kube_resource_type",
+            title="Type",
+            values=RESOURCE_TYPES,
+            value=context.data.kube_resource_type)
+    ui.add_radio_group("kube_resources",
+            title=RESOURCE_TYPES[context.data.kube_resource_type],
+            values=("a"))
+
+
+@adhesive.task('Select namespace if needed')
+def select_namespace_if_needed(context):
+    pass
+
+
+@adhesive.task('Edit selected resources')
+def edit_selected_resources(context):
+    pass
+
+
+adhesive.process_start()\
+    .task("Read current data")\
+    .usertask("Select resource")\
+    .task("Select namespace if needed")\
+    .usertask("Select resource", when="data.namespace_changed")\
+    .task("Edit selected resources")\
+    .process_end()\
+    .build(initial_data={
+        "kube_resource_type": "pod",
+    })
