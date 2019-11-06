@@ -8,6 +8,9 @@ from __future__ import print_function
 import argparse
 import os
 import sys
+import subprocess
+import re
+import socket
 
 py3 = sys.version_info.major == 3
 
@@ -267,8 +270,12 @@ class DefaultColor:
     GIT_CONFLICTED_BG = 9
     GIT_CONFLICTED_FG = 15
 
-    VIRTUAL_ENV_BG = 35  # a mid-tone green
-    VIRTUAL_ENV_FG = 00
+    VIRTUAL_ENV_BG = 77
+    VIRTUAL_ENV_FG = 16
+    JAVA_ENV_BG = 35
+    JAVA_ENV_FG = 00
+    KUBE_ENV_BG = 2
+    KUBE_ENV_FG = 16
 
 class Color(DefaultColor):
     """
@@ -278,11 +285,8 @@ class Color(DefaultColor):
     pass
 
 
-import os
-
-
 def add_enter_segment(powerline):
-    powerline.append('\n', 0, 16)
+    powerline.append('\n', 0, 16, "", "")
 
 
 def add_virtual_env_segment(powerline):
@@ -315,21 +319,51 @@ def add_java_segment(powerline):
 
     env_name = os.path.basename(readlink(env))
 
-    bg = Color.VIRTUAL_ENV_BG
-    fg = Color.VIRTUAL_ENV_FG
+    bg = Color.JAVA_ENV_BG
+    fg = Color.JAVA_ENV_FG
     powerline.append(u'☕ %s ' % env_name, fg, bg)
 
     return True
 
 
 def add_kubernetes_segment(powerline):
-    bg = Color.VIRTUAL_ENV_BG
-    fg = Color.VIRTUAL_ENV_FG
-    powerline.append(u'📦 %s ' % "kube", fg, bg)
+    home_folder = os.getenv('HOME')
+
+    if not home_folder:
+        return
+
+    kube_config = os.path.join(home_folder, '.kube', 'config')
+    if not os.path.exists(kube_config):
+        return
+
+    with open(kube_config, 'r') as f:
+        for line in f:
+            if not line.startswith("current-context: "):
+                continue
+
+            line = line.strip()
+
+            bg = Color.KUBE_ENV_BG
+            fg = Color.KUBE_ENV_FG
+            powerline.append(u'📦 %s' % line[17:], fg, bg)
+
+            return True
+
+
+def add_archer_segment(powerline):
+    project = os.getenv('CIPLOGIC_ARCHER_CURRENT_PROJECT')
+
+    if not project:
+        return
+
+    bg = Color.KUBE_ENV_BG
+    fg = Color.KUBE_ENV_FG
+    powerline.append(u'🚧 %s' % project, fg, bg)
+
+    return True
 
 
 def add_username_segment(powerline):
-    import os
     if powerline.args.shell == 'bash':
         user_prompt = '\\u'
     elif powerline.args.shell == 'zsh':
@@ -344,16 +378,25 @@ def add_username_segment(powerline):
 
     powerline.append(user_prompt, Color.USERNAME_FG, bgcolor)
 
+    return True
 
-import os
+
+def add_hostname_segment(powerline):
+    hostname = socket.gethostname()
+
+    if not hostname:
+        return
+
+    powerline.append("@" + hostname, Color.HOSTNAME_FG, Color.HOSTNAME_BG)
+
+    return True
+
 
 def add_ssh_segment(powerline):
-
     if os.getenv('SSH_CLIENT'):
         powerline.append(' %s ' % powerline.network, Color.SSH_FG, Color.SSH_BG)
+        return True
 
-
-import os
 
 ELLIPSIS = u'\u2026'
 
@@ -445,9 +488,8 @@ def add_cwd_segment(powerline):
 
         powerline.append('%s' % maybe_shorten_name(powerline, name), fg, bg,
                          separator, separator_fg)
+        return True
 
-
-import os
 
 def add_read_only_segment(powerline):
     cwd = powerline.cwd or os.getenv('PWD')
@@ -455,10 +497,8 @@ def add_read_only_segment(powerline):
     if not os.access(cwd, os.W_OK):
         powerline.append(' %s ' % powerline.lock, Color.READONLY_FG, Color.READONLY_BG)
 
+    return True
 
-import re
-import subprocess
-import os
 
 def get_PATH():
     """Normally gets the PATH from the OS. This function exists to enable
@@ -544,15 +584,11 @@ def add_git_segment(powerline):
         bg = Color.REPO_DIRTY_BG
         fg = Color.REPO_DIRTY_FG
 
-    powerline.append('git:', fg, bg)
-    powerline.append('%s' % branch, Color.READONLY_FG, Color.READONLY_BG)
+    powerline.append('%s' % branch, fg, bg)
     stats.add_to_powerline(powerline, Color)
 
     return True
 
-
-import os
-import subprocess
 
 def get_hg_status():
     has_modified_files = False
@@ -596,8 +632,6 @@ def add_hg_segment(powerline):
 #=====================================================
 # add_hg_segment(powerline)
 
-import subprocess
-
 
 def _add_svn_segment(powerline):
     is_svn = subprocess.Popen(['svn', 'status'],
@@ -636,10 +670,6 @@ def add_svn_segment(powerline):
         pass
 
 
-import os
-import re
-import subprocess
-
 def add_jobs_segment(powerline):
     pppid_proc = subprocess.Popen(['ps', '-p', str(os.getppid()), '-oppid='],
                                   stdout=subprocess.PIPE)
@@ -669,31 +699,45 @@ def add_root_segment(powerline):
         bg = Color.CMD_FAILED_BG
     powerline.append(root_indicators[powerline.args.shell], fg, bg)
 
-add_enter_segment(powerline)
+# ####################################################################
+# segment building
+# ####################################################################
 
+# kubernetes
+add_enter_segment(powerline)
+segment_content = False
+segment_content = add_kubernetes_segment(powerline) or segment_content
+if segment_content:
+    add_enter_segment(powerline)
+
+# active java/python
 segment_content = False
 segment_content = add_virtual_env_segment(powerline) or segment_content
 segment_content = add_java_segment(powerline) or segment_content
-#segment_content = add_kubernetes_segment(powerline) or segment_content
-
 if segment_content:
     add_enter_segment(powerline)
 
-# ####################################################################
-# source status
-# ####################################################################
+# project/git
 segment_content = False
+segment_content = add_archer_segment(powerline) or segment_content
 segment_content = add_git_segment(powerline) or segment_content
 segment_content = add_svn_segment(powerline) or segment_content
 segment_content = add_jobs_segment(powerline) or segment_content
-
 if segment_content:
     add_enter_segment(powerline)
 
-add_username_segment(powerline)
-add_ssh_segment(powerline)
-add_cwd_segment(powerline)
-add_read_only_segment(powerline)
+# current host
+segment_content = False
+segment_content = add_username_segment(powerline) or segment_content
+segment_content = add_hostname_segment(powerline) or segment_content
+segment_content = add_ssh_segment(powerline) or segment_content
+segment_content = add_cwd_segment(powerline) or segment_content
+segment_content = add_read_only_segment(powerline) or segment_content
+if segment_content:
+    add_enter_segment(powerline)
 
+# shell command
 add_root_segment(powerline)
+
 sys.stdout.write(powerline.draw())
+
