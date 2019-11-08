@@ -345,7 +345,12 @@ def add_kubernetes_segment(powerline):
 
             bg = Color.KUBE_ENV_BG
             fg = Color.KUBE_ENV_FG
-            powerline.append(u'📦 %s' % line[17:], fg, bg)
+            kube_context = line[17:]
+
+            if ":" in kube_context:
+                kube_context = kube_context.split(":")[0]
+
+            powerline.append(u'📦 %s' % kube_context, fg, bg)
 
             return True
 
@@ -707,11 +712,11 @@ def add_root_segment(powerline):
 add_enter_segment(powerline)
 segment_content = False
 segment_content = add_kubernetes_segment(powerline) or segment_content
-#if segment_content:
-#    add_enter_segment(powerline)
+if segment_content:
+    add_enter_segment(powerline)
 
 # active java/python
-#segment_content = False
+segment_content = False
 segment_content = add_virtual_env_segment(powerline) or segment_content
 segment_content = add_java_segment(powerline) or segment_content
 if segment_content:
@@ -726,17 +731,11 @@ segment_content = add_jobs_segment(powerline) or segment_content
 if segment_content:
     add_enter_segment(powerline)
 
-# current host
-segment_content = False
+# shell command
 segment_content = add_username_segment(powerline) or segment_content
-segment_content = add_hostname_segment(powerline) or segment_content
 segment_content = add_ssh_segment(powerline) or segment_content
 segment_content = add_cwd_segment(powerline) or segment_content
 segment_content = add_read_only_segment(powerline) or segment_content
-if segment_content:
-    add_enter_segment(powerline)
-
-# shell command
 add_root_segment(powerline)
 
 sys.stdout.write(powerline.draw())

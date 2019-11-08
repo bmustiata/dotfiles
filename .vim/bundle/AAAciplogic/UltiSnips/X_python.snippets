@@ -59,7 +59,7 @@ endsnippet
 snippet try "Add a try/except statement"
 try:
 	${VISUAL}${0:}
-except Exception as ${1:e}:
+except Exception${1/.+/ as /}${1:e}:
 	${2:pass}
 endsnippet
 

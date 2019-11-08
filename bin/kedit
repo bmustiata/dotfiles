@@ -24,24 +24,27 @@ def read_current_data(context):
     with open(os.path.join(os.getenv('HOME'), '.kube', 'config'), "r") as f:
         kube_config = addict.Dict(yaml.safe_load(f))
 
-    print(kube_config.get('current-context'))
-    context.data.kube_context = kube_config.get('current-context')
+    current_context_name = str(kube_config.get('current-context'))
+    context.data.kube_context = str(kube_config.get('current-context'))
     context.data.kube_contexts = [it.name for it in kube_config.contexts]
 
-    current_context = None
-    for context in kube_config.contexts:
-        print(f"{context.name} -> {context.data.kube_context}")
-        if context.name == context.data.kube_context:
-            print("context found")
-            current_context = context
+    for ktx in kube_config.contexts:
+        if ktx.name == current_context_name:
+            current_context = ktx
             break
 
-    context.data.kube_namespace = current_context.get("namespace", "default")
+    context.data.kube_namespace = current_context["context"].get("namespace", "default")
 
     kubeapi = KubeApi(context.workspace, namespace=context.data.kube_namespace)
-    namespaces = kubeapi.getall(kind="ns")
+    try:
+        namespaces = kubeapi.getall(kind="ns")
+    except Exception:
+        namespaces = [addict.Dict({"metadata": {"name": context.data.kube_namespace}})]
 
     context.data.kube_namespaces = [it.metadata.name for it in namespaces]
+
+    resources = kubeapi.getall(kind=context.data.kube_resource_type)
+    context.data.kube_resources = [it.metadata.name for it in resources]
 
 
 @adhesive.usertask('Select resource')
@@ -52,31 +55,39 @@ def select_resource(context, ui):
             values=context.data.kube_contexts)
     ui.add_combobox("kube_namespace",
             title="Namespace",
-            values=("a"))
+            value=context.data.kube_namespace,
+            values=context.data.kube_namespaces)
     ui.add_combobox("kube_resource_type",
             title="Type",
             values=RESOURCE_TYPES,
             value=context.data.kube_resource_type)
     ui.add_radio_group("kube_resources",
             title=RESOURCE_TYPES[context.data.kube_resource_type],
-            values=("a"))
+            values=context.data.kube_resources)
 
 
 @adhesive.task('Select namespace if needed')
 def select_namespace_if_needed(context):
-    pass
+    if context.data.original_kube_context != context.data.kube_context:
+        # change context
+        return
+
+    if context.data.original_kube_namespace != context.data.original_kube_namespace:
+        # change namespace
+        context.data.namespace_changed = True
+
 
 
 @adhesive.task('Edit selected resources')
 def edit_selected_resources(context):
-    pass
-
+    context.workspace.run(f"""
+        kubectl edit {context.data.kube_resource_type} {context.data.kube_resources}
+    """)
 
 adhesive.process_start()\
     .task("Read current data")\
     .usertask("Select resource")\
     .task("Select namespace if needed")\
-    .usertask("Select resource", when="data.namespace_changed")\
     .task("Edit selected resources")\
     .process_end()\
     .build(initial_data={
