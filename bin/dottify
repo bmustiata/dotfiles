@@ -22,7 +22,7 @@ def move_to_dotfiles(*, file_to_move, dot_folder):
         print(f"File {path_in_dot_folder} already exists. Bailing out.")
         sys.exit(1)
 
-    print("Moving {file_to_move} -> {path_in_dot_folder}")
+    print(f"Moving {file_to_move} -> {path_in_dot_folder}")
 
     os.makedirs(os.path.dirname(path_in_dot_folder), exist_ok=True)
     shutil.move(file_to_move, path_in_dot_folder)

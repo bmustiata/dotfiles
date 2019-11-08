@@ -1,0 +1,10 @@
+config:
+  name: jenkins
+  requires:
+  - JENKINS_PREFIX
+  - PROJECT_HOME
+  commands:
+    open-jenkins: |
+      BRANCH_NAME=$(git current)
+      xdg-open $JENKINS_PREFIX${BRANCH_NAME//\//%252F}
+

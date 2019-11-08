@@ -290,6 +290,9 @@ def add_enter_segment(powerline):
 
 
 def add_virtual_env_segment(powerline):
+    if not os.getenv('PS1_SHOW_PYTHON'):
+        return
+
     env = os.getenv('VIRTUAL_ENV') or os.getenv('CONDA_ENV_PATH')
 
     if env is None:
@@ -312,6 +315,9 @@ def readlink(path):
 
 
 def add_java_segment(powerline):
+    if not os.getenv('PS1_SHOW_JAVA'):
+        return
+
     env = os.getenv('JAVA_HOME')
 
     if env is None:
@@ -327,6 +333,9 @@ def add_java_segment(powerline):
 
 
 def add_kubernetes_segment(powerline):
+    if not os.getenv('PS1_SHOW_KUBERNETES'):
+        return
+
     home_folder = os.getenv('HOME')
 
     if not home_folder:
@@ -349,6 +358,10 @@ def add_kubernetes_segment(powerline):
 
             if ":" in kube_context:
                 kube_context = kube_context.split(":")[0]
+
+            # FIXME: too specific
+            kube_context = kube_context.replace('-broadcom-com', '')
+            kube_context = kube_context.replace('openshift-infra-', '')
 
             powerline.append(u'📦 %s' % kube_context, fg, bg)
 
@@ -589,7 +602,7 @@ def add_git_segment(powerline):
         bg = Color.REPO_DIRTY_BG
         fg = Color.REPO_DIRTY_FG
 
-    powerline.append('%s' % branch, fg, bg)
+    powerline.append(u'🐙 %s' % branch, fg, bg)
     stats.add_to_powerline(powerline, Color)
 
     return True
@@ -708,30 +721,21 @@ def add_root_segment(powerline):
 # segment building
 # ####################################################################
 
-# kubernetes
 add_enter_segment(powerline)
+
+# project/git
 segment_content = False
+segment_content = add_virtual_env_segment(powerline) or segment_content
+segment_content = add_java_segment(powerline) or segment_content
+segment_content = add_git_segment(powerline) or segment_content
+segment_content = add_svn_segment(powerline) or segment_content
+segment_content = add_jobs_segment(powerline) or segment_content
 segment_content = add_kubernetes_segment(powerline) or segment_content
 if segment_content:
     add_enter_segment(powerline)
 
-# active java/python
-segment_content = False
-segment_content = add_virtual_env_segment(powerline) or segment_content
-segment_content = add_java_segment(powerline) or segment_content
-if segment_content:
-    add_enter_segment(powerline)
-
-# project/git
-segment_content = False
-segment_content = add_archer_segment(powerline) or segment_content
-segment_content = add_git_segment(powerline) or segment_content
-segment_content = add_svn_segment(powerline) or segment_content
-segment_content = add_jobs_segment(powerline) or segment_content
-if segment_content:
-    add_enter_segment(powerline)
-
 # shell command
+segment_content = add_archer_segment(powerline) or segment_content
 segment_content = add_username_segment(powerline) or segment_content
 segment_content = add_ssh_segment(powerline) or segment_content
 segment_content = add_cwd_segment(powerline) or segment_content

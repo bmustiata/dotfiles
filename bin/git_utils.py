@@ -175,3 +175,13 @@ def get_commits_for_branch(branch_name, issue_id=None) -> List[Commit]:
     return list(filter(lambda commit: issue_marker.match(commit.message) and
                        not merge_test.match(commit.message),
                        all_commits))
+
+
+def get_commit_message(*, ref: str="HEAD") -> str:
+    """
+    Gets the last commit message.
+    """
+    return subprocess.check_output(["git", "log", "--format=%B", "-n", "1", ref])\
+            .decode("utf-8")\
+            .strip()
+

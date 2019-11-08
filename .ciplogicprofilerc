@@ -97,6 +97,7 @@ function _update_ps1() {
 }
 
 if [ "$TERM" != "linux" ] && [ -f ~/.shell/powerline-shell.py ]; then
+    source ~/.shell/ps1-show-functions.sh
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
 
