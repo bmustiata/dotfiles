@@ -46,11 +46,11 @@ unset CIPLOGIC_ARCHER_CURRENT_PROJECT
 unset CIPLOGIC_ARCHER_CURRENT_PY
 unset CIPLOGIC_ARCHER_CURRENT_SERVER
 
-eval $(archer project)
-eval $(archer server)
-eval $(archer py)
-eval $(archer dockerhost)
-eval $(archer kubehost)
+eval "$(archer project)"
+eval "$(archer server)"
+eval "$(archer py)"
+eval "$(archer dockerhost)"
+eval "$(archer kubehost)"
 
 alias p=project
 alias s=server

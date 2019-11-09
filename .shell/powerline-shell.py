@@ -722,6 +722,7 @@ def add_root_segment(powerline):
 # ####################################################################
 
 add_enter_segment(powerline)
+add_enter_segment(powerline)
 
 # project/git
 segment_content = False
