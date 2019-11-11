@@ -46,11 +46,7 @@ unset CIPLOGIC_ARCHER_CURRENT_PROJECT
 unset CIPLOGIC_ARCHER_CURRENT_PY
 unset CIPLOGIC_ARCHER_CURRENT_SERVER
 
-eval "$(archer project)"
-eval "$(archer server)"
-eval "$(archer py)"
-eval "$(archer dockerhost)"
-eval "$(archer kubehost)"
+eval "$(archer project server py dockerhost kubehost)"
 
 alias p=project
 alias s=server
@@ -77,20 +73,6 @@ alias kubedel="kubectl delete"
 # antlr
 alias antlr4='java -jar /home/raptor/programs/antlr-4.7.1-complete.jar'
 alias grun='java -cp /home/raptor/programs/antlr-4.7.1-complete.jar org.antlr.v4.gui.TestRig'
-
-#
-# Powerline Shell
-#
-
-if [ ! -f ~/.shell/powerline-shell.py ]; then
-cat << EOM
-    You need to link powerline to ~/.shell/powerline-shell.py Try:
-
-    pip install powerline
-    ln -s \$(which powerline-shell) ~/.shell/powerline-shell.py
-    PROMPT_COMMAND="_update_ps1; \$PROMPT_COMMAND"
-EOM
-fi # [ ! -f ~/.shell/powerline-shell.py ]
 
 function _update_ps1() {
     PS1="$(~/.shell/powerline-shell.py $? 2> /dev/null)"

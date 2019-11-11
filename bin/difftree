@@ -8,7 +8,7 @@ fi
 if [[ "$DISPLAY" == "" ]]; then
     cmd=vim
 else # not [[ "$DISPLAY" != "" ]]
-    cmd=gvim
+    cmd=vim
     if [[ "$USE_CONSOLE_VIM" != "" ]]; then
         cmd=vim
     fi # [[ "$USE_CONSOLE_VIM" != "" ]]
