@@ -1,7 +1,11 @@
 function ps1-show() {
-    export PS1_SHOW_${1^^}=1
+    for f in $@; do
+        export PS1_SHOW_${f^^}=1
+    done
 }
 
 function ps1-hide() {
-    unset PS1_SHOW_${1^^}
+    for f in $@; do
+        unset PS1_SHOW_${f^^}
+    done
 }
