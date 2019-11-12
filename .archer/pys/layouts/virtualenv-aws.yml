@@ -17,3 +17,4 @@ layout:
       aws cloudformation delete-stack --stack-name $1
     aws-update: |
       aws cloudformation update-stack --stack-name $1 --template-body file://$(readlink -f $2)
+

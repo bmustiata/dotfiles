@@ -7,6 +7,8 @@ layout:
     pwd
     . activate
     cd $OLDDIR
+
+    ps1-show python
   deactivate: |
     OLDDIR=$(pwd)
     cd $MINICONDA_HOME/bin/

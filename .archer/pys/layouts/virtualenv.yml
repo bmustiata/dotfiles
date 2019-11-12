@@ -6,5 +6,8 @@ layout:
         cd $VIRTUAL_ENVIRONMENT_HOME/bin
         . activate
         cd $OLDDIR
+
+        ps1-show python
     deactivate: |
+        ps1-hide python
         deactivate

@@ -68,22 +68,22 @@ def remove_docbook_documentation(context):
 # we ignore broken indents for flake8
 # flake8: noqa: E131
 adhesive.process_start()\
-    .sub_process_start("Render Documents", lane="local")\
+    .subprocess_start("Render Documents", lane="local")\
         .branch_start()\
             .task("Render AsciiDoc to DocBook", lane="local")\
         .branch_end()\
         .branch_start()\
             .task("Render AsciiDoc to PDF", lane="local")\
         .branch_end()\
-    .sub_process_end()\
-    .sub_process_start("Convert Documents", lane="local")\
+    .subprocess_end()\
+    .subprocess_start("Convert Documents", lane="local")\
         .branch_start()\
             .task("Convert DocBook to Markdown", lane="local")\
         .branch_end()\
         .branch_start()\
             .task("Convert DocBook to ReStructuredText", lane="local")\
         .branch_end()\
-    .sub_process_end()\
+    .subprocess_end()\
     .task("Remove DocBook documentation", lane="local")\
     .process_end()\
     .build()
