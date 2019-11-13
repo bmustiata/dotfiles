@@ -168,3 +168,15 @@ with secret(${1:context.workspace},
 	${VISUAL}
 endsnippet
 
+
+#
+# snippet: text
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new text input
+#
+snippet text "Create a new text input" wm
+ui.add_input_text("${1:name}"${2/.+/,
+	title="/}${2:Name}${2/.+/"/}${3/.+/,
+	value=/}${3:"Value"})
+endsnippet
