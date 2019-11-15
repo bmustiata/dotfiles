@@ -11,8 +11,12 @@ import sys
 import subprocess
 import re
 import socket
+import distutils
 
 py3 = sys.version_info.major == 3
+show_emojis = os.getenv('PS1_SHOW_EMOJIS', 'True').lower() in {
+    "1", "true"
+}
 
 
 def warn(msg):
@@ -302,7 +306,8 @@ def add_virtual_env_segment(powerline):
 
     bg = Color.VIRTUAL_ENV_BG
     fg = Color.VIRTUAL_ENV_FG
-    powerline.append(u'🐍 %s ' % env_name, fg, bg)
+    icon = u'🐍 ' if show_emojis else ''
+    powerline.append(u'%s%s' % (icon, env_name), fg, bg)
 
     return True
 
@@ -327,7 +332,8 @@ def add_java_segment(powerline):
 
     bg = Color.JAVA_ENV_BG
     fg = Color.JAVA_ENV_FG
-    powerline.append(u'☕ %s ' % env_name, fg, bg)
+    icon = u'☕ ' if show_emojis else ''
+    powerline.append(u'%s%s ' % (icon, env_name), fg, bg)
 
     return True
 
@@ -363,7 +369,8 @@ def add_kubernetes_segment(powerline):
             kube_context = kube_context.replace('-broadcom-com', '')
             kube_context = kube_context.replace('openshift-infra-', '')
 
-            powerline.append(u'📦 %s' % kube_context, fg, bg)
+            icon = u'📦 ' if show_emojis else ''
+            powerline.append(u'%s%s' % (icon, kube_context), fg, bg)
 
             return True
 
@@ -376,7 +383,8 @@ def add_archer_segment(powerline):
 
     bg = Color.KUBE_ENV_BG
     fg = Color.KUBE_ENV_FG
-    powerline.append(u'🚧 %s' % project, fg, bg)
+    icon = u'🚧 ' if show_emojis else ''
+    powerline.append(u'%s%s' % (icon, project), fg, bg)
 
     return True
 
@@ -595,7 +603,8 @@ def add_git_segment(powerline):
         bg = Color.REPO_DIRTY_BG
         fg = Color.REPO_DIRTY_FG
 
-    powerline.append(u'🐙 %s' % branch, fg, bg)
+    icon = u'🐙 ' if show_emojis else ''
+    powerline.append(u'%s%s' % (icon, branch), fg, bg)
     stats.add_to_powerline(powerline, Color)
 
     return True
