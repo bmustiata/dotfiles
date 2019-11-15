@@ -18,6 +18,8 @@ show_emojis = os.getenv('PS1_SHOW_EMOJIS', 'True').lower() in {
     "1", "true"
 }
 
+show_emojis = bool(os.getenv('PS1_SHOW_EMOJI', '1'))
+
 
 def warn(msg):
     print('[powerline-bash] ', msg)
