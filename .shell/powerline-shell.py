@@ -581,7 +581,7 @@ def parse_git_stats(status):
 
 def add_git_segment(powerline):
     try:
-        p = subprocess.Popen(['git', 'current'],
+        p = subprocess.Popen(['git', 'status', '--porcelain', '-b'],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                              env=git_subprocess_env())
     except OSError:
@@ -592,12 +592,19 @@ def add_git_segment(powerline):
     if p.returncode != 0:
         return
 
-    stats = RepoStats()
-    branch = pdata[0].decode("utf-8").strip()
+    status = pdata[0].decode("utf-8").splitlines()
+    stats = parse_git_stats(status)
+    branch_info = parse_git_branch_info(status)
+
+    if branch_info:
+        stats.ahead = branch_info["ahead"]
+        stats.behind = branch_info["behind"]
+        branch = branch_info['local']
+    else:
+        branch = _get_git_detached_branch()
 
     bg = Color.REPO_CLEAN_BG
     fg = Color.REPO_CLEAN_FG
-
     if stats.dirty:
         bg = Color.REPO_DIRTY_BG
         fg = Color.REPO_DIRTY_FG
