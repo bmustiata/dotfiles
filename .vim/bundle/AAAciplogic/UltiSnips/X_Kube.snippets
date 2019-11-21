@@ -240,6 +240,18 @@ volumes:
 endsnippet
 
 #
+# snippet: volume_empty
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an emptyDir volume
+#
+snippet volume_empty "Create an emptyDir volume" wm
+volumes:
+- name: ${1:empty-volume}
+  emptyDir: {}
+endsnippet
+
+#
 # snippet: mount
 # w (word boundary),
 # m (trim spaces on the right of the script)

@@ -479,3 +479,17 @@ snippet gbsbinary "Create a new GBS binary" wm
 	}/}
 ]
 endsnippet
+
+#
+# snippet: each
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# For each item
+#
+snippet each "For each item" wm
+for (int ${1:i} = 0; $1 < ${2:variables}.${3:size()}; $1++) {
+	def ${4:variable} = $2[$1]
+	${VISUAL}${0:}
+}
+endsnippet
+
