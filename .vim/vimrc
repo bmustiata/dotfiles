@@ -24,6 +24,9 @@ Plugin 'bmustiata/vim-todo'              " TODO lists created with ease
 Plugin 'ycm-core/YouCompleteMe'          " Autocomplete that integrates with ultisnips
 Plugin 'vim-scripts/DirDiff.vim'         " Diff two folders
 
+" source control
+Plugin 'airblade/vim-gitgutter'          " Git margins
+
 " Navigation
 Plugin 'scrooloose/nerdtree'             " NERDTree, basic navigation
 Plugin 'ctrlpvim/ctrlp.vim'              " Fuzzy navigate buffers, and files
