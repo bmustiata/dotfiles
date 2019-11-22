@@ -1,28 +1,9 @@
-set hidden
+let g:lsp_signs_enabled = 1         " enable signs
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+let g:lsp_signs_error = {'text': '✗'}
+let g:lsp_signs_warning = {'text': '‼'}
+let g:lsp_signs_hint = {'text': 'x'}
+let g:lsp_highlight_references_enabled = 1
 
-" pyls requires: pip install python-language-server, pyls-mypy, mypy
-" go-langserver requires: go get -u github.com/sourcegraph/go-langserver
-" ts requires javascript-typescript-langserver
-let g:LanguageClient_serverCommands = {
-    \ 'X_python.python': ['pyls'],
-    \ 'X_test_python.X_python.python': ['pyls'],
-    \ 'X_python': ['pyls'],
-    \ 'python': ['pyls'],
-    \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'go': ['go-langserver'],
-    \ }
-
-function! FindReferences()
-    call LanguageClient#textDocument_references()
-    sleep 400m
-    lopen
-endfunction
-
-"nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> cm :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gr :call FindReferences()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> rr :call LanguageClient#textDocument_rename()<CR>
-
+nnoremap <silent> gd :LspDefinition<CR>
+nnoremap <silent> gr :LspReferences<CR>

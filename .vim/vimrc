@@ -44,9 +44,15 @@ Plugin 'tpope/vim-markdown.git'
 Plugin 'mustache/vim-mustache-handlebars.git'
 Plugin 'bmustiata/vim-cucumber'
 
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+
 " core final init
 Plugin 'file://.vim/bundle/zzzciplogic'
 
 call vundle#end()
 filetype plugin indent on
+
+
+
 
