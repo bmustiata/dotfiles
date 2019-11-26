@@ -1,3 +1,0 @@
-parents:
-    - py3-flask
-    - pyi/flask_socketio
