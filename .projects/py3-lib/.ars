@@ -1,2 +1,3 @@
 parents:
-  - pyi/setuptools
+- pyi/setuptools
+- adhesive
