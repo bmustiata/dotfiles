@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
@@ -12,11 +12,13 @@ import subprocess
 import re
 import socket
 import distutils
+import yaml
 
 py3 = sys.version_info.major == 3
 show_emojis = os.getenv('PS1_SHOW_EMOJIS', 'True').lower() in {
     "1", "true"
 }
+
 
 def warn(msg):
     print('[powerline-bash] ', msg)
@@ -374,6 +376,62 @@ def add_kubernetes_segment(powerline):
             return True
 
 
+def add_kubehost_segment(powerline):
+    if not os.getenv('PS1_SHOW_KUBEHOST'):
+        return
+
+    kubehost = os.getenv('CIPLOGIC_ARCHER_CURRENT_KUBEHOST')
+
+    if not kubehost:
+        return
+
+    bg = Color.KUBE_ENV_BG
+    fg = Color.KUBE_ENV_FG
+    icon = u'☁️ ' if show_emojis else ''
+    powerline.append(u'%s%s' % (icon, kubehost), fg, bg)
+
+    return True
+
+
+def add_kubernetes_namespace_segment(powerline):
+    if not os.getenv('PS1_SHOW_KUBERNETES_NAMESPACE'):
+        return
+
+    kubeconfig = os.environ.get(
+        "KUBECONFIG",
+        os.path.join(os.getenv('HOME'), '.kube', 'config'))
+
+    if not os.path.exists(kubeconfig):
+        return
+
+    bg = Color.KUBE_ENV_BG
+    fg = Color.KUBE_ENV_FG
+    icon = u'📦 ' if show_emojis else ''
+
+    try:
+        with open(kubeconfig, 'r') as f:
+            try:
+                data = yaml.safe_load(f)
+
+                current_context = data['current-context']
+
+                for context in data['contexts']:
+                    if context['name'] != current_context:
+                        continue
+
+                    namespace = context['context'].get('namespace', 'default')
+                    powerline.append(u'%s%s' % (icon, namespace), fg, bg)
+
+                    break
+
+            except Exception:
+                powerline.append(u'%s%s' % (icon, "??"), fg, bg)
+
+            return True
+    except Exception:
+        powerline.append(u'%s%s' % (icon, '<config-read-error>'), fg, bg)
+
+
 def add_archer_segment(powerline):
     project = os.getenv('CIPLOGIC_ARCHER_CURRENT_PROJECT')
 
@@ -725,12 +783,19 @@ def add_root_segment(powerline):
         bg = Color.CMD_FAILED_BG
     powerline.append(root_indicators[powerline.args.shell], fg, bg)
 
+
 # ####################################################################
 # segment building
 # ####################################################################
+add_enter_segment(powerline)
+add_enter_segment(powerline)
 
-add_enter_segment(powerline)
-add_enter_segment(powerline)
+# kubernetes
+segment_content = False
+segment_content = add_kubehost_segment(powerline) or segment_content
+segment_content = add_kubernetes_namespace_segment(powerline) or segment_content
+if segment_content:
+    add_enter_segment(powerline)
 
 # project/git
 segment_content = False
@@ -739,7 +804,6 @@ segment_content = add_java_segment(powerline) or segment_content
 segment_content = add_git_segment(powerline) or segment_content
 segment_content = add_svn_segment(powerline) or segment_content
 segment_content = add_jobs_segment(powerline) or segment_content
-segment_content = add_kubernetes_segment(powerline) or segment_content
 if segment_content:
     add_enter_segment(powerline)
 
@@ -752,4 +816,3 @@ segment_content = add_read_only_segment(powerline) or segment_content
 add_root_segment(powerline)
 
 sys.stdout.write(powerline.draw())
-

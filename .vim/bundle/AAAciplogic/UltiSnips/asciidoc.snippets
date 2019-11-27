@@ -185,14 +185,14 @@ endsnippet
 snippet uml "Create a UML snippet with plantuml"
 [plantuml, ${1:/documents/public/assets/generated/germanium-selectors-uml}, ${2:svg}]
 ------------------------------------------------------------------------------
-${0:class A<T> <<singleton>> {
+${VISUAL/^$/class A<T> <<singleton>> {
 	{abstract} -int x
 	{static} #void meta()
 }
 
 class B
 
-A <|-- B}
+A <|-- B/}${0:}
 ------------------------------------------------------------------------------
 endsnippet
 
