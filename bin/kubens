@@ -1,10 +1,61 @@
-#!/usr/bin/env bash
+#!/usr/bin/python3
 
-if [[ "$1" == "" ]]; then
-    CURRENT_NAMESPACE=$(kubectl config view -o jsonpath={.contexts[].context.namespace})
-    echo "You need to specify the namespace name."
-    echo "Current namespace: $CURRENT_NAMESPACE"
-    exit 1
-fi # [[ "$1" == "" ]]
+import adhesive
+import yaml
 
-kubectl config set-context $(kubectl config current-context) --namespace=$1
+
+@adhesive.task('Read Current Context')
+def read_current_context(context):
+    kubeconfig = yaml.safe_load(context.workspace.run(f"""
+        kubectl config view
+    """, capture_stdout=True).strip())
+
+    print(kubeconfig['current-context'])
+
+    for kubecontext in kubeconfig['contexts']:
+        if kubecontext['name'] != kubeconfig['current-context']:
+            continue
+
+        context.data.current_namespace = kubecontext['context'].get('namespace', 'default')
+        break
+
+    context.data.runs_in_openshift = 'openshift' in kubeconfig['current-context']
+    context.data.current_context = kubeconfig['current-context']
+
+    if context.data.runs_in_openshift:
+        context.data.available_namespaces = context.workspace.run("""
+            oc projects -q
+        """, capture_stdout=True).strip().split("\n")
+        return
+
+    context.data.available_namespaces = context.workspace.run("""
+        kubectl get ns --no-headers | cut -f1 -d\\ 
+    """, capture_stdout=True).strip().split("\n")
+
+
+@adhesive.usertask('Select Context')
+def select_context(context, ui):
+    ui.add_radio_group(
+        "desired_namespace",
+        title="Project" if context.data.runs_in_openshift else "Namespace",
+        values=context.data.available_namespaces,
+        value=context.data.current_namespace)
+
+
+@adhesive.task('Change Context')
+def change_context(context):
+    if context.data.desired_namespace == context.data.current_namespace:
+        return
+
+    if context.data.runs_in_openshift:
+        context.workspace.run(f"""
+            oc project {context.data.desired_namespace}
+        """, capture_stdout=True)
+        return
+
+    context.workspace.run(f"""
+        kubectl config set-context {context.data.current_context} --namespace={context.data.desired_namespace}
+    """, capture_stdout=True)
+
+
+adhesive.build()

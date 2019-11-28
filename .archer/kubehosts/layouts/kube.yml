@@ -1,4 +1,8 @@
 layout:
   name: kubernetes
   requires: [ KUBECONFIG ]
+  activate: |
+    ps1-show kubehost kubernetes_namespace
+  deactivate: |
+    ps1-hide kubehost kubernetes_namespace
 
