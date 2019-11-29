@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import adhesive
+from collections import OrderedDict
 import yaml
 
 
@@ -22,23 +23,36 @@ def read_current_context(context):
     context.data.runs_in_openshift = 'openshift' in kubeconfig['current-context']
     context.data.current_context = kubeconfig['current-context']
 
+    context.data.available_namespaces = OrderedDict()
+
     if context.data.runs_in_openshift:
-        context.data.available_namespaces = context.workspace.run("""
+        namespace_list = context.workspace.run("""
             oc projects -q
         """, capture_stdout=True).strip().split("\n")
+
+        for namespace_line in namespace_list:
+            context.data.available_namespaces[namespace_line] = namespace_line
+
         return
 
-    context.data.available_namespaces = context.workspace.run("""
-        kubectl get ns --no-headers | cut -f1 -d\\ 
+    namespace_list = context.workspace.run("""
+        kubectl get ns --no-headers
     """, capture_stdout=True).strip().split("\n")
+
+    for namespace_line in namespace_list:
+        namespace_name = namespace_line.split(" ")[0]
+        context.data.available_namespaces[namespace_name] = namespace_line
 
 
 @adhesive.usertask('Select Context')
 def select_context(context, ui):
+    if context.data.current_namespace not in context.data.available_namespaces:
+        context.data.current_namespace = 'default'
+
     ui.add_radio_group(
         "desired_namespace",
         title="Project" if context.data.runs_in_openshift else "Namespace",
-        values=context.data.available_namespaces,
+        values=[ (key, value) for key, value in context.data.available_namespaces.items()],
         value=context.data.current_namespace)
 
 
