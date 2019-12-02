@@ -110,20 +110,29 @@ snippet service "Create a service" wm
 apiVersion: v1
 kind: Service
 metadata:
-	name: ${1:hello-svc}
+	name: ${1:hello-svc}${2/.+/
 	labels:
-		${4:app: hello-world}${5/.+/
+		/}${2:app: hello-world}${3/.+/
 	annotations:
 		cloud.google.com\/neg: '\{"ingress": true}'
-		beta.cloud.google.com\/backend-config: '\{"ports": \{"8080":"/}${5:my-bsc-backendconfig}${5/.+/"}}'/}
+		beta.cloud.google.com\/backend-config: '\{"ports": \{"8080":"/}${3:my-bsc-backendconfig}${3/.+/"}}'/}
 spec:
-	type: `!p snip.rv += "" if t[3] != "" else "ClusterIP"`${3/.+/NodePort/}
+	type: `!p
+if str(t[4]):
+	snip.rv += "ExternalName"
+elif str(t[7]):
+	snip.rv += "NodePort"
+else:
+	snip.rv += "ClusterIP"`${4/.+/
+	clusterIP: ""
+	externalName: /}${4:mysql.mysql.svc.cluster.local}
 	ports:
-	- port: ${2:8080}${3/.+/
-		nodePort: /}${3:30001}
-		protocol: TCP
+	- ${5/.+/name: /}${5:http}${5/.+/
+	  /}port: ${6:8080}${7/.+/
+	  nodePort: /}${7:30001}${8/.+/
+	  protocol: /}${8:TCP}${9/.+/
 	selector:
-		${0:app: hello-world}
+	  /}${9:app: hello-world}
 endsnippet
 
 snippet rc "Add a replication controller"
@@ -143,26 +152,6 @@ spec:
 				image: ${5:$1}
 				ports:
 				- containerPort: ${6:80}
-endsnippet
-
-snippet kubeservice "Add a service"
-apiVersion: v1
-kind: Service
-metadata:
-	labels:
-		name: ${2:$1}
-	name: ${1:servicename}
-spec:
-	publicIPs: [${3:10.5.1.1}]
-	ports:
-		# port = container port
-		- port: ${4:8080}
-			nodePort: ${5:32000}
-	# Label keys and values that must match in order to receive traffic for this service.
-	selector:
-		app: ${6:$1}
-	# or NodeService
-	type: ${7:LoadBalancer}
 endsnippet
 
 #
@@ -412,7 +401,11 @@ spec:
 			- backend:
 					serviceName: ${5:nextcloud}
 					servicePort: ${6:http}
-				path: ${7:/}
+				path: ${7:/}${8/.+/
+	tls:
+	- secretName: /}${8:$3}${8/.+/
+	  hosts:
+	  - /}${9:$8}
 endsnippet
 
 #
@@ -674,4 +667,34 @@ ${1:liveness}Probe:
 	failureThreshold: /}${7:3}
 endsnippet
 
+#
+# snippet: Endpoint
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an enpoint
+#
+snippet Endpoint "Create an enpoint" wm
+apiVersion: v1
+kind: Endpoint
+metadata:
+	name: ${1:my-service}
+subsets:
+	- addresses:
+	  - ip: ${2:192.0.2.42}
+	  ports:
+	  - port: ${3:9376}
+endsnippet
+
+#
+# snippet: tls
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a tls ingress section
+#
+snippet tls "Create a tls ingress section" wm
+tls:
+- secretName: ${1:germanium.com}
+  hosts:
+  - ${2:$1}
+endsnippet
 
