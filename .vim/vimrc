@@ -17,12 +17,16 @@ Plugin 'vim-scripts/guicolorscheme.vim'  " 256 color support
 Plugin 'bling/vim-airline'               " cooler status bar
 Plugin 'bmustiata/ultisnips'             " UltiSnips, with no nested scripts
 Plugin 'brooth/far.vim'                  " Replace across multiple files
-Plugin 'reedes/vim-wordy'                " Wordy - check texts for bad writing
 Plugin 'scrooloose/nerdcommenter.git'    " Comment sections of code <leader>cc
 Plugin 'ntpeters/vim-better-whitespace'  " Whitespace highlight at the end, and chars
 Plugin 'bmustiata/vim-todo'              " TODO lists created with ease
 Plugin 'ycm-core/YouCompleteMe'          " Autocomplete that integrates with ultisnips
 Plugin 'vim-scripts/DirDiff.vim'         " Diff two folders
+
+" Better writing
+Plugin 'reedes/vim-wordy'                " Wordy - check texts for bad writing
+Plugin 'rhysd/vim-grammarous'            " more write checks
+Plugin 'dbmrq/vim-ditto'                 " Check for repeated usage of woards
 
 " source control
 Plugin 'airblade/vim-gitgutter'          " Git margins
