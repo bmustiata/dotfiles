@@ -56,23 +56,35 @@ ${VISUAL}${0:}
 """
 endsnippet
 
-snippet try "Add a try/except statement"
+#
+# snippet: try
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# try/except block
+#
+snippet try "try/except block" wm
 try:
 	${VISUAL}${0:}
 except Exception${1/.+/ as /}${1:e}:
 	${2:pass}
 endsnippet
 
-snippet trye "Add a try/except/finally statement"
+#
+# snippet: trye
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# try/except/finally
+#
+snippet trye "try/except/finally" wm
 try:
 	${VISUAL}${0:}
-except Exception as ${1:e}:
+except Exception${1/.+/ as /}${1:e}:
 	${2:pass}
 finally:
 	${3:pass}
 endsnippet
 
-snippet tryf "Add a try/finally statement"
+snippet tryf "Add a try/finally statement" wm
 try:
 	${VISUAL}${0:}
 finally:
@@ -88,16 +100,6 @@ endsnippet
 snippet while "Add a whle block" wm
 while ${1:condition}:
 	${VISUAL}${0:}
-endsnippet
-
-snippet trygermanium "Add a germanium try/except/finally block"
-try:
-	${VISUAL}${0:}
-except Exception as e:
-	print("test failed: " + str(e))
-	germanium.take_screenshot("WpTestLogin")
-finally:
-	germanium.quit()
 endsnippet
 
 snippet python "Add python as a shell script"
