@@ -1,0 +1,23 @@
+#
+# snippet: project
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# A new archer project
+#
+snippet project "A new archer project" wm
+config:
+	name: ${1:awi}${2:
+	layouts:
+	- }${2:project}${3/.+/
+	requires: [ /}${3:PROJECT_HOME}${3/.+/ ]/}${4/.+/
+	exports:
+		/}${4:PROJECT_BUILD_FOLDER: target}${5/.+/
+	activate: |  # activation script
+		/}${5:ls -la}${6/.+/
+	deactivate: | # deactivation script
+		/}${6:ls -la}${7/.+/
+	commands:
+		custom-command: |
+			/}${7:ls -la}
+endsnippet
+

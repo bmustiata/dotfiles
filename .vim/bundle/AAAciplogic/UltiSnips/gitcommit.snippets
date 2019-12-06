@@ -1,0 +1,15 @@
+#
+# snippet: oldmsg
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Insert the old message
+#
+snippet oldmsg "Insert the old message" wm
+`!p
+import subprocess
+
+snip.rv += subprocess.check_output([
+   "git", "log", "-1", "--pretty=%B"
+]).decode('utf-8').strip()
+`
+endsnippet
