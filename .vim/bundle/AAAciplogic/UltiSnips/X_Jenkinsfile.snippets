@@ -117,9 +117,12 @@ endsnippet
 # Add some shell calls
 #
 snippet sh "Add some shell calls" wm
-sh """
-	${VISUAL}${0:}
-"""
+sh${1/.+/([
+	script:/} """
+${1/.+/	/}	${VISUAL}${0:}
+${1/.+/	/}"""${1/.+/,
+	returnStdout: /}${1:true}${1/.+/,
+])/}
 endsnippet
 
 #

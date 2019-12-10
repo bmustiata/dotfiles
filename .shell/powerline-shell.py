@@ -432,6 +432,23 @@ def add_kubernetes_namespace_segment(powerline):
         powerline.append(u'%s%s' % (icon, '<config-read-error>'), fg, bg)
 
 
+def add_kubernetes_service_account_segment(powerline):
+    if not os.getenv('PS1_SHOW_KUBERNETES_SERVICE_ACCOUNT'):
+        return
+
+    kubesa = os.getenv('KUBERNETES_SERVICE_ACCOUNT')
+
+    if not kubesa:
+        return
+
+    bg = Color.KUBE_ENV_BG
+    fg = Color.KUBE_ENV_FG
+    icon = u'🔒 ' if show_emojis else ''
+    powerline.append(u'%s%s' % (icon, kubesa), fg, bg)
+
+    return True
+
+
 def add_archer_segment(powerline):
     project = os.getenv('CIPLOGIC_ARCHER_CURRENT_PROJECT')
 
@@ -794,6 +811,7 @@ add_enter_segment(powerline)
 segment_content = False
 segment_content = add_kubehost_segment(powerline) or segment_content
 segment_content = add_kubernetes_namespace_segment(powerline) or segment_content
+segment_content = add_kubernetes_service_account_segment(powerline) or segment_content
 if segment_content:
     add_enter_segment(powerline)
 
