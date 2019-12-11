@@ -393,15 +393,34 @@ def add_kubehost_segment(powerline):
     return True
 
 
-def add_kubernetes_namespace_segment(powerline):
-    if not os.getenv('PS1_SHOW_KUBERNETES_NAMESPACE'):
-        return
+kube_config_data = None
+
+
+def read_kube_config():
+    global kube_config_data
+
+    if kube_config_data:
+        return kube_config_data
 
     kubeconfig = os.environ.get(
         "KUBECONFIG",
         os.path.join(os.getenv('HOME'), '.kube', 'config'))
 
     if not os.path.exists(kubeconfig):
+        return None
+
+    with open(kubeconfig, 'r') as f:
+        kube_config_data = yaml.safe_load(f)
+        return kube_config_data
+
+
+def add_kubernetes_namespace_segment(powerline):
+    if not os.getenv('PS1_SHOW_KUBERNETES_NAMESPACE'):
+        return
+
+    data = read_kube_config()
+
+    if not data:
         return
 
     bg = Color.KUBE_ENV_BG
@@ -409,42 +428,52 @@ def add_kubernetes_namespace_segment(powerline):
     icon = u'📦 ' if show_emojis else ''
 
     try:
-        with open(kubeconfig, 'r') as f:
-            try:
-                data = yaml.safe_load(f)
+        try:
+            current_context = data['current-context']
 
-                current_context = data['current-context']
+            for context in data['contexts']:
+                if context['name'] != current_context:
+                    continue
 
-                for context in data['contexts']:
-                    if context['name'] != current_context:
-                        continue
+                namespace = context['context'].get('namespace', 'default')
+                powerline.append(u'%s%s' % (icon, namespace), fg, bg)
 
-                    namespace = context['context'].get('namespace', 'default')
-                    powerline.append(u'%s%s' % (icon, namespace), fg, bg)
+                break
 
-                    break
+        except Exception:
+            powerline.append(u'%s%s' % (icon, "??"), fg, bg)
 
-            except Exception:
-                powerline.append(u'%s%s' % (icon, "??"), fg, bg)
-
-            return True
+        return True
     except Exception:
         powerline.append(u'%s%s' % (icon, '<config-read-error>'), fg, bg)
 
 
-def add_kubernetes_service_account_segment(powerline):
-    if not os.getenv('PS1_SHOW_KUBERNETES_SERVICE_ACCOUNT'):
+def add_kubernetes_user_segment(powerline):
+    if not os.getenv('PS1_SHOW_KUBERNETES_USER'):
         return
 
-    kubesa = os.getenv('KUBERNETES_SERVICE_ACCOUNT')
+    data = read_kube_config()
 
-    if not kubesa:
+    if not data:
         return
+
+    current_context = data["current-context"]
+    kube_user = "??"  # os.getenv('KUBERNETES_SERVICE_ACCOUNT')
+    for context in data["contexts"]:
+        if context["name"] == current_context:
+            kube_user = context["context"]["user"]
+            break
+
+    if not kube_user:
+        return
+
+    m = re.compile(r'([^/]+)(/.*$)?').match(kube_user)
+    kube_user = m[1]
 
     bg = Color.KUBE_ENV_BG
     fg = Color.KUBE_ENV_FG
     icon = u'🔒 ' if show_emojis else ''
-    powerline.append(u'%s%s' % (icon, kubesa), fg, bg)
+    powerline.append(u'%s%s' % (icon, kube_user), fg, bg)
 
     return True
 
@@ -811,7 +840,7 @@ add_enter_segment(powerline)
 segment_content = False
 segment_content = add_kubehost_segment(powerline) or segment_content
 segment_content = add_kubernetes_namespace_segment(powerline) or segment_content
-segment_content = add_kubernetes_service_account_segment(powerline) or segment_content
+segment_content = add_kubernetes_user_segment(powerline) or segment_content
 if segment_content:
     add_enter_segment(powerline)
 

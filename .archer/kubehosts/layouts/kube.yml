@@ -2,14 +2,6 @@ layout:
   name: kubernetes
   requires: [ KUBECONFIG ]
   activate: |
-    ps1-show kubehost kubernetes_namespace
+    ps1-show kubehost kubernetes_namespace kubernetes_user
   deactivate: |
-    ps1-hide kubehost kubernetes_namespace
-  commands:
-    # create a subshell for a custom pod definition
-    wannabe: |
-      export KUBERNETES_SERVICE_ACCOUNT=$(kubectl get pods $1 -o jsonpath={.spec.serviceAccount})
-      ps1-show kubernetes_service_account
-    wannabeme:
-      ps1-hide kubernetes_service_account
-      unset KUBERNETES_SERVICE_ACCOUNT
+    ps1-hide kubehost kubernetes_namespace kubernetes_user
