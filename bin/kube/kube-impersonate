@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+
+from typing import List, Dict
+import time
+import collections
+import adhesive
+from adhesive.workspace import kube
+from adhesive.kubeapi import KubeApi
+import yaml
+import os
+
+
+class Data:
+    create_pod: bool
+    container_name: str
+    service_account: str
+    resources: Dict[str, str]
+    selected_resource: str
+    token_data: str
+    config_file: str
+
+
+@adhesive.task('Find all pods')
+def find_all_pods(context: adhesive.Token[Data]) -> None:
+    lines: List[str] = context.workspace.run_output("""
+        (kubectl get pods --no-headers | grep Running) || true
+    """).strip().split("\n")
+
+    available_pods: Dict[str, str] = collections.OrderedDict()
+    for line in lines:
+        resource_name = "pod/" + line.split(' ')[0]
+        available_pods[resource_name] = resource_name
+
+    context.data.resources = available_pods
+
+
+@adhesive.task('Find all SAs')
+def find_all_sas(context: adhesive.Token[Data]) -> None:
+    lines: List[str] = context.workspace.run_output("""
+        kubectl get sa --no-headers
+    """).strip().split("\n")
+
+    available_sas: Dict[str, str] = collections.OrderedDict()
+    for line in lines:
+        resource_name = "sa/" + line.split(' ')[0]
+        available_sas[resource_name] = resource_name
+
+    context.data.resources = available_sas
+
+
+@adhesive.usertask('Select Pod/SA')
+def select_pod_sa(context: adhesive.Token[Data], ui: adhesive.UI) -> None:
+    ui.add_radio_group(
+        "selected_resource",
+        title="Select a Pod or a Service Account",
+        values=context.data.resources)  # type: ignore
+
+
+@adhesive.gateway('Create the pod?')
+def create_the_pod_(context: adhesive.Token[Data]) -> None:
+    if "sa/" in context.data.selected_resource:
+        context.data.create_pod = True
+        context.data.container_name = "yolo"
+        context.data.service_account = context.data.selected_resource[3:]
+        return
+
+    # strip the pod/
+    context.data.container_name = context.data.selected_resource[4:]
+    context.data.service_account = context.workspace.run_output(f"""
+        kubectl get pods {context.data.container_name} -o jsonpath='{{.spec.serviceAccountName}}'
+    """).strip()
+
+
+@adhesive.task('Create Busybox Container')
+def create_busybox_container(context: adhesive.Token[Data]) -> None:
+    kubeapi = KubeApi(context.workspace)
+
+    # create the yolo pid
+    kubeapi.apply(f"""
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: {context.data.container_name}
+        spec:
+          securityContext:
+            runAsUser: 1000
+          serviceAccountName: {context.data.service_account}
+          containers:
+          - name: yolo
+            image: busybox
+            tty: true
+            command:
+            - cat
+    """)
+
+    for i in range(10):
+        try:
+            context.workspace.run("""
+                kubectl get pods yolo | grep Running
+            """)
+            break
+        except Exception:
+            time.sleep(2)
+
+
+@adhesive.task('Extract token from the Container')
+def extract_token_from_the_container(context: adhesive.Token[Data]) -> None:
+    with kube.inside(context.workspace,
+                     pod_name=context.data.container_name) as w:
+        context.data.token_data = w.run_output("""
+            cat /var/run/secrets/kubernetes.io/serviceaccount/token
+        """)
+
+
+@adhesive.task('Destroy Busybox Container')
+def destroy_busybox_container(context: adhesive.Token[Data]) -> None:
+    kubeapi = KubeApi(context.workspace)
+    kubeapi.delete(kind="pod", name="yolo")
+
+
+@adhesive.task('Create Custom .kube/config')
+def create_custom_kube_config(context: adhesive.Token[Data]) -> None:
+    current_config = context.workspace.run_output("""
+        kubectl config view --minify --raw
+    """)
+
+    user_name = f"{context.data.service_account}"
+
+    config = yaml.safe_load(current_config)
+    current_user = config["users"][0]
+
+    current_user["name"] = user_name
+    current_user["user"]["token"] = context.data.token_data
+
+    config["contexts"][0]["context"]["user"] = user_name
+
+    context.data.config_file = context.workspace.run_output("tempfile").strip()
+    with open(context.data.config_file, 'w', encoding='utf-8') as f:
+        yaml.safe_dump(config, f)
+
+
+@adhesive.task('Print Usage')
+def print_usage(context: adhesive.Token[Data]) -> None:
+    print(f"export KUBECONFIG='{context.data.config_file}'")
+
+
+folder_name = os.path.abspath(os.path.dirname(__file__))
+adhesive.bpmn_build(os.path.join(folder_name, "kube-impersonate.bpmn"))
