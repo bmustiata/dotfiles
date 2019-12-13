@@ -195,7 +195,7 @@ snippet base64decode "Decode the selected text from base64" wm
 `!p
 import base64
 
-snip.rv += base64.b64decode(snip.v.text)
+snip.rv += base64.b64decode(snip.v.text).decode('utf-8')
 `
 endsnippet
 
