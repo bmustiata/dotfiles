@@ -4,7 +4,7 @@
 ignore=E402
 
 # The default maximum length of a line being 80 is too small.
-max-line-length=120
+max-line-length=200
 
 
 [pycodestyle]
@@ -13,4 +13,4 @@ max-line-length=120
 ignore=E402
 
 # The default maximum length of a line being 80 is too small.
-max-line-length=120
+max-line-length=200
