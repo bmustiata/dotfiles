@@ -3,6 +3,8 @@
 import adhesive
 from collections import OrderedDict
 import yaml
+import click
+import subprocess
 
 
 @adhesive.task('Read Current Context')
@@ -72,4 +74,20 @@ def change_context(context):
     """, capture_stdout=True)
 
 
-adhesive.build()
+@click.command()
+@click.argument("namespace_name", required=False)
+def main(namespace_name) -> None:
+    if namespace_name:
+        subprocess.check_call([
+            "bash",
+            "-c",
+            f"kubectl config set-context $(kubectl config current-context) --namespace={namespace_name}"
+        ])
+        return
+
+    adhesive.build()
+
+
+if __name__ == "__main__":
+    main()
+

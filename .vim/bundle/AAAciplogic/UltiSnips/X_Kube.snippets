@@ -8,18 +8,18 @@ snippet pod "Create a new pod" wm
 apiVersion: v1
 kind: Pod
 metadata:
-	name: ${1:hello-pod}
-	labels:
-		${0:app: prod}
+  name: ${1:hello-pod}
+  labels:
+    ${0:app: prod}
 spec:
-	containers:
-	- name: ${2:container-name}
-		image: ${3:ubuntu}${4/.+/
-		tty: /}${4:true}${5/.+/
-		command:
-		- /}${5:cat}${6/.+/
-		ports:
-		- containerPort: /}${6:8080}
+  containers:
+  - name: ${2:container-name}
+    image: ${3:ubuntu}${4/.+/
+    tty: /}${4:true}${5/.+/
+    command:
+    - /}${5:cat}${6/.+/
+    ports:
+    - containerPort: /}${6:8080}
 endsnippet
 
 #
@@ -32,17 +32,17 @@ snippet job "Create a new job" wm
 apiVersion: batch/v1
 kind: Job
 metadata:
-	name: ${1:job-name}
+  name: ${1:job-name}
 spec:
-	template:
-		spec:
-			containers:
-			- name: ${2:container-name}
-				image: ${3:perl}${4:
-				imagePullPolicy: }${4:IfNotPresent}
-				command: [${0:"perl",	"-Mbignum=bpi", "-wle", "print bpi(2000)"}]${5/.+/
-			restartPolicy: /}${5:Never}${6/.+/
-	backoffLimit: /}${6:4}
+  template:
+    spec:
+      containers:
+      - name: ${2:container-name}
+        image: ${3:perl}${4:
+        imagePullPolicy: }${4:IfNotPresent}
+        command: [${0:"perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"}]${5/.+/
+      restartPolicy: /}${5:Never}${6/.+/
+  backoffLimit: /}${6:4}
 endsnippet
 
 #
@@ -55,23 +55,23 @@ snippet rs "replica set" wm
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-	name: ${1:web-rs}
+  name: ${1:web-rs}
 spec:
-	replicas: ${2:8}
-	selector:
-		matchLabels:
-			${3:app: hello-world}
-	template:
-		metadata:
-			labels:
-				$3
-		spec:
-			containers:
-			- name: ${4:hello-ctr}
-				image: ${5:nigelpoulton/k8sbook:latest}${6/.+/
-				imagePullPolicy: /}${6:IfNotPresent}${7/.+/
-				ports:
-				- containerPort: /}${7:8080}
+  replicas: ${2:8}
+  selector:
+    matchLabels:
+      ${3:app: hello-world}
+  template:
+    metadata:
+      labels:
+        $3
+    spec:
+      containers:
+      - name: ${4:hello-ctr}
+        image: ${5:nigelpoulton/k8sbook:latest}${6/.+/
+        imagePullPolicy: /}${6:IfNotPresent}${7/.+/
+        ports:
+        - containerPort: /}${7:8080}
 endsnippet
 
 #
@@ -84,21 +84,21 @@ snippet ds "daemon set" wm
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-	name: ${1:web-rs}
+  name: ${1:web-rs}
 spec:
-	selector:
-		matchLabels:
-			${3:app: hello-world}
-	template:
-		metadata:
-			labels:
-				$3
-		spec:
-			containers:
-			- name: ${4:hello-ctr}
-				image: ${5:nigelpoulton/k8sbook:latest}${6/.+/
-				ports:
-				- containerPort: /}${6:8080}
+  selector:
+    matchLabels:
+      ${3:app: hello-world}
+  template:
+    metadata:
+      labels:
+        $3
+    spec:
+      containers:
+      - name: ${4:hello-ctr}
+        image: ${5:nigelpoulton/k8sbook:latest}${6/.+/
+        ports:
+        - containerPort: /}${6:8080}
 endsnippet
 #
 # snippet: service
@@ -110,48 +110,48 @@ snippet service "Create a service" wm
 apiVersion: v1
 kind: Service
 metadata:
-	name: ${1:hello-svc}${2/.+/
-	labels:
-		/}${2:app: hello-world}${3/.+/
-	annotations:
-		cloud.google.com\/neg: '\{"ingress": true}'
-		beta.cloud.google.com\/backend-config: '\{"ports": \{"8080":"/}${3:my-bsc-backendconfig}${3/.+/"}}'/}
+  name: ${1:hello-svc}${2/.+/
+  labels:
+    /}${2:app: hello-world}${3/.+/
+  annotations:
+    cloud.google.com\/neg: '\{"ingress": true}'
+    beta.cloud.google.com\/backend-config: '\{"ports": \{"8080":"/}${3:my-bsc-backendconfig}${3/.+/"}}'/}
 spec:
-	type: `!p
+  type: `!p
 if str(t[4]):
-	snip.rv += "ExternalName"
+  snip.rv += "ExternalName"
 elif str(t[7]):
-	snip.rv += "NodePort"
+  snip.rv += "NodePort"
 else:
-	snip.rv += "ClusterIP"`${4/.+/
-	clusterIP: ""
-	externalName: /}${4:mysql.mysql.svc.cluster.local}
-	ports:
-	- ${5/.+/name: /}${5:http}${5/.+/
-	  /}port: ${6:8080}${7/.+/
-	  nodePort: /}${7:30001}${8/.+/
-	  protocol: /}${8:TCP}${9/.+/
-	selector:
-	  /}${9:app: hello-world}
+  snip.rv += "ClusterIP"`${4/.+/
+  clusterIP: ""
+  externalName: /}${4:mysql.mysql.svc.cluster.local}
+  ports:
+  - ${5/.+/name: /}${5:http}${5/.+/
+    /}port: ${6:8080}${7/.+/
+    nodePort: /}${7:30001}${8/.+/
+    protocol: /}${8:TCP}${9/.+/
+  selector:
+    /}${9:app: hello-world}
 endsnippet
 
 snippet rc "Add a replication controller"
 apiVersion: v1
 kind: ReplicationController
 metadata:
-	name: ${1:my-nginx}
+  name: ${1:my-nginx}
 spec:
-	replicas: ${2:1}
-	template:
-		metadata:
-			labels:
-				${3:app: $1}
-		spec:
-			containers:
-			- name: ${4:$1}
-				image: ${5:$1}
-				ports:
-				- containerPort: ${6:80}
+  replicas: ${2:1}
+  template:
+    metadata:
+      labels:
+        ${3:app: $1}
+    spec:
+      containers:
+      - name: ${4:$1}
+        image: ${5:$1}
+        ports:
+        - containerPort: ${6:80}
 endsnippet
 
 #
@@ -162,9 +162,9 @@ endsnippet
 #
 snippet volume_host "Add a volume directly on the host for a pod." wm
 volumes:
-	- name: ${1:jenkins-home}
-		hostPath:
-			path: ${2:/var/jenkins_home}
+  - name: ${1:jenkins-home}
+    hostPath:
+      path: ${2:/var/jenkins_home}
 endsnippet
 
 #
@@ -175,15 +175,15 @@ endsnippet
 #
 snippet volume_longhorn "Add a volume on longhorn." wm
 volumes:
-	- name: ${1:volume-name}
-		flexVolume:
-			driver: "rancher.io/longhorn"
-			fsType: "ext4"
-			options:
-				size: "2Gi"
-				numberOfReplicas: "3"
-				staleReplicaTimeout: "20"
-				fromBackup: ""
+  - name: ${1:volume-name}
+    flexVolume:
+      driver: "rancher.io/longhorn"
+      fsType: "ext4"
+      options:
+        size: "2Gi"
+        numberOfReplicas: "3"
+        staleReplicaTimeout: "20"
+        fromBackup: ""
 endsnippet
 
 #
@@ -195,11 +195,11 @@ endsnippet
 snippet volume_config "Add a config volume" wm
 volumes:
 - name: ${1:config-demo-volume}
-	configMap:
-		name: ${2:config-object-name}${3/.+/
-		items:
-			- key: /}${3:log.level}${3/.+/
-			  path: /}${0:${3/.+/level/}}
+  configMap:
+    name: ${2:config-object-name}${3/.+/
+    items:
+      - key: /}${3:log.level}${3/.+/
+        path: /}${0:${3/.+/level/}}
 endsnippet
 
 #
@@ -211,8 +211,8 @@ endsnippet
 snippet volume_secret "Add a secret volume" wm
 volumes:
 - name: ${1:secret-demo-volume}
-	secret:
-		secretName: ${2:secret-name}
+  secret:
+    secretName: ${2:secret-name}
 endsnippet
 
 #
@@ -224,8 +224,8 @@ endsnippet
 snippet volume_pvc "Add a persistent volume claim module" wm
 volumes:
 - name: ${1:pvc-demo-volume}
-	persistentVolumeClaim:
-		claimName: ${2:pvc-claim}
+  persistentVolumeClaim:
+    claimName: ${2:pvc-claim}
 endsnippet
 
 #
@@ -249,8 +249,8 @@ endsnippet
 snippet mount "Add a mount for a container" wm
 volumeMounts:
 - mountPath: ${1:/var/jenkins_home}
-	name: ${2:jenkins-home}${3/.+/
-	subPath: /}${3:subpath}
+  name: ${2:jenkins-home}${3/.+/
+  subPath: /}${3:subpath}
 endsnippet
 
 #
@@ -261,7 +261,7 @@ endsnippet
 #
 snippet nodeselect "Create a node selector (containers sibling)" wm
 nodeSelector:
-	${1:kubernetes.io/hostname}: ${2:musbo01}
+  ${1:kubernetes.io/hostname}: ${2:musbo01}
 endsnippet
 
 
@@ -275,24 +275,24 @@ snippet deploy "Create a deployment" wm
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-	name: ${1:nginx-deployment}
-	labels:
-		${2:app: nginx}
+  name: ${1:nginx-deployment}
+  labels:
+    ${2:app: nginx}
 spec:
-	replicas: ${3:3}
-	selector:
-		matchLabels:
-			${4:app: nginx}
-	template:
-		metadata:
-			labels:
-				$4
-		spec:
-			containers:
-			- name: ${5:nginx}
-				image: ${6:nginx:1.7.9}${7/.+/
-				ports:
-				- containerPort: /}${7:80}
+  replicas: ${3:3}
+  selector:
+    matchLabels:
+      ${4:app: nginx}
+  template:
+    metadata:
+      labels:
+        $4
+    spec:
+      containers:
+      - name: ${5:nginx}
+        image: ${6:nginx:1.7.9}${7/.+/
+        ports:
+        - containerPort: /}${7:80}
 endsnippet
 
 #
@@ -303,10 +303,10 @@ endsnippet
 #
 snippet port "Add a new NodePort into a service" wm
 - name: ${1: name}
-	port: ${2:8080}${3/.+/
-	nodePort: /}${3:38080}${4/.+/
-	targetPort: /}${4:$2}${5/.+/
-	protocol: /}${5:TCP}
+  port: ${2:8080}${3/.+/
+  nodePort: /}${3:38080}${4/.+/
+  targetPort: /}${4:$2}${5/.+/
+  protocol: /}${5:TCP}
 endsnippet
 
 #
@@ -318,7 +318,7 @@ endsnippet
 snippet env "Create environment variables for the container" wm
 env:
 - name: ${1:YOLO_NAME}
-	value: ${2:value}
+  value: ${2:value}
 endsnippet
 
 #
@@ -330,10 +330,10 @@ endsnippet
 snippet envconfig "Create environment vars from the config map" wm
 env:
 - name: ${1:VAR_NAME}
-	valueFrom:
-		configMapKeyRef:
-			name: ${2:config-name}
-			key: ${3:password}
+  valueFrom:
+    configMapKeyRef:
+      name: ${2:config-name}
+      key: ${3:password}
 endsnippet
 
 #
@@ -344,7 +344,7 @@ endsnippet
 #
 snippet e "Add a new environment key/value pair" wm
 - name: ${1:VAR_NAME}
-	value: ${2:value}
+  value: ${2:value}
 endsnippet
 
 #
@@ -355,10 +355,10 @@ endsnippet
 #
 snippet esec "Add a new environment key from a secret" wm
 - name: ${1:VAR_NAME}
-	valueFrom:
-		secretKeyRef:
-			name: ${2:secret-name}
-			key: ${3:password}
+  valueFrom:
+    secretKeyRef:
+      name: ${2:secret-name}
+      key: ${3:password}
 endsnippet
 
 #
@@ -369,10 +369,10 @@ endsnippet
 #
 snippet econf "Add a new environment key from a configmap" wm
 - name: ${1:VAR_NAME}
-	valueFrom:
-		configMapKeyRef:
-			name: ${2:secret-name}
-			key: ${3:password}
+  valueFrom:
+    configMapKeyRef:
+      name: ${2:secret-name}
+      key: ${3:password}
 endsnippet
 
 
@@ -380,10 +380,10 @@ endsnippet
 snippet envsecret "Create environment variables from secret" wm
 env:
 - name: ${1:VAR_NAME}
-	valueFrom:
-		secretKeyRef:
-			name: ${2:secret-name}
-			key: ${3:password}
+  valueFrom:
+    secretKeyRef:
+      name: ${2:secret-name}
+      key: ${3:password}
 endsnippet
 
 # ingress mapping
@@ -391,21 +391,21 @@ snippet ingress "Create an ingress mapping"
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-	name: ${1:nextcloud}${2/.+/
-	namespace: /}${2:nextcloud}
+  name: ${1:nextcloud}${2/.+/
+  namespace: /}${2:nextcloud}
 spec:
-	rules:
-	- host: ${3:nextcloud.yolo}
-		${4:http}:
-			paths:
-			- backend:
-					serviceName: ${5:nextcloud}
-					servicePort: ${6:http}
-				path: ${7:/}${8/.+/
-	tls:
-	- secretName: /}${8:$3}${8/.+/
-	  hosts:
-	  - /}${9:$8}
+  rules:
+  - host: ${3:nextcloud.yolo}
+    ${4:http}:
+      paths:
+      - backend:
+          serviceName: ${5:nextcloud}
+          servicePort: ${6:http}
+        path: ${7:/}${8/.+/
+  tls:
+  - secretName: /}${8:$3}${8/.+/
+    hosts:
+    - /}${9:$8}
 endsnippet
 
 #
@@ -418,9 +418,9 @@ snippet secret "Create a secret" wm
 apiVersion: v1
 kind: Secret
 metadata:
-	name: ${1:secret-name}
+  name: ${1:secret-name}
 data:
-	password: ${2:TEZUckAxbgo=}
+  password: ${2:TEZUckAxbgo=}
 endsnippet
 
 #
@@ -433,15 +433,15 @@ snippet pv_host "Create a persistent volume" wm
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-	name: ${1:task-pv-volume}
+  name: ${1:task-pv-volume}
 spec:
-	storageClassName: ${2:local-demo}
-	capacity:
-		storage: ${3:2Mi}
-	accessModes:
-		- ${4:ReadOnlyMany}
-	hostPath:
-		path: "${5:/etc}"
+  storageClassName: ${2:local-demo}
+  capacity:
+    storage: ${3:2Mi}
+  accessModes:
+    - ${4:ReadOnlyMany}
+  hostPath:
+    path: "${5:/etc}"
 endsnippet
 
 #
@@ -454,14 +454,14 @@ snippet pvc "Create a persistent volume claim" wm
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-	name: ${1:task-pv-claim}
+  name: ${1:task-pv-claim}
 spec:
-	storageClassName: ${2:local-demo}
-	accessModes:
-	- ${3:ReadOnlyMany}
-	resources:
-		requests:
-			storage: ${4:1Mi}
+  storageClassName: ${2:local-demo}
+  accessModes:
+  - ${3:ReadOnlyMany}
+  resources:
+    requests:
+      storage: ${4:1Mi}
 endsnippet
 
 #
@@ -474,9 +474,9 @@ snippet configmap "Create a config map" wm
 apiVersion: v1
 kind: ConfigMap
 metadata:
-	name: ${1:test-config}
+  name: ${1:test-config}
 data:
-	${2:KEY1}: ${3:VALUE}
+  ${2:KEY1}: ${3:VALUE}
 endsnippet
 
 #
@@ -489,39 +489,39 @@ snippet crd "Custom Resource Definition" wm
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-	# name must match the spec fields below, and be in the form: <plural>.<group>
-	name: ${1:potatoes}.${2:bmbzl.com}
+  # name must match the spec fields below, and be in the form: <plural>.<group>
+  name: ${1:potatoes}.${2:bmbzl.com}
 spec:
-	# group name to use for REST API: /apis/<group>/<version>
-	group: $2
-	versions:
-		- name: v1
-			# Each version can be enabled/disabled by Served flag.
-			served: true
-			# One and only one version must be marked as the storage version.
-			storage: true
-	# either Namespaced or Cluster
-	scope: Namespaced
-	names:
-		plural: $1
-		singular: ${3:potato}
-		kind: ${4:Potato}
-		shortNames:
-		- ${5:pt}
-	preserveUnknownFields: false
-	validation:
-		openAPIV3Schema:
-			type: object
-			properties:
-				spec:
-					type: object
-					properties:
-						${0:weight:
-							type: integer
-						color:
-							type: string
-						replicas:
-							type: integer}
+  # group name to use for REST API: /apis/<group>/<version>
+  group: $2
+  versions:
+    - name: v1
+      # Each version can be enabled/disabled by Served flag.
+      served: true
+      # One and only one version must be marked as the storage version.
+      storage: true
+  # either Namespaced or Cluster
+  scope: Namespaced
+  names:
+    plural: $1
+    singular: ${3:potato}
+    kind: ${4:Potato}
+    shortNames:
+    - ${5:pt}
+  preserveUnknownFields: false
+  validation:
+    openAPIV3Schema:
+      type: object
+      properties:
+        spec:
+          type: object
+          properties:
+            ${0:weight:
+              type: integer
+            color:
+              type: string
+            replicas:
+              type: integer}
 endsnippet
 
 #
@@ -534,11 +534,11 @@ snippet cr "Create a Custom Resource" wm
 apiVersion: ${1:bmbzl.com}${1/.+/\//}${2:v1}
 kind: ${3:Potato}
 metadata:
-	name: ${4:best-potato}
+  name: ${4:best-potato}
 spec:
-	${0:weight: 10
-	color: yellow
-	replicas: 1}
+  ${0:weight: 10
+  color: yellow
+  replicas: 1}
 endsnippet
 
 #
@@ -551,7 +551,7 @@ snippet sc "Storage class" wm
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-	name: ${1:local-storage}
+  name: ${1:local-storage}
 provisioner: ${2:kubernetes.io/no-provisioner}
 volumeBindingMode: WaitForFirstConsumer
 endsnippet
@@ -566,11 +566,11 @@ snippet gcloudbconfig "Create a backend config" wm
 apiVersion: cloud.google.com/v1beta1
 kind: BackendConfig
 metadata:
-	name: ${1:my-bsc-backendconfig}
+  name: ${1:my-bsc-backendconfig}
 spec:${2/.+/
-	timeoutSec: /}${2:40}${3/.+/
-	connectionDraining:
-		drainingTimeoutSec: /}${3:60}
+  timeoutSec: /}${2:40}${3/.+/
+  connectionDraining:
+    drainingTimeoutSec: /}${3:60}
 endsnippet
 
 #
@@ -583,19 +583,19 @@ snippet openshiftroute "Add an openshift route" wm
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-	name: ${1:route-name}
+  name: ${1:route-name}
 spec:
-	host: ${4:yolo-automic-automation.app.gdue4.saasdev.broadcom.com}
-	port:
-		targetPort: ${3:http}
-	to:
-		kind: Service
-		name: ${2:service-name}
-		weight: 100
-	wildcardPolicy: None
+  host: ${4:yolo-automic-automation.app.gdue4.saasdev.broadcom.com}
+  port:
+    targetPort: ${3:http}
+  to:
+    kind: Service
+    name: ${2:service-name}
+    weight: 100
+  wildcardPolicy: None
 status:
-	ingress:
-	- conditions: []
+  ingress:
+  - conditions: []
 endsnippet
 
 #
@@ -606,10 +606,10 @@ endsnippet
 #
 snippet container "Create a new container" wm
 - name: ${1:container-name}
-	image: ${2:image-name}${3/.+/
-	tty: /}${3:true}${4/.+/
-	command:
-	- /}${4:/bin/cat}
+  image: ${2:image-name}${3/.+/
+  tty: /}${3:true}${4/.+/
+  command:
+  - /}${4:/bin/cat}
 endsnippet
 
 
@@ -621,14 +621,14 @@ endsnippet
 #
 snippet probehttp "Create a liveness/readiness HTTP probe" wm
 ${1:liveness}Probe:
-	http${2:Get}:
-		port: ${3:liveness-port}
-		path: ${4:${VISUAL}}${5/.+/
-	initialDelaySeconds: /}${5:5}${6/.+/
-	periodSeconds: /}${6:5}${7/.+/
-	timeoutSeconds: /}${7:1}${8/.+/
-	successThreshold: /}${8:1}${9/.+/
-	failureThreshold: /}${9:3}
+  http${2:Get}:
+    port: ${3:liveness-port}
+    path: ${4:${VISUAL}}${5/.+/
+  initialDelaySeconds: /}${5:5}${6/.+/
+  periodSeconds: /}${6:5}${7/.+/
+  timeoutSeconds: /}${7:1}${8/.+/
+  successThreshold: /}${8:1}${9/.+/
+  failureThreshold: /}${9:3}
 endsnippet
 
 #
@@ -639,13 +639,13 @@ endsnippet
 #
 snippet probetcp "Create a liveness/readiness TCP probe" wm
 ${1:liveness}Probe:
-	tcpSocket:
-		port: ${2:8080}${3/.+/
-	initialDelaySeconds: /}${3:5}${4/.+/
-	periodSeconds: /}${4:5}${5/.+/
-	timeoutSeconds: /}${5:1}${6/.+/
-	successThreshold: /}${6:1}${7/.+/
-	failureThreshold: /}${7:3}
+  tcpSocket:
+    port: ${2:8080}${3/.+/
+  initialDelaySeconds: /}${3:5}${4/.+/
+  periodSeconds: /}${4:5}${5/.+/
+  timeoutSeconds: /}${5:1}${6/.+/
+  successThreshold: /}${6:1}${7/.+/
+  failureThreshold: /}${7:3}
 endsnippet
 
 #
@@ -656,15 +656,15 @@ endsnippet
 #
 snippet probecmd "Create a liveness/readiness probe that execs something" wm
 ${1:liveness}Probe:
-	exec:
-		command:
-		- ${2:cat
-		- /tmp/healthy}${3/.+/
-	initialDelaySeconds: /}${3:5}${4/.+/
-	periodSeconds: /}${4:5}${5/.+/
-	timeoutSeconds: /}${5:1}${6/.+/
-	successThreshold: /}${6:1}${7/.+/
-	failureThreshold: /}${7:3}
+  exec:
+    command:
+    - ${2:cat
+    - /tmp/healthy}${3/.+/
+  initialDelaySeconds: /}${3:5}${4/.+/
+  periodSeconds: /}${4:5}${5/.+/
+  timeoutSeconds: /}${5:1}${6/.+/
+  successThreshold: /}${6:1}${7/.+/
+  failureThreshold: /}${7:3}
 endsnippet
 
 #
@@ -677,12 +677,12 @@ snippet Endpoint "Create an enpoint" wm
 apiVersion: v1
 kind: Endpoint
 metadata:
-	name: ${1:my-service}
+  name: ${1:my-service}
 subsets:
-	- addresses:
-	  - ip: ${2:192.0.2.42}
-	  ports:
-	  - port: ${3:9376}
+  - addresses:
+    - ip: ${2:192.0.2.42}
+    ports:
+    - port: ${3:9376}
 endsnippet
 
 #
@@ -696,5 +696,19 @@ tls:
 - secretName: ${1:germanium.com}
   hosts:
   - ${2:$1}
+endsnippet
+
+
+#
+# snippet: ns
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a namespace
+#
+snippet ns "Create a namespace" wm
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${1:vpn-ciplogic-com}
 endsnippet
 
