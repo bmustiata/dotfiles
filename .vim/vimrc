@@ -47,6 +47,7 @@ Plugin 'ap/vim-css-color.git'
 Plugin 'tpope/vim-markdown.git'
 Plugin 'mustache/vim-mustache-handlebars.git'
 Plugin 'bmustiata/vim-cucumber'
+Plugin 'jparise/vim-graphql'
 
 Plugin 'prabirshrestha/async.vim'
 Plugin 'prabirshrestha/vim-lsp'
