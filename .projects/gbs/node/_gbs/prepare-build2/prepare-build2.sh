@@ -1,11 +1,7 @@
-#!/usr/bin/env bash
-
-cd /src
-
 echo '#############################################################################'
-echo "# GBS: $2"
+echo '# Install packages'
 echo '#############################################################################'
-test -x $1 || chmod +x .$1
 
-$1
+cp _gbs/prepare-build2/package*.json .
+npm install
 
