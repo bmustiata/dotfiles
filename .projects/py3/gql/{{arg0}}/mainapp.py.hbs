@@ -1,0 +1,17 @@
+import ariadne
+from ariadne.asgi import GraphQL
+
+type_defs = ariadne.load_schema_from_path("domain.gql")
+query = ariadne.QueryType()
+
+
+@query.field("domains")
+def resolve_domains(*_):
+    return [
+        {"host": "a"},
+        {"host": "b"},
+    ]
+
+
+schema = ariadne.make_executable_schema(type_defs, query)
+app = GraphQL(schema, debug=True)

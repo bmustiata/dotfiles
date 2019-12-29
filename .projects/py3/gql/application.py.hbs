@@ -1,0 +1,13 @@
+from {{arg0}} import mainapp
+
+
+app = mainapp.app
+application = app
+
+
+def launch():
+    app.run(host='0.0.0.0', port=7000, debug=True)
+
+
+if __name__ == '__main__':
+    launch()

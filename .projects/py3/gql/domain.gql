@@ -1,0 +1,8 @@
+type Query {
+  domains: [Domain!]!
+}
+
+type Domain {
+  host: String
+}
+
