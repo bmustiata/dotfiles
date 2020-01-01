@@ -6,3 +6,6 @@ type Domain {
   host: String
 }
 
+type Subscription {
+  counter: Int!
+}
