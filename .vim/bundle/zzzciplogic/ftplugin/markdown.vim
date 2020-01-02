@@ -1,7 +1,9 @@
+echomsg 'wut'
 
 function! MarkdownEnableSyntaxRanges()
 " source block syntax highlighting
 if exists('g:loaded_SyntaxRange')
+  echomsg 'wut'
   for lang in ['c', 'python', 'vim', 'javascript', 'cucumber', 'xml', 'typescript', 'sh', 'java', 'cpp', 'sh', 'php', 'yaml', 'css', 'html', 'go']
     call SyntaxRange#Include(
           \  '^```' . lang . '$'

@@ -38,6 +38,8 @@ Plugin 'ctrlpvim/ctrlp.vim'              " Fuzzy navigate buffers, and files
 Plugin 'dkprice/vim-easygrep'            " Grep across multiple files <leader>vv
 
 " languages support
+Plugin 'vim-scripts/ingo-library'
+Plugin 'vim-scripts/SyntaxRange'
 Plugin 'posva/vim-vue'
 Plugin 'solarnz/thrift.vim'
 Plugin 'bmustiata/vim-uc4.git'
