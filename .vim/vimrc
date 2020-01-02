@@ -22,6 +22,7 @@ Plugin 'ntpeters/vim-better-whitespace'  " Whitespace highlight at the end, and 
 Plugin 'bmustiata/vim-todo'              " TODO lists created with ease
 Plugin 'ycm-core/YouCompleteMe'          " Autocomplete that integrates with ultisnips
 Plugin 'vim-scripts/DirDiff.vim'         " Diff two folders
+Plugin 'junegunn/vim-easy-align'         " Align markdown tables using EasyAlign
 
 " Better writing
 Plugin 'reedes/vim-wordy'                " Wordy - check texts for bad writing

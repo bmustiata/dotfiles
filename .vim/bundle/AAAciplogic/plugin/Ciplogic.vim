@@ -109,3 +109,7 @@ endfunction
 command TodoCoolCheckboxes call TodoCoolCheckboxes()
 
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+
