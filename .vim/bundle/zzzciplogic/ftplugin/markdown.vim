@@ -1,7 +1,7 @@
 function! MarkdownEnableSyntaxRanges()
 " source block syntax highlighting
 if exists('g:loaded_SyntaxRange')
-  for lang in ['c', 'python', 'vim', 'javascript', 'cucumber', 'xml', 'typescript', 'sh', 'java', 'cpp', 'sh', 'php', 'yaml', 'css', 'html', 'go']
+  for lang in ['c', 'python', 'vim', 'javascript', 'cucumber', 'xml', 'typescript', 'sh', 'java', 'cpp', 'sql', 'php', 'yaml', 'css', 'html', 'go']
     call SyntaxRange#Include(
           \  '^```' . lang . '$'
           \, '^```$'
