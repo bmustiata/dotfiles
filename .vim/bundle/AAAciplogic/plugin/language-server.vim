@@ -21,7 +21,7 @@ if executable('pyls')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pyls',
         \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['X_Adhesive.X_Python.python', 'X_Python.python', 'python']
+        \ 'whitelist': ['X_test_python.X_Python.python', 'X_Adhesive.X_Python.python', 'X_Python.python', 'python']
         \ })
 endif
 
