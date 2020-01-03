@@ -67,6 +67,12 @@ class Powerline:
         self.network = Powerline.symbols[mode]['network']
         self.separator = Powerline.symbols[mode]['separator']
         self.separator_thin = Powerline.symbols[mode]['separator_thin']
+        # a sgement is a tuple of:
+        # 0. content
+        # 1. fg color
+        # 2. bg color
+        # 3. separator
+        # 4. separator fg (defaults to bg color when missing)
         self.segments = []
 
     def color(self, prefix, code):
@@ -102,7 +108,7 @@ class Powerline:
             self.fgcolor(segment[1]),
             self.bgcolor(segment[2]),
             segment[0],
-            self.bgcolor(next_segment[2]) if next_segment else self.reset,
+            self.bgcolor(next_segment[2]) if next_segment and next_segment[2] >= 0 else self.reset,
             self.fgcolor(segment[4]),
             segment[3]))
 
@@ -291,7 +297,7 @@ class Color(DefaultColor):
 
 
 def add_enter_segment(powerline):
-    powerline.append('\n', 0, 16, "", "")
+    powerline.append('\n', -1, -1, "", "")
 
 
 def add_virtual_env_segment(powerline):
@@ -739,6 +745,7 @@ def get_hg_status():
             has_modified_files = True
     return has_modified_files, has_untracked_files, has_missing_files
 
+
 def add_hg_segment(powerline):
     branch = os.popen('hg branch 2> /dev/null').read().rstrip()
     if len(branch) == 0:
@@ -757,9 +764,9 @@ def add_hg_segment(powerline):
         branch += (' ' + extra if extra != '' else '')
     return powerline.append(' %s ' % branch, fg, bg)
 
-#=====================================================
+# =====================================================
 # Mercurial is actually way too slow.
-#=====================================================
+# =====================================================
 # add_hg_segment(powerline)
 
 
