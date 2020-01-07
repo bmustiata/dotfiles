@@ -285,7 +285,7 @@ class DefaultColor:
     VIRTUAL_ENV_FG = 16
     JAVA_ENV_BG = 35
     JAVA_ENV_FG = 00
-    KUBE_ENV_BG = 71
+    KUBE_ENV_BG = 114
     KUBE_ENV_FG = 16
 
 class Color(DefaultColor):
@@ -429,7 +429,7 @@ def add_kubernetes_namespace_segment(powerline):
     if not data:
         return
 
-    bg = 114
+    bg = Color.KUBE_ENV_BG
     fg = Color.KUBE_ENV_FG
     icon = u'📦 ' if show_emojis else ''
 
