@@ -33,7 +33,7 @@ export GOPATH="$HOME/programs/go/tools"
 export PATH="$GOPATH/bin:$PATH"
 
 # this is for byobu usage
-alias vim="TERM=xterm-256color nvim"
+#alias vim="TERM=xterm-256color nvim"
 
 . ~/bin/async
 

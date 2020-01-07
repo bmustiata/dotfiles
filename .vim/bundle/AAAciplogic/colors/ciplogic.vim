@@ -15,6 +15,8 @@ let g:colors_name = "ciplogic"
 "hi CTagsGlobalConstant -- no settings --
 "hi Ignore -- no settings --
 hi Normal guifg=#000000 guibg=#e0e0e0 guisp=#e0e0e0 gui=NONE ctermfg=NONE ctermbg=254 cterm=NONE
+hi asciidocQuotedEmphasized guifg=#000000 guibg=#e0e0e0 guisp=#e0e0e0 gui=NONE ctermfg=NONE ctermbg=254 cterm=italic
+hi asciidocQuotedBold guifg=#000000 guibg=#e0e0e0 guisp=#e0e0e0 gui=NONE ctermfg=NONE ctermbg=254 cterm=bold
 "hi CTagsImport -- no settings --
 "hi CTagsGlobalVariable -- no settings --
 "hi EnumerationValue -- no settings --
@@ -55,10 +57,10 @@ hi Search guifg=#192224 guibg=#BD9800 guisp=#BD9800 gui=NONE ctermfg=235 ctermbg
 hi Delimiter guifg=#BD9800 guibg=NONE guisp=NONE gui=NONE ctermfg=1 ctermbg=NONE cterm=NONE
 hi Statement guifg=#552d00 guibg=NONE guisp=NONE gui=bold ctermfg=58 ctermbg=NONE cterm=bold
 hi SpellRare guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189 ctermbg=235 cterm=underline
-hi Comment guifg=#5E6C70 guibg=NONE guisp=NONE gui=italic ctermfg=66 ctermbg=NONE cterm=NONE
+hi Comment guifg=#5E6C70 guibg=NONE guisp=NONE gui=italic ctermfg=66 ctermbg=NONE cterm=italic
 hi Character guifg=#A1A6A8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
 hi Float guifg=#A1A6A8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
-hi Number guifg=#116611 guibg=#ff00ff guisp=#ff00ff gui=NONE ctermfg=22 ctermbg=201 cterm=NONE
+hi Number guifg=#116611 guibg=NONE guisp=NONE gui=NONE ctermfg=22 ctermbg=NONE cterm=NONE
 hi Boolean guifg=#A1A6A8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
 hi Operator guifg=#333333 guibg=NONE guisp=NONE gui=bold ctermfg=236 ctermbg=NONE cterm=bold
 hi CursorLine guifg=NONE guibg=#222E30 guisp=#222E30 gui=NONE ctermfg=NONE ctermbg=236 cterm=NONE
@@ -99,3 +101,6 @@ hi Underlined guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=18
 hi DiffAdd guifg=#550000 guibg=#55aa55 guisp=#55aa55 gui=NONE ctermfg=52 ctermbg=71 cterm=NONE
 hi TabLine guifg=#192224 guibg=#5E6C70 guisp=#5E6C70 gui=bold ctermfg=235 ctermbg=66 cterm=bold
 hi cursorim guifg=#192224 guibg=#536991 guisp=#536991 gui=NONE ctermfg=235 ctermbg=60 cterm=NONE
+
+hi vimLineComment guifg=#777777 guibg=NONE guisp=NONE gui=NONE ctermfg=8 ctermbg=NONE cterm=italic
+
