@@ -252,9 +252,9 @@ class DefaultColor:
     SSH_BG = 166 # medium orange
     SSH_FG = 254
 
-    REPO_CLEAN_BG = 148  # a light green color
+    REPO_CLEAN_BG = 22  # a light green color
     REPO_CLEAN_FG = 0  # black
-    REPO_DIRTY_BG = 161  # pink/red
+    REPO_DIRTY_BG = 52  # pink/red
     REPO_DIRTY_FG = 15  # white
 
     JOBS_FG = 39
@@ -274,7 +274,7 @@ class DefaultColor:
     GIT_BEHIND_FG = 250
     GIT_STAGED_BG = 22
     GIT_STAGED_FG = 15
-    GIT_NOTSTAGED_BG = 130
+    GIT_NOTSTAGED_BG = 136
     GIT_NOTSTAGED_FG = 15
     GIT_UNTRACKED_BG = 52
     GIT_UNTRACKED_FG = 15
@@ -285,7 +285,7 @@ class DefaultColor:
     VIRTUAL_ENV_FG = 16
     JAVA_ENV_BG = 35
     JAVA_ENV_FG = 00
-    KUBE_ENV_BG = 2
+    KUBE_ENV_BG = 71
     KUBE_ENV_FG = 16
 
 class Color(DefaultColor):
@@ -429,7 +429,7 @@ def add_kubernetes_namespace_segment(powerline):
     if not data:
         return
 
-    bg = Color.KUBE_ENV_BG
+    bg = 114
     fg = Color.KUBE_ENV_FG
     icon = u'📦 ' if show_emojis else ''
 

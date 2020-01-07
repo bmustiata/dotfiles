@@ -102,5 +102,8 @@ hi DiffAdd guifg=#550000 guibg=#55aa55 guisp=#55aa55 gui=NONE ctermfg=52 ctermbg
 hi TabLine guifg=#192224 guibg=#5E6C70 guisp=#5E6C70 gui=bold ctermfg=235 ctermbg=66 cterm=bold
 hi cursorim guifg=#192224 guibg=#536991 guisp=#536991 gui=NONE ctermfg=235 ctermbg=60 cterm=NONE
 
+" vim changes
 hi vimLineComment guifg=#777777 guibg=NONE guisp=NONE gui=NONE ctermfg=8 ctermbg=NONE cterm=italic
 
+" python changes
+hi pythonEscape guifg=#116611 guibg=NONE guisp=NONE gui=NONE ctermfg=22 ctermbg=NONE cterm=bold
