@@ -262,7 +262,7 @@ class DefaultColor:
 
     CMD_PASSED_BG = 236
     CMD_PASSED_FG = 15
-    CMD_FAILED_BG = 161
+    CMD_FAILED_BG = 131
     CMD_FAILED_FG = 15
 
     SVN_CHANGES_BG = 148

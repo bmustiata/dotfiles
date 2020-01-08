@@ -53,7 +53,7 @@ hi LineNr guifg=#000000 guibg=#eeeeee guisp=#eeeeee gui=NONE ctermfg=NONE ctermb
 hi StatusLine guifg=#032536 guibg=#032536 guisp=#032536 gui=bold ctermfg=23 ctermbg=23 cterm=bold
 hi Label guifg=#BD9800 guibg=NONE guisp=NONE gui=bold ctermfg=1 ctermbg=NONE cterm=bold
 hi PMenuSel guifg=#192224 guibg=#BD9800 guisp=#BD9800 gui=NONE ctermfg=235 ctermbg=1 cterm=NONE
-hi Search guifg=#192224 guibg=#BD9800 guisp=#BD9800 gui=NONE ctermfg=235 ctermbg=1 cterm=NONE
+hi Search guifg=#192224 guibg=#BD9800 guisp=#BD9800 gui=NONE ctermfg=235 ctermbg=167 cterm=NONE
 hi Delimiter guifg=#BD9800 guibg=NONE guisp=NONE gui=NONE ctermfg=1 ctermbg=NONE cterm=NONE
 hi Statement guifg=#552d00 guibg=NONE guisp=NONE gui=bold ctermfg=58 ctermbg=NONE cterm=bold
 hi SpellRare guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189 ctermbg=235 cterm=underline
@@ -107,3 +107,6 @@ hi vimLineComment guifg=#777777 guibg=NONE guisp=NONE gui=NONE ctermfg=8 ctermbg
 
 " python changes
 hi pythonEscape guifg=#116611 guibg=NONE guisp=NONE gui=NONE ctermfg=22 ctermbg=NONE cterm=bold
+
+" lsp changes
+hi lspReference guifg=#192224 guibg=#6e91a1 guisp=#6e91a1 gui=NONE ctermfg=235 ctermbg=67 cterm=bold
