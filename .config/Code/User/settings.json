@@ -39,5 +39,6 @@
     "window.titleBarStyle": "custom",
     "workbench.activityBar.visible": true,
     "explorer.confirmDragAndDrop": false,
-    "files.useExperimentalFileWatcher": true
+    "files.useExperimentalFileWatcher": true,
+    "workbench.colorTheme": "Default Light+"
 }
