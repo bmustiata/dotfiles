@@ -97,7 +97,6 @@ hi SpellBad guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189 
 hi Directory guifg=#536991 guibg=NONE guisp=NONE gui=bold ctermfg=60 ctermbg=NONE cterm=bold
 hi Structure guifg=#536991 guibg=NONE guisp=NONE gui=bold ctermfg=60 ctermbg=NONE cterm=bold
 hi Macro guifg=#BD9800 guibg=NONE guisp=NONE gui=NONE ctermfg=1 ctermbg=NONE cterm=NONE
-hi Underlined guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189 ctermbg=235 cterm=underline
 hi DiffAdd guifg=#550000 guibg=#55aa55 guisp=#55aa55 gui=NONE ctermfg=52 ctermbg=71 cterm=NONE
 hi TabLine guifg=#192224 guibg=#5E6C70 guisp=#5E6C70 gui=bold ctermfg=235 ctermbg=66 cterm=bold
 hi cursorim guifg=#192224 guibg=#536991 guisp=#536991 gui=NONE ctermfg=235 ctermbg=60 cterm=NONE
@@ -110,3 +109,11 @@ hi pythonEscape guifg=#116611 guibg=NONE guisp=NONE gui=NONE ctermfg=22 ctermbg=
 
 " lsp changes
 hi lspReference guifg=#192224 guibg=#6e91a1 guisp=#6e91a1 gui=NONE ctermfg=235 ctermbg=67 cterm=bold
+
+" markdown changes
+hi markdownLinkText guifg=#000000 guibg=#e0e0e0 guisp=#e0e0e0 gui=NONE ctermfg=NONE ctermbg=254 cterm=underline
+hi markdownLinkTextDelimiter guifg=#5E6C70 guibg=NONE guisp=NONE gui=italic ctermfg=66 ctermbg=NONE cterm=NONE
+hi markdownLinkDelimiter guifg=#5E6C70 guibg=NONE guisp=NONE gui=italic ctermfg=66 ctermbg=NONE cterm=NONE
+hi markdownUrl guifg=#536991 guibg=NONE guisp=NONE gui=bold ctermfg=60 ctermbg=NONE cterm=italic
+" hi markdownUrl guifg=#5E6C70 guibg=NONE guisp=NONE gui=italic ctermfg=66 ctermbg=NONE cterm=NONE
+
