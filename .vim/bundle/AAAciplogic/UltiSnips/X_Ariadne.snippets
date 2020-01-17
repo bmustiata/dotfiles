@@ -1,0 +1,19 @@
+#
+# snippet: subscription
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Subscription
+#
+snippet subscription "Subscription" wm
+@${1:subscription}.source("${2:counter}")
+async def $2_generator(obj, info):
+	for i in range(5):
+		await asyncio.sleep(1)
+		yield i
+
+
+@$1.field("$2")
+def $2_resolver(count, info):
+	return count + 1
+endsnippet
+

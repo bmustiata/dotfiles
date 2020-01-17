@@ -7,5 +7,7 @@ commands:
 - test ! -d node_modules/apollo-link-error && npm install --save -E apollo-link-error
 - test ! -d node_modules/apollo-link-http && npm install --save -E apollo-link-http
 - test ! -d node_modules/apollo-link-ws && npm install --save -E apollo-link-ws
-- test ! -d node_modules/subscription-transportion-ws && npm install --save -E subscription-transportion-ws
+- test ! -d node_modules/subscriptions-transport-ws && npm install --save -E subscriptions-transport-ws
 - test ! -d node_modules/graphql && npm install --save -E graphql
+- test ! -d node_modules/graphql-tag && npm install --save -E graphql-tag
+- test ! -d node_modules/@types/ws && npm install --save-dev -E @types/ws
