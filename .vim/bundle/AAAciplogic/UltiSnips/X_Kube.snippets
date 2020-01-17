@@ -277,17 +277,27 @@ kind: Deployment
 metadata:
   name: ${1:nginx-deployment}
   labels:
-    ${2:app: nginx}
+    ${2:app}: ${3:nginx}
 spec:
-  replicas: ${3:3}
+  replicas: ${4:3}
   selector:
     matchLabels:
-      ${4:app: nginx}
+      ${2:app}: ${3:nginx}
   template:
     metadata:
       labels:
-        $4
+        $2: $3
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: $2
+                operator: In
+                values:
+                - $3
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: ${5:nginx}
         image: ${6:nginx:1.7.9}${7/.+/

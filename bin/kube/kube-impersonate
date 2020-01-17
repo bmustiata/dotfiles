@@ -18,6 +18,23 @@ class Data:
     selected_resource: str
     token_data: str
     config_file: str
+    current_namespace: str
+
+
+@adhesive.task('Read Current Namespace')
+def read_current_namespace(context: adhesive.Token[Data]):
+    kubeconfig = yaml.safe_load(context.workspace.run(f"""
+        kubectl config view
+    """, capture_stdout=True).strip())
+
+    context.data.current_namespace = "default"
+
+    for kubecontext in kubeconfig['contexts']:
+        if kubecontext['name'] != kubeconfig['current-context']:
+            continue
+
+        context.data.current_namespace = kubecontext['context'].get('namespace', 'default')
+        break
 
 
 @adhesive.task('Find all pods')
@@ -106,7 +123,8 @@ def create_busybox_container(context: adhesive.Token[Data]) -> None:
 @adhesive.task('Extract token from the Container')
 def extract_token_from_the_container(context: adhesive.Token[Data]) -> None:
     with kube.inside(context.workspace,
-                     pod_name=context.data.container_name) as w:
+                     pod_name=context.data.container_name,
+                     namespace=context.data.current_namespace) as w:
         context.data.token_data = w.run_output("""
             cat /var/run/secrets/kubernetes.io/serviceaccount/token
         """)
@@ -115,7 +133,7 @@ def extract_token_from_the_container(context: adhesive.Token[Data]) -> None:
 @adhesive.task('Destroy Busybox Container')
 def destroy_busybox_container(context: adhesive.Token[Data]) -> None:
     kubeapi = KubeApi(context.workspace)
-    kubeapi.delete(kind="pod", name="yolo")
+    kubeapi.delete(kind="pod", name="yolo", namespace="")
 
 
 @adhesive.task('Create Custom .kube/config')
