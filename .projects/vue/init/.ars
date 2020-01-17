@@ -1,0 +1,3 @@
+commands:
+- which vue || npm install -g @vue/cli
+- test ! -d src && vue create --skipGetStarted -p ge-web {{arg0}} && mv {{arg0}}/* . && rmdir {{arg0}}

@@ -1,0 +1,6 @@
+parents:
+- vue/init
+commands:
+- test ! -d node_modules/monaco-editor && npm install --save -E monaco-editor
+- test ! -d node_modules/monaco-editor-webpack-plugin && npm install --save-dev -E monaco-editor-webpack-plugin
+

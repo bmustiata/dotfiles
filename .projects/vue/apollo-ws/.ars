@@ -1,0 +1,11 @@
+parents:
+- vue/init
+commands:
+- test ! -d node_modules/apollo-cache-inmemory && npm install --save -E apollo-cache-inmemory
+- test ! -d node_modules/apollo-client && npm install --save -E apollo-client
+- test ! -d node_modules/apollo-link && npm install --save -E apollo-link
+- test ! -d node_modules/apollo-link-error && npm install --save -E apollo-link-error
+- test ! -d node_modules/apollo-link-http && npm install --save -E apollo-link-http
+- test ! -d node_modules/apollo-link-ws && npm install --save -E apollo-link-ws
+- test ! -d node_modules/subscription-transportion-ws && npm install --save -E subscription-transportion-ws
+- test ! -d node_modules/graphql && npm install --save -E graphql
