@@ -1,0 +1,9 @@
+#
+# snippet: npm
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a node module
+#
+snippet npm "Add a node module" wm
+test ! -d node_modules/${1:node-module} && npm install --save${2:-dev} -E $1
+endsnippet
