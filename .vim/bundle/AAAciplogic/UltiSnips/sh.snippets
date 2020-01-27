@@ -58,12 +58,12 @@ endsnippet
 # Add an echo comment mega section
 #
 snippet ecs "Add an echo comment mega section" wm
-echo '#############################################################################'
-echo '# ${VISUAL}${0:}'
-echo '#############################################################################'
+echo "#############################################################################"
+echo "# ${VISUAL}${0:}"
+echo "#############################################################################"
 endsnippet
 
-snippet if "Create a bash if statement"
+snippet if "Create a bash if statement" wm
 if [[ ${1:condition} ]]; then
 	${VISUAL}${0:}
 fi # [[ $1 ]]
@@ -153,7 +153,7 @@ snippet cb "Case branch" wm
 endsnippet
 
 snippet fun "Create a function"
-function ${1:name}() {
+${1:name}() {
 	${VISUAL}${0:}
 }
 endsnippet
@@ -298,3 +298,31 @@ snippet zip "Create a zip archive" wm
 zip -r ${1:filename.zip} ${2:files/}
 endsnippet
 
+#
+# snippet: flag
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add flag parsing
+#
+snippet flag "Add flag parsing" wm
+while test $# -gt 0; do
+	case "\$1" in
+		-h|--help)
+			echo "Help"
+			;;
+		*)
+			break
+			;;
+	esac
+done
+endsnippet
+
+#
+# snippet: cwd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Current working directory in bash
+#
+snippet cwd "Current working directory in bash" wm
+$(cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
+endsnippet
