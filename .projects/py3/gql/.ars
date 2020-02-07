@@ -1,2 +1,5 @@
 parents:
 - py3/lib
+commands:
+- grep -i "ariadne==" requirements.txt || pip install ariadne && pip freeze | grep -i ^ariadne== >> requirements.txt
+- grep -i "uvicorn==" requirements.txt || pip install uvicorn && pip freeze | grep -i ^uvicorn== >> requirements.txt

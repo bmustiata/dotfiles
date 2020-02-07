@@ -7,3 +7,13 @@
 snippet npm "Add a node module" wm
 test ! -d node_modules/${1:node-module} && npm install --save${2:-dev} -E $1
 endsnippet
+
+#
+# snippet: pip
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a pip requirement
+#
+snippet pip "Add a pip requirement" wm
+grep -i "${1:ariadne}==" requirements.txt || pip install $1 && pip freeze | grep -i ^$1== >> requirements.txt
+endsnippet
