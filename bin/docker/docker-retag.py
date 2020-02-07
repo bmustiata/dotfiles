@@ -32,7 +32,7 @@ def ask_image_registry_data(context: Token[Data], ui: UI):
     ui.add_input_text("registry_name",
                       value="isl-dsdc.ca.com:5000")
     ui.add_input_text("username", value="musbo01")
-    ui.add_input_password("password", value="Thewayiam33=")
+    ui.add_input_password("password", value="")
     ui.add_input_text("old_image")
     ui.add_input_text("new_image")
 
