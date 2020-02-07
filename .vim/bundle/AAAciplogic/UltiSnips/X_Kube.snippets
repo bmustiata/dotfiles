@@ -212,7 +212,8 @@ snippet volume_secret "Add a secret volume" wm
 volumes:
 - name: ${1:secret-demo-volume}
   secret:
-    secretName: ${2:secret-name}
+    secretName: ${2:secret-name}${3/.+/
+    defaultMode: /}${3:0400}
 endsnippet
 
 #
@@ -303,6 +304,19 @@ spec:
         image: ${6:nginx:1.7.9}${7/.+/
         ports:
         - containerPort: /}${7:80}
+endsnippet
+
+#
+# snippet: own
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an owner for the resource
+#
+snippet own "Create an owner for the resource" wm
+ownerReferences:
+- apiVersion: ${1:custom.resource.com/v1}
+  kind: ${2:Potato}
+  name: ${3:potato-name}
 endsnippet
 
 #

@@ -30,8 +30,8 @@ class Data:
 @adhesive.usertask('Image Registry Data')
 def ask_image_registry_data(context: Token[Data], ui: UI):
     ui.add_input_text("registry_name",
-                      value="isl-dsdc.ca.com:5000")
-    ui.add_input_text("username", value="musbo01")
+                      value="docker-release-candidate-local.artifactory-lvn.broadcom.net")
+    ui.add_input_text("username", value="bm669313")
     ui.add_input_password("password", value="")
     ui.add_input_text("old_image")
     ui.add_input_text("new_image")
