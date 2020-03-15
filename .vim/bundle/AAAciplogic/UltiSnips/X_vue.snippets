@@ -6,40 +6,53 @@
 #
 snippet vue "create a new vue component" wm
 <template>
-	<div>
-		${0:}
-	</div>
+  <div>
+    ${0:}
+  </div>
 </template>
-
-<script lang='ts'>
-export default {
-	name: '${1:component-tag-name}',
-	props: {},
-	data() {
-		return {
-		}
-	}
-}
-</script>
 
 <style scoped>
 </style>
+
+<script lang="ts">
+
+import { Vue, Component } from 'vue-property-decorator'
+import model from '@/model'
+
+@Component({
+  components: {
+  }
+})
+export default class ${1:App} extends Vue {
+  data() {
+    return {
+      model,
+    }
+  }
+}
+</script>
 endsnippet
 
 #
-# snippet: vuets
-# Create a new Vue Component
+# snippet: slot
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a slot in a template
 #
-snippet vuets "Create a new Vue Component with its content into a separate file" wm
-<template>
-	<div>
-	</div>
+snippet slot "Create a slot in a template" wm
+<slot name="${1:slot-name}">${VISUAL}${0:}</slot>
+endsnippet
+
+#
+# snippet: template
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Use a slot
+#
+snippet template "Use a slot" wm
+<template v-slot:${1:slot-name}>
+  ${VISUAL}${0:}
 </template>
-
-<script src='./${1:TM_FILENAME_BASE}${0:}' lang='ts'></script>
-
-<style scoped>
-</style>
 endsnippet
 
 #

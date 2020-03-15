@@ -154,7 +154,7 @@ def display_available_categories() -> None:
 def download_image(date: str, image: str, title: str) -> str:
     # if it's a regular file don't download it
     if image.startswith("/"):
-        return image
+        return image.split(',')[0]
 
     image_url = get_image_url(image)
     image_name = get_image_name(date, title)
@@ -225,6 +225,10 @@ def main(title, image, tags, category, date, available_tags, available_categorie
         raise Exception(f"Category can be only one of {AVAILABLE_CATEGORIES}")
 
     local_image = download_image(date, image, title)
+
+    if ',' in image:
+        image = image.split(',')[1]
+
     image_name = resize_image_to_blog_size(local_image)
 
     article_name = f"{SITE_LOCATION}/source/_posts/{date}-{title.replace(' ', '-').replace('(', '').replace(')', '')}.adoc"
