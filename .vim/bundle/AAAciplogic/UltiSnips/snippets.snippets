@@ -32,11 +32,14 @@ priority ${2:0}
 endsnippet
 
 #
-# snippet: var
+# snippet: v
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Create a simple variable around a selected text
 #
+snippet v "Create a simple variable around a selected text" wm
+\${${1:1}:${2:${VISUAL/^$/var/}}}${0:}
+endsnippet
 snippet var "Create a simple variable around a selected text" wm
 \${${1:1}:${2:${VISUAL/^$/var/}}}${0:}
 endsnippet
@@ -66,6 +69,15 @@ if t[4] != "":
 	snip.rv += '${' + t[1] + "/.+/"
 else:
 	snip.rv += ""`${4:suffix}${4/.+/\/}/}${0:}
+endsnippet
+
+#
+# wt Adds a text only if the wrapped variable matches.
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+snippet wt "Adds a text only if the wrapped variable matches." i
+\${${1:1}/.+/${VISUAL/([\\\/])/\\$1/g}/}${0:}
 endsnippet
 
 #

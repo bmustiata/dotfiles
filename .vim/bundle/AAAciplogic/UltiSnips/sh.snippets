@@ -326,3 +326,15 @@ endsnippet
 snippet cwd "Current working directory in bash" wm
 $(cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P)
 endsnippet
+
+
+#
+# snippet: lower
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# String to the lowercase
+#
+snippet lower "String to the lowercase" wm
+tr '[:upper:]' '[:lower:]'
+endsnippet
+

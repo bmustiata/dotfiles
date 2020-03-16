@@ -10,3 +10,24 @@ snippet cs "Add a comment for the section." wm
 # #######################################################################
 ${0:}
 endsnippet
+
+#
+# snippet: d
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Delete project
+#
+snippet d "Delete project" wm
+delete_project: "true"
+endsnippet
+
+#
+# snippet: timestamp
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# description
+#
+snippet timestamp "description" wm
+labels:
+  features.aa-install-operator/force-update-timestamp: "${1:123}"
+endsnippet
