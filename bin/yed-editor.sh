@@ -18,5 +18,5 @@ unzip yEd-3.19.1.1.zip
 rm *.zip
 mv * $HOME/programs/yed
 
-java -jar $HOME/programs/yed/yed.jar
+silent java -jar $HOME/programs/yed/yed.jar
 
