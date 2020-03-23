@@ -338,3 +338,16 @@ snippet lower "String to the lowercase" wm
 tr '[:upper:]' '[:lower:]'
 endsnippet
 
+#
+# snippet: trap
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add some cleanup code
+#
+snippet trap "Add some cleanup code" wm
+${1:cleanup}() {
+	${VISUAL}${0:}
+}
+
+trap $1 ${2:EXIT}
+endsnippet
