@@ -13,6 +13,7 @@ import re
 import vim
 
 IMAGE_RE = re.compile(r"Image (.*)\.$")
+INCLUDE_RE = re.compile(r"Include (.*)\.$")
 
 for i in range(len(vim.current.buffer)):
     line = vim.current.buffer[i]
@@ -21,7 +22,22 @@ for i in range(len(vim.current.buffer)):
     if not m:
         continue
 
-    vim.current.buffer[i] = "image:/documents/%s.png[%s]" % (m.group(1), m.group(1))
+    vim.current.buffer[i] = "image:%s.png[%s]" % (m.group(1), m.group(1))
+
+for i in range(len(vim.current.buffer)):
+    line = vim.current.buffer[i]
+    m = INCLUDE_RE.match(line)
+
+    if not m:
+        continue
+
+    vim.current.buffer[i:i+1] = [
+      "[source,python]",
+      "--------------------------------------------------------------------------",
+      "include::/documents/%s" % m.group(1),
+      "--------------------------------------------------------------------------",
+    ]
+    i += 4
 
 endpython
 endfunction
