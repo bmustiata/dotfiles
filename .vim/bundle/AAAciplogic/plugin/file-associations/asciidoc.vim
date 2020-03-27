@@ -12,7 +12,7 @@ python << endpython
 import re
 import vim
 
-IMAGE_RE = re.compile(r"Image (.*)\.$")
+IMAGE_RE = re.compile(r"Image ((.*?)(\[(.*)\])?)\.$")
 INCLUDE_RE = re.compile(r"Include (.*)\.$")
 
 for i in range(len(vim.current.buffer)):
@@ -22,7 +22,7 @@ for i in range(len(vim.current.buffer)):
     if not m:
         continue
 
-    vim.current.buffer[i] = "image:%s.png[%s]" % (m.group(1), m.group(1))
+    vim.current.buffer[i] = "image:%s.png[%s]" % (m.group(2), m.group(4) if m.group(4) else m.group(2))
 
 for i in range(len(vim.current.buffer)):
     line = vim.current.buffer[i]
