@@ -304,6 +304,24 @@ withCredentials([file(credentialsId: '${1:VARNAME}', variable: '${2:$1}')]) {
 endsnippet
 
 #
+# snippet: userpass
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a user pass binding
+#
+snippet userpass "Create a user pass binding" wm
+withCredentials([[
+  $class: 'UsernamePasswordMultiBinding',
+  credentialsId:'${1:mycreds}',
+  usernameVariable: '${2:USERNAME}',
+  passwordVariable: '${3:PASSWORD}'
+]]) {
+  ${VISUAL}${0:}
+}
+endsnippet
+
+
+#
 # snippet: ws
 # w (word boundary),
 # m (trim spaces on the right of the script)
