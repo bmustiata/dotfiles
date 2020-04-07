@@ -3,8 +3,9 @@
 "
 function! AsciiDocFile()
     set filetype=asciidoc
-    NextWordy
 endfunction
+
+nmap J ggVGP:ReplaceLinks<cr>ggVGgqgg
 
 function! ReplaceLinks()
 python << endpython
@@ -46,5 +47,4 @@ command ReplaceLinks call ReplaceLinks()
 
 au BufRead,BufNewFile *.adoc call AsciiDocFile()
 au BufRead,BufNewFile *.ad call AsciiDocFile()
-
 
