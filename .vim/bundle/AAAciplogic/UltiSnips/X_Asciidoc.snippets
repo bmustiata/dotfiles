@@ -1,0 +1,11 @@
+#
+# snippet: t
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a tag
+#
+snippet tag "Create a tag" wm
+# tag::${1:tagname}[]
+${VISUAL}
+# end::$1[]
+endsnippet

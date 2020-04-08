@@ -1,0 +1,317 @@
+#
+# snippet: ccl
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# C Library
+#
+snippet ccl "C Library" wm
+cc_library(
+	name = "name",
+	srcs = ["wut.c"],
+)
+endsnippet
+
+#
+# snippet: macro
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new macro
+#
+snippet macro "Create a new macro" wm
+def ${1:macro_name}(name, srcs, **kwargs):
+	native.genrule(
+		name = name,
+		srcs = srcs,
+		outs = ["x" + it for it in srcs],
+		cmd = "touch $@",
+		**kwargs
+	)
+endsnippet
+
+
+#
+# snippet: load
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Load some macro
+#
+snippet load "Load some macro" wm
+load("${1://bazel:support.bzl}", ${3:alias}${3/.+/=/}"${2:macro_name}")
+endsnippet
+
+#
+# snippet: rule
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new rule
+#
+snippet rule "Create a new rule" wm
+def _$1(ctx):
+`!p
+import re
+
+NAME = re.compile(r'\s*[\'"](.*?)[\'"].*$')
+
+if t[2]:
+  for line in t[2].split("\n"):
+    m = NAME.match(line)
+    if m:
+      snip.rv += '  %s = ctx.attr.%s\n' % (m[1], m[1])
+`  ${0:}
+  out = ctx.actions.declare_file("README.md")
+  ctx.actions.write(output=out, content=content)
+
+  return [DefaultInfo(files=depset([out]))]
+
+${1:rule_name} = rule(
+  implementation = _$1,
+  attrs = {
+    ${2:"content": attr.string(mandatory=True),}
+  }
+)
+endsnippet
+
+
+#
+# snippet: attrbool
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# A bool attribute
+#
+snippet attrbool "A bool attribute" wm
+attr.bool(default=False, doc='', mandatory=False),
+endsnippet
+
+#
+# snippet: attr.int
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+#
+snippet attr.int "attr.int" wm
+attr.int(default=0, doc='', mandatory=False, values=[]),
+endsnippet
+
+#
+# snippet: attr.int_list
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+#
+snippet attr.int_list "attr.int_list" wm
+attr.int_list(mandatory=False, non_empty=False, allow_empty=True, default=[], doc=''),
+endsnippet
+
+#
+# snippet: attr.label
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+#
+snippet attr.label "attr.label" wm
+attr.label(${1/.+/executable=/}${1:False}${1/.+/, /}${2/.+/allow_single_file=/}${2:None}${2/.+/, /}${3/.+/mandatory=/}${3:False}${0:})
+endsnippet
+
+#
+# snippet: attr.label_keyed_string_dict "attr.label_keyed_string_dict
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+#
+snippet attr.label_keyed_string_dict "attr.label_keyed_string_dict" wm
+attr.label_keyed_string_dict(allow_empty=True, *, default={}, doc='', allow_files=None, allow_rules=None, providers=[], flags=[], mandatory=False, non_empty=False, cfg=None, aspects=[]),
+endsnippet
+
+#
+# snippet: attr.label_list
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+#
+snippet attr.label_list "attr.label_list" wm
+attr.label_list(${1/.+/allow_files=/}${1:None}${2/.+/, /}${2/.+/allow_rules=/}${2:None}${3/.+/, /}${3/.+/mandatory=/}${3:True}${3/.+/, allow_empty=False/})
+endsnippet
+
+#
+# snippet: attr.output
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+#
+snippet attr.output "attr.output" wm
+attr.output(${1/.+/default=/}${1:"context.tar"}${1/.+/, /}${2/.+/mandatory=/}${2:True}),
+endsnippet
+
+#
+# snippet: attr.output_list
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+#
+snippet attr.output_list "attr.output_list" wm
+attr.output_list(allow_empty=True, default=None, doc='', mandatory=False, non_empty=False),
+endsnippet
+
+#
+# snippet: attr.string
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+#
+snippet attr.string "attr.string" wm
+attr.string(${1/.+/default=/}${1:''}${1/.+/, /}${2/.+/mandatory=/}${2:True}),
+endsnippet
+
+#
+# snippet: attr.string_dict
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+#
+snippet attr.string_dict "attr.string_dict" wm
+attr.string_dict(allow_empty=True, default={}, doc='', mandatory=False, non_empty=False),
+endsnippet
+
+#
+# snippet: attr.string_list
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+#
+snippet attr.string_list "attr.string_list" wm
+attr.string_list(mandatory=False, non_empty=False, allow_empty=True, default=[], doc=''),
+endsnippet
+
+#
+# snippet: attr.string_list_dict
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+#
+snippet attr.string_list_dict "attr.string_list_dict" wm
+attr.string_list_dict(allow_empty=True, default={}, doc='', mandatory=False, non_empty=False),
+endsnippet
+
+#
+# snippet: run
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run a command
+#
+snippet run "Run a command" wm
+ctx.actions.run(executable="${1:sh}",
+                arguments=[${4:args}],
+                inputs=[${2:infile}],
+                outputs=[${3:out}])
+endsnippet
+
+#
+# snippet: runsh
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run a shell command
+#
+snippet runsh "Run a shell command" wm
+ctx.actions.run_shell(
+  command="${1:touch wut}",
+  arguments=[${4:args}],
+  inputs=[${2:infile}],
+  outputs=[${3:out}])
+endsnippet
+
+#
+# snippet: args
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Declare some args
+#
+snippet args "Declare some args" wm
+${1:args} = ctx.actions.args()
+endsnippet
+
+
+#
+# snippet: write
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Write a file
+#
+snippet write "Write a file" wm
+${1:ctx}.actions.write(${2:out}, ${3:content}${4/.+/, is_executable=/}${4:False})
+endsnippet
+
+#
+# snippet: dec
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Declare a file
+#
+snippet dec "Declare a file" wm
+${1:out} = ctx.actions.declare_file(${2:"README.md"})
+endsnippet
+
+#
+# snippet: for
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# for ...
+#
+snippet for "for ..." wm
+for ${1:i} in ${2:values}:
+  ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: public
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Make the package public
+#
+snippet public "Make the package public" wm
+package(default_visibility = ["//visibility:public"])
+endsnippet
+
+#
+# snippet: export
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Export files
+#
+snippet export "Export files" wm
+exports_files([
+  ${1:"bin/docker_push.sh"},
+])
+endsnippet
+
+#
+# snippet: var
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Declare template variables
+#
+snippet var "Declare template variables" wm
+platform_common.TemplateVariableInfo({
+  "${1:FOO}": ${0:ctx.attr.var_value}
+})
+endsnippet
+
+#
+# snippet: unzip
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add some unzip
+#
+snippet unzip "Add some unzip" wm
+unzip -d ${2:$TMPDIR/utility} ${FILES["${1:utility.zip}"]}
+endsnippet
+
+#
+# snippet: untar
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add some untar
+#
+snippet untar "Add some untar" wm
+tar --one-top-level=$OUTDIR/utillx6 -zxf $TMPDIR/utility/Utility/unix/linux/x64/utillx6.tar.gz
+endsnippet
+

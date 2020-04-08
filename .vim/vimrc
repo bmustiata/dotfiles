@@ -53,7 +53,7 @@ Plugin 'bmustiata/vim-cucumber'
 Plugin 'jparise/vim-graphql'
 
 Plugin 'prabirshrestha/async.vim'
-Plugin 'prabirshrestha/vim-lsp'
+Plugin 'bmustiata/vim-lsp'
 
 " core final init
 Plugin 'file://.vim/bundle/zzzciplogic'

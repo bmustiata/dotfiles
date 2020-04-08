@@ -180,3 +180,14 @@ ui.add_input_text("${1:name}"${2/.+/,
 	title="/}${2:Name}${2/.+/"/}${3/.+/,
 	value=/}${3:"Value"})
 endsnippet
+
+#
+# snippet: kube
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add some kubernetes API
+#
+snippet kube "Add some kubernetes API" wm
+kube = KubeApi(workspace=context.workspace${1/.+/,
+               namespace=/}${1:"default"})
+endsnippet
