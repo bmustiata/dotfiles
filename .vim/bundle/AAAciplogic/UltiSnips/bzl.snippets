@@ -199,10 +199,11 @@ endsnippet
 # Run a command
 #
 snippet run "Run a command" wm
-ctx.actions.run(executable="${1:sh}",
-                arguments=[${4:args}],
-                inputs=[${2:infile}],
-                outputs=[${3:out}])
+ctx.actions.run(
+  executable="${1:sh}",
+  arguments=[${4:args}],
+  inputs=[${2:infile}],
+  outputs=[${3:out}])
 endsnippet
 
 #
