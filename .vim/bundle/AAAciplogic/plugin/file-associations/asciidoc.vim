@@ -5,7 +5,7 @@ function! AsciiDocFile()
     set filetype=asciidoc
 endfunction
 
-set fo=want
+set fo=
 nmap J ggVGP:ReplaceLinks<cr>ggVGgqgg:StripWhitespace<cr>:w<cr>
 
 function! ReplaceLinks()

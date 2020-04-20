@@ -1,27 +1,21 @@
 from setuptools import setup
 from setuptools import find_packages
 
-with open('README.rst') as readme_file:
+with open("README.rst") as readme_file:
     readme = readme_file.read()
 
 packages = find_packages()
 
 setup(
-    name='{{arg0}}',
-    version='1.0.0',
-    description='{{arg0}}',
+    name="{{arg0}}",
+    version="1.0.0",
+    description="{{arg0}}",
     long_description=readme,
-    author='Bogdan Mustiata',
-    author_email='bogdan.mustiata@gmail.com',
-    license='BSD',
-    entry_points={
-        "console_scripts": [
-            "{{arg0}} = {{arg0}}.mainapp:main"
-        ]
-    },
+    author="Bogdan Mustiata",
+    author_email="bogdan.mustiata@gmail.com",
+    license="BSD",
+    entry_points={"console_scripts": ["{{arg0}} = {{arg0}}.mainapp:main"]},
     install_requires=[],
     packages=packages,
-    package_data={
-        "": ["*.txt", "*.rst"],
-        "{{arg0}}": ["py.typed"],
-    })
+    package_data={"": ["*.txt", "*.rst"], "arst": ["py.typed"],},
+)
