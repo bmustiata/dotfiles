@@ -736,3 +736,25 @@ metadata:
   name: ${1:vpn-ciplogic-com}
 endsnippet
 
+
+#
+# snippet: crdp
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# A custom resource definition parameter
+#
+snippet crdp "A custom resource definition parameter" wm
+${1:paramName}:
+  type: ${2:object}${3/.+/
+  description: /}${3:Number of worker processes.}`!p
+
+if t[2] == "object":
+  content = """\
+  properties:
+    crdp"""
+  for line in content.split("\n"):
+    snip += line
+else:
+  snip.rv += ""
+`
+endsnippet

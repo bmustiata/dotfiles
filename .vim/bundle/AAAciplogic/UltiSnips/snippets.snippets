@@ -96,7 +96,20 @@ endsnippet
 # Adds a value if the wrapped variable does not match
 #
 snippet wrapnottext "Adds a value if the wrapped variable does not match" wm
-\`!p snip.rv += "" if t[${1:1}] != "" else "${2:${VISUAL}}"`
+\`!p snip.rv += "" if t[${1:1}] != "" else """${2:${VISUAL}}"""`
+endsnippet
+
+snippet wnt "a" wm
+\`!p
+
+# FIXME: dedent to 0
+if t[${1:1}] == "${2:object}":
+	content = """${VISUAL}"""
+	for line in content.split("\n"):
+		snip += line
+else:
+	snip.rv += ""
+`
 endsnippet
 
 #

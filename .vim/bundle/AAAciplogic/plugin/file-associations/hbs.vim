@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.hbs set filetype=X_handlebars.X_html.html.handlebars
+au BufRead,BufNewFile *.hbs set filetype=X_Handlebars.X_html.html.handlebars
