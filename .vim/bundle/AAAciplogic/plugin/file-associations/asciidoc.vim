@@ -6,7 +6,7 @@ function! AsciiDocFile()
 endfunction
 
 set fo=n
-nmap J ggVGP:ReplaceLinks<cr>ggVGgqgg:StripWhitespace<cr>:FixReferenceLists<cr>:w<cr>
+nmap J ggVGP:ReplaceLinks<cr>:w<cr>
 
 function! ReplaceLinks()
 python << endpython
