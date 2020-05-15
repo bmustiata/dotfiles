@@ -114,3 +114,13 @@ snippet b64 "Encode as base64" wm
 {{b64enc ${1:.Values.database.jdbc}}}
 endsnippet
 
+#
+# snippet: nsget
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get the current namespace
+#
+snippet nsget "Get the current namespace" wm
+{{ .Release.Namespace }}
+endsnippet
+

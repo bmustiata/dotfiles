@@ -3,10 +3,9 @@
 "
 function! AsciiDocFile()
     set filetype=asciidoc
+    set fo=n
+    nmap J ggVGP:ReplaceLinks<cr>:w<cr>
 endfunction
-
-set fo=n
-nmap J ggVGP:ReplaceLinks<cr>:w<cr>
 
 function! ReplaceLinks()
 python << endpython
@@ -57,38 +56,6 @@ endfunction
 
 command ReplaceLinks call ReplaceLinks()
 
-
-function! FixReferenceLists()
-python << endpython
-
-import re
-import vim
-
-NUMBER_ITEM = re.compile(r"<\d+>\s*")
-
-# replace list items
-while i < len(vim.current.buffer):
-    line = vim.current.buffer[i]
-    m = NUMBER_ITEM.search(line)
-
-    if not m or m.start() != 0:
-        i += 1
-        continue
-
-    print("wuuuut")
-
-    bullet_points = NUMBER_ITEM.split(line)
-    for j in range(1, len(bullet_points)):
-        bullet_points[j] = "<%d> %s" % (j, bullet_points[j])
-
-    vim.current.buffer[i:i+1] = ["yeet"]
-    #vim.current.buffer[i:i+1] = bullet_points[1:]
-    i += len(bullet_points) - 1
-
-endpython
-endfunction
-
-command FixReferenceLists call FixReferenceLists()
 
 au BufRead,BufNewFile *.adoc call AsciiDocFile()
 au BufRead,BufNewFile *.ad call AsciiDocFile()
