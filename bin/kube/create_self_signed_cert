@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+
+import adhesive
+import os
+
+
+class Data:
+    current_ip: str
+
+    cn: str
+    company_name: str
+    country: str
+
+    certificate_file: str
+    key_file: str
+
+
+@adhesive.task('Find current IP')
+def find_current_ip(context: adhesive.Token[Data]):
+    ip = context.workspace.run_output("hostname -I").strip().split(" ")[0]
+    context.data.current_ip = ip
+
+
+@adhesive.usertask('Certificate Details')
+def certificate_details(context: adhesive.Token[Data], ui: adhesive.UI):
+    ui.add_input_text(
+        "cn",
+        title="CN",
+        value=f"*.yolo.{context.data.current_ip}.xip.io")
+    ui.add_input_text(
+        "company_name",
+        title="Company",
+        value="Bamboozle Technologies LTD.")
+    ui.add_input_text(
+        "country",
+        title="Country",
+        value="AT")
+
+    ui.add_input_text(
+        "certificate_file",
+        title="CRT",
+        value="yolo.crt")
+    ui.add_input_text(
+        "key_file",
+        title="Key",
+        value="yolo.key")
+
+@adhesive.task('Create Certificate')
+def apt_install(context: adhesive.Token[Data]):
+    data = context.data
+
+    context.workspace.pwd = os.curdir
+    context.workspace.run(f"""
+        openssl req -newkey rsa:4096 \\
+                -x509 \\
+                -sha256 \\
+                -days 3650 \\
+                -nodes \\
+                -out {data.certificate_file} \\
+                -keyout {data.key_file} \\
+                -subj '/CN={data.cn}/O={data.company_name}/C={data.country}'
+
+    """)
+
+adhesive.build()

@@ -17,7 +17,9 @@ from os import path
 
 IMAGE_RE = re.compile(r"Image ((.*?)(\[(.*)\])?)\.$")
 INCLUDE_RE = re.compile(r"Include (.*)\.$")
+SOURCE_LINE = re.compile(r"^([a-z]+)\: (.*)$")
 
+# replace images
 for i in range(len(vim.current.buffer)):
     line = vim.current.buffer[i]
     m = IMAGE_RE.match(line)
@@ -45,6 +47,26 @@ while i < len(vim.current.buffer):
     ]
     i += 4
 
+# replace the source lines
+i = 0
+while i < len(vim.current.buffer):
+    line = vim.current.buffer[i]
+    m = SOURCE_LINE.match(line)
+
+    if not m:
+        i += 1
+        continue
+
+    vim.current.buffer[i:i+1] = [
+      "[source,%s]" % m.group(1),
+      "--------------------------------------------------------------------------",
+      "%s" % m.group(2),
+      "--------------------------------------------------------------------------",
+    ]
+    i += 4
+
+
+# update the title from the file name
 file_name = vim.current.buffer.name
 title = titlecase.titlecase(path.splitext(path.basename(file_name))[0].replace("_", " "))
 vim.current.buffer[0:0] = [
