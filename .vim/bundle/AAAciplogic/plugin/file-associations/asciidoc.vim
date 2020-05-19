@@ -18,6 +18,7 @@ from os import path
 IMAGE_RE = re.compile(r"Image ((.*?)(\[(.*)\])?)\.$")
 INCLUDE_RE = re.compile(r"Include (.*)\.$")
 SOURCE_LINE = re.compile(r"^([a-z]+)\: (.*)$")
+LINK_RE = re.compile(r"([\w\d]+)\((http.*?)\)")
 
 # replace images
 for i in range(len(vim.current.buffer)):
@@ -64,6 +65,22 @@ while i < len(vim.current.buffer):
       "--------------------------------------------------------------------------",
     ]
     i += 4
+
+
+# replace the links
+i = 0
+while i < len(vim.current.buffer):
+    line = vim.current.buffer[i]
+    m = LINK_RE.search(line)
+
+    while m:
+        vim.current.buffer[i] = line[:m.start()] + \
+            "link:%s[%s]" % (m.group(2), m.group(1)) + \
+            line[m.end():]
+        line = vim.current.buffer[i]
+        m = LINK_RE.search(line)
+
+    i += 1
 
 
 # update the title from the file name
