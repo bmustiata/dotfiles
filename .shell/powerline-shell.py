@@ -840,33 +840,37 @@ def add_root_segment(powerline):
 # ####################################################################
 # segment building
 # ####################################################################
-add_enter_segment(powerline)
-add_enter_segment(powerline)
-
-# kubernetes
-segment_content = False
-segment_content = add_kubehost_segment(powerline) or segment_content
-segment_content = add_kubernetes_namespace_segment(powerline) or segment_content
-segment_content = add_kubernetes_user_segment(powerline) or segment_content
-if segment_content:
+try:
+    add_enter_segment(powerline)
     add_enter_segment(powerline)
 
-# project/git
-segment_content = False
-segment_content = add_virtual_env_segment(powerline) or segment_content
-segment_content = add_java_segment(powerline) or segment_content
-segment_content = add_git_segment(powerline) or segment_content
-segment_content = add_svn_segment(powerline) or segment_content
-segment_content = add_jobs_segment(powerline) or segment_content
-if segment_content:
-    add_enter_segment(powerline)
+    # kubernetes
+    segment_content = False
+    segment_content = add_kubehost_segment(powerline) or segment_content
+    segment_content = add_kubernetes_namespace_segment(powerline) or segment_content
+    segment_content = add_kubernetes_user_segment(powerline) or segment_content
+    if segment_content:
+        add_enter_segment(powerline)
 
-# shell command
-segment_content = add_archer_segment(powerline) or segment_content
-segment_content = add_username_segment(powerline) or segment_content
-segment_content = add_ssh_segment(powerline) or segment_content
-segment_content = add_cwd_segment(powerline) or segment_content
-segment_content = add_read_only_segment(powerline) or segment_content
-add_root_segment(powerline)
+    # project/git
+    segment_content = False
+    segment_content = add_virtual_env_segment(powerline) or segment_content
+    segment_content = add_java_segment(powerline) or segment_content
+    segment_content = add_git_segment(powerline) or segment_content
+    segment_content = add_svn_segment(powerline) or segment_content
+    segment_content = add_jobs_segment(powerline) or segment_content
+    if segment_content:
+        add_enter_segment(powerline)
+
+    # shell command
+    segment_content = add_archer_segment(powerline) or segment_content
+    segment_content = add_username_segment(powerline) or segment_content
+    segment_content = add_ssh_segment(powerline) or segment_content
+    segment_content = add_cwd_segment(powerline) or segment_content
+    segment_content = add_read_only_segment(powerline) or segment_content
+    add_root_segment(powerline)
+except Exception as e:
+    sys.stdout.write(str(e) + " $")
+    sys.exit(0)
 
 sys.stdout.write(powerline.draw())
