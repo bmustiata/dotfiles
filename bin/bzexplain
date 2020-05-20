@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+TARGET="$1"
+echo "Selected target: $TARGET"
+
+GRAPHFILE=$(tempfile)
+
+bazel query "deps($TARGET)" --output graph > $GRAPHFILE
+dot -Tpng -O$GRAPHFILE.png $GRAPHFILE
+rm $GRAPHFILE
+
+xdg-open $GRAPHFILE.png
