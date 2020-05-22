@@ -316,3 +316,34 @@ snippet untar "Add some untar" wm
 tar --one-top-level=$OUTDIR/utillx6 -zxf $TMPDIR/utility/Utility/unix/linux/x64/utillx6.tar.gz
 endsnippet
 
+
+#
+# snippet: maven_jar
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a maven jar dep
+#
+snippet maven_jar "Add a maven jar dep" wm
+maven_jar(
+	name = "${1/[\.-]/_/g}_${2/[\.-]/_/g}_${3/[\.-]/_/g}",
+	artifact = "${1:org.apache.commons}:${2:commons-lang3}:${3:3.9}",${4/.+/
+	repository = "/}${4:http://nexus3.autsrv.com/repository/central/}${4/.+/",/}
+)
+endsnippet
+
+#
+# snippet: java_binary
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a java binary target
+#
+snippet java_binary "Add a java binary target" wm
+java_binary(
+	name = "${1:sample-java-binary}",
+	srcs = glob(["${2:src/main/java}/**/*.java"]),
+	main_class = "${3:com.automic.bazel.Main}",
+${4/.+/	deps = [
+		"/}${4:@org_apache_commons_commons_lang3_3_9//jar}${4/.+/",
+/}	]
+)
+endsnippet
