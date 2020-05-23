@@ -318,20 +318,6 @@ endsnippet
 
 
 #
-# snippet: maven_jar
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# Add a maven jar dep
-#
-snippet maven_jar "Add a maven jar dep" wm
-maven_jar(
-	name = "${1/[\.-]/_/g}_${2/[\.-]/_/g}_${3/[\.-]/_/g}",
-	artifact = "${1:org.apache.commons}:${2:commons-lang3}:${3:3.9}",${4/.+/
-	repository = "/}${4:http://nexus3.autsrv.com/repository/central/}${4/.+/",/}
-)
-endsnippet
-
-#
 # snippet: java_binary
 # w (word boundary),
 # m (trim spaces on the right of the script)
@@ -347,3 +333,23 @@ ${4/.+/	deps = [
 /}	]
 )
 endsnippet
+
+#
+# snippet: genrule
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a genrule
+#
+snippet genrule "Add a genrule" wm
+genrule(
+  name=${1:"rule-name"},
+${2/.+/  srcs=[
+    "/}${2:src/README.md}${1/.+/",
+  ],
+/}  outs=[
+      "${3:documentation.zip}",
+  ],
+  cmd="${4:zip $(OUTS) $(SRCS)}"
+)
+endsnippet
+
