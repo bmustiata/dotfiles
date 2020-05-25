@@ -7,7 +7,7 @@ echo "Selected target: $TARGET"
 
 GRAPHFILE=$(tempfile)
 
-bazel query "deps($TARGET)" --output graph > $GRAPHFILE
+bazel query "deps($TARGET)" --notool_deps --output graph > $GRAPHFILE
 dot -Tpng -O$GRAPHFILE.png $GRAPHFILE
 rm $GRAPHFILE
 
