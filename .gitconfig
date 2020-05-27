@@ -26,6 +26,7 @@
     fmtag = "!f() { git tag -f -m $1 $1; }; f"
     lc = log master..@ --pretty=format:"%C(yellow)%h\\ %Cred%s%Cblue\\ [%cn]"  --decorate --reverse --numstat
     uccl = "!f() { git rev-list -1 --before='$1' HEAD | xargs git log -1; }; f"
+    hash = !git rev-parse --verify HEAD
 
 [commit]
 template = ~/.gitmessage
