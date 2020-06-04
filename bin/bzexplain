@@ -2,7 +2,7 @@
 
 set -e
 
-TARGET="$1"
+TARGET="$@"
 echo "Selected target: $TARGET"
 
 GRAPHFILE=$(tempfile)
