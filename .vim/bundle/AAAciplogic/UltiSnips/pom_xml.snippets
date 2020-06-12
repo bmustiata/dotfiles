@@ -37,3 +37,24 @@ snippet repo "Create a repository" wm
 </repository>
 endsnippet
 
+#
+# snippet: javaversion
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Specify the java version
+#
+snippet javaversion "Specify the java version" wm
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<configuration>
+				<source>${1:8}</source>
+				<target>$1</target>
+			</configuration>
+		</plugin>
+	</plugins>
+</build>
+endsnippet
+
