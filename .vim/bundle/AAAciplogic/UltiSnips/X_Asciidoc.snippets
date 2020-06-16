@@ -5,9 +5,9 @@
 # Create a tag
 #
 snippet tag "Create a tag" wm
-# tag::${1:tagname}[]
+${1:#} tag::${2:tagname}[]
 ${VISUAL}
-# end::$1[]
+$1 end::$2[]
 endsnippet
 
 #
@@ -17,7 +17,7 @@ endsnippet
 # Create a number
 #
 snippet # "Create a number" wm
-# <${1:1}>
+${1:#} <${2:1}>
 endsnippet
 
 
