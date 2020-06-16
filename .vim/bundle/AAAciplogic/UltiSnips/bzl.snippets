@@ -353,3 +353,30 @@ ${2/.+/  srcs=[
 )
 endsnippet
 
+#
+# snippet: file
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a repository file
+#
+snippet file "Add a repository new file" wm
+${1:repository_ctx}.file(
+	${2:"defs.bzl"},
+	${3:"def pinned_maven_install():\n    pass"},
+	executable = ${4:False},
+)
+endsnippet
+
+#
+# snippet: local
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a local repository
+#
+snippet local "Add a local repository" wm
+local_repository(
+	name = "${1:repo}",
+	path = "${2:/home/raptor/local/repo}",
+)
+endsnippet
+
