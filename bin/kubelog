@@ -1,0 +1,17 @@
+#!/bin/bash
+
+search_pod() {
+  kubectl get pods --no-headers | tr -s " " | perl -pe 's/(.*?) (.*)/\1   \2/'
+  kubectl get pods --all-namespaces --no-headers | tr -s " " | perl -pe 's/(.*?) (.*?) (.*)/\1\/\2   \3/'
+}
+
+POD_NAME=$(search_pod | fzf | cut -f1 -d\ )
+
+if [[ "$POD_NAME" = *"/"* ]]; then
+  NAMESPACE=$(echo $POD_NAME | cut -f1 -d/)
+  POD_NAME=$(echo $POD_NAME | cut -f2 -d/)
+  kubectl logs --namespace $NAMESPACE $POD_NAME
+else # not [[ $POD_NAME = *"/"* ]]
+  kubectl logs $POD_NAME
+fi   # else [[ $POD_NAME = *"/"* ]]
+
