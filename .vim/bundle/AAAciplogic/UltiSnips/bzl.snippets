@@ -380,3 +380,25 @@ local_repository(
 )
 endsnippet
 
+#
+# snippet: exec
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Execute a program
+#
+snippet exec "Execute a program" wm
+${1:exec_result}${1/.+/ = /}${2:repoctx}.execute([
+  ${3:"curl", "-o", "data", repoctx.attr.url}
+])
+${1/.+/
+if $0.return_code != 0:
+  fail("""
+      Failure executing program
+      OUT: {stdout}
+      ERR: {stderr}""".format(
+    url=repoctx.attr.url,
+    stdout=exec_result.stdout,
+    stderr=exec_result.stderr,
+  ))
+/}
+endsnippet
