@@ -8,7 +8,7 @@ function! AsciiDocFile()
 endfunction
 
 function! ReplaceLinks()
-python << endpython
+python3 << endpython
 
 import re
 import vim
