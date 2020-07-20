@@ -16,7 +16,7 @@ import titlecase
 from os import path
 
 IMAGE_RE = re.compile(r"Image ((.*?)(\[(.*)\])?)\.$")
-INCLUDE_RE = re.compile(r"Include (.*)\.$")
+INCLUDE_RE = re.compile(r"Include ((\w+) )?(.*)\.$")
 SOURCE_LINE = re.compile(r"^([a-z]+)\: (.*)$")
 LINK_RE = re.compile(r"([\w\d]+)\((http.*?)\)")
 
@@ -41,9 +41,9 @@ while i < len(vim.current.buffer):
         continue
 
     vim.current.buffer[i:i+1] = [
-      "[source,python]",
+      "[source,%s]" % (m.group(2).lower() if m.group(2) else "python"),
       "--------------------------------------------------------------------------",
-      "include::/documents/%s" % m.group(1),
+      "include::/documents/%s" % m.group(3),
       "--------------------------------------------------------------------------",
     ]
     i += 4
