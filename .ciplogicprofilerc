@@ -40,7 +40,7 @@ export PATH="$GOPATH/bin:$PATH"
 . ~/.nvm/nvm.sh
 . ~/.nvm/bash_completion
 
-nvm use v8
+# nvm alias default v12
 
 unset CIPLOGIC_ARCHER_CURRENT_PROJECT
 unset CIPLOGIC_ARCHER_CURRENT_PY
