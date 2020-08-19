@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import adhesive
 
 
@@ -10,7 +12,7 @@ def install_packages(context):
 
 @adhesive.task('Install nodejs')
 def install_nodejs(context):
-	# check nvm if it exists:
+    # check nvm if it exists:
     try:
         context.workspace.run("""
             ls $HOME/.nvm
@@ -24,17 +26,22 @@ def install_nodejs(context):
     # check if node exists
     try:
         context.workspace.run("""
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
             node --version
         """)
     except Exception as e:
-        context.workspace.run("""
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-            nvm install v8
-        """)
+        print("node is not installed, installing now")
+        context.workspace.run(
+            """
+                export NVM_DIR="$HOME/.nvm"
+                [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                nvm install v12
+            """,
+            shell="/bin/bash",
+        )
 
     context.data.node_global_packages = [
-        "project-archer",
         "fast-live-reload",
         "js-beautify",
         "eslint", "eslint-plugin-import", "eslint-config-airbnb-base",
@@ -55,10 +62,11 @@ def install_npm(context):
 def install_node_apps(context):
     context.workspace.run(f"""
         export NVM_DIR="$HOME/.nvm"
-        [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
         echo npm install -g {context.loop.value}
         npm install -g {context.loop.value}
-    """)
+    """,
+    shell="/bin/bash")
 
 
 @adhesive.task('Install SDKMAN')
@@ -73,22 +81,44 @@ def install_sdkman(context):
         """)
 
 
-@adhesive.task(re='Install java (.*?)')
+@adhesive.task(re='^Install java (.*?)$')
 def install_java(context, java_version):
-    # FIXME: check if java is installed for that version
-    found_java_version = context.workspace.run(f"""
-        export SDKMAN_DIR="/home/raptor/.sdkman"
-        [[ -s "/home/raptor/.sdkman/bin/sdkman-init.sh" ]] && source "/home/raptor/.sdkman/bin/sdkman-init.sh"
+    found_java_version = context.workspace.run_output(
+        f"""
+            export SDKMAN_DIR="/home/raptor/.sdkman"
+            [[ -s "/home/raptor/.sdkman/bin/sdkman-init.sh" ]] && . "/home/raptor/.sdkman/bin/sdkman-init.sh"
 
-        sdk list java | grep adpt | grep " {java_version}.0" | grep ".j9 " | tr -s " " | cut -f4 -d\\ 
-    """, capture_stdout=True)
+            sdk list java | grep adpt | grep " {java_version}.0" | grep ".j9 " | tr -s " " | cut -f6 -d\\|
+        """,
+        shell="/bin/bash",
+    ).strip()
 
-    context.workspace.run(f"""
-        export SDKMAN_DIR="/home/raptor/.sdkman"
-        [[ -s "/home/raptor/.sdkman/bin/sdkman-init.sh" ]] && source "/home/raptor/.sdkman/bin/sdkman-init.sh"
+    print(f"Target java ({java_version}): {found_java_version}")
 
-        sdk install java {found_java_version}
-    """)
+    try:
+        context.workspace.run(
+            f"""
+                export SDKMAN_DIR="/home/raptor/.sdkman"
+                [[ -s "/home/raptor/.sdkman/bin/sdkman-init.sh" ]] && . "/home/raptor/.sdkman/bin/sdkman-init.sh"
+
+                sdk list java | grep {found_java_version} | grep ' installed '
+            """,
+            shell="/bin/bash",
+        )
+        is_java_installed = True
+    except Exception:
+        is_java_installed = False
+
+    if not is_java_installed:
+        context.workspace.run(
+            f"""
+                export SDKMAN_DIR="/home/raptor/.sdkman"
+                [[ -s "/home/raptor/.sdkman/bin/sdkman-init.sh" ]] && . "/home/raptor/.sdkman/bin/sdkman-init.sh"
+
+                sdk install java {found_java_version}
+            """,
+            shell="/bin/bash",
+        )
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 
