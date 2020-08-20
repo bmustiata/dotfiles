@@ -1,0 +1,9 @@
+config:
+  name: sdkman
+  requires: [ SDKMAN_JAVA_VERSION ]
+  activate: |  # activation script
+    sdk use java $SDKMAN_JAVA_VERSION
+    ps1-show java
+  deactivate:
+    ps1-hide java
+

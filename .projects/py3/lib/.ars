@@ -1,3 +1,4 @@
 parents:
 - pyi/setuptools
 - adhesive/docker
+- gbs/python

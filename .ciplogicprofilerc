@@ -46,7 +46,7 @@ unset CIPLOGIC_ARCHER_CURRENT_PROJECT
 unset CIPLOGIC_ARCHER_CURRENT_PY
 unset CIPLOGIC_ARCHER_CURRENT_SERVER
 
-eval "$(archer project server py dockerhost kubehost)"
+eval "$(archer project server py jdk dockerhost kubehost)"
 
 alias p=project
 alias s=server
@@ -89,6 +89,4 @@ if [[ "$(umask)" == "0000" ]]; then
 fi # [[ "$(umask)" == "0000" ]]
 
 plan $CIPLOGIC_PLAN_SCOPE
-
-. ~/bin/kubens.bash.complete.sh
 
