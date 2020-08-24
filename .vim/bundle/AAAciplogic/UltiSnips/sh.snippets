@@ -180,6 +180,11 @@ snippet bash "Adds a bash #!/usr/bin/env declaration."
 #!/usr/bin/env bash${0:}
 endsnippet
 
+snippet sh "Adds a sh #!/bin/sh declaration."
+#!/bin/sh${0:}
+endsnippet
+
+
 snippet mlsvar "Add a multiline string value"
 read -r -d '' ${1:VALUE} << ${2:EOM}
 ${VISUAL}${0:}
