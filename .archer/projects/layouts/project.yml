@@ -4,4 +4,7 @@ layout:
   commands:
     cdproj: cd $PROJECT_HOME
   activate: |
+    ps1-show project
     cd $PROJECT_HOME
+  deactivate: |
+    ps1-hide project

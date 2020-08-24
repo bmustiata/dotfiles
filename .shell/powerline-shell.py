@@ -485,6 +485,9 @@ def add_kubernetes_user_segment(powerline):
 
 
 def add_archer_segment(powerline):
+    if not os.getenv('PS1_SHOW_PROJECT'):
+        return
+
     project = os.getenv('CIPLOGIC_ARCHER_CURRENT_PROJECT')
 
     if not project:
