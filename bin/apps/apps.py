@@ -51,6 +51,22 @@ def ZippedBinary(
     )
 
 
+def ZippedJarExecutable(
+    name: str,
+    url: str,
+    executable: str,
+    version: str = "") -> None:
+
+    app_definition(
+        command_prefix = ["java", "-jar"],
+        name=name,
+        version=version,
+        url=url,
+        executable=executable,
+        archive="zip",
+    )
+
+
 def app_definition(
         *,
         command_prefix: List[str] = [],
@@ -159,7 +175,7 @@ def download_app(
         "unzip", "-d", output_folder, download_file
     ])
 
-    target_executable = version_format(target_executable, version)
+    target_executable = version_format(executable, version)
 
     if make_executable:
         chmod_plus_x(os.path.join(output_folder, target_executable))
@@ -197,7 +213,7 @@ def execute_app(*,
         full_path = os.path.join(target, f"{name}-{version}{suffix}")
 
     subprocess.call([
-        *command_prefix, full_path, *sys.argv
+        *command_prefix, full_path, *sys.argv[1:]
     ])
 
 
