@@ -121,6 +121,9 @@ def get_existing_app_version(
     """
     for item in os.listdir(target):
         if item.startswith(name + "-") and item.endswith(suffix):
+            if not suffix:
+                return item[len(name)+1:]
+
             return item[len(name) + 1: -len(suffix)]
 
     return None
