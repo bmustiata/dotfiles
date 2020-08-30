@@ -94,6 +94,7 @@ def app_definition(
                 target=target,
                 suffix=suffix,
                 archive=archive,
+                command_prefix=command_prefix,
                 executable=executable)
 
     if existing_version and existing_version != version:
@@ -139,8 +140,8 @@ def download_app(
         target: str,
         archive: str,
         executable: str,
-        suffix: str = "",
-        make_executable: bool=False) -> None:
+        command_prefix: List[str] = [],
+        suffix: str = "") -> None:
     target_url = version_format(url, version)
 
     if archive:
@@ -164,14 +165,14 @@ def download_app(
                     f.write(data)
                     bar.update(len(data))
 
-    if make_executable and not archive:
+    if not command_prefix and not archive:
         chmod_plus_x(download_file)
 
     if not archive:
         return
 
     output_folder = os.path.join(target, f"{name}-{version}{suffix}")
-    shutil.rmtree(output_folder, ignore_errors=True)
+    remove_recursive(path=output_folder, ignore_errors=True)
     os.mkdir(output_folder)
 
     subprocess.check_call([
@@ -198,7 +199,17 @@ def remove_existing_app(
         suffix: str
     ) -> None:
     full_path = os.path.join(target, f"{name}-{version}{suffix}")
-    shutil.rmtree(full_path)
+    remove_recursive(path=full_path)
+
+
+def remove_recursive(*,
+                     path: str,
+                     ignore_errors: bool = False) -> None:
+    if os.path.isfile(path):
+        os.remove(path)
+        return
+
+    shutil.rmtree(path, ignore_errors=ignore_errors)
 
 
 def execute_app(*,
