@@ -15,11 +15,13 @@ def AppImage(
         *,
         name: str,
         url: str,
-        version: str = "") -> None:
+        version: str = "",
+        shortcut: Optional[str] = None) -> None:
     app_definition(
         name=name,
         version=version,
         url=url,
+        shortcut=shortcut,
     )
 
 
@@ -76,7 +78,8 @@ def app_definition(
         version: str,
         suffix: str = "",
         archive: str = "",
-        executable: str = "") -> None:
+        executable: str = "",
+        shortcut: Optional[str] = None) -> None:
     if not os.path.isdir(target):
         raise Exception(f"{target} is not a folder")
 
@@ -100,6 +103,17 @@ def app_definition(
     if existing_version and existing_version != version:
         print(f"Removing old version: {existing_version}")
         remove_existing_app(target=target, name=name, version=existing_version, suffix=suffix)
+
+    if shortcut:
+        create_shortcut(
+            shortcut=shortcut,
+            command_prefix=command_prefix,
+            target=target,
+            name=name,
+            version=version,
+            suffix=suffix,
+            executable=executable,
+        )
 
     execute_app(
         command_prefix=command_prefix,
@@ -211,6 +225,29 @@ def remove_recursive(*,
 
     shutil.rmtree(path, ignore_errors=ignore_errors)
 
+
+def create_shortcut(*,
+        shortcut: str,
+        command_prefix: List[str] = [],
+        target: str,
+        name: str,
+        version: str,
+        executable: str,
+        suffix: str = "") -> None:
+
+    if executable:
+        target_executable = version_format(executable, version)
+        full_path = os.path.join(target, f"{name}-{version}{suffix}", target_executable)
+    else:
+        full_path = os.path.join(target, f"{name}-{version}{suffix}")
+
+    with open(shortcut, "wt", encoding="utf-8") as f:
+        params = " ".join([*command_prefix, full_path])
+        f.write(f"#!/bin/sh\n{params} $@")
+
+    subprocess.check_call([
+        "chmod", "+x", shortcut
+    ])
 
 def execute_app(*,
         command_prefix: List[str] = [],
