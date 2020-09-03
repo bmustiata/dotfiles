@@ -52,6 +52,7 @@ Plugin 'tpope/vim-markdown.git'
 Plugin 'mustache/vim-mustache-handlebars.git'
 Plugin 'bmustiata/vim-cucumber'
 Plugin 'jparise/vim-graphql'
+Plugin 'suzuki11109/robot.vim'
 
 Plugin 'prabirshrestha/async.vim'
 Plugin 'bmustiata/vim-lsp'
