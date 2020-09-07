@@ -1,0 +1,11 @@
+#!/usr/bin/env python
+
+import subprocess
+
+
+branch = subprocess.check_output(["git", "current"]).decode('utf-8').strip()
+
+subprocess.check_call([
+    "git", "branch" , "--set-upstream-to=origin/%s" % branch, branch
+])
+

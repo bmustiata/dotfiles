@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+
+
+import subprocess
+import click
+import re
+
+BRANCH_PARSER = re.compile('refs/remotes/(.*?)/(.*)')
+
+
+@click.command()
+@click.argument('remote', default='origin')
+@click.option('--branch', default='master')
+def main(remote: str, branch: str) -> None:
+    print(f"Cleaning up remote '{remote}' against '{remote}/{branch}'.")
+
+    branches = subprocess.check_output([
+        "git", "branch", "-a", "--format", "%(refname)"
+    ]).decode('utf-8').strip().split('\n')
+
+    for checked_branch in branches:
+        m = BRANCH_PARSER.match(checked_branch)
+
+        if not m:
+            continue
+
+        checked_branch_remote: str = m.group(1)
+        checked_branch_name: str = m.group(2)
+
+        if checked_branch_remote != remote:
+            continue
+
+        if checked_branch_name == branch:
+            continue
+
+        if checked_branch_name == 'HEAD':
+            continue
+
+        retcode = subprocess.call([
+            "git", "merge-base", "--is-ancestor",
+            f"{remote}/{checked_branch_name}",
+            f"{remote}/{branch}",
+        ])
+
+        if retcode != 0:
+            continue
+
+        print(f"removing branch {remote}/{checked_branch_name}")
+        subprocess.check_call([
+            "git", "push", remote, "--delete", checked_branch_name
+        ])
+
+if __name__ == "__main__":
+    main()
+

@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+import sys
+import subprocess
+import re
+import click
+import urllib
+
+
+URL_BASE = re.compile(r'^(.+?//.+?)/.*$')
+
+
+@click.command()
+@click.argument("jenkins_url")
+@click.option("--remote",
+              help="Remote to use. Defaults to origin.",
+              default="origin")
+def main(jenkins_url: str, remote: str = "origin") -> None:
+    jenkins_base = get_jenkins_base(jenkins_url)
+    git_repo_location = get_git_repo_location(remote)
+
+    print(f"{jenkins_base}/git/notifyCommit?url={git_repo_location}")
+
+
+def get_jenkins_base(url: str) -> str:
+    m = URL_BASE.match(url)
+
+    if not m:
+        raise Exception(f"Unable to parse {url} as an URL")
+
+    return m.group(1)
+
+
+def get_git_repo_location(remote: str) -> str:
+    return subprocess.check_output([
+        "git", "config", f"remote.{remote}.url"
+    ]).decode("utf-8").strip()
+
+
+if __name__ == '__main__':
+    main()

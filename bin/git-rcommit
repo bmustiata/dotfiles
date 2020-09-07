@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+import subprocess
+import sys
+from git_utils import get_checkout_issue_number, get_commit_message
+import os
+import re
+
+
+def main() -> None:
+    try:
+        issue_number = get_checkout_issue_number()
+    except Exception as e:
+        issue_number = ""
+
+    last_commit_message = get_commit_message()
+
+    gitcommit_file = os.path.join(os.getenv('HOME'), '.gitmessage')
+
+    with open(gitcommit_file, 'w') as f:
+        if issue_number not in last_commit_message and issue_number:
+            f.write("%s " % issue_number)
+        elif issue_number and last_commit_message.startswith("Merge "):
+            f.write("%s " % issue_number)
+        else:
+            f.write(re.sub(r"^(\S+ (\(\S+\) )?).*$", r'\1', last_commit_message))
+
+    git_command = ["git", "commit"]
+    git_command.extend(sys.argv[1:])
+
+    subprocess.call(git_command)
+
+
+if __name__ == '__main__':
+    main()
