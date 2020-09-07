@@ -12,5 +12,6 @@ fi # [[ "$1" == "" ]]
 
 mkdir -p /usr/share/ca-certificates/extra
 echo | openssl s_client -showcerts -servername $1 -connect $1:443 > /usr/share/ca-certificates/extra/$1.crt
+ln -s /usr/share/ca-certificates/extra/$1.crt /etc/ssl/certs/$1.crt
 sudo update-ca-certificates
 
