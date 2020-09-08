@@ -29,35 +29,40 @@ def JarExecutable(
         *,
         name: str,
         url: str,
-        version: str = "") -> None:
+        version: str = "",
+        shortcut: Optional[str] = None) -> None:
     app_definition(
         command_prefix = ["java", "-jar"],
         name=name,
         version=version,
         url=url,
         suffix=".jar",
+        shortcut=shortcut,
     )
 
 
 def ZippedBinary(
-    name: str,
-    url: str,
-    executable: str,
-    version: str = "") -> None:
+        name: str,
+        url: str,
+        executable: str,
+        version: str = "",
+        shortcut: Optional[str] = None) -> None:
     app_definition(
         name=name,
         version=version,
         url=url,
         executable=executable,
         archive="zip",
+        shortcut=shortcut,
     )
 
 
 def ZippedJarExecutable(
-    name: str,
-    url: str,
-    executable: str,
-    version: str = "") -> None:
+        name: str,
+        url: str,
+        executable: str,
+        version: str = "",
+        shortcut: Optional[str] = None) -> None:
 
     app_definition(
         command_prefix = ["java", "-jar"],
@@ -66,6 +71,7 @@ def ZippedJarExecutable(
         url=url,
         executable=executable,
         archive="zip",
+        shortcut=shortcut,
     )
 
 
