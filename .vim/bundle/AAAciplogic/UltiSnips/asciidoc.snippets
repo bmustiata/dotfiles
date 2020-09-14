@@ -489,3 +489,13 @@ snippet * "bold" wm
 *${VISUAL}*
 endsnippet
 
+#
+# snippet: del
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Delete some text
+#
+snippet del "Delete some text" wm
++++<del>+++${VISUAL}${0:}+++</del>+++
+endsnippet
+
