@@ -399,6 +399,23 @@ def add_kubehost_segment(powerline):
     return True
 
 
+def add_jee_segment(powerline):
+    if not os.getenv('PS1_SHOW_JEE_SERVER'):
+        return
+
+    jee_server = os.getenv('CIPLOGIC_ARCHER_CURRENT_SERVER')
+
+    if not jee_server:
+        return
+
+    bg = Color.KUBE_ENV_BG
+    fg = Color.KUBE_ENV_FG
+    icon = u'🐅' if show_emojis else ''
+    powerline.append(u'%s%s' % (icon, jee_server), fg, bg)
+
+    return True
+
+
 kube_config_data = None
 
 
@@ -859,6 +876,7 @@ try:
     segment_content = False
     segment_content = add_virtual_env_segment(powerline) or segment_content
     segment_content = add_java_segment(powerline) or segment_content
+    segment_content = add_jee_segment(powerline) or segment_content
     segment_content = add_git_segment(powerline) or segment_content
     segment_content = add_svn_segment(powerline) or segment_content
     segment_content = add_jobs_segment(powerline) or segment_content
