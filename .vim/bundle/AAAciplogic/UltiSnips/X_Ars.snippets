@@ -15,5 +15,14 @@ endsnippet
 # Add a pip requirement
 #
 snippet pip "Add a pip requirement" wm
-grep -i "${1:ariadne}==" requirements.txt || pip install $1 && pip freeze | grep -i ^$1== >> requirements.txt
+(grep -i "${1:ariadne}==" requirements.txt) || (pip install $1 && pip freeze | grep -i ^$1== >> requirements.txt)
+endsnippet
+
+#
+# snippet: pipdev
+# w (word boundary),
+# m (trim spaces on the right of the script)
+#
+snippet pipdev "Add a development pip dependency" wm
+(pip freeze | grep -i ${1:mypy-protobuf}) || (pip install $1)
 endsnippet
