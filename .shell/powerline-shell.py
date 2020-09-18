@@ -875,8 +875,8 @@ try:
     # project/git
     segment_content = False
     segment_content = add_virtual_env_segment(powerline) or segment_content
-    segment_content = add_java_segment(powerline) or segment_content
     segment_content = add_jee_segment(powerline) or segment_content
+    segment_content = add_java_segment(powerline) or segment_content
     segment_content = add_git_segment(powerline) or segment_content
     segment_content = add_svn_segment(powerline) or segment_content
     segment_content = add_jobs_segment(powerline) or segment_content

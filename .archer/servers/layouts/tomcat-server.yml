@@ -1,6 +1,10 @@
 layout:
     name: Tomcat
     requires: [ PROJECT_HOME, PROJECT_BUILD_FOLDER, DEPLOY_ARTIFACT_NAME, SERVER_HOME ]
+    activate: |
+      ps1-show jee_server
+    deactivate: |
+      ps1-hide jee_server
     commands:
         cdl: cd $SERVER_HOME/logs
         cdb: cd $SERVER_HOME/bin
