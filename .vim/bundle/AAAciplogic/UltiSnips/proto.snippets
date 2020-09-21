@@ -1,0 +1,96 @@
+#
+# snippet: proto
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a basic proto file definition
+#
+snippet proto "Create a basic proto file definition" wm
+syntax = "proto3"
+
+${0:}
+endsnippet
+
+#
+# snippet: svc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a service
+#
+snippet svc "Create a service" wm
+service ${1:OaasRegistry} {
+	${0:}
+}
+endsnippet
+
+#
+# snippet: rpc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a rpc call
+#
+snippet rpc "Create a rpc call" wm
+rpc ${1:RouteChat}(${2:stream RouteNote}) returns (${3:stream RouteNote}) {}
+endsnippet
+
+#
+# snippet: msg
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new message
+#
+snippet message "Create a new message" wm
+message ${1:Point} {
+	${0:}
+}
+endsnippet
+
+#
+# snippet: map
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a map field
+#
+snippet map "Create a map field" wm
+map<${1:string}, ${2:string}> ${3:map_field} = ${4:1};
+endsnippet
+
+#
+# snippet: list
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a repeated item
+#
+snippet list "Create a repeated item" wm
+repeated ${1:FieldType} ${2:field} = ${3:1};
+endsnippet
+
+#
+# snippet: set
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a repeated item
+#
+snippet set "Create a repeated item" wm
+repeated ${1:FieldType} ${2:field} = ${3:1};
+endsnippet
+
+#
+# snippet: int
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an int field
+#
+snippet int "Create an int field" wm
+int32 ${1:fieldName} = ${2:1};
+endsnippet
+
+#
+# snippet: f
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a field
+#
+snippet f "Add a field" wm
+${1:int32} ${2:fieldName} = ${3:1};
+endsnippet
+
