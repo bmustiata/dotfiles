@@ -6,4 +6,14 @@ default.prefix = ${1:http://10.2.1.84/hg/infinica-root/}
 default.username = ${2:bmustiata}
 endsnippet
 
+#
+# snippet: mypy
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a mypy ignore
+#
+snippet mypy "Add a mypy ignore" wm
+[mypy-${1:netifaces}]
+ignore_missing_imports = True
+endsnippet
 

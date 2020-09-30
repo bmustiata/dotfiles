@@ -1,6 +1,8 @@
 parents:
 - py3/lib
 commands:
-- (grep -i "grpc-stubs==" requirements.txt) || (pip install grpc-stubs && pip freeze | grep -i ^grpc-stubs== >> requirements.txt)
+- (grep -i "protobuf==" requirements.txt) || (pip install protobuf && pip freeze | grep -i ^protobuf== >> requirements.txt)
+- (grep -i "grpcio==" requirements.txt) || (pip install grpcio && pip freeze | grep -i ^grpcio== >> requirements.txt)
+- (pip freeze | grep -i grpc-stubs) || (pip install grpc-stubs)
 - (pip freeze | grep -i mypy-protobuf) || (pip install mypy-protobuf)
 - (pip freeze | grep -i grpcio-tools) || (pip install grpcio-tools)
