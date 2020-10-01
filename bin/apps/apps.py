@@ -57,6 +57,22 @@ def ZippedBinary(
     )
 
 
+def TarGzBinary(
+        name: str,
+        url: str,
+        executable: str,
+        version: str = "",
+        shortcut: Optional[str] = None) -> None:
+    app_definition(
+        name=name,
+        version=version,
+        url=url,
+        executable=executable,
+        archive="tar.gz",
+        shortcut=shortcut,
+    )
+
+
 def ZippedJarExecutable(
         name: str,
         url: str,
@@ -171,7 +187,7 @@ def download_app(
 
     print(f"Downloading {target_url} as {download_file}")
 
-    response = requests.get(target_url, allow_redirects=True, stream=True)
+    response = requests.get(target_url, allow_redirects=True, stream=True, verify=False)
     total_length = response.headers.get('content-length')
 
     if not total_length:
@@ -195,13 +211,18 @@ def download_app(
     remove_recursive(path=output_folder, ignore_errors=True)
     os.mkdir(output_folder)
 
-    subprocess.check_call([
-        "unzip", "-d", output_folder, download_file
-    ])
+    if archive == "zip":
+        subprocess.check_call([
+            "unzip", "-d", output_folder, download_file
+        ])
+    elif archive == "tar.gz":
+        subprocess.check_call([
+            "tar", "-C", output_folder, "-zxf", download_file
+        ])
 
     target_executable = version_format(executable, version)
 
-    if make_executable:
+    if executable:  # FIXME: this is wrong for java
         chmod_plus_x(os.path.join(output_folder, target_executable))
 
 
