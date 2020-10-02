@@ -37,14 +37,12 @@ export PATH="$GOPATH/bin:$PATH"
 
 . ~/bin/async
 
-. ~/.nvm/nvm.sh
-. ~/.nvm/bash_completion
-
-# nvm alias default v12
-
-unset CIPLOGIC_ARCHER_CURRENT_PROJECT
-unset CIPLOGIC_ARCHER_CURRENT_PY
-unset CIPLOGIC_ARCHER_CURRENT_SERVER
+# Loading NVM using a hack. Normally this should be only `. ~/.nvm/nvm.sh`, but
+# unfortunately that is super slow: https://github.com/nvm-sh/nvm/issues/1277
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"
+export PATH="$NVM_DIR/versions/node/v$(<$NVM_DIR/alias/default)/bin:$PATH"
+source "$NVM_DIR/nvm.sh" --no-use
 
 eval "$(archer project server py jdk dockerhost kubehost)"
 
