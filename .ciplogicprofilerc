@@ -14,6 +14,7 @@ if [[ "$BYOBU_TTY" == "" ]]; then
 fi # [[ "$BYOBU_TTY" == "" ]]
 
 export EDITOR=nvim
+export PATH="${HOME}/bin/apps/:$PATH"
 export PATH="${HOME}/bin/docker/:$PATH"
 export PATH="${HOME}/bin:$PATH"
 
