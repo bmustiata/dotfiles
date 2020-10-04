@@ -14,8 +14,13 @@ setup(
     author="Bogdan Mustiata",
     author_email="bogdan.mustiata@gmail.com",
     license="BSD",
-    entry_points={"console_scripts": ["{{arg0}} = {{arg0}}.mainapp:main"]},
+    entry_points={
+        "console_scripts": ["{{arg0}} = {{arg0}}.mainapp:main"]
+    },
     install_requires=[],
     packages=packages,
-    package_data={"": ["*.txt", "*.rst"], "arst": ["py.typed"],},
+    package_data={
+        "": ["*.txt", "*.rst"],
+        "{{arg0}}": ["py.typed"],
+    },
 )
