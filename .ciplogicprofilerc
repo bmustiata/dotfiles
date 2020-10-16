@@ -13,6 +13,8 @@ if [[ "$BYOBU_TTY" == "" ]]; then
     return
 fi # [[ "$BYOBU_TTY" == "" ]]
 
+# WARN: sdkman if configured must be at the end of the .bashrc
+
 export EDITOR=nvim
 export PATH="${HOME}/bin/apps/:$PATH"
 export PATH="${HOME}/bin/docker/:$PATH"
@@ -21,9 +23,8 @@ export PATH="${HOME}/bin:$PATH"
 export ARS_PROJECTS_FOLDER="/home/raptor/projects/dotfiles/.projects"
 export VIM_ULTISNIPS_FOLDER="/home/raptor/.vim/bundle/ciplogic/UltiSnips"
 
-export PATH="$HOME/programs/VSCode-linux-x64/bin:$PATH"
-
 # For decent vim editing.
+# This also needs: pip install 'python-language-server[pyls-mypy,pyls-black]' neovim rope
 export PYTHONPATH='.'
 export MYPYPATH='./stubs'
 
