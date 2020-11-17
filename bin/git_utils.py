@@ -4,7 +4,7 @@ from typing import Set, List, Dict
 
 BACKPORT_BRANCH_CHECK = re.compile(r'^.*?/\d+\.\d+(.+)?/.*$')
 BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/\d+\.\d+(.+)?)?/(.*)$')
-BRANCH_ISSUE_ID_PARSER = re.compile(r'^.+/(\w+-\d+).+?$')
+BRANCH_ISSUE_ID_PARSER = re.compile(r'^.+/(\w+-?\d+).+?$')
 
 
 def normalize_issue_name(issue_id):

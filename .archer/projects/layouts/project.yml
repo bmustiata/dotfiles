@@ -1,6 +1,8 @@
 layout:
   name: project
   requires: [ PROJECT_HOME ]
+  layouts:
+  - byobu-title
   commands:
     cdproj: cd $PROJECT_HOME
   activate: |

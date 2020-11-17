@@ -54,6 +54,7 @@ Plugin 'bmustiata/vim-cucumber'
 Plugin 'jparise/vim-graphql'
 Plugin 'zchee/vim-flatbuffers'
 Plugin 'uarun/vim-protobuf'
+Plugin 'mfukar/robotframework-vim'
 
 Plugin 'prabirshrestha/async.vim'
 Plugin 'bmustiata/vim-lsp'

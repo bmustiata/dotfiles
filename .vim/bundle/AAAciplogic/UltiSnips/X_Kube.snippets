@@ -412,7 +412,7 @@ endsnippet
 
 # ingress mapping
 snippet ingress "Create an ingress mapping"
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ${1:nextcloud}${2/.+/

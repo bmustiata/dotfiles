@@ -4,5 +4,3 @@ layout:
     activate: |
       echo -e '\\033k$PROJECT_TITLE\\033\\\\'
 
-
-
