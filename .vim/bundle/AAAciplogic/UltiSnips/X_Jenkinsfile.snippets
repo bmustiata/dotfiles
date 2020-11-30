@@ -441,64 +441,8 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Adda build description
 #
-snippet desc "Adda build description" wm
+snippet desc "Add a build description" wm
 currentBuild.description = "${1:build description}"
-endsnippet
-
-#
-# snippet: pyexe
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# Germanium PyExe Pipeline
-#
-snippet gbspyexe "Germanium PyExe Pipeline" wm
-germaniumPyExePipeline([${1/.+/
-	runMyPy: /}${1:true}${2/.+/,
-	runFlake8: /}${2:true}${3/.+/,
-	publishAnsiblePlay: "/}${3:bin/publish.yml}${3/.+/"/}${4/.+/,
-
-	preBuild: {
-		/}${4:// pre build before the branches, branches start
-		// on a new checkout}${4/.+/
-	}/},
-
-	binaries: [
-		"${5:platform}": [
-			dockerTag: "${6:platform}"${7/.+/,
-			gbs: "/}${7:/Dockerfile}${7/.+/"/}${8/.+/,
-			exe: "/}${8:/src/dist/binary}${8/.+/"/}${9/.+/,
-			versionManager: /}${9:"-f versions_list.yml"}${10/.+/,
-			extraSteps: {/}
-				${10:// steps that will run before GBS, the result
-				// is available in GBS}${10/.+/
-			}/}
-		]
-	]${11/.+/
-
-	postBuild: {
-		/}${11:// after the build is done for all branches}${11/.+/
-	}/}
-])
-endsnippet
-
-#
-# snippet: binary
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# Create a new GBS binary
-#
-snippet gbsbinary "Create a new GBS binary" wm
-"${1:platform}": [
-	dockerTag: "${2:platform}"${3/.+/,
-	gbs: "/}${3:/Dockerfile}${3/.+/"/}${4/.+/,
-	exe: "/}${4:/src/dist/binary}${4/.+/"/}${5/.+/,
-	versionManager: /}${5:"-f versions_list.yml"}${6/.+/,
-	publishPypi: /}${6:false}${7/.+/,
-	extraSteps: {
-		/}${7:// steps that will run before GBS, the result
-		// is available in GBS}${7/.+/
-	}/}
-]
 endsnippet
 
 #

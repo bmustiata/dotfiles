@@ -1,0 +1,7 @@
+layout:
+  name: byobu-title
+  activate: |
+    byobu rename-window ${CIPLOGIC_ARCHER_CURRENT_PROJECT##*/}
+  deactivate: |
+    byobu rename-window sh
+
