@@ -112,7 +112,7 @@ def generate_article(*, title, category, tags, date, image_name, image_url):
         lede: |
             LEDE CONTENT
         # thumbnail should be: 1280x720
-        thumbnail: "/assets/img/posts/{image_name}"
+        thumbnail: "/assets/img/posts/{image_name}_small"
         ---
 
         ++++
