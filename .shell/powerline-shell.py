@@ -710,6 +710,9 @@ def parse_git_stats(status):
 
 
 def add_git_segment(powerline):
+    if not os.getenv('PS1_SHOW_GIT'):
+        return
+
     try:
         p = subprocess.Popen(['git', 'status', '--porcelain', '-b'],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE,

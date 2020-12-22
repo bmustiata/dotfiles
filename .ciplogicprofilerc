@@ -19,6 +19,7 @@ export EDITOR=nvim
 export PATH="${HOME}/bin/apps/:$PATH"
 export PATH="${HOME}/bin/docker/:$PATH"
 export PATH="${HOME}/bin:$PATH"
+export PATH="${HOME}/.local/bin:$PATH"
 
 export ARS_PROJECTS_FOLDER="/home/raptor/projects/dotfiles/.projects"
 export VIM_ULTISNIPS_FOLDER="/home/raptor/.vim/bundle/ciplogic/UltiSnips"
