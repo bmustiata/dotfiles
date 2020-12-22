@@ -73,6 +73,37 @@ endsnippet
 
 
 #
+# snippet: rulex
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an executable rule
+#
+snippet rulex "Add an executable rule" wm
+def _$1(ctx):
+  out = ctx.actions.declare_file("executable.sh")
+
+  ctx.actions.write(
+    content='echo hello world',
+    output=out,
+    is_executable=True,
+  )
+
+  return [DefaultInfo(
+    executable=out,
+    runfiles=ctx.runfiles([out]),
+  )]
+
+
+${1:rule_name} = rule(
+  implementation = _$1,
+  attrs = {
+    ${0:}
+  },
+  executable=True
+)
+endsnippet
+
+#
 # snippet: attrbool
 # w (word boundary),
 # m (trim spaces on the right of the script)
@@ -200,7 +231,7 @@ endsnippet
 #
 snippet run "Run a command" wm
 ctx.actions.run(
-  executable="${1:sh}",
+  executable=${1:"sh"},
   arguments=[${4:args}],
   inputs=[${2:infile}],
   outputs=[${3:out}])
@@ -214,10 +245,12 @@ endsnippet
 #
 snippet runsh "Run a shell command" wm
 ctx.actions.run_shell(
-  command="${1:touch wut}",
-  arguments=[${4:args}],
-  inputs=[${2:infile}],
-  outputs=[${3:out}])
+	command="""
+		${1:touch wut}
+	""",
+	arguments=[${4:args}],
+	inputs=[${2:infile}],
+	outputs=[${3:out}])
 endsnippet
 
 #
