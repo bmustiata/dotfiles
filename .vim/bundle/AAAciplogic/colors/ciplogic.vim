@@ -14,9 +14,9 @@ let g:colors_name = "ciplogic"
 "hi CTagsMember -- no settings --
 "hi CTagsGlobalConstant -- no settings --
 "hi Ignore -- no settings --
-hi Normal guifg=#000000 guibg=#e0e0e0 guisp=#e0e0e0 gui=NONE ctermfg=NONE ctermbg=254 cterm=NONE
-hi asciidocQuotedEmphasized guifg=#000000 guibg=#e0e0e0 guisp=#e0e0e0 gui=NONE ctermfg=NONE ctermbg=254 cterm=italic
-hi asciidocQuotedBold guifg=#000000 guibg=#e0e0e0 guisp=#e0e0e0 gui=NONE ctermfg=NONE ctermbg=254 cterm=bold
+hi Normal guifg=#000000 guibg=#e2e2e2 guisp=#e2e2e2 gui=NONE ctermfg=NONE ctermbg=188 cterm=NONE
+hi asciidocQuotedEmphasized guifg=#000000 guibg=#e2e2e2 guisp=#e2e2e2 gui=NONE ctermfg=NONE ctermbg=188 cterm=italic
+hi asciidocQuotedBold guifg=#000000 guibg=#e2e2e2 guisp=#e2e2e2 gui=NONE ctermfg=NONE ctermbg=188 cterm=bold
 "hi CTagsImport -- no settings --
 "hi CTagsGlobalVariable -- no settings --
 "hi EnumerationValue -- no settings --
@@ -32,15 +32,15 @@ hi WildMenu guifg=NONE guibg=#A1A6A8 guisp=#A1A6A8 gui=NONE ctermfg=NONE ctermbg
 hi SignColumn guifg=#192224 guibg=#536991 guisp=#536991 gui=NONE ctermfg=235 ctermbg=60 cterm=NONE
 hi SpecialComment guifg=#BD9800 guibg=NONE guisp=NONE gui=NONE ctermfg=1 ctermbg=NONE cterm=NONE
 hi Typedef guifg=#536991 guibg=NONE guisp=NONE gui=bold ctermfg=60 ctermbg=NONE cterm=bold
-hi Title guifg=#333333 guibg=#e0e0e0 guisp=#e0e0e0 gui=bold ctermfg=236 ctermbg=254 cterm=bold
+hi Title guifg=#333333 guibg=#e2e2e2 guisp=#e2e2e2 gui=bold ctermfg=236 ctermbg=188 cterm=bold
 hi Folded guifg=#192224 guibg=#A1A6A8 guisp=#A1A6A8 gui=italic ctermfg=235 ctermbg=248 cterm=NONE
 hi PreCondit guifg=#BD9800 guibg=NONE guisp=NONE gui=NONE ctermfg=1 ctermbg=NONE cterm=NONE
 hi Include guifg=#BD9800 guibg=NONE guisp=NONE gui=NONE ctermfg=1 ctermbg=NONE cterm=NONE
 hi TabLineSel guifg=#192224 guibg=#BD9800 guisp=#BD9800 gui=bold ctermfg=235 ctermbg=1 cterm=bold
 hi StatusLineNC guifg=#192224 guibg=#5E6C70 guisp=#5E6C70 gui=bold ctermfg=235 ctermbg=66 cterm=bold
 hi NonText guifg=#5E6C70 guibg=NONE guisp=NONE gui=italic ctermfg=66 ctermbg=NONE cterm=NONE
-hi DiffText guifg=#550000 guibg=#ffaaaa guisp=#ffaaaa gui=NONE ctermfg=52 ctermbg=217 cterm=NONE
-hi ErrorMsg guifg=#88cc88 guibg=#550000 guisp=#550000 gui=NONE ctermfg=114 ctermbg=52 cterm=NONE
+hi DiffText guifg=#3c0000 guibg=#ffaaaa guisp=#ffaaaa gui=NONE ctermfg=52 ctermbg=217 cterm=NONE
+hi ErrorMsg guifg=#88cc88 guibg=#3c0000 guisp=#3c0000 gui=NONE ctermfg=52 ctermbg=52 cterm=NONE
 hi Debug guifg=#BD9800 guibg=NONE guisp=NONE gui=NONE ctermfg=1 ctermbg=NONE cterm=NONE
 hi PMenuSbar guifg=NONE guibg=#848688 guisp=#848688 gui=NONE ctermfg=NONE ctermbg=102 cterm=NONE
 hi Identifier guifg=#032536 guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
@@ -78,10 +78,10 @@ hi Visual guifg=#192224 guibg=#F9F9FF guisp=#F9F9FF gui=NONE ctermfg=235 ctermbg
 hi MoreMsg guifg=#BD9800 guibg=NONE guisp=NONE gui=bold ctermfg=1 ctermbg=NONE cterm=bold
 hi SpellCap guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189 ctermbg=235 cterm=underline
 hi VertSplit guifg=#192224 guibg=#5E6C70 guisp=#5E6C70 gui=bold ctermfg=235 ctermbg=66 cterm=bold
-hi Exception guifg=#550000 guibg=NONE guisp=NONE gui=bold ctermfg=52 ctermbg=NONE cterm=bold
+hi Exception guifg=#3c0000 guibg=NONE guisp=NONE gui=bold ctermfg=52 ctermbg=NONE cterm=bold
 hi Keyword guifg=#BD9800 guibg=NONE guisp=NONE gui=bold ctermfg=1 ctermbg=NONE cterm=bold
 hi Type guifg=#333333 guibg=NONE guisp=NONE gui=bold ctermfg=236 ctermbg=NONE cterm=bold
-hi DiffChange guifg=#550000 guibg=#d46a6a guisp=#d46a6a gui=NONE ctermfg=52 ctermbg=167 cterm=NONE
+hi DiffChange guifg=#3c0000 guibg=#ffdbdb guisp=#ffdbdb gui=NONE ctermfg=52 ctermbg=224 cterm=NONE
 hi Cursor guifg=#192224 guibg=#F9F9F9 guisp=#F9F9F9 gui=NONE ctermfg=235 ctermbg=15 cterm=NONE
 hi SpellLocal guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189 ctermbg=235 cterm=underline
 hi Error guifg=#A1A6A8 guibg=#912C00 guisp=#912C00 gui=NONE ctermfg=248 ctermbg=88 cterm=NONE
@@ -97,7 +97,7 @@ hi SpellBad guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189 
 hi Directory guifg=#536991 guibg=NONE guisp=NONE gui=bold ctermfg=60 ctermbg=NONE cterm=bold
 hi Structure guifg=#536991 guibg=NONE guisp=NONE gui=bold ctermfg=60 ctermbg=NONE cterm=bold
 hi Macro guifg=#BD9800 guibg=NONE guisp=NONE gui=NONE ctermfg=1 ctermbg=NONE cterm=NONE
-hi DiffAdd guifg=#550000 guibg=#55aa55 guisp=#55aa55 gui=NONE ctermfg=52 ctermbg=71 cterm=NONE
+hi DiffAdd guifg=#3c0000 guibg=#55aa55 guisp=#55aa55 gui=NONE ctermfg=52 ctermbg=71 cterm=NONE
 hi TabLine guifg=#192224 guibg=#5E6C70 guisp=#5E6C70 gui=bold ctermfg=235 ctermbg=66 cterm=bold
 hi cursorim guifg=#192224 guibg=#536991 guisp=#536991 gui=NONE ctermfg=235 ctermbg=60 cterm=NONE
 
@@ -111,7 +111,7 @@ hi pythonEscape guifg=#116611 guibg=NONE guisp=NONE gui=NONE ctermfg=22 ctermbg=
 hi lspReference guifg=#192224 guibg=#6e91a1 guisp=#6e91a1 gui=NONE ctermfg=235 ctermbg=67 cterm=bold
 
 " markdown changes
-hi markdownLinkText guifg=#000000 guibg=#e0e0e0 guisp=#e0e0e0 gui=NONE ctermfg=NONE ctermbg=254 cterm=underline
+hi markdownLinkText guifg=#000000 guibg=#e2e2e2 guisp=#e2e2e2 gui=NONE ctermfg=NONE ctermbg=188 cterm=underline
 hi markdownLinkTextDelimiter guifg=#5E6C70 guibg=NONE guisp=NONE gui=italic ctermfg=66 ctermbg=NONE cterm=NONE
 hi markdownLinkDelimiter guifg=#5E6C70 guibg=NONE guisp=NONE gui=italic ctermfg=66 ctermbg=NONE cterm=NONE
 hi markdownUrl guifg=#536991 guibg=NONE guisp=NONE gui=bold ctermfg=60 ctermbg=NONE cterm=italic
