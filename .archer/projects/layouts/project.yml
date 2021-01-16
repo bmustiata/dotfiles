@@ -7,6 +7,8 @@ layout:
     cdproj: cd $PROJECT_HOME
   activate: |
     ps1-show project
+    ps1-show git
     cd $PROJECT_HOME
   deactivate: |
     ps1-hide project
+    ps1-hide git
