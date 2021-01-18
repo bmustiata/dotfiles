@@ -7,4 +7,7 @@ config:
     open-jenkins: |
       BRANCH_NAME=$(git current)
       xdg-open $JENKINS_PREFIX${BRANCH_NAME//\//%252F}
+    show-jenkins: |
+      BRANCH_NAME=$(git current)
+      echo $JENKINS_PREFIX${BRANCH_NAME//\//%252F}
 
