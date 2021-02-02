@@ -1,0 +1,9 @@
+config:
+  name: openshift
+  requires:
+  - OPENSHIFT_URL
+  commands:
+    open-openshift-console: |
+      xdg-open ${OPENSHIFT_URL}/console
+    nuke:
+      kubectl delete deploy,jobs,service,route,secret,cm,pods --all
