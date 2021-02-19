@@ -292,7 +292,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Add a file credential
 #
-snippet secret "Add a secret file credential" wm
+snippet secretf "Add a secret file credential" wm
 withCredentials([file(credentialsId: '${1:VARNAME}', variable: '${2:$1}')]) {
 	sh """
 		cp ${env.$2} ${3:/tmp/$2}
@@ -304,19 +304,30 @@ withCredentials([file(credentialsId: '${1:VARNAME}', variable: '${2:$1}')]) {
 endsnippet
 
 #
-# snippet: userpass
+# snippet: secretu
 # w (word boundary),
 # m (trim spaces on the right of the script)
-# Create a user pass binding
+# Add a secret with a user/pass combo
 #
-snippet userpass "Create a user pass binding" wm
-withCredentials([[
-  $class: 'UsernamePasswordMultiBinding',
-  credentialsId:'${1:mycreds}',
-  usernameVariable: '${2:USERNAME}',
-  passwordVariable: '${3:PASSWORD}'
-]]) {
-  ${VISUAL}${0:}
+snippet secretu "Add a secret with a user/pass combo" wm
+withCredentials([
+	usernamePassword(credentialsId: ${1:"CREDENTIAL_ID"},
+						usernameVariable: "${2:$1_USER}",
+						passwordVariable: "${2:$1_PASS}")]) {
+	${VISUAL}${0:}
+}
+endsnippet
+
+
+#
+# snippet: secrets
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a secret from a string
+#
+snippet secrets "Add a secret from a string" wm
+withCredentials([string(credentialsId: "${1:CREDENTIAL_ID}", variable: "${2:$1}")]) {
+	${VISUAL}${0:}
 }
 endsnippet
 
