@@ -6,6 +6,8 @@ LOCAL_SERVER_IP=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/n
 export DISPLAY=$LOCAL_SERVER_IP:0
 export LIBGL_ALWAYS_INDIRECT=1
 
+xmodmap ~/bin/x11/xmodmap.colemak
+
 echo "Run this in a command prompt"
 echo "set HOME=c:\\Users\\bm669313\\AppData\\Roaming"
 echo "type nul > c:\\Users\\bm669313\\AppData\\Roaming\\.Xauthority"
