@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+
+from git_utils import get_checkout_issue_number
+
+
+def main() -> None:
+    print(get_checkout_issue_number())
+
+
+if __name__ == '__main__':
+    main()
+

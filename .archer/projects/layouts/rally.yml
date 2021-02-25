@@ -1,0 +1,6 @@
+layout:
+  name: rally
+  requires: [ RALLY_URL ]
+  commands:
+    open-rally:
+      xdg-open "${RALLY_URL}search?keywords=$(git issue)"
