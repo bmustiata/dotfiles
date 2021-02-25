@@ -5,9 +5,20 @@ config:
   - PROJECT_HOME
   commands:
     open-jenkins: |
+      # if we have a tag, we use it
+      if [[ "$1" != "" ]]; then
+        xdg-open $JENKINS_PREFIX/view/tags/job/${1//\//%252F}
+        return
+      fi
+
       BRANCH_NAME=$(git current)
-      xdg-open $JENKINS_PREFIX${BRANCH_NAME//\//%252F}
+      xdg-open $JENKINS_PREFIX/job/${BRANCH_NAME//\//%252F}
     show-jenkins: |
+      if [[ "$1" != "" ]]; then
+        echo $JENKINS_PREFIX/view/tags/job/${1//\//%252F}
+        return
+      fi
+
       BRANCH_NAME=$(git current)
       echo $JENKINS_PREFIX${BRANCH_NAME//\//%252F}
 
