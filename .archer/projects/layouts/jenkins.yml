@@ -5,20 +5,37 @@ config:
   - PROJECT_HOME
   commands:
     open-jenkins: |
-      # if we have a tag, we use it
-      if [[ "$1" != "" ]]; then
-        xdg-open $JENKINS_PREFIX/view/tags/job/${1//\//%252F}
+      # if we don't have a tag, we use the current branch
+      if [[ "$1" == "" ]]; then
+        BRANCH_NAME=$(git current)
+        xdg-open $JENKINS_PREFIX/job/${BRANCH_NAME//\//%252F}
         return
       fi
 
-      BRANCH_NAME=$(git current)
-      xdg-open $JENKINS_PREFIX/job/${BRANCH_NAME//\//%252F}
+      # `l` means the latest release tag
+      if [[ "$1" == "l" ]]; then
+        TAG_NAME=$(git describe --abbrev=0 --tags)
+        xdg-open $JENKINS_PREFIX/view/tags/job/${TAG_NAME//\//%252F}
+        return
+      fi
+
+      # use the given tag by the user
+      xdg-open $JENKINS_PREFIX/view/tags/job/${1//\//%252F}
+
     show-jenkins: |
-      if [[ "$1" != "" ]]; then
-        echo $JENKINS_PREFIX/view/tags/job/${1//\//%252F}
+      # if we don't have a tag, we use the current branch
+      if [[ "$1" == "" ]]; then
+        BRANCH_NAME=$(git current)
+        echo $JENKINS_PREFIX/job/${BRANCH_NAME//\//%252F}
         return
       fi
 
-      BRANCH_NAME=$(git current)
-      echo $JENKINS_PREFIX${BRANCH_NAME//\//%252F}
+      # `l` means the latest release tag
+      if [[ "$1" == "l" ]]; then
+        TAG_NAME=$(git describe --abbrev=0 --tags)
+        echo $JENKINS_PREFIX/view/tags/job/${TAG_NAME//\//%252F}
+        return
+      fi
 
+      # use the given tag by the user
+      echo $JENKINS_PREFIX/view/tags/job/${1//\//%252F}
