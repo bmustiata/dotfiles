@@ -1,4 +1,5 @@
 stdout: True
 # parallel_processing: process
 plugins:
-- /home/raptor/projects/germanium-adhesive-lib
+- /home/raptor/projects/germanium-monorepo/tools/adhesive-lib
+  # - /home/raptor/projects/germanium-adhesive-lib
