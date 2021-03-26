@@ -40,7 +40,7 @@ map <c-l> :set invnumber<cr>
 imap <c-l> <esc>:set invnumber<cr>a
 
 set background=light
-colorscheme ciplogic
+colorscheme darkblue
 
 " automax the current window
 " :set winheight=999
