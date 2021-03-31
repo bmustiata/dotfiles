@@ -11,7 +11,7 @@ import shutil
 import click
 
 
-def AppImage(
+def StaticBinary(
         *,
         name: str,
         url: str,

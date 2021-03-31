@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+
+
+import apps
+
+
+apps.TarGzBinary(
+    name="oc",
+    url="https://github.com/openshift/origin/releases/download/v{version}/openshift-origin-client-tools-v{version}-0cbc58b-linux-64bit.tar.gz",
+    version="3.11.0",
+    executable="openshift-origin-client-tools-v{version}-0cbc58b-linux-64bit/oc",
+)
+
+

@@ -3,7 +3,7 @@
 import apps
 
 
-apps.AppImage(
+apps.StaticBinary(
     name="bazel",
     url="https://github.com/bazelbuild/bazel/releases/download/{version}/bazel-{version}-linux-x86_64",
     version="3.4.1",

@@ -4,7 +4,7 @@
 import apps
 
 
-apps.AppImage(
+apps.StaticBinary(
     name="browsh",
     url="https://github.com/browsh-org/browsh/releases/download/v{version}/browsh_{version}_linux_amd64",
     version="1.6.4",

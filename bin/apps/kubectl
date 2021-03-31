@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+
+import apps
+
+
+apps.StaticBinary(
+    name="kubectl",
+    url="https://storage.googleapis.com/kubernetes-release/release/v{version}/bin/linux/amd64/kubectl",
+    version="1.18.2",
+    # shortcut="/home/raptor/bin/bazel",
+)
+
