@@ -13,7 +13,7 @@ searched_text = sys.argv[1]
 found_branches = list()
 
 for branch in all_branches():
-    if searched_text in branch:
+    if searched_text.lower() in branch.lower():
         found_branches.append(branch)
 
 
