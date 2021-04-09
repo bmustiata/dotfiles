@@ -1,0 +1,31 @@
+#
+# snippet: netplan
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new netplan
+#
+snippet netplan "Create a new netplan" wm
+network:
+	version: 2
+	renderer: networkd
+	ethernets:
+		eth0:
+			dhcp4: true
+			match:
+				macaddress: "00:23:24:58:48:c7"
+			set-name: eth0
+endsnippet
+
+#
+# snippet: eth
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a new network device
+#
+snippet eth "Add a new network device" wm
+${1:eth0}:${2/.+/
+	dhcp4: /}${2:true}${3/.+/
+	match:
+		macaddress: "/}${3:00:23:24:58:48:c7}${3/.+/"/}${4/.+/
+	set-name: /}${4:$1}
+endsnippet
