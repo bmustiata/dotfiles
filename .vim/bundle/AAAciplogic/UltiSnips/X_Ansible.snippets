@@ -237,3 +237,31 @@ snippet sh "Run a shell command" wm
 	when: /}${2:condition}
 endsnippet
 
+#
+# snippet: cron
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Register a cron job
+#
+snippet cron "Register a cron job" wm
+- name: ${1:Register the prewarming of the docker images for each day}
+	cron:
+		hour: "${2:1}"
+		minute: "${3:0}"
+		job: ${4:/usr/local/bin/docker-daily-prewarm.sh}
+endsnippet
+
+#
+# snippet: template
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Render a template
+#
+snippet template "Render a template" wm
+- name: ${1:Render the prewarm docker image script}
+	template:
+		src: ${2:prewarm-docker-images.j2}
+		dest: ${3:/usr/local/bin/docker-daily-prewarm.sh}${4/.+/
+		mode: "/}${4:711}${4/.+/"/}
+endsnippet
+
