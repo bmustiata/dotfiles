@@ -55,6 +55,23 @@ snippet probe_http "Waits for an HTTP server to be up" wm
 endsnippet
 
 #
+# snippet: probe_shell
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Waits for a command to return 0
+#
+snippet probe_shell "Waits for a command to return 0" wm
+- name: ${1:Wait microk8s to be up}
+  shell: |
+    ${2:microk8s.status}
+  register: ${3:result}
+  until: $3['rc'] == 0
+  delay: ${4:3}
+  retries: ${5:100}
+  changed_when: false
+endsnippet
+
+#
 # snippet: when
 # w (word boundary),
 # m (trim spaces on the right of the script)
