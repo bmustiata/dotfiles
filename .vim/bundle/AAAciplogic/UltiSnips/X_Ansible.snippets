@@ -27,12 +27,12 @@ endsnippet
 #
 snippet play "Create an ansible playbook" wm
 - name: ${1:Configure webserver with nginx}
-  hosts: ${2:webservers}${3/.+/
-  become: /}${3:True}${4/.+/
-  gather_facts: /}${4:True}
-  tasks:
-    ${0:${VISUAL/^$/- name: install nginx
-      apt: name=nginx update_cache=yes/}}
+	hosts: ${2:webservers}${3/.+/
+	become: /}${3:True}${4/.+/
+	gather_facts: /}${4:True}
+	tasks:
+		${0:${VISUAL/^$/- name: install nginx
+		apt: name=nginx update_cache=yes/}}
 endsnippet
 
 
@@ -194,8 +194,10 @@ endsnippet
 # Install a package using apt
 #
 snippet apt "Install a package using apt" wm
-- name: ${0:Install: $1 package from APT.}
-  apt: name=${1:ntp}${2/.+/ update_cache=/}${2:yes}
+- name: Install: $1
+	apt:
+		name:
+		- ${1:snapd}
 endsnippet
 
 #
