@@ -90,5 +90,3 @@ if [[ "$(umask)" == "0000" ]]; then
     umask 022
 fi # [[ "$(umask)" == "0000" ]]
 
-plan $CIPLOGIC_PLAN_SCOPE
-
