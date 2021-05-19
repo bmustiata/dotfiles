@@ -331,6 +331,18 @@ withCredentials([string(credentialsId: "${1:CREDENTIAL_ID}", variable: "${2:$1}"
 }
 endsnippet
 
+#
+# snippet: secretd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a secret for a docker registry
+#
+snippet secretd "Add a secret for a docker registry" wm
+withDockerRegistry([credentialsId: ${1:ARTIFACTORY_API_USER_PASS}, url: "https://${2:docker.host.name}" ]) {
+	${VISUAL}${0:}
+}
+endsnippet
+
 
 #
 # snippet: ws
