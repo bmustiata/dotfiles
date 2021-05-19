@@ -211,6 +211,8 @@ fun! <SID>HiLinkTrace(always)
 "  call Dret("HiLinkTrace : hilink<".hilink.">")
 endfun
 
+command -nargs=1 HiLinkTrace call <SID>HiLinkTrace(<f-args>)
+
 " ---------------------------------------------------------------------
 " s:SID: determine what <SID> normally maps to {{{1
 function s:SID()

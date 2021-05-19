@@ -39,8 +39,7 @@ imap <c-r>r <esc>:TabooRename
 map <c-l> :set invnumber<cr>
 imap <c-l> <esc>:set invnumber<cr>a
 
-set background=light
-colorscheme darkblue
+colorscheme ciplogic
 
 " automax the current window
 " :set winheight=999

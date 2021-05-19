@@ -144,3 +144,35 @@ endsnippet
 snippet print "Create a prin statement" wm
 echom printf("${1:light}")
 endsnippet
+
+#
+# snippet: hi
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a highlight block
+#
+snippet hi "Create a highlight block" wm
+" ${1:Statement} -> ${2:#000000} (${3:bold})
+hi $1 guifg=`!p
+
+import colorsearch
+
+try:
+	snip.rv += "#"
+	snip.rv += colorsearch.rgb2short(t[2])[1]
+except:
+	snip.rv += "??"
+
+
+` guibg=NONE guisp=NONE gui=$3 ctermfg=`!p
+
+import colorsearch
+
+try:
+	snip.rv += colorsearch.rgb2short(t[2])[0]
+except:
+	snip.rv += "??"
+
+` ctermbg=NONE cterm=$3
+endsnippet
+
