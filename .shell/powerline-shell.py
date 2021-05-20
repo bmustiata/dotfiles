@@ -285,8 +285,8 @@ class DefaultColor:
     VIRTUAL_ENV_FG = 16
     JAVA_ENV_BG = 35
     JAVA_ENV_FG = 00
-    KUBE_ENV_BG = 114
-    KUBE_ENV_FG = 16
+    KUBE_ENV_BG = 74
+    KUBE_ENV_FG = 0
 
 class Color(DefaultColor):
     """
