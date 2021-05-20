@@ -1,8 +1,8 @@
 if version > 580
-	hi clear
-	if exists("syntax_on")
-		syntax reset
-	endif
+  hi clear
+  if exists("syntax_on")
+    syntax reset
+  endif
 endif
 
 function! SetLightColors()
@@ -81,6 +81,9 @@ function! SetLightColors()
   hi xmlAttrib guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
 endfunction
 
+" -------------------------------------------------------------------------
+" Dark colors are set when the background is marked as "dark"
+" -------------------------------------------------------------------------
 function! SetDarkColors()
   hi Normal guifg=#e4e4e4 guibg=#000000 guisp=NONE gui=NONE ctermfg=254 ctermbg=0 cterm=NONE
 
@@ -96,6 +99,7 @@ function! SetDarkColors()
   hi Shade6 guifg=#e4e4e4 guibg=NONE guisp=NONE gui=NONE ctermfg=254 ctermbg=NONE cterm=NONE
   hi Shade7 guifg=#ffffff guibg=NONE guisp=NONE gui=NONE ctermfg=15 ctermbg=NONE cterm=NONE
 
+  hi SpecialComment guifg=#a8a8a8 guibg=NONE guisp=NONE gui=italic ctermfg=248 ctermbg=NONE cterm=italic
   hi Comment guifg=#6c6c6c guibg=NONE guisp=NONE gui=italic ctermfg=242 ctermbg=NONE cterm=italic
   hi Quote guifg=#6c6c6c guibg=NONE guisp=NONE gui=NONE ctermfg=242 ctermbg=NONE cterm=NONE
   hi Function guifg=#e4e4e4 guibg=#000000 guisp=NONE gui=bold ctermfg=254 ctermbg=0 cterm=bold
@@ -111,6 +115,8 @@ function! SetDarkColors()
 
   hi gitcommitUntrackedFile guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
   hi gitcommitSummary guifg=#ffffff guibg=NONE guisp=NONE gui=NONE ctermfg=15 ctermbg=NONE cterm=NONE
+
+  hi groovyJDKBuiltin guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
 
   hi htmlTagName guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
   hi htmlTag guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
@@ -194,9 +200,12 @@ function! SetDarkColors()
   hi Shade4 guifg=#d70000 guibg=NONE guisp=NONE gui=NONE ctermfg=160 ctermbg=NONE cterm=NONE
   hi Shade5 guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
 
+  hi Todo guifg=#d70000 guibg=NONE guisp=NONE gui=NONE ctermfg=160 ctermbg=NONE cterm=NONE
+
   hi gitcommitBranch guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
 
   hi javaScriptMember guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
+
 endfunction
 
 set t_Co=256
