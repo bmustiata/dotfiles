@@ -147,6 +147,7 @@ function! SetDarkColors()
 
   " vim UI
   hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
+  hi PMenu guifg=#e4e4e4 guibg=#444444 guisp=NONE gui=NONE ctermfg=254 ctermbg=238 cterm=NONE
 
   hi vimGroup guifg=#a8a8a8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
   hi vimGroupName guifg=#a8a8a8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
@@ -243,6 +244,10 @@ function! SetDarkColors()
   hi pythonDecoratorName guifg=#ffaf5f guibg=NONE guisp=NONE gui=italic ctermfg=215 ctermbg=NONE cterm=italic
 
   hi typescriptDecorators guifg=#ffaf5f guibg=NONE guisp=NONE gui=italic ctermfg=215 ctermbg=NONE cterm=italic
+
+  " vim UI
+  hi PMenuSel guifg=#000000 guibg=#ffaf5f guisp=NONE gui=NONE ctermfg=0 ctermbg=215 cterm=NONE
+
 
   hi vueSurroundingTag guifg=#ffaf5f guibg=NONE guisp=NONE gui=NONE ctermfg=215 ctermbg=NONE cterm=NONE
 
