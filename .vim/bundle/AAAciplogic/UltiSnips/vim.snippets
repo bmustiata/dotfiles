@@ -155,21 +155,21 @@ snippet hi "Create a highlight block" wm
 " ${1:Statement} -> ${2:#000000} (${3:bold})
 hi $1 guifg=`!p
 
-import colorsearch
+import color_search
 
 try:
 	snip.rv += "#"
-	snip.rv += colorsearch.rgb2short(t[2])[1]
+	snip.rv += color_search.rgb2short(t[2])[1]
 except:
 	snip.rv += "??"
 
 
 ` guibg=NONE guisp=NONE gui=$3 ctermfg=`!p
 
-import colorsearch
+import color_search
 
 try:
-	snip.rv += colorsearch.rgb2short(t[2])[0]
+	snip.rv += color_search.rgb2short(t[2])[0]
 except:
 	snip.rv += "??"
 

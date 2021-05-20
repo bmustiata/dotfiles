@@ -8,69 +8,183 @@ if version > 580
 endif
 
 function! SetLightColors()
+  hi Normal guifg=#121212 guibg=#e4e4e4 guisp=NONE gui=NONE ctermfg=233 ctermbg=254 cterm=NONE
+
   " -------------------------------------------------------------------------
   " gray
   " -------------------------------------------------------------------------
-  hi Comment guifg=#5f5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=59 ctermbg=NONE cterm=NONE
-  hi Statement guifg=#000000 guibg=NONE guisp=NONE gui=bold ctermfg=16 ctermbg=NONE cterm=bold
-  hi Include guifg=#000000 guibg=NONE guisp=NONE gui=bold ctermfg=16 ctermbg=NONE cterm=bold
+  hi Shade0 guifg=#000000 guibg=NONE guisp=NONE gui=NONE ctermfg=00 ctermbg=NONE cterm=NONE
+  hi Shade1 guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
+  hi Shade2 guifg=#767676 guibg=NONE guisp=NONE gui=NONE ctermfg=243 ctermbg=NONE cterm=NONE
+  hi Shade3 guifg=#a8a8a8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
+  hi Shade4 guifg=#d0d0d0 guibg=NONE guisp=NONE gui=NONE ctermfg=252 ctermbg=NONE cterm=NONE
+  hi Shade5 guifg=#e4e4e4 guibg=NONE guisp=NONE gui=NONE ctermfg=254 ctermbg=NONE cterm=NONE
+  hi Shade6 guifg=#ffffff guibg=NONE guisp=NONE gui=NONE ctermfg=15 ctermbg=NONE cterm=NONE
+
+  hi Comment guifg=#767676 guibg=NONE guisp=NONE gui=NONE ctermfg=243 ctermbg=NONE cterm=NONE
+  hi Function guifg=#121212 guibg=#e4e4e4 guisp=NONE gui=NONE ctermfg=233 ctermbg=254 cterm=NONE
+
+  hi javaScriptGlobal guifg=#121212 guibg=#e4e4e4 guisp=NONE gui=NONE ctermfg=233 ctermbg=254 cterm=NONE
 
   " -------------------------------------------------------------------------
   " green
   " -------------------------------------------------------------------------
+  hi Shade0 guifg=#00d700 guibg=NONE guisp=NONE gui=NONE ctermfg=40 ctermbg=NONE cterm=NONE
+  hi Shade3 guifg=#00af00 guibg=NONE guisp=NONE gui=NONE ctermfg=34 ctermbg=NONE cterm=NONE
+  hi Shade4 guifg=#008700 guibg=NONE guisp=NONE gui=NONE ctermfg=28 ctermbg=NONE cterm=NONE
+
   hi Constant guifg=#008700 guibg=NONE guisp=NONE gui=NONE ctermfg=28 ctermbg=NONE cterm=NONE
   hi Special guifg=#008700 guibg=NONE guisp=NONE gui=bold ctermfg=28 ctermbg=NONE cterm=bold
 
   " -------------------------------------------------------------------------
   " blue
   " -------------------------------------------------------------------------
-  hi Identifier guifg=#005f5f guibg=NONE guisp=NONE gui=bold ctermfg=23 ctermbg=NONE cterm=bold
-  hi pythonAttribute guifg=#005f5f guibg=NONE guisp=NONE gui=bold ctermfg=23 ctermbg=NONE cterm=bold
+  hi Shade0 guifg=#0087af guibg=NONE guisp=NONE gui=NONE ctermfg=31 ctermbg=NONE cterm=NONE
+  hi Shade1 guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
+  hi Shade3 guifg=#005f87 guibg=NONE guisp=NONE gui=NONE ctermfg=24 ctermbg=NONE cterm=NONE
+  hi Shade4 guifg=#005f5f guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
+
+  hi Identifier guifg=#005f5f guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
+  hi Label guifg=#005f5f guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
+  hi Title guifg=#005f5f guibg=NONE guisp=NONE gui=bold ctermfg=23 ctermbg=NONE cterm=bold
+
+  hi yamlBlockMappingKey guifg=#005f5f guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
+  hi yamlKeyValueDelimiter guifg=#005f5f guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
+
+  hi xmlTagName guifg=#005f5f guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
+  hi xmlTag guifg=#005f5f guibg=NONE guisp=NONE gui=bold ctermfg=23 ctermbg=NONE cterm=bold
+  " -------------------------------------------------------------------------
+  " yellow
+  " -------------------------------------------------------------------------
+  hi Shade0 guifg=#ff8700 guibg=NONE guisp=NONE gui=NONE ctermfg=208 ctermbg=NONE cterm=NONE
+  hi Shade1 guifg=#ffaf5f guibg=NONE guisp=NONE gui=NONE ctermfg=215 ctermbg=NONE cterm=NONE
+  hi Shade3 guifg=#d78700 guibg=NONE guisp=NONE gui=NONE ctermfg=172 ctermbg=NONE cterm=NONE
+  hi Shade4 guifg=#af5f00 guibg=NONE guisp=NONE gui=NONE ctermfg=130 ctermbg=NONE cterm=NONE
+
+  "hi Statement guifg=#af5f00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
+  hi Include guifg=#af5f00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
+
+  hi pythonBuiltin guifg=#af5f00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
+  hi pythonDecorator guifg=#af5f00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
+  hi pythonDecoratorName guifg=#af5f00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
+
+  hi javaScriptFunction guifg=#af5f00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
+  hi javaScriptLabel guifg=#af5f00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
+  " -------------------------------------------------------------------------
+  " red
+  " -------------------------------------------------------------------------
+  hi Shade0 guifg=#ff0000 guibg=NONE guisp=NONE gui=NONE ctermfg=09 ctermbg=NONE cterm=NONE
+  hi Shade1 guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
+  hi Shade4 guifg=#d70000 guibg=NONE guisp=NONE gui=NONE ctermfg=160 ctermbg=NONE cterm=NONE
+  hi Shade5 guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
+
+  hi javaScriptMember guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
+  hi javaScriptIdentifier guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
+  hi xmlAttrib guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
+endfunction
+
+function! SetDarkColors()
+  hi Normal guifg=#e4e4e4 guibg=#000000 guisp=NONE gui=NONE ctermfg=254 ctermbg=0 cterm=NONE
+
+  " -------------------------------------------------------------------------
+  " gray
+  " -------------------------------------------------------------------------
+  hi Shade0 guifg=#000000 guibg=NONE guisp=NONE gui=NONE ctermfg=0 ctermbg=NONE cterm=NONE
+  hi Shade1 guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
+  hi Shade2 guifg=#767676 guibg=NONE guisp=NONE gui=NONE ctermfg=243 ctermbg=NONE cterm=NONE
+  hi Shade3 guifg=#a8a8a8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
+  hi Shade4 guifg=#d0d0d0 guibg=NONE guisp=NONE gui=NONE ctermfg=252 ctermbg=NONE cterm=NONE
+  hi Shade5 guifg=#e4e4e4 guibg=NONE guisp=NONE gui=NONE ctermfg=254 ctermbg=NONE cterm=NONE
+  hi Shade6 guifg=#ffffff guibg=NONE guisp=NONE gui=NONE ctermfg=15 ctermbg=NONE cterm=NONE
+
+  hi Comment guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
+  hi Quote guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
+  " hi Comment guifg=#a8a8a8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
+  hi Function guifg=#e4e4e4 guibg=#000000 guisp=NONE gui=bold ctermfg=254 ctermbg=0 cterm=bold
+  hi Structure guifg=#e4e4e4 guibg=#000000 guisp=NONE gui=bold ctermfg=254 ctermbg=0 cterm=bold
+  hi Statement guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
+  hi Include guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
+
+  hi javaScriptGlobal guifg=#e4e4e4 guibg=#000000 guisp=NONE gui=NONE ctermfg=254 ctermbg=0 cterm=NONE
+
+  hi shCommandSub guifg=#ffffff guibg=NONE guisp=NONE gui=NONE ctermfg=15 ctermbg=NONE cterm=NONE
+
+  hi pythonBuiltin guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
+  hi pythonDecorator guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
+  hi pythonDecoratorName guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
+
+  hi javaScriptIdentifier guifg=#a8a8a8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
+  hi javaScriptFunction guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
+  hi javaScriptLabel guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
+
+  hi jsonBraces guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
+  hi jsonNoise guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
+
+  " -------------------------------------------------------------------------
+  " green
+  " -------------------------------------------------------------------------
+  hi Shade1 guifg=#5fd75f guibg=NONE guisp=NONE gui=NONE ctermfg=77 ctermbg=NONE cterm=NONE
+  hi Shade3 guifg=#00af00 guibg=NONE guisp=NONE gui=NONE ctermfg=34 ctermbg=NONE cterm=NONE
+  hi Shade4 guifg=#008700 guibg=NONE guisp=NONE gui=NONE ctermfg=28 ctermbg=NONE cterm=NONE
+
+  hi Constant guifg=#5fd75f guibg=NONE guisp=NONE gui=NONE ctermfg=77 ctermbg=NONE cterm=NONE
+  hi Special guifg=#00af00 guibg=NONE guisp=NONE gui=bold ctermfg=34 ctermbg=NONE cterm=bold
+
+  hi javaScriptValue guifg=#5fd75f guibg=NONE guisp=NONE gui=NONE ctermfg=77 ctermbg=NONE cterm=NONE
+  hi javaScriptNull guifg=#5fd75f guibg=NONE guisp=NONE gui=italic ctermfg=77 ctermbg=NONE cterm=italic
+
+  hi jsonNull guifg=#5fd75f guibg=NONE guisp=NONE gui=italic ctermfg=77 ctermbg=NONE cterm=italic
+
+  " -------------------------------------------------------------------------
+  " blue
+  " -------------------------------------------------------------------------
+  hi Shade0 guifg=#0087af guibg=NONE guisp=NONE gui=NONE ctermfg=31 ctermbg=NONE cterm=NONE
+  hi Shade1 guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
+  hi Shade3 guifg=#005f87 guibg=NONE guisp=NONE gui=NONE ctermfg=24 ctermbg=NONE cterm=NONE
+  hi Shade4 guifg=#005f5f guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
+
+  hi Identifier guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
+  hi Label guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
+  hi Title guifg=#5fafd7 guibg=NONE guisp=NONE gui=bold ctermfg=74 ctermbg=NONE cterm=bold
+
+  hi jsonKeyword guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
+
+  hi yamlBlockMappingKey guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
+  hi yamlKeyValueDelimiter guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
+
+  hi htmlTagName guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
+  hi htmlTag guifg=#5fafd7 guibg=NONE guisp=NONE gui=bold ctermfg=74 ctermbg=NONE cterm=bold
+
+  hi xmlTagName guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
+  hi xmlTag guifg=#5fafd7 guibg=NONE guisp=NONE gui=bold ctermfg=74 ctermbg=NONE cterm=bold
 
   " -------------------------------------------------------------------------
   " yellow
   " -------------------------------------------------------------------------
-  hi PreProc guifg=#ff8700 guibg=NONE guisp=NONE gui=bold ctermfg=208 ctermbg=NONE cterm=bold
+  hi Shade0 guifg=#ff8700 guibg=NONE guisp=NONE gui=NONE ctermfg=208 ctermbg=NONE cterm=NONE
+  hi Shade1 guifg=#ffaf5f guibg=NONE guisp=NONE gui=NONE ctermfg=215 ctermbg=NONE cterm=NONE
+  hi Shade3 guifg=#d78700 guibg=NONE guisp=NONE gui=NONE ctermfg=172 ctermbg=NONE cterm=NONE
+  hi Shade4 guifg=#af5f00 guibg=NONE guisp=NONE gui=NONE ctermfg=130 ctermbg=NONE cterm=NONE
+
+  hi pythonFunction guifg=#d78700 guibg=NONE guisp=NONE gui=bold ctermfg=172 ctermbg=NONE cterm=bold
 
   " -------------------------------------------------------------------------
   " red
   " -------------------------------------------------------------------------
+  hi Shade0 guifg=#ff0000 guibg=NONE guisp=NONE gui=NONE ctermfg=09 ctermbg=NONE cterm=NONE
+  hi Shade1 guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
+  hi Shade4 guifg=#d70000 guibg=NONE guisp=NONE gui=NONE ctermfg=160 ctermbg=NONE cterm=NONE
+  hi Shade5 guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
+
+  hi javaScriptMember guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
+
+  hi htmlArg guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
+
+  hi xmlAttrib guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
 
   " -------------------------------------------------------------------------
   " Languages
   " -------------------------------------------------------------------------
-  hi yamlBlockCollectionItemStart guifg=#008700 guibg=NONE guisp=NONE gui=NONE ctermfg=28 ctermbg=NONE cterm=NONE
-endfunction
-
-function! SetDarkColors()
-  " -------------------------------------------------------------------------
-  " gray
-  " -------------------------------------------------------------------------
-  hi Comment guifg=#5f5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=59 ctermbg=NONE cterm=NONE
-  hi Statement guifg=#ffffff guibg=NONE guisp=NONE gui=bold ctermfg=231 ctermbg=NONE cterm=bold
-  hi Include guifg=#afafaf guibg=NONE guisp=NONE gui=bold ctermfg=145 ctermbg=NONE cterm=bold
-
-  " -------------------------------------------------------------------------
-  " green
-  " -------------------------------------------------------------------------
-  hi Constant guifg=#008700 guibg=NONE guisp=NONE gui=NONE ctermfg=28 ctermbg=NONE cterm=NONE
-  hi Special guifg=#008700 guibg=NONE guisp=NONE gui=bold ctermfg=28 ctermbg=NONE cterm=bold
-
-  " -------------------------------------------------------------------------
-  " blue
-  " -------------------------------------------------------------------------
-  hi Identifier guifg=#0087af guibg=NONE guisp=NONE gui=NONE ctermfg=31 ctermbg=NONE cterm=NONE
-  hi pythonAttribute guifg=#0087af guibg=NONE guisp=NONE gui=bold ctermfg=31 ctermbg=NONE cterm=bold
-
-  " -------------------------------------------------------------------------
-  " yellow
-  " -------------------------------------------------------------------------
-  hi PreProc guifg=#ff8700 guibg=NONE guisp=NONE gui=bold ctermfg=208 ctermbg=NONE cterm=bold
-
-  " -------------------------------------------------------------------------
-  " red
-  " -------------------------------------------------------------------------
-  hi yamlBlockCollectionItemStart guifg=#008700 guibg=NONE guisp=NONE gui=NONE ctermfg=28 ctermbg=NONE cterm=NONE
 endfunction
 
 set t_Co=256
