@@ -176,3 +176,13 @@ except:
 ` ctermbg=NONE cterm=$3
 endsnippet
 
+#
+# snippet: hil
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a highlight link
+#
+snippet hil "Create a highlight link" wm
+hi! link ${1:abc} ${2:GrayShade1}
+endsnippet
+
