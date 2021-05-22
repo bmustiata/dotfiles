@@ -41,6 +41,9 @@ imap <c-l> <esc>:set invnumber<cr>a
 
 colorscheme ciplogic
 
+" don't wrap the text
+set nowrap
+
 " automax the current window
 " :set winheight=999
 

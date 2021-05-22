@@ -11,17 +11,17 @@ if &g:background=="light"
   " vim UI
   " general
   hi Normal guifg=#121212 guibg=#e4e4e4 guisp=NONE gui=NONE ctermfg=233 ctermbg=254 cterm=NONE
-  hi LineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
+  hi LineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
   " gutter + line number
-  hi CursorLineNr guifg=#ffffff guibg=#262626 guisp=NONE gui=bold ctermfg=15 ctermbg=235 cterm=bold
-  hi SignColumn guifg=#ffffff guibg=#262626 guisp=NONE gui=NONE ctermfg=15 ctermbg=235 cterm=NONE
-  hi GitGutterAdd guifg=#5fd75f guibg=#262626 guisp=NONE gui=NONE ctermfg=77 ctermbg=235 cterm=NONE
-  hi GitGutterAddLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-  hi GitGutterDelete guifg=#d70000 guibg=#262626 guisp=NONE gui=bold ctermfg=160 ctermbg=235 cterm=bold
-  hi GitGutterDeleteLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-  hi GitGutterChangeDeleteLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-  hi GitGutterChange guifg=#ff8700 guibg=#262626 guisp=NONE gui=NONE ctermfg=208 ctermbg=235 cterm=NONE
-  hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
+  hi CursorLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=233 ctermbg=252 cterm=bold
+  hi SignColumn guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterAdd guifg=#008700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
+  hi GitGutterAddLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterDelete guifg=#d70000 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
+  hi GitGutterDeleteLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterChangeDeleteLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterChange guifg=#ff8700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
+  hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=254 ctermbg=252 cterm=NONE
   " menu + split
   hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
   hi PMenu guifg=#e4e4e4 guibg=#444444 guisp=NONE gui=NONE ctermfg=254 ctermbg=238 cterm=NONE
@@ -54,12 +54,9 @@ if &g:background=="light"
   hi BlueShade2 guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
   hi BlueShade3 guifg=#0087af guibg=NONE guisp=NONE gui=NONE ctermfg=31 ctermbg=NONE cterm=NONE
 
-  hi YellowShade0 guifg=#ff8700 guibg=NONE guisp=NONE gui=NONE ctermfg=208 ctermbg=NONE cterm=NONE
-  hi YellowShade1 guifg=#af5f00 guibg=NONE guisp=NONE gui=NONE ctermfg=130 ctermbg=NONE cterm=NONE
-  hi YellowShade1Bold guifg=#af5f00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
-  hi YellowShade1Italic guifg=#af5f00 guibg=NONE guisp=NONE gui=italic ctermfg=130 ctermbg=NONE cterm=italic
-  hi YellowShade2 guifg=#d78700 guibg=NONE guisp=NONE gui=NONE ctermfg=172 ctermbg=NONE cterm=NONE
-  hi YellowShade3 guifg=#ffaf5f guibg=NONE guisp=NONE gui=NONE ctermfg=215 ctermbg=NONE cterm=NONE
+  hi YellowShade0 guifg=#af5f00 guibg=NONE guisp=NONE gui=NONE ctermfg=130 ctermbg=NONE cterm=NONE
+  hi YellowShade0Bold guifg=#af5f00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
+  hi YellowShade0Italic guifg=#af5f00 guibg=NONE guisp=NONE gui=italic ctermfg=130 ctermbg=NONE cterm=italic
 
   hi RedShade0 guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
   hi RedShade1 guifg=#d70000 guibg=NONE guisp=NONE gui=NONE ctermfg=160 ctermbg=NONE cterm=NONE
@@ -113,12 +110,9 @@ else
   hi BlueShade2 guifg=#005f87 guibg=NONE guisp=NONE gui=NONE ctermfg=24 ctermbg=NONE cterm=NONE
   hi BlueShade3 guifg=#005f5f guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
 
-  hi YellowShade0 guifg=#ff8700 guibg=NONE guisp=NONE gui=NONE ctermfg=208 ctermbg=NONE cterm=NONE
-  hi YellowShade1 guifg=#ffaf5f guibg=NONE guisp=NONE gui=NONE ctermfg=215 ctermbg=NONE cterm=NONE
-  hi YellowShade1Bold guifg=#ffaf5f guibg=NONE guisp=NONE gui=bold ctermfg=215 ctermbg=NONE cterm=bold
-  hi YellowShade1Italic guifg=#ffaf5f guibg=NONE guisp=NONE gui=italic ctermfg=215 ctermbg=NONE cterm=italic
-  hi YellowShade2 guifg=#d78700 guibg=NONE guisp=NONE gui=NONE ctermfg=172 ctermbg=NONE cterm=NONE
-  hi YellowShade3 guifg=#af5f00 guibg=NONE guisp=NONE gui=NONE ctermfg=130 ctermbg=NONE cterm=NONE
+  hi YellowShade0 guifg=#ffaf5f guibg=NONE guisp=NONE gui=NONE ctermfg=215 ctermbg=NONE cterm=NONE
+  hi YellowShade0Bold guifg=#ffaf5f guibg=NONE guisp=NONE gui=bold ctermfg=215 ctermbg=NONE cterm=bold
+  hi YellowShade0Italic guifg=#ffaf5f guibg=NONE guisp=NONE gui=italic ctermfg=215 ctermbg=NONE cterm=italic
 
   hi RedShade0 guifg=#ff0000 guibg=NONE guisp=NONE gui=NONE ctermfg=09 ctermbg=NONE cterm=NONE
   hi RedShade1 guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
@@ -142,6 +136,8 @@ hi! link Operator GrayShade4Bold
 hi! link Statement GrayShade4Bold
 hi! link Include GrayShade4Bold
 hi! link Type GrayShade4
+
+hi! link dtDelim Quote
 
 hi! link gitcommitUntrackedFile GrayShade4Bold
 hi! link gitcommitSummary GrayShade8
@@ -220,6 +216,13 @@ hi! link cssProp BlueShade1Bold
 hi! link cssDefinition BlueShade1Bold
 hi! link cssStyle BlueShade1Bold
 
+hi! link dtGroup Title
+hi! link dtLocaleKey Label
+hi! link dtExecKey Label
+hi! link dtTypeKey Label
+hi! link dtStringKey Label
+hi! link dtBooleanKey Label
+
 hi! link gitcommitHeader BlueShade1Bold
 
 hi! link jsonKeyword BlueShade1
@@ -242,27 +245,27 @@ hi! link xmlAttrib BlueShade1
 " yellow
 " -------------------------------------------------------------------------
 
-hi! link PreProc YellowShade1
-hi! link Tag YellowShade1Bold
+hi! link PreProc YellowShade0
+hi! link Tag YellowShade0Bold
 
-hi! link gitcommitSelectedType YellowShade1
-hi! link gitcommitType YellowShade1
+hi! link gitcommitSelectedType YellowShade0
+hi! link gitcommitType YellowShade0
 
-hi! link htmlSpecialTagName YellowShade1
+hi! link htmlSpecialTagName YellowShade0
 
-hi! link javaScopeDecl YellowShade1
-hi! link javaType YellowShade1
-hi! link javaClassDecl YellowShade1
-hi! link javaStorageClass YellowShade1
-hi! link javaLabel YellowShade1
+hi! link javaScopeDecl YellowShade0
+hi! link javaType YellowShade0
+hi! link javaClassDecl YellowShade0
+hi! link javaStorageClass YellowShade0
+hi! link javaLabel YellowShade0
 
-hi! link pythonFunction YellowShade1Bold
-hi! link pythonDecorator YellowShade1Italic
-hi! link pythonDecoratorName YellowShade1Italic
+hi! link pythonFunction YellowShade0Bold
+hi! link pythonDecorator YellowShade0Italic
+hi! link pythonDecoratorName YellowShade0Italic
 
-hi! link typescriptDecorators YellowShade1Italic
+hi! link typescriptDecorators YellowShade0Italic
 
-hi! link vueSurroundingTag YellowShade1
+hi! link vueSurroundingTag YellowShade0
 
 " -------------------------------------------------------------------------
 " red
