@@ -210,7 +210,6 @@ hi! link vimHiAttrib GreenShade0
 " -------------------------------------------------------------------------
 hi! link Identifier BlueShade1
 hi! link Label BlueShade1
-hi! link Title BlueShade1Bold
 
 hi! link cssProp BlueShade1Bold
 hi! link cssDefinition BlueShade1Bold
@@ -223,7 +222,9 @@ hi! link dtTypeKey Label
 hi! link dtStringKey Label
 hi! link dtBooleanKey Label
 
-hi! link gitcommitHeader BlueShade1Bold
+"ini
+hi! link dosiniHeader Title
+hi! link dosiniLabel Label
 
 hi! link jsonKeyword BlueShade1
 
@@ -247,7 +248,9 @@ hi! link xmlAttrib BlueShade1
 
 hi! link PreProc YellowShade0
 hi! link Tag YellowShade0Bold
+hi! link Title YellowShade0Bold
 
+hi! link gitcommitHeader YellowShade0Bold
 hi! link gitcommitSelectedType YellowShade0
 hi! link gitcommitType YellowShade0
 
