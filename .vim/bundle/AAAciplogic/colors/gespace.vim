@@ -160,7 +160,8 @@ hi! link jsonBraces GrayShade4
 hi! link jsonNoise GrayShade2
 
 " nerdtree
-hi! link NERDTreeFile GrayShade4
+hi! link NERDTreeNodeDelimiters GrayShade4
+hi! link NERDTreeLinkTarget Comment
 
 hi! link pythonBuiltin GrayShade4Bold
 
@@ -201,7 +202,6 @@ hi! link jsonNull GreenShade0Italic
 
 " nerdtree
 hi! link NERDTreeExecFile GreenShade0
-hi! link NERDTreeLinkTarget Comment
 
 hi! link vimHiAttrib GreenShade0
 
