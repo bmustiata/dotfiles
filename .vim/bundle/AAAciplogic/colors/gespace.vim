@@ -200,7 +200,7 @@ hi! link javaScriptNull GreenShade0Italic
 hi! link jsonNull GreenShade0Italic
 
 " nerdtree
-hi! link NERDTreeExecFile GreenShade2
+hi! link NERDTreeExecFile GreenShade0
 hi! link NERDTreeLinkTarget Comment
 
 hi! link vimHiAttrib GreenShade0
@@ -220,6 +220,7 @@ hi! link dtLocaleKey Label
 hi! link dtExecKey Label
 hi! link dtTypeKey Label
 hi! link dtStringKey Label
+hi! link dtNumericKey Label
 hi! link dtBooleanKey Label
 
 "ini
@@ -231,7 +232,9 @@ hi! link jsonKeyword BlueShade1
 hi! link htmlArg BlueShade1
 
 " nerdtree
-hi! link Directory BlueShade0
+hi! link Directory BlueShade1Bold
+hi! link NERDTreeDir Directory
+hi! link NERDTreeNodeDelimiters Directory
 hi! link NERDTreeLinkFile BlueShade3
 
 hi! link vimSynOption BlueShade1
