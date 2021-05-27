@@ -93,6 +93,9 @@ map F :edit!<CR>G
 "
 cmap w!! w !sudo tee %
 
+" disable bell
+set visualbell
+set t_vb=
 
 "
 " json
