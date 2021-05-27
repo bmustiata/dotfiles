@@ -39,7 +39,7 @@ imap <c-r>r <esc>:TabooRename
 map <c-l> :set invnumber<cr>
 imap <c-l> <esc>:set invnumber<cr>a
 
-colorscheme ciplogic
+colorscheme gespace
 
 " don't wrap the text
 set nowrap
