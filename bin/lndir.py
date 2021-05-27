@@ -34,7 +34,7 @@ def link_file(source_path, target_path):
         os.remove(target_path)
 
     if os.path.exists(target_path):
-        LOG.warn("%s already exists" % target_path)
+        LOG.warning("%s already exists" % target_path)
         return
 
     os.symlink(os.path.realpath(source_path), target_path)
