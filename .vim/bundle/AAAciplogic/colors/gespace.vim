@@ -265,6 +265,8 @@ hi! link javaClassDecl YellowShade0
 hi! link javaStorageClass YellowShade0
 hi! link javaLabel YellowShade0
 
+hi! link pbRPC YellowShade0Bold
+
 hi! link pythonFunction YellowShade0Bold
 hi! link pythonDecorator YellowShade0Italic
 hi! link pythonDecoratorName YellowShade0Italic
