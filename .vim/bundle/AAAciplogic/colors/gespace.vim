@@ -7,6 +7,20 @@ endif
 
 set t_Co=256
 
+if !empty($GESPACE_BACKGROUND)
+  if $GESPACE_BACKGROUND == "dark"
+    set background=dark
+  endif
+
+  if $GESPACE_BACKGROUND == "light"
+    set background=light
+  endif
+
+  if $GESPACE_BACKGROUND != "dark" && $GESPACE_BACKGROUND != "light"
+    echom printf("GESPACE_BACKGROUND environment variable is defined but is not 'dark' or 'light', is: '%s'", $GESPACE_BACKGROUND)
+  endif
+endif
+
 if &g:background=="light"
   " vim UI
   " general
@@ -290,5 +304,5 @@ hi! link javaScriptMember RedShade1
 hi! link vimOption RedShade1
 
 
-let g:colors_name = "ciplogic"
+let g:colors_name = "gespace"
 
