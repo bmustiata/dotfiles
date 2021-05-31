@@ -7,17 +7,17 @@ endif
 
 set t_Co=256
 
-if !empty($GESPACE_BACKGROUND)
-  if $GESPACE_BACKGROUND == "dark"
+if !empty($GESPACE_THEME)
+  if $GESPACE_THEME == "dark"
     set background=dark
   endif
 
-  if $GESPACE_BACKGROUND == "light"
+  if $GESPACE_THEME == "light"
     set background=light
   endif
 
-  if $GESPACE_BACKGROUND != "dark" && $GESPACE_BACKGROUND != "light"
-    echom printf("GESPACE_BACKGROUND environment variable is defined but is not 'dark' or 'light', is: '%s'", $GESPACE_BACKGROUND)
+  if $GESPACE_THEME != "dark" && $GESPACE_THEME != "light"
+    echom printf("GESPACE_THEME environment variable is defined but is not 'dark' or 'light', is: '%s'", $GESPACE_THEME)
   endif
 endif
 
@@ -74,6 +74,7 @@ if &g:background=="light"
 
   hi RedShade0 guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
   hi RedShade1 guifg=#d70000 guibg=NONE guisp=NONE gui=NONE ctermfg=160 ctermbg=NONE cterm=NONE
+  hi RedShade1Italic guifg=#d70000 guibg=NONE guisp=NONE gui=italic ctermfg=160 ctermbg=NONE cterm=italic
   hi RedShade2 guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
   hi RedShade3 guifg=#ff0000 guibg=NONE guisp=NONE gui=NONE ctermfg=09 ctermbg=NONE cterm=NONE
 
@@ -130,6 +131,7 @@ else
 
   hi RedShade0 guifg=#ff0000 guibg=NONE guisp=NONE gui=NONE ctermfg=09 ctermbg=NONE cterm=NONE
   hi RedShade1 guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
+  hi RedShade1Italic guifg=#ff5f5f guibg=NONE guisp=NONE gui=italic ctermfg=203 ctermbg=NONE cterm=italic
   hi RedShade2 guifg=#d70000 guibg=NONE guisp=NONE gui=NONE ctermfg=160 ctermbg=NONE cterm=NONE
   hi RedShade3 guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
 endif
@@ -302,6 +304,7 @@ hi! link gitcommitBranch RedShade1
 hi! link javaScriptMember RedShade1
 
 hi! link vimOption RedShade1
+hi! link vimEnvVar RedShade1Italic
 
 
 let g:colors_name = "gespace"
