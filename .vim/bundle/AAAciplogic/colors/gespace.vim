@@ -289,6 +289,11 @@ hi! link pythonDecoratorName YellowShade0Italic
 
 hi! link typescriptDecorators YellowShade0Italic
 
+" vim source, NonText are blocks of different source code
+hi! link vimFunction YellowShade0
+hi! link vimUserFunc YellowShade0
+hi! link NonText YellowShade0Bold
+
 hi! link vueSurroundingTag YellowShade0
 
 " -------------------------------------------------------------------------

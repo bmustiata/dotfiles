@@ -1,0 +1,159 @@
+#
+# snippet: query
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new query
+#
+snippet query "Create a new query" wm
+{
+	"filter": {
+		"op": "TAKE_VERTICES"
+	}
+}
+endsnippet
+
+#
+# snippet: vertices
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Take only the vertices
+#
+snippet vertices "Take only the vertices" wm
+{
+	"op": "TAKE_VERTICES",
+	"input": ${VISUAL}${0:}
+}
+endsnippet
+
+#
+# snippet: all
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Allow everything
+#
+snippet all "Allow everything" wm
+"op": "ALL"
+endsnippet
+
+#
+# snippet: op
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new filter operaton
+#
+snippet attr "Create a new filter attributes operation" wm
+"op": "ATTRIBUTE",
+"expressions": [
+	{
+		"name": "${1:Source cluster}",
+		"values": ["${2:Enterprise Team Center}"]${3/.+/,
+		"operator": "/}${3:IN}${3/.+/"/}${4/.+/,
+		"comparator": "/}${4:LEXICAL}${4/.+/"/}
+	}
+]${5/.+/,
+"layer": "/}${5:ATC}${5/.+/"/}
+endsnippet
+
+#
+# snippet: vertex
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a vertex filter
+#
+snippet vertex "Create a vertex filter" wm
+"op": "VERTEX"${1/.+/,
+"not": /}${1:false}${2/.+/,
+"externalId": ["/}${2:extid1}${2/.+/"]/}
+endsnippet
+
+#
+# snippet: and
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an AND filter over multiple filters
+#
+snippet and "Add an AND filter" wm
+{
+	"op": "AND",
+	"input": [
+		${VISUAL}${0:}
+	]
+}
+endsnippet
+
+
+#
+# snippet: or
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an OR filter
+#
+snippet or "Add an OR filter" wm
+{
+	"op": "OR",
+	"input": [
+		${VISUAL}${0:}
+	]
+}
+endsnippet
+
+
+#
+# snippet: traverse
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a traversal filter
+#
+snippet traverse "Create a traversal filter" wm
+{
+	"op": "TRAVERSE",
+	"input": ${VISUAL},
+	"traverse": [
+		${0:}
+	]${1/.+/,
+	"collectStart": /}${1:true}${2/.+/,
+	"includeInput": /}${2:false}
+}
+endsnippet
+
+#
+# snippet: input
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Wrap the crurent filter as an input
+#
+snippet input "Wrap the current filter as an input" wm
+{
+	${0:}
+	"input": ${VISUAL}
+}
+endsnippet
+
+#
+# snippet: step
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a traversal step
+#
+snippet step "Create a traversal step" wm
+${1/.+/"collect": "/}${1:ALL}${1/.+/"/}${2/.+/,
+"direction": "/}${2:FORWARD}${2/.+/"/}${3/.+/,
+"repeatMin": /}${3:-1}${4/.+/,
+"repeat": /}${4:1}${5/.+/,
+"optional": /}${5:false}${6/.+/,
+"edgeFilter": /}${6:null}${7/.+/,
+"vertexFilter": /}${7:null}${8/.+/,
+"next": /}${8:[]}
+endsnippet
+
+#
+# snippet: id
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# An external id match
+#
+snippet id "An external id match" wm
+"op": "VERTEX",
+"externalId": ["${1:external_id}"]
+endsnippet
+
