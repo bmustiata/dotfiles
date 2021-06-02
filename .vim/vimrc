@@ -20,7 +20,6 @@ Plugin 'brooth/far.vim'                  " Replace across multiple files
 Plugin 'scrooloose/nerdcommenter.git'    " Comment sections of code <leader>cc
 Plugin 'ntpeters/vim-better-whitespace'  " Whitespace highlight at the end, and chars
 Plugin 'bmustiata/vim-todo'              " TODO lists created with ease
-Plugin 'ycm-core/YouCompleteMe'          " Autocomplete that integrates with ultisnips
 Plugin 'vim-scripts/DirDiff.vim'         " Diff two folders
 Plugin 'junegunn/vim-easy-align'         " Align markdown tables using EasyAlign
 
@@ -56,8 +55,11 @@ Plugin 'zchee/vim-flatbuffers'
 Plugin 'uarun/vim-protobuf'
 Plugin 'mfukar/robotframework-vim'
 
-Plugin 'prabirshrestha/async.vim'
-Plugin 'bmustiata/vim-lsp'
+" autocomplete
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'thomasfaingnaert/vim-lsp-ultisnips'
+Plugin 'prabirshrestha/asyncomplete-lsp.vim'
 
 " core final init
 Plugin 'file://.vim/bundle/zzzciplogic'
