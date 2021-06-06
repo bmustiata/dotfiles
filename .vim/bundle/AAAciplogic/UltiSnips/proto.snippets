@@ -94,3 +94,16 @@ snippet f "Add a field" wm
 ${1:int32} ${2:fieldName} = ${3:1};
 endsnippet
 
+#
+# snippet: enum
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an enumeration
+#
+snippet enum "Add an enumeration" wm
+enum ${1:Enumeration} {
+	${2:NONE = 0;
+	STARTED = 1;}
+}
+endsnippet
+
