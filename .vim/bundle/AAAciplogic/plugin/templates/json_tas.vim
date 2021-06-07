@@ -7,4 +7,5 @@ function! JsonTas()
 
     execute 'set filetype=' . l:newType
 endfunction
+
 command JsonTas call JsonTas()
