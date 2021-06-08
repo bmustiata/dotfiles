@@ -58,8 +58,9 @@ Plugin 'mfukar/robotframework-vim'
 " autocomplete
 Plugin 'prabirshrestha/asyncomplete.vim'
 Plugin 'prabirshrestha/vim-lsp'
-Plugin 'thomasfaingnaert/vim-lsp-ultisnips'
 Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+Plugin 'thomasfaingnaert/vim-lsp-snippets'
+Plugin 'thomasfaingnaert/vim-lsp-ultisnips'
 
 " core final init
 Plugin 'file://.vim/bundle/zzzciplogic'
