@@ -23,9 +23,10 @@ endsnippet
 #
 snippet service "Add a new service container" wm
 ${1:name}:
-	image: "${2:image}"
+	image: "${2:image}${3/.+/"
 	ports:
-		- "8081:8081"
+	- "/}${3:8081:8081}${3/.+/"/}${4/.+/
 	volumes:
-		- "/tmp:/tmp"
+	- "/}${4:/tmp:/tmp}${4/.+/"/}
 endsnippet
+

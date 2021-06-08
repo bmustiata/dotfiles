@@ -30,6 +30,7 @@ Plugin 'dbmrq/vim-ditto'                 " Check for repeated usage of woards
 
 " source control
 Plugin 'airblade/vim-gitgutter'          " Git margins
+Plugin 'tpope/vim-fugitive'              " Git integrations
 
 " Navigation
 Plugin 'scrooloose/nerdtree'             " NERDTree, basic navigation

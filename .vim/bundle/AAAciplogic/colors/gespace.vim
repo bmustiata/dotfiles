@@ -166,6 +166,7 @@ hi! link dtDelim Quote
 hi! link gitcommitUntrackedFile GrayShade4Bold
 hi! link gitcommitSummary GrayShade8
 
+hi! link groovyDocTags SpecialComment
 hi! link groovyJDKBuiltin GrayShade4Bold
 
 hi! link htmlTagName GrayShade8Bold
@@ -218,6 +219,9 @@ hi! link Special GreenShade1Bold
 hi! link cssAttrRegion GreenShade0
 hi! link cssAttr GreenShade0
 
+hi! link diffAdded GreenShade0
+
+hi! link gitHash Constant
 
 hi! link javaScriptValue GreenShade0
 hi! link javaScriptNull GreenShade0Italic
@@ -250,6 +254,8 @@ hi! link dtBooleanKey Label
 "ini
 hi! link dosiniHeader Title
 hi! link dosiniLabel Label
+
+hi! link gitKeyword Label
 
 hi! link jsonKeyword BlueShade1
 
@@ -311,6 +317,8 @@ hi! link vueSurroundingTag YellowShade0
 hi! link Todo RedShade2
 
 hi! link cssVendor RedShade1
+
+hi! link diffRemoved RedShade1
 
 hi! link gitcommitBranch RedShade1
 
