@@ -50,10 +50,10 @@ endsnippet
 # Create a new task
 #
 snippet task "Create a new task" wm
-@adhesive.task('${1:apt install wut}')
-def ${2:apt_install}(context):
-	${0:context.workspace.run(f"""
-		sudo apt install -y {package_names}
+@adhesive.task("${1:apt install wut}")
+def ${2:apt_install}(${3:token}: adhesive.Token${4/.+/[/}${4:T}${4/.+/]/}) -> None:
+	${0:$3.workspace.run(f"""
+		sudo apt install -y wut
 	""")}
 endsnippet
 
