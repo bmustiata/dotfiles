@@ -1,4 +1,4 @@
 
-CONTAINERID=$(docker ps --format '{{.ID}}_{{.Image}}' | grep $1 | cut -f1 -d_)
+CONTAINERID=$(docker ps --format '{{.Names}}|{{.Image}}' | grep $1 | cut -f1 -d\|)
 docker logs --tail 1000 -f $CONTAINERID
 

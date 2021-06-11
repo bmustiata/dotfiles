@@ -4,32 +4,30 @@
 # m (trim spaces on the right of the script)
 # A new click option
 #
-snippet option "A new click option" wm
-@click.option("--${1:title}"${2/.+/,
+snippet option "A new click option (configurable string)" wm
+@click.option(${1:"--title", "-t"}${2/.+/,
               help="/}${2:option help}${2/.+/"/}${3/.+/,
               default=/}${3:"default value"})
+endsnippet
+
+#
+# snippet: flag
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a new click boolean flag
+#
+snippet flag "Add a new click boolean flag" wm
+@click.option(${1:"--force", "-f"}, is_flag=True${2/.+/, default=/}${2:True}${3/.+/,
+              help="/}${3:Force the processing, even if the item was already processed.}${3/.+/"/})
 endsnippet
 
 #
 # snippet: click
 # w (word boundary),
 # m (trim spaces on the right of the script)
-# Create a new click script
+# Annotat the method as a click program
 #
-snippet click "Create a new click script" wm
-#!/usr/bin/env python3
-import click
-
-
+snippet click "Annotat the method as a click program" wm
 @click.command()
-@click.argument("image_name")
-@click.option("--title", help="Postfix of the folder to add (i.e. 2019-10-10-{title})")
-def main(image_name, title) -> None:
-    print("hello click")
-
-
-if __name__ == '__main__':
-    main()
 endsnippet
-
 

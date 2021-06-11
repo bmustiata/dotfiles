@@ -128,6 +128,7 @@ else
   hi GreenShade2 guifg=#008700 guibg=NONE guisp=NONE gui=NONE ctermfg=28 ctermbg=NONE cterm=NONE
 
   hi BlueShade0 guifg=#0087af guibg=NONE guisp=NONE gui=NONE ctermfg=31 ctermbg=NONE cterm=NONE
+  hi BlueShade0Bold guifg=#0087af guibg=NONE guisp=NONE gui=bold ctermfg=31 ctermbg=NONE cterm=bold
   hi BlueShade1 guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
   hi BlueShade1Bold guifg=#5fafd7 guibg=NONE guisp=NONE gui=bold ctermfg=74 ctermbg=NONE cterm=bold
   hi BlueShade2 guifg=#005f87 guibg=NONE guisp=NONE gui=NONE ctermfg=24 ctermbg=NONE cterm=NONE
@@ -262,7 +263,7 @@ hi! link jsonKeyword BlueShade1
 hi! link htmlArg BlueShade1
 
 " nerdtree
-hi! link Directory BlueShade1Bold
+hi! link Directory BlueShade0Bold
 hi! link NERDTreeDir Directory
 hi! link NERDTreeNodeDelimiters Directory
 hi! link NERDTreeLinkFile BlueShade3

@@ -42,6 +42,18 @@ endfunction
 command PythonLspInstall call PythonLspInstall()
 
 " -------------------------------------------------------------------------
+" golang support
+" -------------------------------------------------------------------------
+if executable('gopls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': {server_info->['gopls']},
+        \ 'whitelist': ['go']
+        \ })
+endif
+
+" -------------------------------------------------------------------------
 " General config
 " -------------------------------------------------------------------------
 
