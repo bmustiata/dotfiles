@@ -1,0 +1,28 @@
+#
+# snippet: group
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a hosts group
+#
+snippet group "Add a hosts group" wm
+${1:group_name}:
+	hosts:
+		${0:}
+endsnippet
+
+#
+# snippet: host
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a single host entry in a group
+#
+snippet host "Add a single host entry in a group" wm
+${1:host_name}:${2/.+/
+	ansible_host: /}${2:actual_host}${3/.+/
+	ansible_ssh_user: /}${3:user}${4/.+/
+	ansible_ssh_password: /}${4:pass}${5/.+/
+	ansible_ssh_port: /}${5:20022}${6/.+/
+	ansible_sudo_pass: /}${6:sudopass}${7/.+/
+	ansible_python_interpreter: /}${7:/usr/bin/python3}${8/.+/
+	ansible_ssh_private_key_file: /}${8:/home/raptor/.ssh/id_rsa}
+endsnippet

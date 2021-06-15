@@ -1,0 +1,65 @@
+
+#
+# snippet: settings
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add some settings
+#
+snippet settings "Add some settings" wm
+<settings>
+	${VISUAL}${0:}
+</settings>
+endsnippet
+
+#
+# snippet: mirror
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a new mirror
+#
+snippet mirror "Add a new mirror" wm
+<mirrors>
+	<mirror>
+		<id>${1:central}</id>
+		<name>${2:$1}</name>
+		<url>${3:http://localhost:6990/repo}</url>
+		<mirrorOf>${4:*}</mirrorOf>
+	</mirror>
+</mirrors>
+endsnippet
+
+#
+# snippet: servers
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a servers node
+#
+snippet servers "Add a servers node" wm
+<servers>
+	<!-- configure servers. Certain names such as maven-deploy-repo
+	     are already defined by maven, and can be used to override
+	     default repos.-->
+	${0:}
+</servers>
+endsnippet
+
+#
+# snippet: server
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a server definition
+#
+snippet server "Add a server definition" wm
+<server>
+	<id>${1:maven-deploy-repo}</id>
+	<configuration>
+		<httpHeaders>
+			<property>
+				<name>${2:X-JFrog-Art-Api}</name>
+				<value>${env.API_KEY}</value>
+			</property>
+		</httpHeaders>
+	</configuration>
+</server>
+endsnippet
+

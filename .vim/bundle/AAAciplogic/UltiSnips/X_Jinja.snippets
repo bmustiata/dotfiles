@@ -1,0 +1,56 @@
+#
+# snippet: for
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Foreach item
+#
+snippet for "Foreach item" wm
+{% for ${1:key, val} in ${2:map.items()} %}
+	${VISUAL}${0:}
+{% endfor %}
+endsnippet
+
+#
+# snippet: if
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an if
+#
+snippet if "Create an if" wm
+{% if ${1:expression} %}
+	${VISUAL}${0:}
+{% endif %}
+endsnippet
+
+#
+# snippet: c
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a comment
+#
+snippet c "Add a comment" wm
+{# ${1:comment} #}
+endsnippet
+
+#
+# snippet: var
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Render a variable
+#
+snippet var "Render a variable" wm
+{{ ${1:var} }}
+endsnippet
+
+#
+# snippet: {#
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a statement
+#
+snippet {% "Create a statement" wm
+{% ${1:if} %}
+	${VISUAL}${0:}
+{% end$1 %}
+endsnippet
+

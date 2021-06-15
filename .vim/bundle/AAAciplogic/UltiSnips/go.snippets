@@ -1,0 +1,58 @@
+#
+# snippet: struct
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a struct
+#
+snippet struct "Create a struct" wm
+type ${1:StructName} struct {
+	${0:a int64
+	b string}
+}
+endsnippet
+
+#
+# snippet: func
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a function
+#
+snippet fun "Create a function" wm
+func ${1/.+/(/}${1:a A}${1/.+/) /}${2:saludo}(${3:}) ${5/.+/(/}${4:string}${5/.+/, /}${5:error}${5/.+/)/} {
+	${0:return "abc", 0}
+}
+endsnippet
+
+#
+# snippet: func
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a function
+#
+snippet func "Create a function" wm
+func ${1/.+/(/}${1:this ThisType}${1/.+/) /}${2:fnname}(${3:value string}) ${5/.+/(/}${4:string}${5/.+/, /}${5:error}${5/.+/)/} {
+	${0:return "abc", 0}
+}
+endsnippet
+
+#
+# snippet: cs
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Comment section
+#
+snippet cs "Comment section" wm
+/*
+${VISUAL}${0:}
+*/
+endsnippet
+
+#
+# snippet: c
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# comment
+#
+snippet c "comment" wm
+// ${VISUAL}${0:}
+endsnippet

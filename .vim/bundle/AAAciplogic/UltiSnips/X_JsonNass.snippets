@@ -1,0 +1,94 @@
+#
+# snippet: source
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Query a source
+#
+snippet source "Query a source" wm
+{
+	"specifier": {
+		"op": "REGEX",
+		"pattern": "${1:.*}"
+	}${2/.+/,
+	"time": /}${2:`!p
+import time
+
+snip.rv += str(int(time.time() * 1000))
+	`}${3/.+/,
+	"range": /}${3:3600000}${4/.+/,
+	"includeLive": /}${4:false}
+}
+endsnippet
+
+#
+# snippet: nowms
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get the current time in seconds
+#
+snippet nowms "Get the current time in millis" wm
+`!p
+import time
+snip.rv += str(int(time.time() * 1000))
+`
+endsnippet
+
+#
+# snippet: now
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get the current time in seconds
+#
+snippet now "Get the current time in seconds" wm
+`!p
+import time
+snip.rv += str(int(time.time()))
+`
+endsnippet
+
+#
+# snippet: exact
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# An exact specifier
+#
+snippet exact "An exact specifier" wm
+"op": "EXACT",
+"names": ["${1:SuperDomain|tas-cz-n2c|Nowhere Bank|Portal}"]
+endsnippet
+
+#
+# snippet: regex
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# A regex specifier
+#
+snippet regex "A regex specifier" wm
+"op": "REGEX",
+"pattern": "${1:.*}"
+endsnippet
+
+#
+# snippet: metric
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Query a metric
+#
+snippet metric "Query a metric" wm
+{
+	"specifier": {
+		"op": "SPEC",
+		"sourceNameSpecifier": {
+			${1:}
+		},
+		"attributeNameSpecifier": {
+			${2:}
+		}
+	}${3/.+/,
+	"clamp": /}${3:0}${4/.+/,
+	"time": /}${4:0}${5/.+/,
+	"range": /}${5:3600000}${6/.+/,
+	"includeLive": /}${6:true}
+}
+endsnippet
+
