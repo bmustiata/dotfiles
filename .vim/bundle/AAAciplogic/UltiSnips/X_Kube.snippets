@@ -307,6 +307,17 @@ spec:
 endsnippet
 
 #
+# snippet: pullsecret
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a pull secret (containers level)
+#
+snippet pullsecret "Create a pull secret (containers level)" wm
+imagePullSecrets:
+- name: ${1:docker-pull-secret}
+endsnippet
+
+#
 # snippet: own
 # w (word boundary),
 # m (trim spaces on the right of the script)
