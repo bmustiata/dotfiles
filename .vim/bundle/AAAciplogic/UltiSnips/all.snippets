@@ -255,16 +255,17 @@ snip.rv += hashlib.sha512(snip.v.text).hexdigest()
 `
 endsnippet
 
+#
+# snippet: uuid
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an UUID
+#
+snippet uuid "Create an UUID" wm
+`!p
+import uuid
 
-# lower priority so if we have a test defined we pick it.
-priority -1
-
-snippet test "Add a test check"
-Hypothesis   : ${1:Assumption on why that happens}
-Test         : ${2:How you're gonna test that assumption}
-Test results : ${3:What did the test returned}
-Conclusions  : ${0:}
+snip.rv += str(uuid.uuid4())
+`
 endsnippet
-
-priority 0
 
