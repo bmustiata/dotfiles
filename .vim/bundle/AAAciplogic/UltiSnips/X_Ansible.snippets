@@ -212,9 +212,9 @@ endsnippet
 #
 snippet apt "Install a package using apt" wm
 - name: Install: $1
-	apt:
-		name:
-		- ${1:snapd}
+  apt:
+    name:
+    - ${1:snapd}
 endsnippet
 
 #
@@ -278,9 +278,25 @@ endsnippet
 #
 snippet template "Render a template" wm
 - name: ${1:Render the prewarm docker image script}
-	template:
-		src: ${2:prewarm-docker-images.j2}
-		dest: ${3:/usr/local/bin/docker-daily-prewarm.sh}${4/.+/
-		mode: "/}${4:711}${4/.+/"/}
+  template:
+    src: ${2:prewarm-docker-images.j2}
+    dest: ${3:/usr/local/bin/docker-daily-prewarm.sh}${4/.+/
+    mode: "/}${4:711}${4/.+/"/}
+endsnippet
+
+#
+# snippet: copy
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Copy a file on the remote server
+#
+snippet copy "Copy a file on the remote server" wm
+- name: ${1:Copy file remote title}
+  copy:
+    src: ${2:file.txt}${3/.+/
+    dest: /}${3:file.txt}${4/.+/
+    mode: '/}${4:0644}${4/.+/'/}${5/.+/
+    owner: /}${5:foo}${6/.+/
+    group: /}${6:foo}
 endsnippet
 

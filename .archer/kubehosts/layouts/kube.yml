@@ -5,3 +5,6 @@ layout:
     ps1-show kubehost kubernetes_namespace kubernetes_user
   deactivate: |
     ps1-hide kubehost kubernetes_namespace kubernetes_user
+  commands:
+    kc: |
+      eval $(kubectl completion bash)
