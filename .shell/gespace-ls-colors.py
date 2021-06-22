@@ -92,24 +92,24 @@ class FileType(enum.Enum):
 
 GESPACE_PALETTE = {
     # gray
-    FileType.regular: ("GrayShade7", False),
+    FileType.regular: ("GrayShade7", ""),
 
     # green
-    FileType.executable: ("GreenShade0", True),
+    FileType.executable: ("GreenShade0", "bold"),
 
     # blue
-    FileType.directory: ("BlueShade0", True),
-    FileType.link: ("BlueShade3", False),
+    FileType.directory: ("BlueShade0", "bold"),
+    FileType.link: ("BlueShade3", "italic"),
 
     # yellow
-    FileType.pipe: ("YellowShade0", False),
-    FileType.socket: ("YellowShade0", False),
-    FileType.block_device: ("YellowShade0", True),
-    FileType.character_device: ("YellowShade0", True),
+    FileType.pipe: ("YellowShade0", "italic"),
+    FileType.socket: ("YellowShade0", "italic"),
+    FileType.block_device: ("YellowShade0", "bold"),
+    FileType.character_device: ("YellowShade0", "bold"),
 
     # red
-    FileType.orphan_link: ("RedShade2", True),
-    FileType.missing: ("RedShade2", False),
+    FileType.orphan_link: ("RedShade2", "italic"),
+    FileType.missing: ("RedShade2", ""),
 }
 
 
@@ -124,7 +124,7 @@ def register_items() -> Tuple[str, str]:
     # actual theme definition happens here:
     for item_type, palette_color in GESPACE_PALETTE.items():
         color_tuples.append(
-            register_item(item_type, palette_color[0], bold=palette_color[1])
+            register_item(item_type, palette_color[0], font_type=palette_color[1])
         )
 
     light_colors = [it[0] for it in color_tuples]
@@ -133,9 +133,9 @@ def register_items() -> Tuple[str, str]:
     return ":".join(light_colors), ":".join(dark_colors)
 
 
-def register_item(item_type, palette_color: str, bold=False) -> Tuple[str, str]:
-    light_color = register_color(item_type, LIGHT_PALETTE[palette_color], bold=bold)
-    dark_color = register_color(item_type, DARK_PALETTE[palette_color], bold=bold)
+def register_item(item_type, palette_color: str, font_type: str = "") -> Tuple[str, str]:
+    light_color = register_color(item_type, LIGHT_PALETTE[palette_color], font_type=font_type)
+    dark_color = register_color(item_type, DARK_PALETTE[palette_color], font_type=font_type)
 
     return (light_color, dark_color)
 
@@ -143,7 +143,7 @@ def register_item(item_type, palette_color: str, bold=False) -> Tuple[str, str]:
 def register_color(
     item: Union[str, FileType],
     fg: int,
-    bold: bool = False,
+    font_type: str,
 ) -> str:
     """
     Register a single color
@@ -153,8 +153,18 @@ def register_color(
 
     result = f"{item}=38;5;{fg}"
 
-    if bold:
+    # lame, but good enough for parsing
+    if "bold" in font_type:
         result += ";1"
+
+    if "italic" in font_type:
+        result += ";3"
+
+    if "underline" in font_type:
+        result += ";4"
+
+    if "strikethrough" in font_type:
+        result += ";9"
 
     return result
 
