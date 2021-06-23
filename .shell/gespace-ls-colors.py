@@ -104,8 +104,8 @@ GESPACE_PALETTE = {
     # yellow
     FileType.pipe: ("YellowShade0", "italic"),
     FileType.socket: ("YellowShade0", "italic"),
-    FileType.block_device: ("YellowShade0", "bold"),
-    FileType.character_device: ("YellowShade0", "bold"),
+    FileType.block_device: ("YellowShade0", ""),
+    FileType.character_device: ("YellowShade0", ""),
 
     # red
     FileType.orphan_link: ("RedShade2", "italic"),
