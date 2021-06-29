@@ -98,7 +98,7 @@ endsnippet
 # Do a check in the distro
 #
 snippet whendist "Do a check in the distro" wm
-when: ansible_facts['distribution'] == '${1:Ubuntu}' and ansible_facts['distribution_version'] == '${2:16.04}'
+when: ansible_facts['distribution'] == '${1:Ubuntu}'${2/.+/ and ansible_facts['distribution_version'] == '/}${2:16.04}${2/.+/'/}
 endsnippet
 
 #
