@@ -36,7 +36,7 @@ endsnippet
 # Load some macro
 #
 snippet load "Load some macro" wm
-load("${1://bazel:support.bzl}", ${3:alias}${3/.+/=/}"${2:macro_name}")
+load("${1://bazel:support.bzl}", ${3:_$2}${3/.+/=/}"${2:macro_name}")
 endsnippet
 
 #

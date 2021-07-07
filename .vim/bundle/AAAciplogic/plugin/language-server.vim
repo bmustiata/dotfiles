@@ -62,7 +62,7 @@ if executable('plz')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'plz',
         \ 'cmd': {server_info->['plz', 'tool', 'lps']},
-        \ 'whitelist': ['bzl']
+        \ 'whitelist': ['X_Please.bzl']
         \ })
 endif
 

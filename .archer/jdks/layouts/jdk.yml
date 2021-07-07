@@ -1,10 +1,10 @@
 # deprecated, just use sdk man
 layout:
-    requires: JAVA_HOME
-    activate:
-        export JDK_OLD_PATH_SAVED="$PATH"
-        export PATH="$JAVA_HOME/bin:$PATH"
-    deactivate:
-        export PATH="$JDK_OLD_PATH_SAVED"
-        unset JDK_OLD_PATH_SAVED
+  requires: JAVA_HOME
+  activate:
+    JDK_OLD_PATH_SAVED="$PATH"
+    export PATH="$JAVA_HOME/bin:$PATH"
+  deactivate:
+    export PATH="$JDK_OLD_PATH_SAVED"
+    unset JDK_OLD_PATH_SAVED
 
