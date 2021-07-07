@@ -1,71 +1,66 @@
 
-set nocp
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
 " vundle plugins
 " You need to install them first:
-" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-Plugin 'VundleVim/Vundle.vim'
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/plugged/Vundle.vim
 
 " core init:
-Plugin 'file://.vim/bundle/AAAciplogic'
+Plug 'file://.vim/plugged/AAAciplogic'
 
 " Cool feature plugins
-Plugin 'vim-scripts/guicolorscheme.vim'  " 256 color support
-Plugin 'bling/vim-airline'               " cooler status bar
-Plugin 'bmustiata/ultisnips'             " UltiSnips, with no nested scripts
-Plugin 'brooth/far.vim'                  " Replace across multiple files
-Plugin 'scrooloose/nerdcommenter.git'    " Comment sections of code <leader>cc
-Plugin 'ntpeters/vim-better-whitespace'  " Whitespace highlight at the end, and chars
-Plugin 'bmustiata/vim-todo'              " TODO lists created with ease
-Plugin 'vim-scripts/DirDiff.vim'         " Diff two folders
-Plugin 'junegunn/vim-easy-align'         " Align markdown tables using EasyAlign
+Plug 'vim-scripts/guicolorscheme.vim'  " 256 color support
+Plug 'bling/vim-airline'               " cooler status bar
+Plug 'bmustiata/ultisnips'             " UltiSnips, with no nested scripts
+Plug 'brooth/far.vim'                  " Replace across multiple files
+Plug 'scrooloose/nerdcommenter.git'    " Comment sections of code <leader>cc
+Plug 'ntpeters/vim-better-whitespace'  " Whitespace highlight at the end, and chars
+Plug 'bmustiata/vim-todo'              " TODO lists created with ease
+Plug 'vim-scripts/DirDiff.vim'         " Diff two folders
+Plug 'junegunn/vim-easy-align'         " Align markdown tables using EasyAlign
 
 " Better writing
-Plugin 'reedes/vim-wordy'                " Wordy - check texts for bad writing
-Plugin 'rhysd/vim-grammarous'            " more write checks
-Plugin 'dbmrq/vim-ditto'                 " Check for repeated usage of woards
+Plug 'reedes/vim-wordy'                " Wordy - check texts for bad writing
+Plug 'rhysd/vim-grammarous'            " more write checks
+Plug 'dbmrq/vim-ditto'                 " Check for repeated usage of woards
 
 " source control
-Plugin 'airblade/vim-gitgutter'          " Git margins
-Plugin 'tpope/vim-fugitive'              " Git integrations
+Plug 'airblade/vim-gitgutter'          " Git margins
+Plug 'tpope/vim-fugitive'              " Git integrations
 
 " Navigation
-Plugin 'scrooloose/nerdtree'             " NERDTree, basic navigation
-Plugin 'ctrlpvim/ctrlp.vim'              " Fuzzy navigate buffers, and files
-Plugin 'dkprice/vim-easygrep'            " Grep across multiple files <leader>vv
+Plug 'scrooloose/nerdtree'             " NERDTree, basic navigation
+Plug 'ctrlpvim/ctrlp.vim'              " Fuzzy navigate buffers, and files
+Plug 'dkprice/vim-easygrep'            " Grep across multiple files <leader>vv
 
 " languages support
-Plugin 'vim-test/vim-test'
-Plugin 'vim-scripts/ingo-library'
-Plugin 'vim-scripts/SyntaxRange'
-Plugin 'posva/vim-vue'
-Plugin 'solarnz/thrift.vim'
-Plugin 'bmustiata/vim-uc4.git'
-" Plugin 'fatih/vim-go'
-Plugin 'rust-lang/rust.vim'
-Plugin 'leafgarland/typescript-vim.git'
-Plugin 'ap/vim-css-color.git'
-Plugin 'tpope/vim-markdown.git'
-Plugin 'mustache/vim-mustache-handlebars.git'
-Plugin 'bmustiata/vim-cucumber'
-Plugin 'jparise/vim-graphql'
-Plugin 'zchee/vim-flatbuffers'
-Plugin 'uarun/vim-protobuf'
-Plugin 'mfukar/robotframework-vim'
+Plug 'vim-test/vim-test'
+Plug 'vim-scripts/ingo-library'
+Plug 'vim-scripts/SyntaxRange'
+Plug 'posva/vim-vue'
+Plug 'solarnz/thrift.vim'
+Plug 'bmustiata/vim-uc4.git'
+" Plug 'fatih/vim-go'
+Plug 'rust-lang/rust.vim'
+Plug 'leafgarland/typescript-vim.git'
+Plug 'ap/vim-css-color.git'
+Plug 'tpope/vim-markdown.git'
+Plug 'mustache/vim-mustache-handlebars.git'
+Plug 'bmustiata/vim-cucumber'
+Plug 'jparise/vim-graphql'
+Plug 'zchee/vim-flatbuffers'
+Plug 'uarun/vim-protobuf'
+Plug 'mfukar/robotframework-vim'
 
 " autocomplete
-Plugin 'prabirshrestha/asyncomplete.vim'
-Plugin 'prabirshrestha/vim-lsp'
-Plugin 'prabirshrestha/asyncomplete-lsp.vim'
-Plugin 'thomasfaingnaert/vim-lsp-snippets'
-Plugin 'thomasfaingnaert/vim-lsp-ultisnips'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 " core final init
-Plugin 'file://.vim/bundle/zzzciplogic'
+Plug 'file://.vim/plugged/zzzciplogic'
 
-call vundle#end()
-filetype plugin indent on
+call plug#end()
 
