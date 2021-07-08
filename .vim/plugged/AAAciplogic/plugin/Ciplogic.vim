@@ -55,7 +55,7 @@ nnoremap <silent> <C-Down> <c-w>j
 
 nnoremap <silent> Q :quit<CR>
 
-:let g:snippets_dir="~/.vim/bundle/ciplogic/snippets"
+:let g:snippets_dir="~/.vim/plugged/ciplogic/snippets"
 
 " a bit of mappings for UltiSnips
 let g:UltiSnipsEditSplit="vertical"
@@ -63,7 +63,7 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 "let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsSnippetsDir="~/.vim/bundle/AAAciplogic/UltiSnips"
+let g:UltiSnipsSnippetsDir="~/.vim/plugged/AAAciplogic/UltiSnips"
 
 "
 " Start vim maximized.
