@@ -448,3 +448,29 @@ snippet cs "Comment section" wm
 # ############################################################
 endsnippet
 
+#
+# snippet: load_container_pull
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# load the container pull
+#
+snippet load_container_pull "load the container pull" wm
+load(
+	"@io_bazel_rules_docker//container:container.bzl",
+	"container_pull",
+)
+endsnippet
+
+
+#
+# snippet: load_pip_install
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# load pip_install
+#
+snippet load_pip_install "load pip_install" wm
+load("@rules_python//python:pip.bzl", "pip_install")
+endsnippet
+
+
+
