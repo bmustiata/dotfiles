@@ -36,7 +36,7 @@ Plug 'vim-scripts/SyntaxRange'
 Plug 'posva/vim-vue'
 Plug 'solarnz/thrift.vim'
 Plug 'bmustiata/vim-uc4'
-" Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'rust-lang/rust.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'ap/vim-css-color'
@@ -49,11 +49,7 @@ Plug 'uarun/vim-protobuf'
 Plug 'mfukar/robotframework-vim'
 
 " autocomplete
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'thomasfaingnaert/vim-lsp-snippets'
-Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 " core final init
 Plug 'file://.vim/plugged/zzzciplogic'
