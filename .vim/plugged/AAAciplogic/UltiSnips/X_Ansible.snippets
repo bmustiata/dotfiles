@@ -15,8 +15,11 @@ endsnippet
 # Create a service entry.
 #
 snippet service "Create a service entry." wm
-- name: Make sure $1 is $2${3/yes/, and is enabled on restart/}.
-  service: name=${1:ntp}${2/.+/ state=/}${2:started}${3/.+/ enabled=/}${3:yes}
+- name: Ensure $1 is $3
+  service:
+    name: ${1:haveged}${2/.+/
+    enabled: /}${2:true}
+    state: ${3:started}
 endsnippet
 
 #
