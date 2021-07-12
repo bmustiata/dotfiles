@@ -53,31 +53,6 @@ if executable('gopls')
         \ })
 endif
 
-
-" -------------------------------------------------------------------------
-" please.build
-" -------------------------------------------------------------------------
-if executable('plz')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'plz',
-        \ 'cmd': {server_info->['plz', 'tool', 'lps']},
-        \ 'whitelist': ['X_Please.bzl']
-        \ })
-endif
-
-" -------------------------------------------------------------------------
-" please.build support
-" -------------------------------------------------------------------------
-if executable('plz')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'please.build',
-        \ 'cmd': {server_info->['plz', 'tool', 'lps']},
-        \ 'whitelist': ['bzl']
-        \ })
-endif
-
 " -------------------------------------------------------------------------
 " General config
 " -------------------------------------------------------------------------

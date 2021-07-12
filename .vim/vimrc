@@ -1,10 +1,6 @@
 
 call plug#begin('~/.vim/plugged')
 
-" vundle plugins
-" You need to install them first:
-" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/plugged/Vundle.vim
-
 " core init:
 Plug 'file://.vim/plugged/AAAciplogic'
 
@@ -13,7 +9,7 @@ Plug 'vim-scripts/guicolorscheme.vim'  " 256 color support
 Plug 'bling/vim-airline'               " cooler status bar
 Plug 'bmustiata/ultisnips'             " UltiSnips, with no nested scripts
 Plug 'brooth/far.vim'                  " Replace across multiple files
-Plug 'scrooloose/nerdcommenter.git'    " Comment sections of code <leader>cc
+Plug 'scrooloose/nerdcommenter'    " Comment sections of code <leader>cc
 Plug 'ntpeters/vim-better-whitespace'  " Whitespace highlight at the end, and chars
 Plug 'bmustiata/vim-todo'              " TODO lists created with ease
 Plug 'vim-scripts/DirDiff.vim'         " Diff two folders
@@ -39,13 +35,13 @@ Plug 'vim-scripts/ingo-library'
 Plug 'vim-scripts/SyntaxRange'
 Plug 'posva/vim-vue'
 Plug 'solarnz/thrift.vim'
-Plug 'bmustiata/vim-uc4.git'
+Plug 'bmustiata/vim-uc4'
 " Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
-Plug 'leafgarland/typescript-vim.git'
-Plug 'ap/vim-css-color.git'
-Plug 'tpope/vim-markdown.git'
-Plug 'mustache/vim-mustache-handlebars.git'
+Plug 'leafgarland/typescript-vim'
+Plug 'ap/vim-css-color'
+Plug 'tpope/vim-markdown'
+Plug 'mustache/vim-mustache-handlebars'
 Plug 'bmustiata/vim-cucumber'
 Plug 'jparise/vim-graphql'
 Plug 'zchee/vim-flatbuffers'
