@@ -461,6 +461,20 @@ load(
 )
 endsnippet
 
+#
+# snippet: pull
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Pull a container
+#
+snippet pull "Pull a container" wm
+container_pull(
+	name="${1:ge-base-python-3}",
+	registry="${2:index.docker.io}",
+	repository="${3:library/python}",
+	tag="${4:3.9-slim}",
+)
+endsnippet
 
 #
 # snippet: load_pip_install
@@ -473,4 +487,16 @@ load("@rules_python//python:pip.bzl", "pip_install")
 endsnippet
 
 
+#
+# snippet: load_container_run
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# load container_run_and_commit command
+#
+snippet load_container_run "load container_run_and_commit command" wm
+load(
+	"@io_bazel_rules_docker//docker/util:run.bzl",
+	"container_run_and_commit",
+)
+endsnippet
 
