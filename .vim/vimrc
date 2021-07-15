@@ -49,7 +49,12 @@ Plug 'uarun/vim-protobuf'
 Plug 'mfukar/robotframework-vim'
 
 " autocomplete
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/vim-lsp'
+Plug 'bmustiata/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 " core final init
 Plug 'file://.vim/plugged/zzzciplogic'

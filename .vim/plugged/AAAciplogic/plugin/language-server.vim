@@ -34,7 +34,7 @@ if executable('pylsp')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pylsp',
         \ 'cmd': {server_info->['pylsp']},
-        \ 'whitelist': ['python', 'X_Python.python']
+        \ 'allowlistre': ['.*\.python$']
         \ })
 endif
 
@@ -51,7 +51,7 @@ if executable('gopls')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'gopls',
         \ 'cmd': {server_info->['gopls']},
-        \ 'whitelist': ['go']
+        \ 'allowlistre': ['.*\.go$']
         \ })
 endif
 
