@@ -4,7 +4,7 @@
 import apps
 
 
-apps.AppImage(
+apps.StaticBinary(
     name="graphiql",
     url="https://github.com/skevy/graphiql-app/releases/download/v{version}/graphiql-app-{version}-x86_64.AppImage",
     version="0.7.2",
