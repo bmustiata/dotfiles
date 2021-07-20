@@ -8,3 +8,143 @@ snippet public "Make the current package public" wm
 package(default_visibility = ["PUBLIC"])
 endsnippet
 
+#
+# snippet: gen
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# genrule
+#
+snippet genrule "genrule" wm
+genrule(
+	name=${1:"targetname"},
+	cmd="${2:""}${2/.+/
+		/}${3:cat $SRCS_BIN > $OUTS_BIN}${2/.+/
+	""/}",
+	srcs=${4/.+/{
+		"/}${4:srcs}${4/.+/": /}${5:["input.py"]}${4/.+/,
+	}/},
+	outs=${6/.+/{
+		"/}${6:bin}${6/.+/": /}${7:["input.pyc"]}${6/.+/,
+	}/}${8/.+/,
+	deps=[
+		/}${8:"//some/dep",}${8/.+/
+	]/}${9/.+/,
+	binary=/}${9:True}${10/.+/,
+	output_is_complete=/}${10:True}${11/.+/,
+	test_only=/}${11:True}${12/.+/,
+	secrets={
+		/}${12:"AUTHKEY": "~/auth",}${12/.+/
+	}/}${13/.+/,
+	tools={
+		/}${13:"JAVAC": "//path/to:tool",}${13/.+/
+	}/}${14/.+/,
+	output_dirs=[
+		/}${14:"target",}${14/.+/
+	]/},
+)
+endsnippet
+
+#
+# snippet: pybin
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Generate a python_binary
+#
+snippet pybin "Generate a python_binary" wm
+python_binary(
+	name="${1:generate_dockerfile}",
+	main="${2:$1.py}",
+${3/.+/  deps=[
+    /}${3:"//build/thirdparty/python:click",}${3/.+/
+  ],
+/})
+endsnippet
+
+#
+# snippet: pip
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a pip dependency
+#
+snippet pip "Create a pip dependency" wm
+pip_library(
+	name="${1:click}",
+	version="${2:7.1.2}",
+)
+endsnippet
+
+
+#
+# snippet: pip
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a pip dependency
+#
+snippet gepip "Create a pip dependency" wm
+ge_pip_library(
+	name="${1:termcolor}",
+	version="${2:1.1.0}",
+)
+endsnippet
+
+
+#
+# snippet: gepyimage
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a germanium pyhton image
+#
+snippet gepyimg "Create a germanium pyhton image" wm
+ge_python_image(
+	name="${1:termcolor-util-image}",
+${2/.+/  deps=[
+		"/}${2::termcolor-util}"${2/.+/,
+	],
+/}${3/.+/  srcs=[
+		"/}${3:termcolor_util/__init__.py}${3/.+/",
+	],
+/}  main="${4:termcolor_util/__main__.py}",
+)
+endsnippet
+
+#
+# snippet: gepy
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Load germanium python please steps
+#
+snippet gepy "Load germanium python please steps" wm
+subinclude("//build/please:python.plz")
+endsnippet
+
+
+
+#
+# snippet: gepylib
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a germanium python library
+#
+snippet gepylib "Create a germanium python library" wm
+ge_python_library(
+  name="${1:termcolor-util}",
+  deps=[
+    "${2://build/thirdparty/python:termcolor}",
+  ],
+  srcs=glob(["${3:termcolor_util}/**/*.py"]),
+)
+endsnippet
+
+
+#
+# snippet: cs
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Comment section
+#
+snippet cs "Comment section" wm
+###########################################################
+# ${1:title}
+###########################################################
+endsnippet
+

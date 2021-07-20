@@ -25,20 +25,23 @@ endsnippet
 # snippet: click
 # w (word boundary),
 # m (trim spaces on the right of the script)
-# Annotat the method as a click program
+# Annotate the method as a click program
 #
-snippet click "Annotat the method as a click program" wm
+snippet click "Annotate the method as a click program" wm
+@click.command()
+endsnippet
+
+snippet command "Annotate the method as a click program" wm
 @click.command()
 endsnippet
 
 #
-# snippet: arg
+# snippet: argument
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Add a program argument
 #
-snippet arg "Add a program argument" wm
-@click.argument("${1:secret_name}"${2/.+/, default="/}${2:abc}${2/.+/"/}${3/.+/,
-                help="/}${3:Secret name to create}${3/.+/"/})
+snippet argument "Add a program argument" wm
+@click.argument("${1:secret_name}"${2/.+/, default="/}${2:abc}${2/.+/"/}${3/.+/, nargs=/}${3:1})
 endsnippet
 
