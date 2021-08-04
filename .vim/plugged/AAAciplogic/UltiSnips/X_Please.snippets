@@ -61,6 +61,25 @@ ${3/.+/  deps=[
 endsnippet
 
 #
+# snippet: pylib
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Generate a python_library
+#
+snippet pylib "Generate a python_library" wm
+python_library(
+  name="${2:$1-lib}",
+  srcs=glob([
+    "${1:oaas}/**/*.py",
+  ]),
+${3/.+/  deps=[
+    "/}${3://build/thirdparty/python:redis}${3/.+/",
+  ],
+/})
+endsnippet
+
+
+#
 # snippet: pip
 # w (word boundary),
 # m (trim spaces on the right of the script)
