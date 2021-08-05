@@ -56,3 +56,52 @@ endsnippet
 snippet c "comment" wm
 // ${VISUAL}${0:}
 endsnippet
+
+#
+# snippet: open
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Open a file
+#
+snippet open "Open a file" wm
+${1:file}, ${2:err} := os.Open(${3:"test.txt"})
+
+if $2 != nil {
+	log.Fatal($2)
+}
+
+defer $1.Close()
+endsnippet
+
+
+#
+# snippet: eachline
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# For each line
+#
+snippet eachline "For each line" wm
+${1:scanner} := bufio.NewScanner(${2:file})
+for $1.Scan() {
+	fmt.Println($1.Text())
+}
+
+if ${3:err} := $1.Err(); $3 != nil {
+	${0:log.Fatal($3)}
+}
+endsnippet
+
+#
+# snippet: ed
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Regular call error parsing with death
+#
+snippet ed "Regular call error parsing with death" wm
+${1:vars}, err := ${0:strconv.ParseInt(scanner.Text(), 0, 64)}
+
+if err != nil {
+	log.Fatal(err)
+}
+endsnippet
+
