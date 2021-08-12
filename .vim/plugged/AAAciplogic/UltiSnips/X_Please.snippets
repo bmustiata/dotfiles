@@ -136,6 +136,15 @@ snippet gepy "Load germanium python please steps" wm
 subinclude("//build/please:python.plz")
 endsnippet
 
+#
+# snippet: sub
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a subinclude
+#
+snippet sub "Add a subinclude" wm
+subinclude("${1://build/please:python.plz}")
+endsnippet
 
 
 #
