@@ -98,7 +98,7 @@ endsnippet
 # Regular call error parsing with death
 #
 snippet ed "Regular call error parsing with death" wm
-${1:vars}, err := ${0:strconv.ParseInt(scanner.Text(), 0, 64)}
+${1:vars}${1/.+/, /}err := ${2:${VISUAL}}
 
 if err != nil {
 	log.Fatal(err)
