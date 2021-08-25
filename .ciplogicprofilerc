@@ -92,3 +92,5 @@ fi # [[ "$(umask)" == "0000" ]]
 
 . $HOME/.shell/dircolors.sh
 
+source <(plz --completion_script)
+
