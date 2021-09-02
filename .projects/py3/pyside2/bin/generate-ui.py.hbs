@@ -32,7 +32,7 @@ def find_target_file(ui_file: str) -> str:
     return os.path.join("{{arg0}}", "ui", "generated", ui_file[3:-3] + ".py")
 
 
-def is_newer(base: str, expected_newer: str) -> True:
+def is_newer(base: str, expected_newer: str) -> bool:
     """
     Checks if the expected_newer file is newer than base.
     """
@@ -68,7 +68,7 @@ def ui_compile(ui_file, target_file) -> None:
     ])
 
 
-def get_last_modified(file_name: str) -> int:
+def get_last_modified(file_name: str) -> float:
     return os.path.getmtime(file_name)
 
 

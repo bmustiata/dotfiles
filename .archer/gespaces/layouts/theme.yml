@@ -1,0 +1,17 @@
+layout:
+  name: gespace theme
+  requires: GESPACE_THEME
+  activate: |
+    . ~/.shell/dircolors.sh
+
+    GESPACE_LINE=$(egrep "^gespace " ~/.bashrc)
+
+    if [[ $? -eq 0 ]]; then
+      if [[ "$GESPACE_LINE" != "gespace $GESPACE_THEME" ]]; then
+        echo "Updating ~/.bashrc with the current gespace $GESPACE_THEME theme"
+        sed -i "s/gespace .*$/gespace $GESPACE_THEME/g" ~/.bashrc
+      fi
+    else
+      echo "gespace $GESPACE_THEME" >> ~/.bashrc
+    fi
+

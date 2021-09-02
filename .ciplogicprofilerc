@@ -49,7 +49,7 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$NVM_DIR/versions/node/v$(<$NVM_DIR/alias/default)/bin:$PATH"
 source "$NVM_DIR/nvm.sh" --no-use
 
-eval "$(archer project server py jdk dockerhost kubehost gosdk)"
+eval "$(archer project server py jdk dockerhost kubehost gosdk gespace)"
 
 alias p=project
 alias s=server

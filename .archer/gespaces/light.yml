@@ -1,0 +1,6 @@
+config:
+  name: Light GeSpace Theme
+  layouts: theme
+  exports:
+    GESPACE_THEME: light
+

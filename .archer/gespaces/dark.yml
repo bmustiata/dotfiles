@@ -1,0 +1,5 @@
+config:
+  name: Dark GeSpace Theme
+  layouts: theme
+  exports:
+    GESPACE_THEME: dark
