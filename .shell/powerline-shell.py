@@ -410,7 +410,7 @@ def add_jee_segment(powerline):
 
     bg = Color.KUBE_ENV_BG
     fg = Color.KUBE_ENV_FG
-    icon = u'🐅' if show_emojis else ''
+    icon = u'🐅 ' if show_emojis else ''
     powerline.append(u'%s%s' % (icon, jee_server), fg, bg)
 
     return True
