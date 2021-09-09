@@ -1,5 +1,9 @@
 
 
+echo "USER: wut@wut.com"
+echo "PASS: wut"
+echo "http://localhost:9091/"
+
 docker run -d \
     --rm \
     --name pgadmin \

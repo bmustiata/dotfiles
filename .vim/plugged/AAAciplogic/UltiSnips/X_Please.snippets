@@ -176,3 +176,18 @@ snippet cs "Comment section" wm
 ###########################################################
 endsnippet
 
+#
+# snippet: file
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Export a file from the package
+#
+snippet file "Export a file from the package" wm
+filegroup(
+  name="${1:node.plz}",
+  srcs=[
+    "${2:$1}",
+  ],
+)
+endsnippet
+
