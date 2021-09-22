@@ -33,6 +33,11 @@ if (${1:condition}) {
 endsnippet
 
 snippet #in "#include a header"
-#include "${1:stdio.h}"${0:}
+#include ${1:<}${2:iostream}`!p
+if t[1] == "<":
+	snip.rv += ">"
+else:
+	snip.rv += '"'
+`
 endsnippet
 
