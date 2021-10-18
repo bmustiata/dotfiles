@@ -1,5 +1,5 @@
 
-CONTAINER_ID=$(docker run -t --rm -d --entrypoint /bin/cat $1)
+CONTAINER_ID=$(docker run -t --rm -d --network host --entrypoint /bin/cat $1)
 
 if [[ "$2" == "" ]]; then
     CONTAINER_COMMAND=/bin/bash
