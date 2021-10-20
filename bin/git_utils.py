@@ -152,29 +152,37 @@ def get_base_branch(version):
     raise Exception("Unable to find a maint/%s nor a release/%s branch." % (version, version))
 
 
+def get_all_commits(branch_name):
+    git_command = ["git", "log", '--pretty=format:%H %s', "remotes/origin/" + branch_name]
+
+    for line in subprocess.check_output(git_command).decode('utf-8').split("\n"):
+        line_tokens = line.strip().split(' ', 1)
+
+        if len(line_tokens) <= 1:
+            print(f"WARNING: failure reading commit info from line: {line} <skipped>")
+            continue
+
+        yield Commit(line_tokens[0], line_tokens[1])
+
+
+
 def get_commits_for_branch(branch_name, issue_id=None) -> List[Commit]:
     if branch_name not in all_branches():
         raise Exception("Unable to find branch: %s" % branch_name)
-
-    git_command = ["git", "log", '--pretty=format:%H %s', "remotes/origin/" + branch_name]
-
-    all_commits = map(lambda arr: Commit(arr[0], arr[1]),
-                      map(lambda line: line.strip().split(' ', 1),
-                          subprocess.check_output(git_command)
-                                    .decode('utf-8')
-                                    .split("\n")))
 
     if not issue_id:
         return list(all_commits)
 
     issue_id = normalize_issue_name(issue_id)
 
-    issue_marker = re.compile('%s\W' % issue_id)  # FIXME: not so great
+    search_re = f'{issue_id}\W'
+    print(f"searching: {search_re} commits in {branch_name}")
+    issue_marker = re.compile(issue_id, re.IGNORECASE)  # FIXME: not so great
     merge_test = re.compile('^Merge')
 
     return list(filter(lambda commit: issue_marker.match(commit.message) and
                        not merge_test.match(commit.message),
-                       all_commits))
+                       get_all_commits(branch_name)))
 
 
 def get_commit_message(*, ref: str="HEAD") -> str:

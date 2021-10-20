@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import subprocess
 import sys
@@ -67,6 +67,9 @@ to_branch = get_branch_name_for_different_version(from_branch, to_version)
 
 
 def do_full_backport():
+    print(f"issue:       {issue_id}")
+    print(f"from_branch: {from_branch}")
+    print(f"to_branch:   {to_branch}")
     commits_to_apply = list(reversed(get_commits_for_branch(from_branch, issue_id)))
 
     print("FULL backport. Going to try:")

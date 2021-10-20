@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [[ "$1" == "" ]]; then
+  echo "You need to pass a timestamp"
+  exit 1
+fi
+
+COMMIT_ID=$(git rev-list -n 1 --first-parent --before=$1 HEAD)
+git checkout $COMMIT_ID
+
