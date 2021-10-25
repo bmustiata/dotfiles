@@ -5,7 +5,7 @@
 # Run some code
 #
 snippet run "Run some code" wm
-${1:context.workspace}.run("""
+${1:token.workspace}.run(f"""
 	${VISUAL}${0:}
 """${2/.+/, capture_stdout=/}${2:True})
 endsnippet
