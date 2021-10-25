@@ -1,0 +1,7 @@
+layout:
+  name: jira
+  requires: [ JIRA_URL ]
+  commands:
+    open-jira:
+      xdg-open "${JIRA_URL}/browse/$(git issue)"
+

@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+from typing import List
+import subprocess
+import click
+import termcolor_util
+import re
+
+
+LABEL_EXTRACT_RE = re.compile('^(.+)\s.*$')
+
+
+@click.command()
+@click.argument("packages", nargs=-1)
+def main(packages: List[str]):
+    labels = subprocess.check_output([
+        "./bazel.sh", "cquery", "--output", "label", f'kind("rule", {packages[0]}:*) union kind("package group", {packages[0]}:*)'
+    ], encoding='utf-8')
+
+    for label in labels.split("\n"):
+        m = LABEL_EXTRACT_RE.match(label)
+
+        if not m:
+            continue
+
+        print(termcolor_util.blue(m.group(1), bold=True))
+
+
+if __name__ == "__main__":
+    main()
+
+
