@@ -11,10 +11,17 @@ LABEL_EXTRACT_RE = re.compile('^(.+)\s.*$')
 
 
 @click.command()
+@click.option("--search", "-s",
+              help="Search item inside the search item")
 @click.argument("packages", nargs=-1)
-def main(packages: List[str]):
+def main(packages: List[str], search: str):
+    expression = f'kind("rule", {packages[0]}:*) union kind("package group", {packages[0]}:*)'
+
+    if search:
+        expression = f"filter({search}, deps({expression}))"
+
     labels = subprocess.check_output([
-        "./bazel.sh", "cquery", "--output", "label", f'kind("rule", {packages[0]}:*) union kind("package group", {packages[0]}:*)'
+        "./bazel.sh", "cquery", "--output", "label", expression,
     ], encoding='utf-8')
 
     for label in labels.split("\n"):

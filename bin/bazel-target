@@ -14,7 +14,7 @@ LABEL_EXTRACT_RE = re.compile('^(.+)\s.*$')
 @click.argument("targets", nargs=-1)
 def main(targets: List[str]):
     rule_content = subprocess.check_output([
-        "./bazel.sh", "cquery", "--output", "textproto", f'kind("rule", {targets[0]}) union kind("package group", {targets[0]})'
+        "./bazel.sh", "cquery", "--output", "textproto", f'{targets[0]}'
     ], encoding='utf-8')
 
     print(rule_content)
