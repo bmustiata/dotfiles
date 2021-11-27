@@ -73,6 +73,27 @@ if $2 != nil {
 defer $1.Close()
 endsnippet
 
+#
+# snippet: append
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Open a file for append
+#
+snippet append "Open a file for append" wm
+f, err := os.OpenFile(${1:"text.log"},
+	os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+
+if err != nil {
+	log.Fatal(err)
+}
+
+defer f.Close()
+
+if _, err := f.WriteString("text to append\n"); err != nil {
+	log.Fatal(err)
+}
+
+endsnippet
 
 #
 # snippet: eachline
