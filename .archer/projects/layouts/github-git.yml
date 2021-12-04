@@ -1,5 +1,7 @@
 layout:
   name: Git Project
+  layouts:
+  - github-git-env
   requires:
   - PROJECT_GIT_URL
   commands:

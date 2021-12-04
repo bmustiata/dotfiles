@@ -3,8 +3,9 @@ import subprocess
 from typing import Set, List, Dict
 
 BACKPORT_BRANCH_CHECK = re.compile(r'^.*?/\d+\.\d+(.+)?/.*$')
-BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/\d+\.\d+(.+)?)?/(.*)$')
+BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/(\d+\.\d+(.+)?))?/(.*)$')
 BRANCH_ISSUE_ID_PARSER = re.compile(r'^.+/(\w+-?\d+).+?$')
+GIT_URL_PARSER = re.compile(r'git@(.*?):([^/]+)/((.*?)(.git)?)$')
 
 
 def normalize_issue_name(issue_id):
@@ -21,9 +22,9 @@ def get_branch_name_for_different_version(existing_branch_name, version):
         raise Exception("Unable to parse branch name: %s" % existing_branch_name)
 
     if version == "master" or version == "develop":
-        return "%s/%s" % (m.group(2), m.group(5))
+        return "%s/%s" % (m.group(2), m.group(6))
 
-    return "%s/%s/%s" % (m.group(2), version, m.group(5))
+    return "%s/%s/%s" % (m.group(2), version, m.group(6))
 
 
 class Commit(object):
@@ -55,6 +56,22 @@ def get_checkout_issue_number() -> str:
         raise Exception("Unable to find the issue number from: %s" % current_branch)
 
     return m.group(1)
+
+
+def get_checkout_version() -> str:
+    current_branch = get_checked_out_branch_name()  # type: str
+
+    m = BRANCH_NAME_PARSER.match(current_branch)
+
+    if not m:
+        raise Exception("Unable to find the version from: %s" % current_branch)
+
+    version = m.group(4)
+
+    if not version:
+        return "master"
+
+    return version
 
 
 def local_branch_name(branch_name):
@@ -192,4 +209,40 @@ def get_commit_message(*, ref: str="HEAD") -> str:
     return subprocess.check_output(["git", "log", "--format=%B", "-n", "1", ref])\
             .decode("utf-8")\
             .strip()
+
+
+def find_github_url() -> str:
+    remote_url = get_remote_origin_url()
+    m = GIT_URL_PARSER.match(remote_url)
+
+    if not m:
+        raise Exception(f"Unable to read git url from {remote_url}")
+
+    return f"https://{m.group(1)}/api/v3"
+
+
+def find_git_owner() -> str:
+    remote_url = get_remote_origin_url()
+    m = GIT_URL_PARSER.match(remote_url)
+
+    if not m:
+        raise Exception(f"Unable to read git owner from {remote_url}")
+
+    return m.group(2)
+
+
+def find_git_project() -> str:
+    remote_url = get_remote_origin_url()
+    m = GIT_URL_PARSER.match(remote_url)
+
+    if not m:
+        raise Exception(f"Unable to read git project from {remote_url}")
+
+    return m.group(4)
+
+
+def get_remote_origin_url() -> str:
+    return subprocess.check_output([
+        "git", "config", "--get", "remote.origin.url",
+    ], encoding="utf-8").strip()
 

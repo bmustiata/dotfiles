@@ -32,6 +32,7 @@ def print_usage():
 
 if len(sys.argv) == 2 and (
         sys.argv[1] == "-h" or
+        sys.argv[1] == "--help" or
         sys.argv[1] == "help"):
     print_usage()
     sys.exit(0)
