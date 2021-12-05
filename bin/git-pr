@@ -1,0 +1,63 @@
+#!/usr/bin/env python
+
+import click
+import git_utils
+from termcolor_util import red, blue, yellow, green
+import requests
+import os
+
+
+def create_github_pr(base: str, head: str, message: str) -> None:
+    giturl = git_utils.find_github_url()
+    owner = git_utils.find_git_owner()
+    repo = git_utils.find_git_project()
+
+    r = requests.post(f"{giturl}/repos/{owner}/{repo}/pulls", json={
+        "title": message,
+        "body": message,
+        "base": base,
+        "head": head,
+    }, auth=(os.environ["GITHUB_GIT_API_USER"], os.environ["GITHUB_GIT_API_TOKEN"]))
+
+    r.raise_for_status()
+    json_data = r.json()
+
+    print(green("Created PR:"), green(json_data["html_url"], bold=True))
+
+
+@click.command()
+@click.argument("version", default="", nargs=1)
+@click.option("--issue", "-i", "issue_id", default="",
+              help="Specify a different issue than what's on the current branch")
+@click.option("--message", "-m",
+              help="Specify a message for the PR. Implicitly it's just FIX IssueID",
+              default="")
+def main(version: str, issue_id: str, message) -> None:
+    if not version:
+        version = git_utils.get_checkout_version()
+
+    if not issue_id:
+        issue_id = git_utils.get_checkout_issue_number()
+        branch = git_utils.find_branch_by_issue_id(version, issue_id)
+    else:
+        branch = git_utils.get_checked_out_branch_name()
+
+    if version == "master":
+        target_branch = "master"
+    else:
+        target_branch = f"maint/{version}"
+
+    if not message:
+        if version == "master":
+            message = f"master: FIX {issue_id}"
+        else:
+            message = f"{version} version: Backport FIX {issue_id}"
+
+    print("create pr for", blue(branch, bold=True), "->", red(target_branch, bold=True), yellow("?", bold=True))
+    input()
+
+    create_github_pr(head=branch, base=target_branch, message=message)
+
+
+if __name__ == "__main__":
+    main()
