@@ -8,6 +8,12 @@ from typing import List, Optional
 FILE_RECORD_RE = re.compile(r'^(\d+/\d+\.\d+)\s|[^\s]+\s+(\d+/\d+\.\d+)\s')
 
 
+class TraceMixConfig:
+    def __init__(self) -> None:
+        self.window_start_timestamp: Optional[float] = None
+        self.window_end_timestamp: Optional[float] = None
+
+
 class FileTracker:
     def __init__(self, file_name: str) -> None:
         self.file_name = file_name
@@ -124,12 +130,24 @@ class FileRecord:
 @click.option("--output", "-o",
               help="Specify output file",
               default="out.txt")
+@click.option("--window", "-w", is_flag=True, default=False,
+              help="Specify an interactive time window to filter the messages")
 @click.command()
-def main(files_to_mix, output):
+def main(files_to_mix: List[str], output: str, window: bool) -> None:
+    config = read_config(window)
     file_trackers: List[FileTracker] = [FileTracker(file_name) for file_name in files_to_mix]
 
     with open(output, 'wt', encoding='utf-8') as out:
+        print(f"Processing {files_to_mix}")
         while (next_record := load_next_record(file_trackers)):
+            if config.window_start_timestamp is not None:
+                if next_record.timestamp < config.window_start_timestamp:
+                    continue
+
+            if config.window_end_timestamp is not None:
+                if next_record.timestamp > config.window_end_timestamp:
+                    break
+
             out.write(f"{next_record.file_tracker.file_name} ")
             out.write(next_record.content)
             out.write("\n")
@@ -164,6 +182,33 @@ def write_statistics(file_trackers: List[FileTracker]) -> None:
     for file_tracker in file_trackers:
         print(f"{file_tracker.file_name} -> {file_tracker.current_line} lines read")
 
+
+def read_config(window: bool) -> TraceMixConfig:
+    config = TraceMixConfig()
+
+    if window:
+        print("window start time (hh:mm | n/now):")
+        window_start = input()
+        config.window_start_timestamp = parse_timestamp_value(window_start)
+
+    if window:
+        print("window end time (hh:mm / n/now):")
+        window_end = input()
+        config.window_end_timestamp = parse_timestamp_value(window_end)
+
+    return config
+
+
+def parse_timestamp_value(window_start: str) -> Optional[float]:
+    if not window_start:
+        return None
+    elif window_start == "now" or window_start == "n":
+        return datetime.datetime.utcnow().timestamp()
+
+    now = datetime.datetime.utcnow()
+    user_time = datetime.datetime.strptime(window_start, "%H:%M")
+
+    return now.replace(hour=user_time.hour, minute=user_time.minute, second=0).timestamp()
 
 
 if __name__ == "__main__":
