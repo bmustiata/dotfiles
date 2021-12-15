@@ -3,6 +3,7 @@
 import click
 import re
 import datetime
+import asyncio
 from typing import List, Optional
 
 FILE_RECORD_RE = re.compile(r'^(\d+/\d+\.\d+)\s|[^\s]+\s+(\d+/\d+\.\d+)\s')
@@ -135,6 +136,10 @@ class FileRecord:
 @click.command()
 def main(files_to_mix: List[str], output: str, window: bool) -> None:
     config = read_config(window)
+    asyncio.run(process_files(config, output, files_to_mix))
+
+
+async def process_files(config: TraceMixConfig, output: str, files_to_mix: List[str]) -> None:
     file_trackers: List[FileTracker] = [FileTracker(file_name) for file_name in files_to_mix]
 
     with open(output, 'wt', encoding='utf-8') as out:

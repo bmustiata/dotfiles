@@ -9,5 +9,6 @@ docker run -d \
     --name pgadmin \
     -e PGADMIN_DEFAULT_PASSWORD=wut \
     -e PGADMIN_DEFAULT_EMAIL=wut@wut.com\
+    -v $HOME/programs/pgadmin-data:/var/lib/pgadmin \
     -p 9091:80 \
-    dpage/pgadmin4
+    dpage/pgadmin4:6.2
