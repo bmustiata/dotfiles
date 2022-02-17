@@ -191,3 +191,75 @@ filegroup(
 )
 endsnippet
 
+#
+# snippet: helm
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a helm rule
+#
+snippet helm "Create a germanium helm rule" wm
+subinclude("//_build/helm:helm.plz")
+
+helm_template(
+  name="${1:goal-place-chart}",
+  deps=[
+    "${2://goal-place/gp-web:frontend}",${0:}
+  ],
+)
+endsnippet
+
+#
+# snippet: dev
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a dev rule
+#
+snippet dev "Create a dev rule to watch for changes" wm
+${1:subinclude("//_build/dev:dev.plz")}${1/.+/
+
+/}dev_watch(
+  name="${2:dev}",
+  deps=[
+    "${3://goal-place/gp-web:frontend-dev}",${0:}
+  ],
+)
+endsnippet
+
+#
+# snippet: docker
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a docker image rule
+#
+snippet docker "Create a docker image rule" wm
+${1:subinclude("///pleasings//docker")}${1/.+/
+
+/}docker_image(
+  name="${2:registry-image}",
+  srcs=[${3:":registry"}],
+  dockerfile="${4:Dockerfile}",
+)
+endsnippet
+
+
+#
+# snippet: devrun
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run something when developing this app
+#
+snippet devrun "Run something when developing this app" wm
+${1:subinclude("//_build/dev:dev.plz")}${1/.+/
+
+/}dev_run(
+  name="${2:dev-time}",
+  cmd="""
+    ${3:$(out_exe :time-server)}
+  """${4/.+/,
+  deps=[/}${4:""}${4/.+/]/}${5/.+/,
+  srcs=[/}${5:""}${5/.+/]/}${6/.+/,
+  restart_on_changes=/}${6:True}${6/.+/,
+/})
+endsnippet
+
+

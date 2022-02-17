@@ -32,7 +32,13 @@ def create_github_pr(base: str, head: str, message: str) -> None:
 @click.option("--message", "-m",
               help="Specify a message for the PR. Implicitly it's just FIX IssueID",
               default="")
-def main(version: str, issue_id: str, message) -> None:
+@click.option("--onto", "-o",
+              help="Specify the target branch onto which the PR should be applied",
+              default="")
+@click.option("--project", "-p",
+              help="Specify a project name to be added into the commit message",
+              default="")
+def main(version: str, issue_id: str, onto: str, message: str, project: str) -> None:
     if not version:
         version = git_utils.get_checkout_version()
 
@@ -42,7 +48,9 @@ def main(version: str, issue_id: str, message) -> None:
     else:
         branch = git_utils.get_checked_out_branch_name()
 
-    if version == "master":
+    if onto:
+        target_branch = onto
+    elif version == "master":
         target_branch = "master"
     else:
         target_branch = f"maint/{version}"
@@ -52,6 +60,9 @@ def main(version: str, issue_id: str, message) -> None:
             message = f"master: FIX {issue_id}"
         else:
             message = f"{version} version: Backport FIX {issue_id}"
+
+        if project:
+            message += f" ({project})"
 
     print("create pr for", blue(branch, bold=True), "->", red(target_branch, bold=True), yellow("?", bold=True))
     input()
