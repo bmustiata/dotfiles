@@ -4,7 +4,7 @@ from typing import Set, List, Dict
 
 BACKPORT_BRANCH_CHECK = re.compile(r'^.*?/\d+\.\d+(.+)?/.*$')
 BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/(\d+\.\d+(.+)?))?/(.*)$')
-BRANCH_ISSUE_ID_PARSER = re.compile(r'^.+/(\w+-?\d+).+?$')
+BRANCH_ISSUE_ID_PARSER = re.compile(r'^.+/(\w+-?\d+)-?(.+?)$')
 GIT_URL_PARSER = re.compile(r'git@(.*?):([^/]+)/((.*?)(.git)?)$')
 
 
@@ -56,6 +56,21 @@ def get_checkout_issue_number() -> str:
         raise Exception("Unable to find the issue number from: %s" % current_branch)
 
     return m.group(1)
+
+
+def get_checkout_branch_suffix_name() -> str:
+    """
+    Get the string of the branch after the issue number.
+    """
+    current_branch = get_checked_out_branch_name()  # type: str
+
+    m = BRANCH_ISSUE_ID_PARSER.match(current_branch)
+
+    if not m:
+        raise Exception("Unable to find the suffix from: %s" % current_branch)
+
+    return m.group(2)
+
 
 
 def get_checkout_version() -> str:

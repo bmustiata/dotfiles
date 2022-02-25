@@ -5,6 +5,12 @@ import git_utils
 from termcolor_util import red, blue, yellow, green
 import requests
 import os
+import titlecase
+
+
+def get_branch_title() -> str:
+    branch_suffix = git_utils.get_checkout_branch_suffix_name()
+    return titlecase.titlecase(branch_suffix.replace("-", " "))
 
 
 def create_github_pr(base: str, head: str, message: str) -> None:
@@ -18,6 +24,8 @@ def create_github_pr(base: str, head: str, message: str) -> None:
         "base": base,
         "head": head,
     }, auth=(os.environ["GITHUB_GIT_API_USER"], os.environ["GITHUB_GIT_API_TOKEN"]))
+
+    print(r.json())
 
     r.raise_for_status()
     json_data = r.json()
@@ -55,16 +63,23 @@ def main(version: str, issue_id: str, onto: str, message: str, project: str) -> 
     else:
         target_branch = f"maint/{version}"
 
+    pr_title = get_branch_title()
+
     if not message:
         if version == "master":
-            message = f"master: FIX {issue_id}"
+            message = f"master: FIX {issue_id} - {pr_title}"
         else:
-            message = f"{version} version: Backport FIX {issue_id}"
+            message = f"{version} version: Backport FIX {issue_id} - {pr_title}"
 
         if project:
             message += f" ({project})"
 
-    print("create pr for", blue(branch, bold=True), "->", red(target_branch, bold=True), yellow("?", bold=True))
+    print("create pr for",
+          blue(branch, bold=True),
+          "->",
+          red(target_branch, bold=True),
+          yellow("?", bold=True))
+    print("PR title:", blue(message))
     input()
 
     create_github_pr(head=branch, base=target_branch, message=message)
