@@ -203,7 +203,7 @@ def get_commits_for_branch(branch_name, issue_id=None) -> List[Commit]:
         raise Exception("Unable to find branch: %s" % branch_name)
 
     if not issue_id:
-        return list(all_commits)
+        return list(get_all_commits(branch_name))
 
     issue_id = normalize_issue_name(issue_id)
 
