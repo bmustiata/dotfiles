@@ -11,6 +11,9 @@ import shutil
 import click
 
 
+VERSION_EXTRACTOR = re.compile(r"^(.+?)(\.(.+?)\.?(.*)?)?$")
+
+
 def StaticBinary(
         *,
         name: str,
@@ -166,8 +169,6 @@ def get_existing_app_version(
     return None
 
 
-VERSION_EXTRACTOR = re.compile(r"^(.+?)(\.(.+?)\.(.*)?)?$")
-
 def download_app(
         *,
         name: str,
@@ -302,6 +303,8 @@ def version_format(s: str, version: str) -> str:
             version=version,
             version_1=m.group(1),
             version_2=m.group(1) + '.' + m.group(3) if m.group(3) else m.group(1),
+            version_major=m.group(1),
+            version_minor=m.group(3),
     )
 
 
