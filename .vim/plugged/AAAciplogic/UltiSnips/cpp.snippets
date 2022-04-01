@@ -41,3 +41,16 @@ else:
 `
 endsnippet
 
+#
+# snippet: warn_disable
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Disable GCC warning
+#
+snippet warn_disable "Disable GCC warning" wm
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-W${1:unused-parameter}"
+${VISUAL}
+#pragma GCC diagnostic pop
+endsnippet
+
