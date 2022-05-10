@@ -6,6 +6,6 @@ import apps
 apps.StaticBinary(
     name="bazel",
     url="https://github.com/bazelbuild/bazel/releases/download/{version}/bazel-{version}-linux-x86_64",
-    version="4.1.0",
+    version="4.2.2",
     shortcut="/home/raptor/bin/bazel",
 )
