@@ -92,6 +92,8 @@ def get_checkout_version() -> str:
 def local_branch_name(branch_name):
     return branch_name if not branch_name.startswith("remotes/origin/") else branch_name[15:]
 
+def remote_branch_name(branch_name):
+    return branch_name if branch_name.startswith("remotes/origin/") else f"remotes/origin/{branch_name}"
 
 _all_branches_cache = None
 
@@ -107,12 +109,27 @@ def all_branches(use_cache=True) -> Set[str]:
     if _all_branches_cache and use_cache:
         return _all_branches_cache
 
-    _all_branches_cache = set(map(local_branch_name,
-                                  filter(lambda line: ' ' not in line,
-                                         map(lambda line: line.strip(),
-                                             subprocess.check_output(["git", "branch", "-a"])
-                                                       .decode('utf-8')
-                                                       .split("\n")))))
+    _all_branches_cache = set(map(local_branch_name, remote_all_branches(use_cache)))
+
+    return _all_branches_cache
+
+
+def remote_all_branches(use_cache=True) -> Set[str]:
+    """
+    Get all the git branches available in this git repository, including the remote ones.
+    It will also cache them, so operations such as adding branches,
+    should call this function with use_cahe=False
+    """
+    global _all_branches_cache
+
+    if _all_branches_cache and use_cache:
+        return _all_branches_cache
+
+    _all_branches_cache = set(filter(lambda line: ' ' not in line,
+                                 map(lambda line: line.strip(),
+                                     subprocess.check_output(["git", "branch", "-a"])
+                                               .decode('utf-8')
+                                               .split("\n"))))
 
     return _all_branches_cache
 

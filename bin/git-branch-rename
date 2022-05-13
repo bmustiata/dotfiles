@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+
+import click
+import git_utils
+import textwrap
+import sys
+import subprocess
+
+
+@click.command()
+@click.argument("from_branch", default="?")
+@click.argument("to_branch", default="?")
+def main(from_branch: str, to_branch: str) -> None:
+    if to_branch == "?":
+        to_branch = from_branch
+        from_branch = git_utils.get_checked_out_branch_name()
+
+    if to_branch == "?":
+        print("You need to pass at least the name to rename the current branch to")
+        sys.exit(1)
+
+    remote_from_branch = git_utils.remote_branch_name(from_branch)
+    local_from_branch = git_utils.local_branch_name(from_branch)
+
+    command = textwrap.dedent(f"""\
+        git branch -m {from_branch} {to_branch}
+        git push origin -u {to_branch}
+    """)
+
+    if remote_from_branch in git_utils.remote_all_branches():
+        command += textwrap.dedent(f"""\
+            git push origin --delete {local_from_branch}
+        """)
+
+    print("\n\nwill run:\n")
+    print(command)
+    input()
+
+    subprocess.check_call([
+        "/bin/sh", "-c", command
+    ])
+
+
+if __name__ == "__main__":
+    main()
