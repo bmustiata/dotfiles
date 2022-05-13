@@ -31,3 +31,16 @@ snippet timestamp "description" wm
 labels:
   features.aa-install-operator/force-update-timestamp: "${1:123}"
 endsnippet
+
+#
+# snippet: ifi
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# temp aaspeccheck
+#
+snippet ifi "temp aaspeccheck" wm
+{{#if (aaSpecVersion 'gt' '21.0.3')}}
+${VISUAL}
+{{/if}}
+endsnippet
+
