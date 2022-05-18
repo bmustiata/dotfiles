@@ -2,6 +2,7 @@
 
 import adhesive
 import os
+import shlex
 
 
 class Data:
@@ -16,17 +17,17 @@ class Data:
 
 
 @adhesive.task('Find current IP')
-def find_current_ip(context: adhesive.Token[Data]):
-    ip = context.workspace.run_output("hostname -I").strip().split(" ")[0]
-    context.data.current_ip = ip
+def find_current_ip(token: adhesive.Token[Data]):
+    ip = token.workspace.run_output("hostname -I").strip().split(" ")[0]
+    token.data.current_ip = ip
 
 
 @adhesive.usertask('Certificate Details')
-def certificate_details(context: adhesive.Token[Data], ui: adhesive.UI):
+def certificate_details(token: adhesive.Token[Data], ui: adhesive.UI):
     ui.add_input_text(
         "cn",
         title="CN",
-        value=f"*.yolo.{context.data.current_ip}.xip.io")
+        value=f"*.yolo.{token.data.current_ip}.xip.io")
     ui.add_input_text(
         "company_name",
         title="Company",
@@ -45,12 +46,29 @@ def certificate_details(context: adhesive.Token[Data], ui: adhesive.UI):
         title="Key",
         value="yolo.key")
 
-@adhesive.task('Create Certificate')
-def apt_install(context: adhesive.Token[Data]):
-    data = context.data
+    ui.add_input_text(
+        "java_keystore_file",
+        title="Java Keystore",
+        value="yolo.p12")
+    ui.add_input_password(
+        "java_keystore_password",
+        title="Java Keystore Password",
+        value="")
+    ui.add_input_text(
+        "java_key_alias",
+        title="Java Key Alias",
+        value="jetty")
+    ui.add_input_password(
+        "java_key_password",
+        title="Java Certificate Password",
+        value="")
 
-    context.workspace.pwd = os.curdir
-    context.workspace.run(f"""
+@adhesive.task('Create Certificate')
+def apt_install(token: adhesive.Token[Data]):
+    data = token.data
+
+    token.workspace.pwd = os.curdir
+    token.workspace.run(f"""
         openssl req -newkey rsa:4096 \\
                 -x509 \\
                 -sha256 \\
@@ -59,7 +77,20 @@ def apt_install(context: adhesive.Token[Data]):
                 -out {data.certificate_file} \\
                 -keyout {data.key_file} \\
                 -subj '/CN={data.cn}/O={data.company_name}/C={data.country}'
+    """)
 
+    if not token.data.java_keystore_file:
+        return
+
+    token.workspace.run(f"""
+        keytool -importpass \\
+                -alias {shlex.quote(data.java_key_alias)} \\
+                -file {shlex.quote(data.key_file)} \\
+                -keystore {shlex.quote(data.java_keystore_file)} \\
+                -storepass {shlex.quote(data.java_keystore_password)} \\
+                -keypass {shlex.quote(data.java_key_password)} \\
+                -storetype PKCS12 \\
+                -noprompt
     """)
 
 adhesive.build()
