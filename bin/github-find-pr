@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+
+import click
+import requests
+import os
+import git_utils
+
+
+@click.command()
+@click.option("--short", is_flag=True, default=False,
+              help="Show only the PR ID not the full URL of the PR")
+@click.argument("branch_name", default="<empty>", nargs=1)
+@click.option("-v", "--version",
+              help="Use a specific version, not the current branch name.",
+              default="<empty>")
+def main(short: bool, branch_name: str, version: str) -> None:
+    if branch_name == "<empty>":
+        branch_name = git_utils.get_checked_out_branch_name()
+
+    if version != "<empty>":
+        branch_name = git_utils.get_branch_name_for_different_version(branch_name, version)
+
+    giturl = git_utils.find_github_url()
+    owner = git_utils.find_git_owner()
+    repo = git_utils.find_git_project()
+
+    # https://docs.github.com/en/rest/pulls/pulls#list-pull-requests
+    github_url = f"{giturl}/repos/{owner}/{repo}/pulls"
+
+    r = requests.get(github_url,
+        params={"head": f"{owner}:{branch_name}" },
+        auth=(os.environ["GITHUB_GIT_API_USER"], os.environ["GITHUB_GIT_API_TOKEN"]))
+
+    r.raise_for_status()
+    json_data = r.json()
+
+    if short:
+        print(json_data[0]["number"])
+        return
+
+    print(json_data[0]["html_url"])
+
+if __name__ == "__main__":
+    main()

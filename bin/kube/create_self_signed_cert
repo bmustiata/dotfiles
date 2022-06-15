@@ -15,6 +15,11 @@ class Data:
     certificate_file: str
     key_file: str
 
+    java_keystore_file: str
+    java_key_alias: str
+    java_keystore_password: str
+    java_key_password: str
+
 
 @adhesive.task('Find current IP')
 def find_current_ip(token: adhesive.Token[Data]):
@@ -48,7 +53,7 @@ def certificate_details(token: adhesive.Token[Data], ui: adhesive.UI):
 
     ui.add_input_text(
         "java_keystore_file",
-        title="Java Keystore",
+        title="Java Keystore File",
         value="yolo.p12")
     ui.add_input_password(
         "java_keystore_password",
@@ -60,7 +65,7 @@ def certificate_details(token: adhesive.Token[Data], ui: adhesive.UI):
         value="jetty")
     ui.add_input_password(
         "java_key_password",
-        title="Java Certificate Password",
+        title="Java Key Password",
         value="")
 
 @adhesive.task('Create Certificate')

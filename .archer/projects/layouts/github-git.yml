@@ -11,3 +11,11 @@ layout:
     show-git: |
       BRANCH_NAME=$(git current)
       echo ${PROJECT_GIT_URL}/tree/${BRANCH_NAME//\//%2F}
+    open-git-pr: |
+      if [[ "$1" == "" ]]; then
+        xdg-open $(github-find-pr)
+        return
+      fi
+
+      xdg-open $(github-find-pr --version $1)
+
