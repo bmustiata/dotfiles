@@ -248,10 +248,10 @@ endsnippet
 # Add a mount for a container
 #
 snippet mount "Add a mount for a container" wm
-volumeMounts:
-- mountPath: ${1:/var/jenkins_home}
-  name: ${2:jenkins-home}${3/.+/
-  subPath: /}${3:subpath}
+${1:volumeMounts}${1::
+}- mountPath: ${2:/var/jenkins_home}
+  name: ${3:jenkins-home}${4/.+/
+  subPath: /}${4:subpath}
 endsnippet
 
 #

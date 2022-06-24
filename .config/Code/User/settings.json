@@ -11,35 +11,20 @@
 
     // Controls the font size in pixels.
     "editor.fontSize": 14,
-    "alt-editor.name": "vim",
     "workbench.iconTheme": "vs-minimal",
     "window.zoomLevel": 0,
-    "gitlens.codeLens.recentChange.enabled": false,
-    "gitlens.codeLens.authors.enabled": false,
-    "gitlens.blame.annotation.activeLine": "off",
 
     // python
     "python.linting.mypyEnabled": true,
     "python.linting.pylintEnabled": false,
+    "python.experiments.enabled": false,
+    "robot.python.executable": "/home/raptor/programs/py/39-robot/bin/python3.9",
+    "robot.pythonpath": ["/home/raptor/work/monorepo/test/robot-framework/AE-Automation"],
     "typescript.updateImportsOnFileMove.enabled": "always",
     "explorer.confirmDelete": false,
-    "terminal.integrated.rendererType": "dom",
-    "gitlens.advanced.messages": {
-        "suppressCommitHasNoPreviousCommitWarning": false,
-        "suppressCommitNotFoundWarning": false,
-        "suppressFileNotUnderSourceControlWarning": false,
-        "suppressGitVersionWarning": false,
-        "suppressLineUncommittedWarning": false,
-        "suppressNoRepositoryWarning": false,
-        "suppressUpdateNotice": false,
-        "suppressWelcomeNotice": true
-    },
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "none",
     "window.titleBarStyle": "custom",
     "workbench.activityBar.visible": true,
     "explorer.confirmDragAndDrop": false,
-    "files.useExperimentalFileWatcher": true,
-    "workbench.colorTheme": "Default Light+",
-    "python.pythonPath": "/usr/bin/python3.7"
 }

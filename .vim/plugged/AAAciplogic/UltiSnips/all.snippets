@@ -186,6 +186,18 @@ snip.rv += base64.b64encode(snip.v.text.encode('utf-8')).decode('utf-8')
 endsnippet
 
 #
+# snippet: hexencode
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Encode the selected text as hex
+#
+snippet hexencode "Encode the selected text as hex" wm
+`!p
+snip.rv += snip.v.text.encode('utf-8').hex()
+`
+endsnippet
+
+#
 # snippet: base64decode
 # w (word boundary),
 # m (trim spaces on the right of the script)
@@ -196,6 +208,18 @@ snippet base64decode "Decode the selected text from base64" wm
 import base64
 
 snip.rv += base64.b64decode(snip.v.text).decode('utf-8')
+`
+endsnippet
+
+#
+# snippet: hexdecode
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Decode the selected text from hex
+#
+snippet hexdecode "Decode the selected text from hex" wm
+`!p
+snip.rv += bytes.fromhex(snip.v.text).decode('utf-8')
 `
 endsnippet
 

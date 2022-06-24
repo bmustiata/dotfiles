@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+
+import click
+import os.path
+import subprocess
+import textwrap
+from shlex import quote
+
+@click.command()
+@click.argument("certificate", nargs=1)
+@click.option("--java-binary",
+              help="Where is the java/keytool binary. From it the keytool path will be derived",
+              default="<none>")
+@click.option("--hostname",
+              help="The alias to add into the cacerts",
+              default="<none>")
+def main(certificate, java_binary, hostname):
+    keytool_binary = find_keytool_binary(java_binary)
+    cacerts = find_cacerts_location(keytool_binary)
+    certificate_alias = get_certificate_alias(hostname, certificate)
+    add_certificate_into_keystore(keytool_binary, cacerts, hostname, certificate)
+
+
+def find_keytool_binary(java_binary: str) -> str:
+    if java_binary == "<none>":
+        java_binary = shell("where java")
+
+    return os.path.abspath(os.path.join(os.path.dirname(java_binary), "keytool"))
+
+
+def find_cacerts_location(keytool_binary: str) -> str:
+    jdk_cacerts = os.path.abspath(os.path.join(os.path.dirname(keytool_binary), "../jre/lib/security/cacerts"))
+
+    if os.path.exists(jdk_cacerts):
+        return jdk_cacerts
+
+    jre_cacerts = os.path.abspath(os.path.join(os.path.dirname(keytool_binary), "../lib/security/cacerts"))
+
+    if os.path.exists(jre_cacerts):
+        return jre_cacerts
+
+    raise Exception(f"Unable to find cacerts starting from {keytool_binary}")
+
+
+def get_certificate_alias(hostname: str, certificate: str) -> str:
+    if hostname != "<none>":
+        return hostname
+
+    return os.path.splitext(os.path.basename(certificate))[0]
+
+
+def add_certificate_into_keystore(keytool_binary: str, cacerts: str, alias: str, certificate: str) -> None:
+    shell(textwrap.dedent(f"""\
+        {keytool_binary} -import \\
+            -v \\
+            -trustcacerts \\
+            -alias {quote(alias)} \\
+            -file {quote(certificate)} \\
+            -keystore {quote(cacerts)} \\
+            -keypass changeit \\
+            -storepass changeit
+    """))
+
+
+def shell(command: str) -> str:
+    subprocess.check_output(["/bin/sh", "-c", command]).decode('utf-8').strip()
+
+
+if __name__ == "__main__":
+    main()
