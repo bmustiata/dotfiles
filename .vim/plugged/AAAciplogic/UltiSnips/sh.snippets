@@ -356,3 +356,14 @@ ${1:cleanup}() {
 
 trap $1 ${2:EXIT}
 endsnippet
+
+#
+# snippet: sed
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# sed replace in-place
+#
+snippet sed "sed replace in-place" wm
+sed -i 's${1:/}${2:SEARCH}$1${3:REPLACEMENT}$1g' ${4:filename}
+endsnippet
+

@@ -293,3 +293,24 @@ snip.rv += str(uuid.uuid4())
 `
 endsnippet
 
+#
+# snippet: uc4
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Decode an UC4 script
+#
+snippet uc4 "Decode an UC4 script" wm
+`!p
+import xml.etree.ElementTree as ET
+
+def convert_to_uc4_script(content):
+    response = ""
+    t = ET.fromstring(f'<root>{content}</root>')
+    for n in t:
+        response += n.text + "\n"
+
+    return response
+
+snip.rv += convert_to_uc4_script(snip.v.text)
+`
+endsnippet

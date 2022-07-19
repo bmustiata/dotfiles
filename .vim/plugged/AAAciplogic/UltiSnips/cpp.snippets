@@ -54,3 +54,26 @@ ${VISUAL}
 #pragma GCC diagnostic pop
 endsnippet
 
+
+#
+# snippet: log
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# log potatoes
+#
+snippet log "log potatoes" wm
+write_to_log(0, "${1:time to get errors}");
+endsnippet
+
+#
+# snippet: for
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# for int i...
+#
+snippet for "for int i..." wm
+for (${1:int} ${2:i} = 0; $2 < ${3:10}; $2++) {
+	${VISUAL}${0:}
+}
+endsnippet
+
