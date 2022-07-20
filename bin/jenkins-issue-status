@@ -5,6 +5,7 @@ from typing import List, Any
 import requests
 import git_utils
 import click
+import os
 
 RED_CIRCLE="🔴"
 GREEN_CIRCLE="🟢"
