@@ -1,6 +1,8 @@
 import re
 import subprocess
-from typing import Set, List, Dict
+from typing import Set, List, Dict, Tuple
+import requests
+import os
 
 BACKPORT_BRANCH_CHECK = re.compile(r'^.*?/\d+\.\d+(.+)?/.*$')
 BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/(\d+\.\d+(.+)?))?/(.*)$')
@@ -277,4 +279,28 @@ def get_remote_origin_url() -> str:
     return subprocess.check_output([
         "git", "config", "--get", "remote.origin.url",
     ], encoding="utf-8").strip()
+
+
+def get_github_pr(branch_name: str) -> Tuple[str, str]:
+    """
+    Returns a tuple with the PR number, and the PR URL.
+    """
+    giturl = find_github_url()
+    owner = find_git_owner()
+    repo = find_git_project()
+
+    # https://docs.github.com/en/rest/pulls/pulls#list-pull-requests
+    github_url = f"{giturl}/repos/{owner}/{repo}/pulls"
+
+    r = requests.get(github_url,
+        params={"head": f"{owner}:{branch_name}" },
+        auth=(os.environ["GITHUB_GIT_API_USER"], os.environ["GITHUB_GIT_API_TOKEN"]))
+
+    r.raise_for_status()
+    json_data = r.json()
+
+    if not len(json_data):
+        return (None, None)
+
+    return (json_data[0]["number"], json_data[0]["html_url"])
 

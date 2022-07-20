@@ -20,25 +20,14 @@ def main(short: bool, branch_name: str, version: str) -> None:
     if version != "<empty>":
         branch_name = git_utils.get_branch_name_for_different_version(branch_name, version)
 
-    giturl = git_utils.find_github_url()
-    owner = git_utils.find_git_owner()
-    repo = git_utils.find_git_project()
-
-    # https://docs.github.com/en/rest/pulls/pulls#list-pull-requests
-    github_url = f"{giturl}/repos/{owner}/{repo}/pulls"
-
-    r = requests.get(github_url,
-        params={"head": f"{owner}:{branch_name}" },
-        auth=(os.environ["GITHUB_GIT_API_USER"], os.environ["GITHUB_GIT_API_TOKEN"]))
-
-    r.raise_for_status()
-    json_data = r.json()
+    pr_number, pr_url = git_utils.get_github_pr(branch_name)
 
     if short:
-        print(json_data[0]["number"])
+        print(pr_number)
         return
 
-    print(json_data[0]["html_url"])
+    print(pr_url)
+
 
 if __name__ == "__main__":
     main()
