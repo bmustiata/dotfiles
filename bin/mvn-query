@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+
+import click
+import requests
+import sys
+import xmltodict
+import bisect
+
+
+class VersionToken:
+    def __init__(self, value: str) -> None:
+        self.value = value
+
+    def __lt__(self, other: 'VersionToken') -> bool:
+        if self.value.isnumeric() and other.value.isnumeric():
+            return int(self.value) < int(other.value)
+        return self.value < other.value
+
+    def __eq__(self, other: 'VersionToken') -> bool:
+        return self.value == other.value
+
+    def __repr__(self) -> str:
+        return self.value
+
+    def __str__(self) -> str:
+        return self.value
+
+
+
+class Version:
+    def __init__(self, value: str) -> None:
+        self.value = value
+        self.value_tokens = list(map(VersionToken, value.split(".")))
+
+    def __repr__(self) -> str:
+        return self.value
+
+    def __str__(self) -> str:
+        return self.value
+
+    def __lt__(self, other: 'Version') -> bool:
+        for i in range(min(len(self.value_tokens), len(other.value_tokens))):
+            if self.value_tokens[i] < other.value_tokens[i]:
+                return True
+
+            if self.value_tokens[i] > other.value_tokens[i]:
+                return False
+
+        if len(self.value_tokens) < len(other.value_tokens):
+            return True
+
+        return False
+
+    def __eq__(self, other: 'Version') -> bool:
+        if len(self.value_tokens) != len(other.value_tokens):
+            return False
+
+        for i in range(len(self.value_tokens)):
+            if self.value_tokens[i] != other.value_tokens[i]:
+                return False
+
+        return True
+
+
+
+class GavCoordinates:
+    def __init__(self, value: str) -> None:
+        gav_tokens = value.split(":")
+
+        self.groupId = gav_tokens[0]
+        self.artifactId = gav_tokens[1]
+        self.version = Version(gav_tokens[2]) if len(gav_tokens) > 2 else None
+
+
+class MavenMetadata:
+    def __init__(self) -> None:
+        self.latest = None
+        self.release = None
+        self.versions = []
+
+
+@click.command()
+@click.argument("gav", nargs=1)
+@click.option("--show-versions", is_flag=True, default=False,
+              help="Show the available versions for the GAV coordinates")
+def main(gav: str, show_versions: bool) -> None:
+    gav_coordinates = GavCoordinates(gav)
+    maven_metadata = fetch_maven_metadata(gav_coordinates)
+
+    if show_versions:
+        print(maven_metadata.versions)
+        return
+
+    if not gav_coordinates.version:
+        print(maven_metadata.latest)
+        return
+
+    print(find_next_version(maven_metadata, gav_coordinates))
+
+
+def fetch_maven_metadata(gav: GavCoordinates) -> MavenMetadata:
+    group_server_path = gav.groupId.replace(".", "/")
+    artifact_server_path = gav.artifactId.replace(".", "/")
+    r = requests.get(f"https://repo1.maven.org/maven2/{group_server_path}/{artifact_server_path}/maven-metadata.xml")
+
+    metadata_dict = xmltodict.parse(r.content)
+    maven_metadata = MavenMetadata()
+
+    maven_metadata.latest = Version(metadata_dict['metadata']['versioning']['latest'])
+    maven_metadata.release = Version(metadata_dict['metadata']['versioning']['release'])
+    for version in metadata_dict['metadata']['versioning']['versions']['version']:
+        maven_metadata.versions.append(Version(version))
+    maven_metadata.versions.sort()
+
+    return maven_metadata
+
+
+def find_next_version(maven_metadata: MavenMetadata, gav: GavCoordinates) -> Version:
+    i = bisect.bisect(maven_metadata.versions, gav.version)
+    return maven_metadata.versions[i-1]
+
+
+if __name__ == "__main__":
+    main()

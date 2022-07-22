@@ -32,7 +32,7 @@ def find_git_pr(branch: str) -> GitPr:
 
 def get_build_status(git_pr: GitPr) -> JenkinsBuildStatus:
     if not git_pr.url:
-        return JenkinsBuildStatus(None)
+        return JenkinsBuildStatus("", "")
 
     jenkins_job = jenkins_fetch_job_data(git_pr)
 
@@ -59,7 +59,7 @@ def print_status(built_version: str,
     elif build_status.status == "SUCCESS":
         print(GREEN_CIRCLE + " " + green(built_version, bold=True))
     else:
-        print(RED_CIRCLE + " " + red(built_version, bold=True) + str(build_status.status))
+        print(RED_CIRCLE + " " + red(built_version, bold=True))
 
     print("   git    : " + cyan(git_pr.url))
     print("   jenkins: " + cyan(build_status.last_build_url))

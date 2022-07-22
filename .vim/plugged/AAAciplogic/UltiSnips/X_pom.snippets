@@ -37,6 +37,29 @@ snippet repo "Create a repository" wm
 </repository>
 endsnippet
 
+
+#
+# snippet: exclude
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add some exclusion
+#
+snippet exclusion "Add some exclusion" wm
+<exclusion>
+	<groupId>${1:com.yolo}</groupId>
+	<artifactId>${2:swag}</artifactId>
+</exclusion>
+endsnippet
+
+snippet exclusions "Add some exclusions" wm
+<exclusions>
+	<exclusion>
+		<groupId>${1:com.yolo}</groupId>
+		<artifactId>${2:swag}</artifactId>
+	</exclusion>${0:}
+</exclusions>
+endsnippet
+
 #
 # snippet: javaversion
 # w (word boundary),
