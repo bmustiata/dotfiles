@@ -6,9 +6,14 @@ set -e
 
 if [[ "$1" == "" ]]; then
     echo "You need to pass the site name to dump the certificate from:"
-    echo "ie: $0 germaniumhq.com"
+    echo "ie: $0 germaniumhq.com or $0 germaniumhq.com 8443"
     exit 1
 fi # [[ "$1" == "" ]]
 
-echo | openssl s_client -showcerts -servername $1 -connect $1:443
+
+if [[ "$2" == "" ]]; then
+    echo | openssl s_client -showcerts -servername $1 -connect $1:443
+else # not [[ "$2" == "" ]]
+    echo | openssl s_client -showcerts -servername $1 -connect $1:$2
+fi   # else [[ "$2" == "" ]]
 

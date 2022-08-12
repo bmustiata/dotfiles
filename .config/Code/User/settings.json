@@ -12,7 +12,6 @@
     // Controls the font size in pixels.
     "editor.fontSize": 14,
     "workbench.iconTheme": "vs-minimal",
-    "window.zoomLevel": 0,
 
     // python
     "python.linting.mypyEnabled": true,

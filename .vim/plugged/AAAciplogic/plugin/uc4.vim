@@ -3,7 +3,7 @@
 " -------------------------------------------------------------------------
 function! XmlToUc4()
 
-python << endpython
+python3 << endpython
 import vim
 import xml.etree.ElementTree as ET
 
@@ -23,7 +23,14 @@ endfunction
 " Convert an UC4 script to XML with some nodes inbetween
 " -------------------------------------------------------------------------
 function! Uc4ToXml()
-python << endpython
+python3 << endpython
+import xml.etree.ElementTree as ET
+
+for i in range(len(vim.current.range)):
+    line = vim.current.range[i].strip()
+    element = ET.Element("OT_CONTENT")
+    element.text = line
+    vim.current.range[i] = ET.tostring(element, encoding='utf-8', method='xml').decode('utf-8')
 
 endpython
 endfunction
