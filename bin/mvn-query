@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from typing import List
+
 import click
 import requests
 import sys
@@ -14,6 +16,7 @@ class VersionToken:
     def __lt__(self, other: 'VersionToken') -> bool:
         if self.value.isnumeric() and other.value.isnumeric():
             return int(self.value) < int(other.value)
+
         return self.value < other.value
 
     def __eq__(self, other: 'VersionToken') -> bool:
@@ -30,7 +33,7 @@ class VersionToken:
 class Version:
     def __init__(self, value: str) -> None:
         self.value = value
-        self.value_tokens = list(map(VersionToken, value.split(".")))
+        self.value_tokens: List[VersionToken] = list(map(VersionToken, value.split(".")))
 
     def __repr__(self) -> str:
         return self.value
@@ -76,7 +79,7 @@ class MavenMetadata:
     def __init__(self) -> None:
         self.latest = None
         self.release = None
-        self.versions = []
+        self.versions: List[Version] = []
 
 
 @click.command()
@@ -116,8 +119,37 @@ def fetch_maven_metadata(gav: GavCoordinates) -> MavenMetadata:
 
 
 def find_next_version(maven_metadata: MavenMetadata, gav: GavCoordinates) -> Version:
-    i = bisect.bisect(maven_metadata.versions, gav.version)
-    return maven_metadata.versions[i-1]
+    found_version = None
+
+    for version in maven_metadata.versions:
+        if is_version_matching(gav.version, version):
+            found_version = version
+
+    return found_version
+
+
+def is_version_matching(searched_version, it: Version) -> bool:
+    x_token_start_location = -1
+    x_token_end_location = -1
+
+    if len(searched_version.value_tokens) != len(it.value_tokens):
+        return False
+
+    for i in range(len(searched_version.value_tokens)):
+        if searched_version.value_tokens[i].value == "x":
+            if x_token_start_location == -1:
+                x_token_start_location = i
+            x_token_end_location = i
+
+    for i in range(x_token_start_location):
+        if it.value_tokens[i] != searched_version.value_tokens[i]:
+            return False
+
+    for i in range(x_token_end_location + 1, len(it.value_tokens)):
+        if it.value_tokens[i] != searched_version.value_tokens[i]:
+            return False
+
+    return True
 
 
 if __name__ == "__main__":
