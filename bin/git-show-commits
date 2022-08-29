@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+import click
+import git_utils
+
+@click.command()
+@click.argument("issue", nargs=1)
+def main(issue: str) -> None:
+    current_branch = git_utils.get_checked_out_branch_name()
+    print(f"Searching commits for issue {issue} in {current_branch}")
+    for commit in git_utils.get_commits_for_branch(current_branch, issue):
+        print(commit.hash, commit.message)
+
+
+if __name__ == "__main__":
+    main()
