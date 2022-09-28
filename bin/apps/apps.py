@@ -305,6 +305,7 @@ def version_format(s: str, version: str) -> str:
             version_2=m.group(1) + '.' + m.group(3) if m.group(3) else m.group(1),
             version_major=m.group(1),
             version_minor=m.group(3),
+            version_patch=m.group(4),
     )
 
 
