@@ -95,6 +95,19 @@ endfunction
 
 command ReplaceLinks call ReplaceLinks()
 
+function! AsciidocToMarkdown()
+    %s/\v\[source,(\w+)\]\n-+/```\1/g
+    %s/\v-{3,1000}/```/g
+
+    %s/^=====/#####/g
+    %s/^====/####/g
+    %s/^===/###/g
+    %s/^==/##/g
+    %s/^=/#/g
+endfunction
+
+command AsciidocToMarkdown call AsciidocToMarkdown()
+
 
 au BufRead,BufNewFile *.adoc call AsciiDocFile()
 au BufRead,BufNewFile *.ad call AsciiDocFile()
