@@ -500,3 +500,22 @@ load(
 )
 endsnippet
 
+#
+# snippet: pkgtar
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Expand a tar as a folder
+#
+snippet pkgtar "Create a tar from multiple files" wm
+pkg_tar(
+	name = "${1:rule_name}"${2/.+/,
+	srcs = [
+		/}${2:"@//some:file.txt",}${2/.+/
+	]/}${3/.+/,
+	deps = [
+		/}${3:"@//some:other.tar",}${3/.+/
+	]/}${4/.+/,
+	package_dir = "/}${4:/EMI/bin}${4/.+/",
+/}
+)
+endsnippet
