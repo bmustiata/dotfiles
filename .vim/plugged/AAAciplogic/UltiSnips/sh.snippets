@@ -333,8 +333,48 @@ endsnippet
 # m (trim spaces on the right of the script)
 # sed replace in-place
 #
-snippet sed "sed replace in-place" wm
-sed -i 's${1:/}${2:SEARCH}$1${3:REPLACEMENT}$1g' ${4:filename}
+snippet sed "sed replace in-place (regex e)" wm
+sed -ie 's${1:/}${2:SEARCH}$1${3:REPLACEMENT}$1g' ${4:filename}
+endsnippet
+
+#
+# snippet: sedstar
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a *? to the regexp
+#
+snippet sedstar "Add a *? to the regexp" wm
+${VISUAL}\{0,\}
+endsnippet
+
+#
+# snippet: sedplus
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a +? to the regexp
+#
+snippet sedplus "Add a +? to the regexp" wm
+${VISUAL}\{1,\}
+endsnippet
+
+#
+# snippet: sedgroup
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a group to the regexp
+#
+snippet sedgroup "Add a group to the regexp" wm
+\(${VISUAL}\)
+endsnippet
+
+#
+# snippet: sedw
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a \\w to the regexp
+#
+snippet sedw "Add a \w to the regexp" wm
+[[:space:]]
 endsnippet
 
 #

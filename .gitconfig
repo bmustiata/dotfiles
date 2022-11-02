@@ -41,3 +41,5 @@ template = ~/.gitmessage
 [difftool "kdiff3"]
 	trustExitCode = false
 	trustExitCode = false
+[core]
+	autocrlf = input
