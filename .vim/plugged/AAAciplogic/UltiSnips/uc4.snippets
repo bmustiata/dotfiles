@@ -1,0 +1,53 @@
+#
+# snippet: if
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an if
+#
+snippet if "Add an if" wm
+:if ${1:&dupliFromTemplateFlag# = 1}
+	${VISUAL}${0:}
+:endif
+endsnippet
+
+#
+# snippet: ife
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an if/else
+#
+snippet ife "Add an if/else" wm
+:if ${1:&dupliFromTemplateFlag# = 1}
+	${VISUAL}
+:else
+:  ${0:}
+:endif
+endsnippet
+
+#
+# snippet: cs
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Comment section
+#
+snippet cs "Comment section" wm
+!  ******************************************************
+!  ${0:}
+!  ******************************************************
+endsnippet
+
+#
+# snippet: prep_process_var
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# process entries from a VARA object
+#
+snippet prep_process_var "process entries from a VARA object" wm
+:set &${1:HND}#=prep_process_var(${2:object_name})
+:process &$1#
+:   set &key# = get_process_line(&$1#,1)
+:   set &value# = get_process_line(&$1#,2)
+:   print "&key# &value#"
+:endprocess
+endsnippet
+

@@ -1,0 +1,148 @@
+#
+# snippet: robot
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a basic robot test
+#
+snippet robot "Create a basic robot test" wm
+*** Settings ***
+Resource  ../OtherRobot.robot
+Library   ../SomePythonFile.py
+
+Suite Setup Run Keywords Keword1
+	... AND Keyword1
+
+Suite Teardown Keyword2
+
+*** Test Cases ***
+Scenario: t1_ValidateConnection
+	[Tags]  Regression  Integration  EMI
+	When I read the JMX object property  'Automic:name=EMI'  'connected'
+	Then the value I read from JMX is  'true'
+
+endsnippet
+
+#
+# snippet: setup
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# suite setup and teardown
+#
+snippet setup "suite setup and teardown" wm
+${1/.+/Suite Setup /}${1:Do Something}${2/.+/
+Suite Teardown /}${2:Do Something Else}
+endsnippet
+
+#
+# snippet: run
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add multiple keywords
+#
+snippet run "Add multiple keywords" wm
+Run Keywords ${1:SetupByEnvVariables}
+	... AND ${2:Start EMI Application}
+endsnippet
+
+#
+# snippet: scenario
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new scenario
+#
+snippet scenario "Create a new scenario" wm
+Scenario: ${1:t1_ValidateConnection}${2/.+/
+	[Tags] /}${2:Regression  Integration  EMI}${3/.+/
+	Given /}${3:there is something}${4/.+/
+	When /}${4:I test something}${5/.+/
+	Then /}${5:there is some result}
+endsnippet
+
+
+#
+# snippet: res
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a resource to another robot file
+#
+snippet res "Add a resource to another robot file" wm
+Resource  ${1:../OtherRobot.robot}
+endsnippet
+
+#
+# snippet: lib
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add another python file
+#
+snippet lib "Add another python file" wm
+Library   ${1:../SomePythonFile.py}
+endsnippet
+
+#
+# snippet: tags
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add some tags to a test
+#
+snippet tags "Add some tags to a test" wm
+[Tags]  ${1:Tag1  Tag2}
+endsnippet
+
+#
+# snippet: test
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new test case
+#
+snippet test "Create a new test case" wm
+Scenario: ${1:t1_validate_UpgradeChecker}${2/.+/
+	[Tags]  /}${2:Tag1  Tag2}${3/.+/
+	Given /}${3:I have something}${4/.+/
+	When /}${4:I do something}${5/.+/
+	Then /}${5:I assert something}
+endsnippet
+
+#
+# snippet: keyword
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new keyword
+#
+snippet keyword "Create a new keyword" wm
+${2:Keyword title}${3/.+/
+	[Documentation]  /}${3:Some docu}${4/.+/
+	[Arguments]  /}${4:${Agent}  ${IdNr}  ${FileName}s}
+	${5:Call some other keyword}
+endsnippet
+
+#
+# snippet: args
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create some keyword arguments
+#
+snippet args "Create some keyword arguments" wm
+[Arguments]  ${1:${Agent}  ${IdNr}  ${FileName}s}
+endsnippet
+
+#
+# snippet: ret
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Return from the keyword some value
+#
+snippet ret "Return from the keyword some value" wm
+[Return]  ${1:${value}}
+endsnippet
+
+
+#
+# snippet: doc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add some documentation tag
+#
+snippet doc "Add some documentation tag" wm
+[Documentation]  ${VISUAL}
+endsnippet
