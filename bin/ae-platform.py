@@ -25,12 +25,12 @@ class BuildCategory:
 
 
 @click.command()
-@click.argument("searched_platform", default=DEFAULT_SEARCH_PLATFORM, nargs=1)
-def main(searched_platform: str) -> None:
+@click.argument("searched_platforms", nargs=-1)
+def main(searched_platforms: List[str]) -> None:
     build_categories: List[BuildCategory] = []
     fill_build_categories(build_categories)
 
-    build_categories = filter_build_categories(build_categories, searched_platform)
+    build_categories = filter_build_categories(build_categories, searched_platforms)
     print_found_results(build_categories)
 
 
@@ -123,18 +123,19 @@ def fill_build_categories(build_categories: List[BuildCategory]):
 
 
 
-def filter_build_categories(build_categories: List[BuildCategory], searched_platform: str) -> List[BuildCategory]:
-    if searched_platform == DEFAULT_SEARCH_PLATFORM:
+def filter_build_categories(build_categories: List[BuildCategory], searched_platforms: List[str]) -> List[BuildCategory]:
+    if not searched_platforms:
         return build_categories
 
     result: List[BuildCategory] = []
     result_category: Optional[BuildCategory] = None
+    searched_platforms_upper = [p.upper() for p in searched_platforms]
 
     for category in build_categories:
         result_category = None
 
         for platform in category.platforms:
-            if platform.name.upper() != searched_platform.upper():
+            if platform.name.upper() not in searched_platforms_upper:
                 continue
 
             if not result_category:
