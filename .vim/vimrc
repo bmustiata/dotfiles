@@ -47,6 +47,7 @@ Plug 'jparise/vim-graphql'
 Plug 'zchee/vim-flatbuffers'
 Plug 'uarun/vim-protobuf'
 Plug 'mfukar/robotframework-vim'
+Plug 'hashivim/vim-terraform'
 
 " autocomplete
 Plug 'prabirshrestha/asyncomplete.vim'

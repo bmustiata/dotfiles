@@ -1,0 +1,41 @@
+#
+# snippet: res
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new resource
+#
+snippet res "Create a new resource" wm
+resource ${1:"resource type"} ${2:"mynetwork"} {
+	name = ${3:"resource name"}
+	# RESOURCE properties go here
+}
+endsnippet
+
+#
+# snippet: var
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a variable definition
+#
+snippet var "Create a variable definition" wm
+variable ${1:"var_name"} {${2/.+/
+	default = /}${2:"default_value"}${2/.+/
+/}}
+endsnippet
+
+#
+# snippet: modulemod
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Import a module
+#
+snippet mod "Import a module" wm
+module ${1:"mynet-eu-vm"} {
+	source           = ${2:"./path/to/module"}
+	${3:# variable definitions
+	instance_name    = "mynet-eu-vm"
+	instance_zone    = "europe-west1-d"
+	instance_network = google_compute_network.mynetwork.self_link}
+}
+endsnippet
+

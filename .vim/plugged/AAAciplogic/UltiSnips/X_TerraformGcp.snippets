@@ -1,0 +1,60 @@
+#
+# snippet: net
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new network
+#
+snippet net "Create a new network" wm
+resource "google_compute_network" ${1:"mynetwork"} {
+	name = ${2:$1}${3/.+/
+	auto_create_subnetworks = /}${3:"true"}
+}
+endsnippet
+
+#
+# snippet: pw
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a firewall rule
+#
+snippet fw "Create a firewall rule" wm
+resource "google_compute_firewall" ${1:"mynetwork-allow-http-ssh-rdp-icmp"} {
+	name = ${2:$1}
+	network = google_compute_network.${3:mynetwork}.self_link
+	allow {
+		protocol = "tcp"
+		ports    = ["22", "80", "3389"]
+	}
+	allow {
+		protocol = "icmp"
+	}
+	source_ranges = ["0.0.0.0/0"]
+}
+endsnippet
+
+
+#
+# snippet: vm
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a  VM instance
+#
+snippet vm "Create a  VM instance" wm
+resource "google_compute_instance" ${1:"vm_instance"} {
+	name         = ${2:"${var.instance_name}"}
+	zone         = ${3:"${var.instance_zone}"}
+	machine_type = ${4:"${var.instance_type}"}
+	boot_disk {
+		initialize_params {
+			image = "debian-cloud/debian-11"
+		}
+	}
+	network_interface {
+		network = "${var.instance_network}"
+		access_config {
+			# Allocate a one-to-one NAT IP to the instance
+		}
+	}
+}
+endsnippet
+
