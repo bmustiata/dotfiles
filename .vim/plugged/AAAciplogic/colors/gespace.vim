@@ -26,20 +26,20 @@ if &g:background=="light"
   " general
   hi Normal guifg=#121212 guibg=#e4e4e4 guisp=NONE gui=NONE ctermfg=233 ctermbg=254 cterm=NONE
   hi LineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-  hi Visual guifg=#121212 guibg=#5fafd7 guisp=NONE gui=NONE ctermfg=233 ctermbg=74 cterm=NONE
+  hi Visual guifg=#121212 guibg=#52a4c8 guisp=NONE gui=NONE ctermfg=233 ctermbg=74 cterm=NONE
   " gutter + line number
   hi CursorLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=233 ctermbg=252 cterm=bold
   hi SignColumn guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-  hi GitGutterAdd guifg=#008700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
+  hi GitGutterAdd guifg=#00d700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
   hi GitGutterAddLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-  hi GitGutterDelete guifg=#d70000 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
+  hi GitGutterDelete guifg=#de0000 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
   hi GitGutterDeleteLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
   hi GitGutterChangeDeleteLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
   hi GitGutterChange guifg=#ff8700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
   hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=254 ctermbg=252 cterm=NONE
-  hi LspErrorText guifg=#d70000 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
+  hi LspErrorText guifg=#de0000 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
   hi LspWarningText guifg=#ff8700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
-  hi LspInformationText guifg=#008700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
+  hi LspInformationText guifg=#00d700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
   hi LspHintText guifg=#ff8700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
   " menu + split
   hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
@@ -61,25 +61,25 @@ if &g:background=="light"
   hi GrayShade8 guifg=#000000 guibg=NONE guisp=NONE gui=NONE ctermfg=0 ctermbg=NONE cterm=NONE
   hi GrayShade8Bold guifg=#000000 guibg=NONE guisp=NONE gui=bold ctermfg=0 ctermbg=NONE cterm=bold
 
-  hi GreenShade0 guifg=#008700 guibg=NONE guisp=NONE gui=NONE ctermfg=28 ctermbg=NONE cterm=NONE
-  hi GreenShade0Italic guifg=#008700 guibg=NONE guisp=NONE gui=italic ctermfg=28 ctermbg=NONE cterm=italic
-  hi GreenShade1 guifg=#00af00 guibg=NONE guisp=NONE gui=NONE ctermfg=34 ctermbg=NONE cterm=NONE
-  hi GreenShade1Bold guifg=#00af00 guibg=NONE guisp=NONE gui=bold ctermfg=34 ctermbg=NONE cterm=bold
-  hi GreenShade2 guifg=#5fd75f guibg=NONE guisp=NONE gui=NONE ctermfg=77 ctermbg=NONE cterm=NONE
+  hi GreenShade0 guifg=#00d700 guibg=NONE guisp=NONE gui=NONE ctermfg=28 ctermbg=NONE cterm=NONE
+  hi GreenShade0Italic guifg=#00d700 guibg=NONE guisp=NONE gui=italic ctermfg=28 ctermbg=NONE cterm=italic
+  hi GreenShade1 guifg=#00b100 guibg=NONE guisp=NONE gui=NONE ctermfg=34 ctermbg=NONE cterm=NONE
+  hi GreenShade1Bold guifg=#00b100 guibg=NONE guisp=NONE gui=bold ctermfg=34 ctermbg=NONE cterm=bold
+  hi GreenShade2 guifg=#56e156 guibg=NONE guisp=NONE gui=NONE ctermfg=77 ctermbg=NONE cterm=NONE
 
-  hi BlueShade0 guifg=#005f5f guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
-  hi BlueShade1 guifg=#005f87 guibg=NONE guisp=NONE gui=NONE ctermfg=24 ctermbg=NONE cterm=NONE
-  hi BlueShade1Bold guifg=#005f87 guibg=NONE guisp=NONE gui=bold ctermfg=24 ctermbg=NONE cterm=bold
-  hi BlueShade2 guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
-  hi BlueShade3 guifg=#0087af guibg=NONE guisp=NONE gui=NONE ctermfg=31 ctermbg=NONE cterm=NONE
+  hi BlueShade0 guifg=#034d6d guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
+  hi BlueShade1 guifg=#05638c guibg=NONE guisp=NONE gui=NONE ctermfg=24 ctermbg=NONE cterm=NONE
+  hi BlueShade1Bold guifg=#05638c guibg=NONE guisp=NONE gui=bold ctermfg=24 ctermbg=NONE cterm=bold
+  hi BlueShade2 guifg=#52a4c8 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
+  hi BlueShade3 guifg=#0881b5 guibg=NONE guisp=NONE gui=NONE ctermfg=31 ctermbg=NONE cterm=NONE
 
-  hi YellowShade0 guifg=#af5f00 guibg=NONE guisp=NONE gui=NONE ctermfg=130 ctermbg=NONE cterm=NONE
-  hi YellowShade0Bold guifg=#af5f00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
-  hi YellowShade0Italic guifg=#af5f00 guibg=NONE guisp=NONE gui=italic ctermfg=130 ctermbg=NONE cterm=italic
+  hi YellowShade0 guifg=#ae5c00 guibg=NONE guisp=NONE gui=NONE ctermfg=130 ctermbg=NONE cterm=NONE
+  hi YellowShade0Bold guifg=#ae5c00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
+  hi YellowShade0Italic guifg=#ae5c00 guibg=NONE guisp=NONE gui=italic ctermfg=130 ctermbg=NONE cterm=italic
 
-  hi RedShade0 guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
-  hi RedShade1 guifg=#d70000 guibg=NONE guisp=NONE gui=NONE ctermfg=160 ctermbg=NONE cterm=NONE
-  hi RedShade1Italic guifg=#d70000 guibg=NONE guisp=NONE gui=italic ctermfg=160 ctermbg=NONE cterm=italic
+  hi RedShade0 guifg=#ae0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
+  hi RedShade1 guifg=#de0000 guibg=NONE guisp=NONE gui=NONE ctermfg=160 ctermbg=NONE cterm=NONE
+  hi RedShade1Italic guifg=#de0000 guibg=NONE guisp=NONE gui=italic ctermfg=160 ctermbg=NONE cterm=italic
   hi RedShade2 guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
   hi RedShade3 guifg=#ff0000 guibg=NONE guisp=NONE gui=NONE ctermfg=9 ctermbg=NONE cterm=NONE
 
@@ -88,20 +88,20 @@ else
   " general
   hi Normal guifg=#e4e4e4 guibg=#121212 guisp=NONE gui=NONE ctermfg=254 ctermbg=233 cterm=NONE
   hi LineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-  hi Visual guifg=#e4e4e4 guibg=#005f5f guisp=NONE gui=NONE ctermfg=254 ctermbg=23 cterm=NONE
+  hi Visual guifg=#e4e4e4 guibg=#034d6d guisp=NONE gui=NONE ctermfg=254 ctermbg=23 cterm=NONE
   " gutter + line number
   hi CursorLineNr guifg=#ffffff guibg=#262626 guisp=NONE gui=bold ctermfg=15 ctermbg=235 cterm=bold
   hi SignColumn guifg=#ffffff guibg=#262626 guisp=NONE gui=NONE ctermfg=15 ctermbg=235 cterm=NONE
-  hi GitGutterAdd guifg=#5fd75f guibg=#262626 guisp=NONE gui=NONE ctermfg=77 ctermbg=235 cterm=NONE
+  hi GitGutterAdd guifg=#56e156 guibg=#262626 guisp=NONE gui=NONE ctermfg=77 ctermbg=235 cterm=NONE
   hi GitGutterAddLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-  hi GitGutterDelete guifg=#d70000 guibg=#262626 guisp=NONE gui=bold ctermfg=160 ctermbg=235 cterm=bold
+  hi GitGutterDelete guifg=#de0000 guibg=#262626 guisp=NONE gui=bold ctermfg=160 ctermbg=235 cterm=bold
   hi GitGutterDeleteLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
   hi GitGutterChangeDeleteLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
   hi GitGutterChange guifg=#ff8700 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
   hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-  hi LspErrorText guifg=#d70000 guibg=#262626 guisp=NONE gui=bold ctermfg=160 ctermbg=235 cterm=bold
+  hi LspErrorText guifg=#de0000 guibg=#262626 guisp=NONE gui=bold ctermfg=160 ctermbg=235 cterm=bold
   hi LspWarningText guifg=#ff8700 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
-  hi LspInformationText guifg=#5fd75f guibg=#262626 guisp=NONE gui=NONE ctermfg=77 ctermbg=235 cterm=NONE
+  hi LspInformationText guifg=#56e156 guibg=#262626 guisp=NONE gui=NONE ctermfg=77 ctermbg=235 cterm=NONE
   hi LspHintText guifg=#ff8700 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
   " menu + split
   hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
@@ -123,28 +123,28 @@ else
   hi GrayShade8 guifg=#ffffff guibg=NONE guisp=NONE gui=NONE ctermfg=15 ctermbg=NONE cterm=NONE
   hi GrayShade8Bold guifg=#ffffff guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
 
-  hi GreenShade0 guifg=#5fd75f guibg=NONE guisp=NONE gui=NONE ctermfg=77 ctermbg=NONE cterm=NONE
-  hi GreenShade0Italic guifg=#5fd75f guibg=NONE guisp=NONE gui=italic ctermfg=77 ctermbg=NONE cterm=italic
-  hi GreenShade1 guifg=#00af00 guibg=NONE guisp=NONE gui=NONE ctermfg=34 ctermbg=NONE cterm=NONE
-  hi GreenShade1Bold guifg=#00af00 guibg=NONE guisp=NONE gui=bold ctermfg=34 ctermbg=NONE cterm=bold
-  hi GreenShade2 guifg=#008700 guibg=NONE guisp=NONE gui=NONE ctermfg=28 ctermbg=NONE cterm=NONE
+  hi GreenShade0 guifg=#56e156 guibg=NONE guisp=NONE gui=NONE ctermfg=77 ctermbg=NONE cterm=NONE
+  hi GreenShade0Italic guifg=#56e156 guibg=NONE guisp=NONE gui=italic ctermfg=77 ctermbg=NONE cterm=italic
+  hi GreenShade1 guifg=#00b100 guibg=NONE guisp=NONE gui=NONE ctermfg=34 ctermbg=NONE cterm=NONE
+  hi GreenShade1Bold guifg=#00b100 guibg=NONE guisp=NONE gui=bold ctermfg=34 ctermbg=NONE cterm=bold
+  hi GreenShade2 guifg=#00d700 guibg=NONE guisp=NONE gui=NONE ctermfg=28 ctermbg=NONE cterm=NONE
 
-  hi BlueShade0 guifg=#0087af guibg=NONE guisp=NONE gui=NONE ctermfg=31 ctermbg=NONE cterm=NONE
-  hi BlueShade0Bold guifg=#0087af guibg=NONE guisp=NONE gui=bold ctermfg=31 ctermbg=NONE cterm=bold
-  hi BlueShade1 guifg=#5fafd7 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
-  hi BlueShade1Bold guifg=#5fafd7 guibg=NONE guisp=NONE gui=bold ctermfg=74 ctermbg=NONE cterm=bold
-  hi BlueShade2 guifg=#005f87 guibg=NONE guisp=NONE gui=NONE ctermfg=24 ctermbg=NONE cterm=NONE
-  hi BlueShade3 guifg=#005f5f guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
+  hi BlueShade0 guifg=#0881b5 guibg=NONE guisp=NONE gui=NONE ctermfg=31 ctermbg=NONE cterm=NONE
+  hi BlueShade0Bold guifg=#0881b5 guibg=NONE guisp=NONE gui=bold ctermfg=31 ctermbg=NONE cterm=bold
+  hi BlueShade1 guifg=#52a4c8 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
+  hi BlueShade1Bold guifg=#52a4c8 guibg=NONE guisp=NONE gui=bold ctermfg=74 ctermbg=NONE cterm=bold
+  hi BlueShade2 guifg=#05638c guibg=NONE guisp=NONE gui=NONE ctermfg=24 ctermbg=NONE cterm=NONE
+  hi BlueShade3 guifg=#034d6d guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
 
-  hi YellowShade0 guifg=#ffaf5f guibg=NONE guisp=NONE gui=NONE ctermfg=215 ctermbg=NONE cterm=NONE
-  hi YellowShade0Bold guifg=#ffaf5f guibg=NONE guisp=NONE gui=bold ctermfg=215 ctermbg=NONE cterm=bold
-  hi YellowShade0Italic guifg=#ffaf5f guibg=NONE guisp=NONE gui=italic ctermfg=215 ctermbg=NONE cterm=italic
+  hi YellowShade0 guifg=#ffb562 guibg=NONE guisp=NONE gui=NONE ctermfg=215 ctermbg=NONE cterm=NONE
+  hi YellowShade0Bold guifg=#ffb562 guibg=NONE guisp=NONE gui=bold ctermfg=215 ctermbg=NONE cterm=bold
+  hi YellowShade0Italic guifg=#ffb562 guibg=NONE guisp=NONE gui=italic ctermfg=215 ctermbg=NONE cterm=italic
 
   hi RedShade0 guifg=#ff0000 guibg=NONE guisp=NONE gui=NONE ctermfg=9 ctermbg=NONE cterm=NONE
-  hi RedShade1 guifg=#ff5f5f guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
-  hi RedShade1Italic guifg=#ff5f5f guibg=NONE guisp=NONE gui=italic ctermfg=203 ctermbg=NONE cterm=italic
-  hi RedShade2 guifg=#d70000 guibg=NONE guisp=NONE gui=NONE ctermfg=160 ctermbg=NONE cterm=NONE
-  hi RedShade3 guifg=#af0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
+  hi RedShade1 guifg=#ff6262 guibg=NONE guisp=NONE gui=NONE ctermfg=203 ctermbg=NONE cterm=NONE
+  hi RedShade1Italic guifg=#ff6262 guibg=NONE guisp=NONE gui=italic ctermfg=203 ctermbg=NONE cterm=italic
+  hi RedShade2 guifg=#de0000 guibg=NONE guisp=NONE gui=NONE ctermfg=160 ctermbg=NONE cterm=NONE
+  hi RedShade3 guifg=#ae0000 guibg=NONE guisp=NONE gui=NONE ctermfg=124 ctermbg=NONE cterm=NONE
 endif
 
 " -------------------------------------------------------------------------
