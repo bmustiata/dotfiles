@@ -28,6 +28,8 @@
     lc = log master..@ --pretty=format:"%C(yellow)%h\\ %Cred%s%Cblue\\ [%cn]"  --decorate --reverse --numstat
     uccl = "!f() { git rev-list -1 --before='$1' HEAD | xargs git log -1; }; f"
     hash = !git rev-parse --verify HEAD
+    stashgrep = "!f() { for i in `git stash list --format=\"%gd\"` ; \
+              do git stash show -p $i | grep -H --label=\"$i\" \"$@\" ; done ; }; f"
 
 [commit]
 template = ~/.gitmessage
