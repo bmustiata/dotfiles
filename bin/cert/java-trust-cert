@@ -14,11 +14,23 @@ from shlex import quote
 @click.option("--hostname",
               help="The alias to add into the cacerts",
               default="<none>")
-def main(certificate, java_binary, hostname):
+@click.option("--pid",
+              help="PID of a running java binary. This will be used for the --java-binary. From it the keytool path will be derived",
+              default="<none>")
+def main(certificate, java_binary, pid, hostname):
+    if pid != "<none>":
+        java_binary = read_cmd_line(pid)
+        print(f"read java as {java_binary} for pid {pid}")
+
     keytool_binary = find_keytool_binary(java_binary)
     cacerts = find_cacerts_location(keytool_binary)
     certificate_alias = get_certificate_alias(hostname, certificate)
     add_certificate_into_keystore(keytool_binary, cacerts, hostname, certificate)
+
+
+def read_cmd_line(pid: str) -> str:
+    with open(f"/proc/{pid}/cmdline", 'r', encoding='utf-8') as f:
+        return f.read().split('\x00')[0]
 
 
 def find_keytool_binary(java_binary: str) -> str:
