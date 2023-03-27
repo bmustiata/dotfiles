@@ -6,7 +6,7 @@ import apps
 apps.StaticBinary(
     name="kubectl",
     url="https://storage.googleapis.com/kubernetes-release/release/v{version}/bin/linux/amd64/kubectl",
-    version="1.25.2",
+    version="1.26.1",
     # shortcut="/home/raptor/bin/bazel",
 )
 

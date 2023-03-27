@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+
+
+import apps
+
+
+apps.TarGzBinary(
+    name="k9s",
+    url="https://github.com/derailed/k9s/releases/download/v{version}/k9s_Linux_amd64.tar.gz",
+    version="0.27.3",
+    executable="k9s",
+)

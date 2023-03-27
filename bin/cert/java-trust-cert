@@ -17,15 +17,23 @@ from shlex import quote
 @click.option("--pid",
               help="PID of a running java binary. This will be used for the --java-binary. From it the keytool path will be derived",
               default="<none>")
-def main(certificate, java_binary, pid, hostname):
+@click.option("--cacerts",
+              help="CA certs file location. This will normally be detected from the keytool binary path.",
+              default="<none>")
+def main(certificate, java_binary, pid, hostname, cacerts):
     if pid != "<none>":
         java_binary = read_cmd_line(pid)
         print(f"read java as {java_binary} for pid {pid}")
 
     keytool_binary = find_keytool_binary(java_binary)
-    cacerts = find_cacerts_location(keytool_binary)
+
+    if cacerts == "<none>":
+        cacerts = find_cacerts_location(keytool_binary)
+
     certificate_alias = get_certificate_alias(hostname, certificate)
-    add_certificate_into_keystore(keytool_binary, cacerts, hostname, certificate)
+
+    print(f"adding certificate {certificate} into {cacerts} with alias {certificate_alias}")
+    add_certificate_into_keystore(keytool_binary, cacerts, certificate_alias, certificate)
 
 
 def read_cmd_line(pid: str) -> str:
@@ -35,7 +43,7 @@ def read_cmd_line(pid: str) -> str:
 
 def find_keytool_binary(java_binary: str) -> str:
     if java_binary == "<none>":
-        java_binary = shell("where java")
+        java_binary = shell("which java")
 
     return os.path.abspath(os.path.join(os.path.dirname(java_binary), "keytool"))
 
@@ -75,7 +83,7 @@ def add_certificate_into_keystore(keytool_binary: str, cacerts: str, alias: str,
 
 
 def shell(command: str) -> str:
-    subprocess.check_output(["/bin/sh", "-c", command]).decode('utf-8').strip()
+    return subprocess.check_output(["/bin/sh", "-c", command]).decode('utf-8').strip()
 
 
 if __name__ == "__main__":
