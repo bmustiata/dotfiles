@@ -76,6 +76,22 @@ def TarGzBinary(
     )
 
 
+def TarZstBinary(
+        name: str,
+        url: str,
+        executable: str,
+        version: str = "",
+        shortcut: Optional[str] = None) -> None:
+    app_definition(
+        name=name,
+        version=version,
+        url=url,
+        executable=executable,
+        archive="tar.zst",
+        shortcut=shortcut,
+    )
+
+
 def ZippedJarExecutable(
         name: str,
         url: str,
@@ -219,6 +235,10 @@ def download_app(
     elif archive == "tar.gz":
         subprocess.check_call([
             "tar", "-C", output_folder, "-zxf", download_file
+        ])
+    elif archive == "tar.zst":
+        subprocess.check_call([
+            "tar", "-C", output_folder, "-xaf", download_file
         ])
 
     target_executable = version_format(executable, version)

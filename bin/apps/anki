@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+
+import apps
+
+apps.TarZstBinary(
+    name="anki",
+    url="https://apps.ankiweb.net/downloads/archive/anki-{version}-linux-qt6.tar.zst",
+    version="2.1.60",
+    executable="anki-{version}-linux-qt6/anki",
+)
+
+
