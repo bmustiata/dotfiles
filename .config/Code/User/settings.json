@@ -29,5 +29,4 @@
     "editor.stickyScroll.enabled": true,
     "editor.stickyScroll.maxLineCount": 10,
     "git.openRepositoryInParentFolders": "always",
-    "window.zoomLevel": 2,
 }
