@@ -138,19 +138,20 @@ class ClientDefinition:
 class AgentInstallArgs:
     def __init__(self, **kw) -> None:
         self.agent_version: str = kw["agent_version"]
-        self.target_folder: str = kw["target_folder"]
+        self.target_folder: str = os.path.abspath(kw["target_folder"])
         self.jcp: str = kw["jcp"]
         self.cp: str = kw["cp"]
         self.agent_name: str = kw["agent_name"]
         self.system_name: str = kw["system_name"]
         self.agent_port: str = kw["agent_port"]
         self.zip_file: str = kw["zip_file"]
-        self.depman_delivery_name = kw["depman_delivery_name"]
+        self.depman_delivery_name: str = kw["depman_delivery_name"]
         self.agent_platform: str = kw["agent_platform"]
+        self.client_0: ClientDefinition = ClientDefinition(kw["client_0"])
+        self.client_100: ClientDefinition = ClientDefinition(kw["client_100"])
         self.exact_version: bool = kw["exact_version"]
-        self.client_0 = ClientDefinition(kw["client_0"])
-        self.client_100 = ClientDefinition(kw["client_100"])
-        self.only_config = kw["only_config"]
+        self.only_config: bool = kw["only_config"]
+        self.windows: bool = kw["windows"]
 
 
 default_agent_version = "21.0.5"
@@ -158,14 +159,15 @@ default_jcp = "7YXK0Z2:8443"
 default_cp = "<none>"
 default_agent_name = "UNIX01"
 default_system_name = "AUTOMIC"
-default_port = "<detect>"
+default_agent_port = "<detect>"
 default_zip_file = ""
-default_exact_version = False
 default_target_folder = "."
 default_client_0 = "0/UC/UC/UC"
 default_client_100 = "100/CD/CD/CD"
 default_delivery_name = "Agent_Unix_Linux"
 default_agent_platform = "unix/linux"
+default_exact_version = False
+default_platform_folder = False
 
 
 # cp /pd01/stg/release/AE/21.0.5/+hf.1/Automation.Engine_Agent_Unix_Linux_21_0_5+hf.1.build.1678471799591.zip .
@@ -186,8 +188,8 @@ default_agent_platform = "unix/linux"
               help=f"Automic system name ({default_system_name})",
               default=default_system_name)
 @click.option("--agent-port",
-              help=f"The agent port to use ({default_port})",
-              default=default_port)
+              help=f"The agent port to use ({default_agent_port})",
+              default=default_agent_port)
 @click.option("--zip-file", "--zip", "-z",
               help=f"Don't download the agent, but use instead the zip file with the given name ({default_zip_file})")
 @click.option("--client-0", "-c-0",
@@ -206,9 +208,14 @@ default_agent_platform = "unix/linux"
               help=f"Use the exact version, don't download the latest hotfix available ({default_exact_version})")
 @click.option("--only-config", "--config", "-c", is_flag=True, default=False,
               help="Only run the configuration steps, it assumes everything is unpacked already in the target folder")
+@click.option("--windows", is_flag=True, default=default_platform_folder,
+              help="Assume the files are already unpacked in the archive, so use the platform just a subfolder (for Windows agents)")
 @click.argument("target_folder", default=default_target_folder, nargs=1)
 def main(**kw):
     args = AgentInstallArgs(**kw)
+
+    absolute_target_folder = os.path.abspath(args.target_folder)
+    print(f"target folder: {absolute_target_folder}")
 
     if args.only_config:
         patch_the_config(args)
@@ -246,15 +253,36 @@ def unpack_agent_into_folder(args: AgentInstallArgs) -> None:
     try:
         unzip_file_into_folder(args, temp_folder)
         target_subarchive = find_subarchive_matching_platform(args, temp_folder)
+
+        if args.windows:
+            copy_files(target_subarchive, f"{args.target_folder}/bin")
+            return
+
         untargz_file_into_folder(target_subarchive, args.target_folder)
     finally:
         shutil.rmtree(temp_folder)
+
+
+def copy_files(src_folder: str, dest_folder: str) -> None:
+    """
+    Copies all the files from the source folder into the destination folder
+    """
+    shutil.copytree(src_folder, dest_folder, dirs_exist_ok=True)
 
 
 def find_subarchive_matching_platform(args: AgentInstallArgs, temp_folder: str) -> str:
     """
     Finds the correct agent that we're supposed to install
     """
+    if args.windows:
+        for root, dirs, files in os.walk(temp_folder):
+            for name in dirs:
+                full_name = os.path.join(root, name)
+                if args.agent_platform in full_name:
+                    return full_name
+
+        raise Exception(f"unable to find {args.agent_platform} in {temp_folder}: {files}")
+
     files = glob.glob(f"{temp_folder}/**/*.tar.gz", recursive=True)
     for file in files:
         if args.agent_platform in file:
@@ -266,7 +294,7 @@ def find_subarchive_matching_platform(args: AgentInstallArgs, temp_folder: str) 
 
 def patch_the_config(args: AgentInstallArgs) -> None:
     download_the_certificate(args)
-    open_port = find_an_available_port()
+    open_port = find_an_available_port(args)
     patch_ini_file(args, open_port)
 
 
@@ -289,7 +317,11 @@ def download_the_certificate(args: AgentInstallArgs) -> None:
         f.write(content)
 
 
-def find_an_available_port() -> int:
+def find_an_available_port(args: AgentInstallArgs) -> int:
+    if args.agent_port != default_agent_port:
+        print(f"using passed agent port: {args.agent_port}")
+        return int(args.agent_port)
+
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         for port in range(2100, 3217):
@@ -327,7 +359,10 @@ def patch_ini_file(args: AgentInstallArgs, available_port: int) -> None:
     change_ini_properties(ini_filename, INI_PROPERTIES)
 
 
-def ensure_ini_file_exists(args: AgentInstallArgs):
+def ensure_ini_file_exists(args: AgentInstallArgs) -> str:
+    """
+    Ensures the ini file exists
+    """
     agent_binary_name = find_agent_binary_name(args)
     ini_file_name = get_ini_file_name(args, agent_binary_name)
 
@@ -350,6 +385,9 @@ def find_agent_binary_name(args: AgentInstallArgs) -> str:
         if f.endswith("6m"):
             return f[0:-1]
 
+        if f.endswith("64m"):
+            return f[0:-1]
+
         if f.endswith("6m.exe"):
             return f[0:-5]
 
@@ -357,7 +395,14 @@ def find_agent_binary_name(args: AgentInstallArgs) -> str:
 
 
 def get_ini_file_name(args: AgentInstallArgs, agent_binary_name: str) -> str:
-    return os.path.join(args.target_folder, "bin", f"{agent_binary_name}.ini")
+    bin_folder = os.path.join(args.target_folder, "bin")
+    ini_file_name = f"{agent_binary_name}.ini"
+
+    for f in os.listdir(bin_folder):
+        if f.lower() == ini_file_name.lower():
+            return os.path.join(bin_folder, f)
+
+    return os.path.join(bin_folder, ini_file_name)
 
 
 def find_ori_ini_file_name(args: AgentInstallArgs) -> str:
@@ -454,7 +499,7 @@ def download_remote_file(args: AgentInstallArgs) -> None:
         "delivery_name": args.depman_delivery_name,
     }
 
-    if args.exact_version:
+    if not args.exact_version:
         params["version_string"] = depman_version
     else:
         params["exact_version"] = depman_version

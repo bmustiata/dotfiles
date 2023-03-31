@@ -17,7 +17,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Create a new task
 #
-snippet ui "Create a new usertask" wm
+snippet ht "Create a new human task" wm
 @adhesive.usertask('${1:ask user}')
 def ${2:ui_ask_user}(token: adhesive.Token${3/.+/[/}${3:T}${3/.+/]/}, ui):
 	${0:ui.add_input_text("name")}
