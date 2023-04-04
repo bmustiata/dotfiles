@@ -137,6 +137,7 @@ class ClientDefinition:
 
 class AgentInstallArgs:
     def __init__(self, **kw) -> None:
+        self.bin_folder: str = kw["bin_folder"]
         self.agent_version: str = kw["agent_version"]
         self.target_folder: str = os.path.abspath(kw["target_folder"])
         self.jcp: str = kw["jcp"]
@@ -154,6 +155,7 @@ class AgentInstallArgs:
         self.windows: bool = kw["windows"]
 
 
+default_bin_folder = "bin"
 default_agent_version = "21.0.5"
 default_jcp = "7YXK0Z2:8443"
 default_cp = "<none>"
@@ -204,6 +206,9 @@ default_platform_folder = False
 @click.option("--agent-platform", "--platform",
               help=f"What platform to use for installation (namely the subarchive selection). This is a subpath inside of the main archive that must match ({default_agent_platform}).",
               default=default_agent_platform)
+@click.option("--bin-folder",
+              help="bin folder where the binaries of the agent are supposed to be installed",
+              default=default_bin_folder)
 @click.option("--exact-version", "--exact", is_flag=True, default=default_exact_version,
               help=f"Use the exact version, don't download the latest hotfix available ({default_exact_version})")
 @click.option("--only-config", "--config", "-c", is_flag=True, default=False,
@@ -255,7 +260,7 @@ def unpack_agent_into_folder(args: AgentInstallArgs) -> None:
         target_subarchive = find_subarchive_matching_platform(args, temp_folder)
 
         if args.windows:
-            copy_files(target_subarchive, f"{args.target_folder}/bin")
+            copy_files(target_subarchive, f"{args.target_folder}/{args.bin_folder}")
             return
 
         untargz_file_into_folder(target_subarchive, args.target_folder)
@@ -306,7 +311,7 @@ def download_the_certificate(args: AgentInstallArgs) -> None:
         print(f"agent configured to use old CP {args.cp} so no certificate needs to be downloaded")
         return
 
-    certs_folder = os.path.join(args.target_folder, "bin", "certs")
+    certs_folder = os.path.join(args.target_folder, args.bin_folder, "certs")
     os.makedirs(certs_folder, exist_ok=True)
     cert_file_name = os.path.join(certs_folder, "server.pem")
 
@@ -380,7 +385,7 @@ def find_agent_binary_name(args: AgentInstallArgs) -> str:
     """
     Finds the binary executable name of the agent.
     """
-    found_files: List[str] = os.listdir(os.path.join(args.target_folder, "bin"))
+    found_files: List[str] = os.listdir(os.path.join(args.target_folder, args.bin_folder))
     for f in found_files:
         if f.endswith("6m"):
             return f[0:-1]
@@ -391,11 +396,11 @@ def find_agent_binary_name(args: AgentInstallArgs) -> str:
         if f.endswith("6m.exe"):
             return f[0:-5]
 
-    raise Exception(f"unable to find agent binary name looking in {args.target_folder}/bin")
+    raise Exception(f"unable to find agent binary name looking in {args.target_folder}/{args.bin_folder}")
 
 
 def get_ini_file_name(args: AgentInstallArgs, agent_binary_name: str) -> str:
-    bin_folder = os.path.join(args.target_folder, "bin")
+    bin_folder = os.path.join(args.target_folder, args.bin_folder)
     ini_file_name = f"{agent_binary_name}.ini"
 
     for f in os.listdir(bin_folder):
@@ -409,12 +414,12 @@ def find_ori_ini_file_name(args: AgentInstallArgs) -> str:
     """
     Find the ori.ini file name in the bin folder
     """
-    found_files: List[str] = os.listdir(os.path.join(args.target_folder, "bin"))
+    found_files: List[str] = os.listdir(os.path.join(args.target_folder, args.bin_folder))
     for f in found_files:
         if f.endswith(".ori.ini"):
-            return os.path.join(args.target_folder, "bin", f)
+            return os.path.join(args.target_folder, args.bin_folder, f)
 
-    raise Exception(f"unable to find template ini file (????.ori.ini) in {args.target_folder}/bin")
+    raise Exception(f"unable to find template ini file (????.ori.ini) in {args.target_folder}/{args.bin_folder}")
 
 
 def change_ini_properties(ini_filename: str, ini_properties: Dict[str, str]):
