@@ -93,13 +93,6 @@ def ae_config(token: adhesive.Token[Data], ui) -> None:
     ui.add_default_button(name="direction", title="Create", value="create")
 
 
-@adhesive.usertask('Confirm Settings')
-def ui_confirm_settings(token: adhesive.Token[Data], ui):
-    ui.add_default_button(name="direction", title="Back", value="back")
-    ui.add_default_button(name="direction", title="Only Config", value="config")
-    ui.add_default_button(name="direction", title="Create", value="create")
-
-
 @adhesive.task("Create Agent")
 def create_agent(token: adhesive.Token[Data]) -> None:
     cp = shlex.quote("<none>") if not token.data.cp else token.data.cp
