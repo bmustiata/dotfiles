@@ -44,4 +44,4 @@ template = ~/.gitmessage
 	trustExitCode = false
 	trustExitCode = false
 [core]
-	autocrlf = input
+	autocrlf = false
