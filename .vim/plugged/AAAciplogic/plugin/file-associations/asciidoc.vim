@@ -7,6 +7,15 @@ function! AsciiDocFile()
     nmap J ggVGP:ReplaceLinks<cr>:w<cr>
 endfunction
 
+
+" this function formats code that I can write in grammarly and paste in bulk
+" into vim.
+" some shortcuts are supported to include:
+" images: Image path.to.image[description].   # description is optional
+" source: Include cpp path.to.src.
+" line  : sh: ls -la
+" link  : text(http://...)
+
 function! ReplaceLinks()
 python3 << endpython
 
