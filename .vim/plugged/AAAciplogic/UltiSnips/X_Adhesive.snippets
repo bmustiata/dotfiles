@@ -40,7 +40,7 @@ endsnippet
 # scm.checkout
 #
 snippet checkout "scm.checkout" wm
-scm.checkout(${1:context.workspace})
+scm.checkout(${1:token.workspace})
 endsnippet
 
 #
@@ -65,8 +65,8 @@ endsnippet
 #
 snippet lane "Create a new lane" wm
 @adhesive.lane('${1:lane name}')
-def ${2:lane_function}(context):
-	${0:yield context.workspace}
+def ${2:lane_function}(token):
+	${0:yield token.workspace}
 endsnippet
 
 
@@ -78,8 +78,8 @@ endsnippet
 #
 snippet gw "Create a new complex gateway" wm
 @adhesive.gateway('${1:^apt install (.*)$}')
-def ${2:apt_install}(context${3/.+/, /}${3:package_names}):
-	${0:context.workspace.run(f"""
+def ${2:apt_install}(token${3/.+/, /}${3:package_names}):
+	${0:token.workspace.run(f"""
 		sudo apt install -y {package_names}
 	""")}
 endsnippet
@@ -91,7 +91,7 @@ endsnippet
 # Add a data assignment
 #
 snippet data "Add a data assignment" wm
-context.data.${1:var_name} = ${0:}
+token.data.${1:var_name} = ${0:}
 endsnippet
 
 
@@ -132,7 +132,7 @@ endsnippet
 #
 snippet ssh "Create a ssh workspace" wm
 with ssh.inside(
-		${1:context.workspace},
+		${1:token.workspace},
 		"${2:localhost}"${3/.+/,
 		username="/}${3:root}${3/.+/"/}${4/.+/,
 		key_filename="/}${4:/home/raptor/.ssh/id_rsa}${4/.+/",
@@ -148,7 +148,7 @@ endsnippet
 #
 snippet docker "Create a docker workspace" wm
 with docker.inside(
-	${1:context.workspace},
+	${1:token.workspace},
 	${3/.+/"/}${2:ubuntu:18.04}${3:"}${4/.+/,
 	"/}${4:-v /tmp:/tmp}${4/.+/"/}) as ${5:docker_workspace}:
 	${VISUAL}${0:}
@@ -162,7 +162,7 @@ endsnippet
 # Create a secret
 #
 snippet secret "Create a secret from adhesive.secrets" wm
-with secret(${1:context.workspace},
+with secret(${1:token.workspace},
             "${2:SECRET_NAME}",
             "${3:/secret/location}"):
 	${VISUAL}
@@ -188,6 +188,6 @@ endsnippet
 # Add some kubernetes API
 #
 snippet kube "Add some kubernetes API" wm
-kube = KubeApi(workspace=context.workspace${1/.+/,
+kube = KubeApi(workspace=token.workspace${1/.+/,
                namespace=/}${1:"default"})
 endsnippet
