@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+
+import apps
+
+import apps
+
+
+apps.TarGzBinary(
+    name="traefik",
+    url="https://github.com/traefik/traefik/releases/download/v{version}/traefik_v{version}_linux_amd64.tar.gz",
+    version="2.9.10",
+    executable="traefik",
+)
