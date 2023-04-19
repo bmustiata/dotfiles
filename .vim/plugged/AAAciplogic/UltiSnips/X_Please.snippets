@@ -127,13 +127,43 @@ ${2/.+/  deps=[
 endsnippet
 
 #
-# snippet: gepy
+# snippet: java
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Load germanium java please steps
+#
+snippet java "Load germanium java please steps" wm
+subinclude("@gbs//toolchain/java:java.plz")
+endsnippet
+
+#
+# snippet: node
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Load germanium node please steps
+#
+snippet golang "Load germanium node please steps" wm
+subinclude("@gbs//toolchain/node:node.plz")
+endsnippet
+
+#
+# snippet: golang
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Load germanium python please steps
 #
-snippet gepy "Load germanium python please steps" wm
-subinclude("//build/please:python.plz")
+snippet golang "Load germanium golang please steps" wm
+subinclude("@gbs//toolchain/golang:golang.plz")
+endsnippet
+
+#
+# snippet: python
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Load germanium python please steps
+#
+snippet python "Load germanium python please steps" wm
+subinclude("@gbs//toolchain/python:python.plz")
 endsnippet
 
 #
