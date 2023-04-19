@@ -1,0 +1,5 @@
+commands:
+-  test ! -f .plzconfig.local &&
+    echo [buildconfig] > .plzconfig.local &&
+    echo ge-workspace=$(pwd) >> .plzconfig.local
+
