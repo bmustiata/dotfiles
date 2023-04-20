@@ -142,7 +142,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Load germanium node please steps
 #
-snippet golang "Load germanium node please steps" wm
+snippet node "Load germanium node please steps" wm
 subinclude("@gbs//toolchain/node:node.plz")
 endsnippet
 
@@ -164,6 +164,16 @@ endsnippet
 #
 snippet python "Load germanium python please steps" wm
 subinclude("@gbs//toolchain/python:python.plz")
+endsnippet
+
+#
+# snippet: dev
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Load germanium python please steps
+#
+snippet dev "Load germanium dev please steps" wm
+subinclude("@gbs//dev:dev.plz")
 endsnippet
 
 #
@@ -239,13 +249,13 @@ helm_template(
 endsnippet
 
 #
-# snippet: dev
+# snippet: watch
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Create a dev rule
 #
-snippet dev "Create a dev rule to watch for changes" wm
-${1:subinclude("//_build/dev:dev.plz")}${1/.+/
+snippet watch "Create a dev rule to watch for changes" wm
+${1:subinclude("@gbs//dev:dev.plz")}${1/.+/
 
 /}dev_watch(
   name="${2:dev}",
@@ -279,7 +289,7 @@ endsnippet
 # Run something when developing this app
 #
 snippet devrun "Run something when developing this app" wm
-${1:subinclude("//_build/dev:dev.plz")}${1/.+/
+${1:subinclude("@gbs//dev:dev.plz")}${1/.+/
 
 /}dev_run(
   name="${2:dev-time}",

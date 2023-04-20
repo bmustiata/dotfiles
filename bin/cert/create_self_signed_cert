@@ -88,14 +88,27 @@ def apt_install(token: adhesive.Token[Data]):
         return
 
     token.workspace.run(f"""
-        keytool -importpass \\
-                -alias {shlex.quote(data.java_key_alias)} \\
-                -file {shlex.quote(data.key_file)} \\
-                -keystore {shlex.quote(data.java_keystore_file)} \\
-                -storepass {shlex.quote(data.java_keystore_password)} \\
-                -keypass {shlex.quote(data.java_key_password)} \\
-                -storetype PKCS12 \\
-                -noprompt
+        openssl pkcs12 -export \\
+                -in {data.certificate_file} \\
+                -inkey {data.key_file} \\
+                -name {shlex.quote(data.java_key_alias)} > _server.p12
+
+        keytool -importkeystore \\
+                -srckeystore _server.p12 \\
+                -destkeystore {shlex.quote(data.java_keystore_file)} \\
+                -srcstoretype pkcs12 \\
+                -alias {shlex.quote(data.java_key_alias)}
+
+        rm _server.p12
+
+#        keytool -importpass \\
+#                -alias {shlex.quote(data.java_key_alias)} \\
+#                -file {shlex.quote(data.key_file)} \\
+#                -keystore {shlex.quote(data.java_keystore_file)} \\
+#                -storepass {shlex.quote(data.java_keystore_password)} \\
+#                -keypass {shlex.quote(data.java_key_password)} \\
+#                -storetype PKCS12 \\
+#                -noprompt
     """)
 
 adhesive.build()
