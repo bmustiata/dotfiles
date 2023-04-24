@@ -208,6 +208,7 @@ hi! link typescriptBraces GrayShade4Bold
 
 hi! link vimGroup GrayShade4
 hi! link vimGroupName GrayShade4
+hi! link NonText GrayShade1
 
 hi! link yamlFlowIndicator GrayShade8Bold
 
@@ -313,7 +314,6 @@ hi! link typescriptDecorators YellowShade0Italic
 " vim source, NonText are blocks of different source code
 hi! link vimFunction YellowShade0
 hi! link vimUserFunc YellowShade0
-hi! link NonText YellowShade0Bold
 
 hi! link vueSurroundingTag YellowShade0
 
