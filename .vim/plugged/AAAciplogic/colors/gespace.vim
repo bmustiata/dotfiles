@@ -5,6 +5,10 @@ if version > 580
   endif
 endif
 
+if (has("termguicolors"))
+  set termguicolors
+endif
+
 set t_Co=256
 
 if !empty($GESPACE_THEME)
