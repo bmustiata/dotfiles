@@ -114,8 +114,17 @@ function! TodoCoolCheckboxes()
 endfunction
 command TodoCoolCheckboxes call TodoCoolCheckboxes()
 
+" FIXME: do I still use syntastic for anything?
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 
+" easy align?
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
+
+" allow resizing splits with the mouse like a normal person
+" a = all
+" n = normal mode
+" v = visual mode
+" i = insert mode
+:set mouse=a
 
