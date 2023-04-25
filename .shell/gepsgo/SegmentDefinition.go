@@ -7,14 +7,14 @@ const SEPARATOR_THIN = '\uE0B1'
 
 type SegmentDefinition struct {
 	icon string
-	fg   int64
-	bg   int64
+	fg   Color
+	bg   Color
 }
 
 /**
  * Create a segment definition for printing on the screen.
  */
-func segment(icon string, fg, bg int64) SegmentDefinition {
+func segment(icon string, fg, bg Color) SegmentDefinition {
 	return SegmentDefinition{
 		icon: icon,
 		fg:   fg,
@@ -24,12 +24,12 @@ func segment(icon string, fg, bg int64) SegmentDefinition {
 
 func (this SegmentDefinition) write(value string) {
 	// foreground/background set
-	if this.fg >= 0 {
-		fmt.Printf("\033[38;05;%dm", this.fg)
+	if this.fg != "" {
+		fmt.Printf("\033[38;05;%sm", this.fg)
 	}
 
-	if this.bg >= 0 {
-		fmt.Printf("\033[48;05;%dm", this.bg)
+	if this.bg != "" {
+		fmt.Printf("\033[48;05;%sm", this.bg)
 	}
 
 	fmt.Print(value)

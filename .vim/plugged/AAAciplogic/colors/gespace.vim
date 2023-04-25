@@ -29,22 +29,23 @@ if &g:background=="light"
   " vim UI
   " general
   hi Normal guifg=#121212 guibg=#e4e4e4 guisp=NONE gui=NONE ctermfg=233 ctermbg=254 cterm=NONE
-  hi LineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi LineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
   hi Visual guifg=#121212 guibg=#52a4c8 guisp=NONE gui=NONE ctermfg=233 ctermbg=74 cterm=NONE
   " gutter + line number
-  hi CursorLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=233 ctermbg=252 cterm=bold
-  hi SignColumn guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-  hi GitGutterAdd guifg=#00d700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
-  hi GitGutterAddLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-  hi GitGutterDelete guifg=#de0000 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
-  hi GitGutterDeleteLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-  hi GitGutterChangeDeleteLineNr guifg=#121212 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-  hi GitGutterChange guifg=#ff8700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
-  hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#bcbcbc guisp=NONE gui=NONE ctermfg=254 ctermbg=252 cterm=NONE
-  hi LspErrorText guifg=#de0000 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
-  hi LspWarningText guifg=#ff8700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
-  hi LspInformationText guifg=#00d700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
-  hi LspHintText guifg=#ff8700 guibg=#bcbcbc guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
+  hi CursorLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=233 ctermbg=252 cterm=bold
+  hi SignColumn guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterAdd guifg=#00d700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
+  hi GitGutterAddLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterDelete guifg=#de0000 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
+  hi GitGutterDeleteLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterChangeDeleteLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterChange guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
+  hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=254 ctermbg=252 cterm=NONE
+  hi LspErrorText guifg=#de0000 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
+  hi LspWarningText guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
+  hi LspInformationText guifg=#00d700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
+  hi LspHintText guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
+  hi LspCodeActionText guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
   " menu + split
   hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
   hi PMenu guifg=#e4e4e4 guibg=#444444 guisp=NONE gui=NONE ctermfg=254 ctermbg=238 cterm=NONE
@@ -208,7 +209,7 @@ hi! link typescriptBraces GrayShade4Bold
 
 hi! link vimGroup GrayShade4
 hi! link vimGroupName GrayShade4
-hi! link NonText GrayShade1
+hi! link NonText GrayShade2
 
 hi! link yamlFlowIndicator GrayShade8Bold
 
