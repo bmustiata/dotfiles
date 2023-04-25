@@ -4,10 +4,12 @@ BYOBU_ACCENT="\#52a4c8"
 BYOBU_HIGHLIGHT="\#52a4c8"
 MONOCHROME=
 
+# in here we just abuse the color map so all we have is the dark
+# blue and white for all the plugins.
 color_map() {
         case "$1" in
                 # "k") _RET="black" ;;
-                "k") _RET="\#e4e4e4" ;;
+                "k") _RET="\#121212" ;;
                 # "r") _RET="red" ;;
                 "r") _RET="\#ae0000" ;;
                 # "g") _RET="green" ;;
