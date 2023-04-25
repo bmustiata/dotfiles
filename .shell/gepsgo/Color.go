@@ -15,7 +15,6 @@ type Color struct {
 func color(value string) Color {
 	r := regexp.MustCompilePOSIX("#?([0-9a-f]{2,2})([0-9a-f]{2,2})([0-9a-f]{2,2})")
 	m := r.FindStringSubmatch(value)
-	fmt.Println(m)
 
 	if m == nil {
 		e := fmt.Errorf("cannot parse %s as a color", value)
@@ -24,12 +23,15 @@ func color(value string) Color {
 
 	result := Color{}
 
-	red, _ := strconv.ParseUint(m[1], 16, 8)
-	result.r = uint8(red)
-	green, _ := strconv.ParseUint(m[2], 16, 8)
-	result.g = uint8(green)
-	blue, _ := strconv.ParseUint(m[3], 16, 8)
-	result.b = uint8(blue)
+	result.isDefined = true
+	result.r = colorFromGroup(m, 1)
+	result.g = colorFromGroup(m, 2)
+	result.b = colorFromGroup(m, 3)
 
 	return result
+}
+
+func colorFromGroup(m []string, index int) uint8 {
+	red, _ := strconv.ParseUint(m[index], 16, 8)
+	return uint8(red)
 }

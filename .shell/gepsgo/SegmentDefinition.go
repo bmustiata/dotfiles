@@ -25,11 +25,11 @@ func segment(icon string, fg, bg Color) SegmentDefinition {
 func (this SegmentDefinition) write(value string) {
 	// foreground/background set
 	if this.fg.isDefined {
-		fmt.Printf("\033[38;05;%d;%d;%dm", this.fg.r, this.fg.g, this.fg.b)
+		fmt.Printf("\033[38;2;%d;%d;%dm", this.fg.r, this.fg.g, this.fg.b)
 	}
 
 	if this.bg.isDefined {
-		fmt.Printf("\033[48;05;%d;%d;%dm", this.bg.r, this.bg.g, this.bg.b)
+		fmt.Printf("\033[48;2;%d;%d;%dm", this.bg.r, this.bg.g, this.bg.b)
 	}
 
 	fmt.Print(value)
