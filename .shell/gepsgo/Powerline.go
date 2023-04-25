@@ -40,7 +40,7 @@ func (this *Powerline) closeSegment() {
 
 	SegmentDefinition{
 		fg: this.lastSegmentColor.bg,
-		bg: -1,
+		bg: Color{},
 	}.write(string(SEPARATOR))
 }
 
