@@ -5,11 +5,12 @@ if version > 580
   endif
 endif
 
+set t_Co=256
+
+" we favor the true color scheme
 if (has("termguicolors"))
   set termguicolors
 endif
-
-set t_Co=256
 
 if !empty($GESPACE_THEME)
   if $GESPACE_THEME == "dark"
@@ -73,10 +74,12 @@ if &g:background=="light"
   hi GreenShade2 guifg=#56e156 guibg=NONE guisp=NONE gui=NONE ctermfg=77 ctermbg=NONE cterm=NONE
 
   hi BlueShade0 guifg=#034d6d guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
+  hi BlueShade0Bold guifg=#034d6d guibg=NONE guisp=NONE gui=bold ctermfg=23 ctermbg=NONE cterm=bold
   hi BlueShade1 guifg=#05638c guibg=NONE guisp=NONE gui=NONE ctermfg=24 ctermbg=NONE cterm=NONE
   hi BlueShade1Bold guifg=#05638c guibg=NONE guisp=NONE gui=bold ctermfg=24 ctermbg=NONE cterm=bold
   hi BlueShade2 guifg=#52a4c8 guibg=NONE guisp=NONE gui=NONE ctermfg=74 ctermbg=NONE cterm=NONE
   hi BlueShade3 guifg=#0881b5 guibg=NONE guisp=NONE gui=NONE ctermfg=31 ctermbg=NONE cterm=NONE
+  hi BlueShade3Bold guifg=#0881b5 guibg=NONE guisp=NONE gui=NONE ctermfg=31 ctermbg=NONE cterm=bold
 
   hi YellowShade0 guifg=#ae5c00 guibg=NONE guisp=NONE gui=NONE ctermfg=130 ctermbg=NONE cterm=NONE
   hi YellowShade0Bold guifg=#ae5c00 guibg=NONE guisp=NONE gui=bold ctermfg=130 ctermbg=NONE cterm=bold
@@ -140,6 +143,7 @@ else
   hi BlueShade1Bold guifg=#52a4c8 guibg=NONE guisp=NONE gui=bold ctermfg=74 ctermbg=NONE cterm=bold
   hi BlueShade2 guifg=#05638c guibg=NONE guisp=NONE gui=NONE ctermfg=24 ctermbg=NONE cterm=NONE
   hi BlueShade3 guifg=#034d6d guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=NONE
+  hi BlueShade3Bold guifg=#034d6d guibg=NONE guisp=NONE gui=NONE ctermfg=23 ctermbg=NONE cterm=bold
 
   hi YellowShade0 guifg=#ffb562 guibg=NONE guisp=NONE gui=NONE ctermfg=215 ctermbg=NONE cterm=NONE
   hi YellowShade0Bold guifg=#ffb562 guibg=NONE guisp=NONE gui=bold ctermfg=215 ctermbg=NONE cterm=bold
@@ -153,7 +157,7 @@ else
 endif
 
 " -------------------------------------------------------------------------
-" gray
+" gray \#cccccc
 " -------------------------------------------------------------------------
 hi! link SpecialComment GrayShade4Italic
 hi! link Comment GrayShade3Italic
@@ -220,7 +224,7 @@ hi! link xmlNamespace GrayShade4
 hi! link xmlAttribPunct GrayShade2
 
 " -------------------------------------------------------------------------
-" green
+" green \#2dda2d
 " -------------------------------------------------------------------------
 hi! link Constant GreenShade0
 hi! link Special GreenShade1Bold
@@ -243,7 +247,7 @@ hi! link NERDTreeExecFile GreenShade0
 hi! link vimHiAttrib GreenShade0
 
 " -------------------------------------------------------------------------
-" blue
+" blue \#2e90bb
 " -------------------------------------------------------------------------
 hi! link Identifier BlueShade1
 hi! link Label BlueShade1
@@ -271,7 +275,7 @@ hi! link jsonKeyword BlueShade1
 hi! link htmlArg BlueShade1
 
 " nerdtree
-hi! link Directory BlueShade0Bold
+hi! link Directory BlueShade1Bold
 hi! link NERDTreeDir Directory
 hi! link NERDTreeNodeDelimiters Directory
 hi! link NERDTreeLinkFile BlueShade3
@@ -285,7 +289,7 @@ hi! link yamlKeyValueDelimiter BlueShade1
 hi! link xmlAttrib BlueShade1
 
 " -------------------------------------------------------------------------
-" yellow
+" yellow  \#ffa035
 " -------------------------------------------------------------------------
 
 hi! link PreProc YellowShade0
@@ -310,6 +314,8 @@ hi! link pythonFunction YellowShade0Bold
 hi! link pythonDecorator YellowShade0Italic
 hi! link pythonDecoratorName YellowShade0Italic
 
+hi! link shFunction YellowShade0Bold
+
 hi! link typescriptDecorators YellowShade0Italic
 
 " vim source, NonText are blocks of different source code
@@ -319,7 +325,7 @@ hi! link vimUserFunc YellowShade0
 hi! link vueSurroundingTag YellowShade0
 
 " -------------------------------------------------------------------------
-" red
+" red \#ff3535
 " -------------------------------------------------------------------------
 
 hi! link Todo RedShade2
