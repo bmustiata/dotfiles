@@ -45,3 +45,7 @@ template = ~/.gitmessage
 	trustExitCode = false
 [core]
 	autocrlf = false
+[color "diff"]
+	meta = 130
+	old = 124
+	new = 77
