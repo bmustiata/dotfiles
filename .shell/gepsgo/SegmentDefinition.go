@@ -14,11 +14,11 @@ type SegmentDefinition struct {
 /**
  * Create a segment definition for printing on the screen.
  */
-func segment(icon string, fg, bg Color) SegmentDefinition {
+func segment(icon, fg, bg string) SegmentDefinition {
 	return SegmentDefinition{
 		icon: icon,
-		fg:   fg,
-		bg:   bg,
+		fg:   color(fg),
+		bg:   color(bg),
 	}
 }
 

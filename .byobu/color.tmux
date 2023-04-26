@@ -1,7 +1,7 @@
-BYOBU_LIGHT="\#e4e4e4"
-BYOBU_DARK="\#034d6d"
-BYOBU_ACCENT="\#52a4c8"
-BYOBU_HIGHLIGHT="\#52a4c8"
+BYOBU_LIGHT="\#e4e4e4"       # white
+BYOBU_DARK="\#034D6D"        # blue0
+BYOBU_ACCENT="\#2E90BB"      # blue3
+BYOBU_HIGHLIGHT="\#2E90BB"   # blue3
 MONOCHROME=
 
 # in here we just abuse the color map so all we have is the dark
@@ -47,3 +47,4 @@ color_map() {
         esac
 }
 
+# vi ft=bash

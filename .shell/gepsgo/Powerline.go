@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 /**
  * Permits writing a powerline string for use in the command line.
  */
@@ -55,4 +57,6 @@ func (this *Powerline) addEnter() {
 
 	this.segmentStarted = false
 	this.closeSegment()
+
+	fmt.Println()
 }
