@@ -13,7 +13,10 @@ files_to_skip = {
     ".git",
     ".hg",
     ".ssh",
-    ".svn"
+    ".svn",
+    ".mypy_cache",
+    "plz-out",
+    "__pycache__",
 }
 ignored_folder = None
 
