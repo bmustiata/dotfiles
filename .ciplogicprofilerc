@@ -58,7 +58,18 @@ alias npmi="npm install --save -E"
 alias npmd="npm install --save-dev -E"
 alias npmg="npm install -g"
 
-alias cddot="cd $(dirname $(readlink -f ${HOME}/.ciplogicprofilerc))"
+cddot() {
+    DOT_FOLDER=$(dirname $(readlink -f ${HOME}/.ciplogicprofilerc))
+    if [[ "$1" == "" ]]; then
+        cd $DOT_FOLDER
+        return
+    fi
+
+    TARGET_FOLDER=$(readlink -f $1)
+    # remove from the TARGET_FOLDER the $HOME part, it includes the `/`
+    # then concat the dot folder with the target folder
+    cd $DOT_FOLDER${TARGET_FOLDER#*$HOME}
+}
 
 alias ap="ansible-playbook"
 alias a="ansible"

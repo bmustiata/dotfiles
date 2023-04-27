@@ -227,6 +227,7 @@ hi! link xmlAttribPunct GrayShade2
 " green \#2dda2d
 " -------------------------------------------------------------------------
 hi! link Constant GreenShade0
+hi! link typescriptDecorator YellowShade0Bold
 hi! link Special GreenShade1Bold
 
 hi! link cssAttrRegion GreenShade0
@@ -340,7 +341,6 @@ hi! link javaScriptMember RedShade1
 
 hi! link vimOption RedShade1
 hi! link vimEnvVar RedShade1Italic
-
 
 let g:colors_name = "gespace"
 
