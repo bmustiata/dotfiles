@@ -215,12 +215,12 @@ else
   hi GitGutterDelete guifg=#de0000 guibg=#262626 guisp=NONE gui=bold ctermfg=160 ctermbg=235 cterm=bold
   hi GitGutterDeleteLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
   hi GitGutterChangeDeleteLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-  hi GitGutterChange guifg=#ff8700 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
+  hi GitGutterChange guifg=#ae5c00 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
   hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
   hi LspErrorText guifg=#de0000 guibg=#262626 guisp=NONE gui=bold ctermfg=160 ctermbg=235 cterm=bold
-  hi LspWarningText guifg=#ff8700 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
+  hi LspWarningText guifg=#ae5c00 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
   hi LspInformationText guifg=#56e156 guibg=#262626 guisp=NONE gui=NONE ctermfg=77 ctermbg=235 cterm=NONE
-  hi LspHintText guifg=#ff8700 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
+  hi LspHintText guifg=#ae5c00 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
   " menu + split
   hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
   hi PMenu guifg=#e4e4e4 guibg=#444444 guisp=NONE gui=NONE ctermfg=254 ctermbg=238 cterm=NONE
@@ -229,36 +229,34 @@ endif
 
 " normal text stays the same, keywords are roughly normal text
 " immovable things are green - constants, static fields, singletons
-" local variables are blue
+" local variables, attributes of data (xml, yaml) are blue
 " instance variables, and active state is red
-" functions, decorators, classes, important names are brown
+" functions, decorators, classes, processors, important names are brown
 
 " normal text
-hi! link GeStatement GeBlack
-hi! link GeStatementSpecial GeBlackBold
+hi! link GeKeyword GeGray1Bold
 
 " comments are distracting, so they're gray
 hi! link GeComment GeGray3Italic
 hi! link GeCommentSpecial GeGray3BoldItalic
 
 " immovable things
-hi! link GeConstant GeGreen1
-hi! link GeConstantSpecial GeGreen0
+hi! link GeConstant GeGreen0
+hi! link GeConstantSpecial GeGreen0Bold
 
 " state
-hi! link GeField GeRed0
-hi! link GeFieldItalic GeRed0Italic
-hi! link GeFieldBold GeRed0Bold
+hi! link GeState GeRed0
+hi! link GeStateItalic GeRed0Italic
+hi! link GeStateBold GeRed0Bold
 
 " locals
-hi! link GeLocalField GeBlue0
-hi! link GeLocalFieldItalic GeBlue0Italic
-hi! link GeLocalFieldBold GeBlue0Bold
+hi! link GeLocal GeBlue0
+hi! link GeLocalItalic GeBlue0Italic
+hi! link GeLocalBold GeBlue0Bold
 
 " important things
-hi! link GeFunction GeBrown0Bold
-hi! link GeDecorator GeBrown0Italic
-hi! link GeClass GeBrown0Bold
+hi! link GeTitle GeBrown0Bold
+hi! link GeProcessor GeBrown0Italic
 
 " -------------------------------------------------------------------------
 " vim core / all apps
@@ -266,33 +264,24 @@ hi! link GeClass GeBrown0Bold
 hi! link SpecialComment GeCommentSpecial
 hi! link Comment GeComment
 hi! link Quote GeComment
-hi! link Keyword GeGray5Bold
+hi! link Keyword GeKeyword
 hi! link Function GeFunction
 hi! link Structure GeFunction
-hi! link Operator GeGray0Bold
-hi! link Statement GeStatement
-hi! link Include GeGray0Bold
-hi! link Type GeGray0
+hi! link Operator GeKeyword
+hi! link Statement GeKeyword
+hi! link Include GeKeyword
+hi! link Type GeKeyword
 hi! link Constant GeConstant
 hi! link Special GeConstantSpecial
 hi! link String GeConstant
-
-
-" -------------------------------------------------------------------------
-" vim
-" -------------------------------------------------------------------------
-hi! link vimCommand GeStatementSpecial
-hi! link vimHiBang GeStatementSpecial
-hi! link vimHiGroup GeField
-hi! link vimHiTerm GeLocalField
-hi! link vimGroup GeField
-hi! link vimFunction GeFunction
-hi! link vimUserFunc GeFunction
-hi! link vueSurroundingTag GeFunction
-hi! link vimOption GeField
-hi! link vimEnvVar GeFieldItalic
-hi! link vimHiAttrib GeConstant
-
+hi! link NonText GeBlack
+hi! link PreProc GeProcessor
+hi! link Tag GeTitle
+hi! link Title GeTitle
+hi! link Todo GeRed0
+hi! link Directory GeBlue0Bold
+hi! link Identifier GeLocal
+hi! link Label GeLocal
 
 " -------------------------------------------------------------------------
 " gray \#cccccc
@@ -305,10 +294,6 @@ hi! link gitcommitSummary GeGray6
 hi! link groovyDocTags SpecialComment
 hi! link groovyJDKBuiltin GeGray4Bold
 
-hi! link htmlTagName GeGray6Bold
-hi! link htmlTag GeGray6Bold
-hi! link htmlEndTag GeGray6Bold
-
 hi! link javaAnnotation GeGray2
 hi! link javaDocTags GeGray2
 
@@ -320,11 +305,6 @@ hi! link javaScriptLabel GeGray2
 hi! link jsonBraces GeGray2
 hi! link jsonNoise GeGray0
 
-" nerdtree
-hi! link NERDTreeNodeDelimiters GeGray2
-hi! link NERDTreeLinkTarget Comment
-
-hi! link pythonBuiltin GeGray4Bold
 
 hi! link shArithmetic GeGray5
 hi! link shCommandSub GeGray2
@@ -335,15 +315,7 @@ hi! link typescriptGlobalObjects GeGray2
 hi! link typescriptLogicSymbols GeGray4Bold
 hi! link typescriptBraces GeGray4Bold
 
-hi! link NonText GeGray0
-
 hi! link yamlFlowIndicator GeGray6Bold
-
-hi! link xmlTag GeGray6Bold
-hi! link xmlTagName GeGray6Bold
-hi! link xmlEndTag GeGray6Bold
-hi! link xmlNamespace GeGray2
-hi! link xmlAttribPunct GeGray0
 
 " -------------------------------------------------------------------------
 " green \#2dda2d
@@ -363,14 +335,10 @@ hi! link javaScriptNull GreenShade0Italic
 hi! link jsonNull GreenShade0Italic
 
 " nerdtree
-hi! link NERDTreeExecFile GeGreen0
 
 " -------------------------------------------------------------------------
 " blue \#2e90bb
 " -------------------------------------------------------------------------
-hi! link Identifier GeBlue0
-hi! link Label GeBlue0
-
 hi! link cssProp GeBlue0Bold
 hi! link cssDefinition GeBlue0Bold
 hi! link cssStyle GeBlue0Bold
@@ -391,32 +359,16 @@ hi! link gitKeyword Label
 
 hi! link jsonKeyword GeBlue0
 
-hi! link htmlArg GeBlue0
-
-" nerdtree
-hi! link Directory GeBlue0Bold
-hi! link NERDTreeDir Directory
-hi! link NERDTreeNodeDelimiters Directory
-hi! link NERDTreeLinkFile BlueShade3
-
 hi! link yamlBlockMappingKey GeBlue0
 hi! link yamlKeyValueDelimiter GeBlue0
-
-hi! link xmlAttrib GeBlue0
 
 " -------------------------------------------------------------------------
 " yellow  \#ffa035
 " -------------------------------------------------------------------------
 
-hi! link PreProc GeBrown0
-hi! link Tag GeBrown0Bold
-hi! link Title GeBrown0Bold
-
 hi! link gitcommitHeader YellowShade0Bold
 hi! link gitcommitSelectedType YellowShade0
 hi! link gitcommitType YellowShade0
-
-hi! link htmlSpecialTagName YellowShade0
 
 hi! link javaScopeDecl YellowShade0
 hi! link javaType YellowShade0
@@ -425,10 +377,6 @@ hi! link javaStorageClass YellowShade0
 hi! link javaLabel YellowShade0
 
 hi! link pbRPC YellowShade0Bold
-
-hi! link pythonFunction GeBrown0Bold
-hi! link pythonDecorator GeBrown0Italic
-hi! link pythonDecoratorName GeBrown0Italic
 
 hi! link shFunction YellowShade0Bold
 
@@ -439,7 +387,6 @@ hi! link typescriptDecorators YellowShade0Italic
 " red \#ff3535
 " -------------------------------------------------------------------------
 
-hi! link Todo RedShade2
 
 hi! link cssVendor RedShade1
 

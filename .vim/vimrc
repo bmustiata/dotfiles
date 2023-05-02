@@ -58,6 +58,7 @@ Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 " core final init
+Plug 'file://.vim/plugged/zzzgespace'
 Plug 'file://.vim/plugged/zzzciplogic'
 
 call plug#end()

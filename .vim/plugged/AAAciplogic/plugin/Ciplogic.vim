@@ -128,3 +128,5 @@ xmap ga <Plug>(EasyAlign)
 " i = insert mode
 :set mouse=a
 
+:map U :colorscheme gespace
+

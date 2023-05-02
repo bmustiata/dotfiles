@@ -294,6 +294,13 @@ def find_subarchive_matching_platform(args: AgentInstallArgs, temp_folder: str) 
             print(f"using subarchive {file} for platform {args.agent_platform}")
             return file
 
+    # FIXME: does glob support multiple file paths?
+    files = glob.glob(f"{temp_folder}/**/*.tar", recursive=True)
+    for file in files:
+        if args.agent_platform in file:
+            print(f"using subarchive {file} for platform {args.agent_platform}")
+            return file
+
     raise Exception(f"unable to find {args.agent_platform} in {temp_folder}: {files}")
 
 

@@ -6,7 +6,7 @@
 #            background-color: ~/.byobu/color.tmux
 #            foreground-color:
 
-sed -ie 's/color b w k/color b W/g' ip_address
+sed -ie 's/color b w k/color b b Y/g' ip_address
 sed -ie 's/color b M W/color b b W/g' disk_io
 sed -ie 's/color M W/color b W/g' disk_io
 sed -ie 's/color b M W/color b b W/g' network
