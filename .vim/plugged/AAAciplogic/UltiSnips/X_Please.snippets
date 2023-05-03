@@ -257,7 +257,7 @@ endsnippet
 snippet watch "Create a dev rule to watch for changes" wm
 ${1:subinclude("@gbs//dev:dev.plz")}${1/.+/
 
-/}dev_watch(
+/}ge_dev_watch(
   name="${2:dev}",
   deps=[
     "${3://goal-place/gp-web:frontend-dev}",${0:}
@@ -291,7 +291,7 @@ endsnippet
 snippet devrun "Run something when developing this app" wm
 ${1:subinclude("@gbs//dev:dev.plz")}${1/.+/
 
-/}dev_run(
+/}ge_dev_run(
   name="${2:dev-time}",
   cmd="""
     ${3:$(out_exe :time-server)}
