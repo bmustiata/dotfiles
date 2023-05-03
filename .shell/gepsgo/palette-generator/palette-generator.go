@@ -12,10 +12,12 @@ var paletteColors map[string]string = map[string]string{
 	"black":  "#121212",
 	"gray0":  "#262626",
 	"gray1":  "#444444",
-	"gray2":  "#6c6c6c",
-	"gray3":  "#a8a8a8",
-	"gray4":  "#bcbcbc",
-	"gray5":  "#d0d0d0",
+	"gray2":  "#585858",
+	"gray3":  "#6c6c6c",
+	"gray4":  "#8a8a8a",
+	"gray5":  "#a8a8a8",
+	"gray6":  "#bcbcbc",
+	"gray7":  "#d0d0d0",
 	"green0": "#008B00",
 	"green1": "#00B100",
 	"green2": "#00D700",
@@ -47,6 +49,8 @@ var paletteKeys []string = []string{
 	"gray3",
 	"gray4",
 	"gray5",
+	"gray6",
+	"gray7",
 	"green0",
 	"green1",
 	"green2",
@@ -357,7 +361,15 @@ func PrintVimColors() {
 			strings.Title(color_key), c.ToHex(), a_id)
 		fmt.Printf("hi Ge%sItalic guifg=%s guibg=NONE guisp=NONE gui=italic ctermfg=%d ctermbg=NONE cterm=italic\n",
 			strings.Title(color_key), c.ToHex(), a_id)
+		fmt.Printf("hi Ge%sUnderline guifg=%s guibg=NONE guisp=NONE gui=underline ctermfg=%d ctermbg=NONE cterm=underline\n",
+			strings.Title(color_key), c.ToHex(), a_id)
+		fmt.Printf("hi Ge%sBoldUnderline guifg=%s guibg=NONE guisp=NONE gui=bold,underline ctermfg=%d ctermbg=NONE cterm=bold,underline\n",
+			strings.Title(color_key), c.ToHex(), a_id)
+		fmt.Printf("hi Ge%sItalicUnderline guifg=%s guibg=NONE guisp=NONE gui=italic,underline ctermfg=%d ctermbg=NONE cterm=italic,underline\n",
+			strings.Title(color_key), c.ToHex(), a_id)
 		fmt.Printf("hi Ge%sBoldItalic guifg=%s guibg=NONE guisp=NONE gui=bold,italic ctermfg=%d ctermbg=NONE cterm=bold,italic\n",
+			strings.Title(color_key), c.ToHex(), a_id)
+		fmt.Printf("hi Ge%sBoldItalicUnderline guifg=%s guibg=NONE guisp=NONE gui=bold,italic,underline ctermfg=%d ctermbg=NONE cterm=bold,italic,underline\n",
 			strings.Title(color_key), c.ToHex(), a_id)
 	}
 }
@@ -378,5 +390,5 @@ func PrintPalette() {
 }
 
 func main() {
-	PrintPalette()
+	PrintVimColors()
 }
