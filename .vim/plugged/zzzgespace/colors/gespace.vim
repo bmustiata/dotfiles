@@ -233,6 +233,14 @@ endif
 " instance variables, and active state is red
 " functions, decorators, classes, processors, important names are brown
 
+" files are separate for keeping in sync with dir
+hi! link GeFsDirectory GeBlue0Bold
+hi! link GeFsDirectoryLink GeBlue0BoldItalic
+hi! link GeFsDirectoryLinkTarget GeGray1Italic
+hi! link GeFsExecutable GeGreen0Bold
+hi! link GeFsExecutableLink GeGreen0BoldItalic
+hi! link GeFsExecutableLinkTarget GeGray1Italic
+
 " normal text
 hi! link GeKeyword GeGray1Bold
 
@@ -279,7 +287,7 @@ hi! link PreProc GeProcessor
 hi! link Tag GeTitle
 hi! link Title GeTitle
 hi! link Todo GeRed0
-hi! link Directory GeBlue0Bold
+hi! link Directory GeFsDirectory
 hi! link Identifier GeLocal
 hi! link Label GeLocal
 
@@ -387,7 +395,6 @@ hi! link typescriptDecorators YellowShade0Italic
 " red \#ff3535
 " -------------------------------------------------------------------------
 
-
 hi! link cssVendor RedShade1
 
 hi! link diffRemoved RedShade1
@@ -397,4 +404,18 @@ hi! link gitcommitBranch RedShade1
 hi! link javaScriptMember RedShade1
 
 let g:colors_name = "gespace"
+
+" -------------------------------------------------------------------------
+" language section
+" -------------------------------------------------------------------------
+" nerdtree.vim
+hi! link NERDTreeExecFile GeFsExecutable
+hi! link NERDTreeDir GeFsDirectory
+hi! link NERDTreeNodeDelimiters GeFsDirectory
+hi! link NERDTreeOpenable GeFsDirectory
+hi! link NERDTreeCloseable GeFsDirectory
+hi! link NERDTreeUp GeFsDirectoryLink
+hi! link NERDTreeLinkFile GeFsDirectoryLink
+hi! link NERDTreeLinkTarget GeFsExecutableLinkTarget
+hi! link NERDTreeHelp GeComment
 

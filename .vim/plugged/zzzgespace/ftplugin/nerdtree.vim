@@ -1,7 +1,9 @@
-hi! link NERDTreeNodeDelimiters GeGray2
-hi! link NERDTreeLinkTarget Comment
-hi! link NERDTreeExecFile GeGreen0
-hi! link NERDTreeDir Directory
-hi! link NERDTreeNodeDelimiters Directory
-hi! link NERDTreeLinkFile GeBlue1
-
+hi! link NERDTreeExecFile GeFsExecutable
+hi! link NERDTreeDir GeFsDirectory
+hi! link NERDTreeNodeDelimiters GeFsDirectory
+hi! link NERDTreeOpenable GeFsDirectory
+hi! link NERDTreeCloseable GeFsDirectory
+hi! link NERDTreeUp GeFsDirectoryLink
+hi! link NERDTreeLinkFile GeFsDirectoryLink
+hi! link NERDTreeLinkTarget GeFsExecutableLinkTarget
+hi! link NERDTreeHelp GeComment
