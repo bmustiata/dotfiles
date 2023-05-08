@@ -419,14 +419,6 @@ hi! link Label GeLocal
 " -------------------------------------------------------------------------
 hi! link dtDelim Quote
 
-hi! link groovyDocTags SpecialComment
-hi! link groovyJDKBuiltin GeGray4Bold
-
-hi! link javaScriptGlobal GeGray5
-hi! link javaScriptIdentifier GeGray2
-hi! link javaScriptFunction GeGray2
-hi! link javaScriptLabel GeGray2
-
 hi! link shArithmetic GeGray5
 hi! link shCommandSub GeGray2
 
@@ -437,9 +429,6 @@ hi! link shCommandSub GeGray2
 hi! link diffAdded GeGreen0
 
 hi! link gitHash Constant
-
-hi! link javaScriptValue GeGreen0
-hi! link javaScriptNull GreenShade0Italic
 
 " -------------------------------------------------------------------------
 " blue \#2e90bb
@@ -458,8 +447,6 @@ hi! link gitKeyword Label
 " yellow  \#ffa035
 " -------------------------------------------------------------------------
 
-hi! link pbRPC YellowShade0Bold
-
 hi! link shFunction YellowShade0Bold
 
 
@@ -470,8 +457,6 @@ hi! link shFunction YellowShade0Bold
 
 hi! link diffRemoved RedShade1
 
-hi! link javaScriptMember RedShade1
-
 let g:colors_name = "gespace"
 
 " ------------------------------------------- DO NOT EDIT AFTER LINE ------
@@ -479,6 +464,15 @@ let g:colors_name = "gespace"
 "ini
 hi! link dosiniHeader GeTitle
 hi! link dosiniLabel GeLocal
+
+" > javascript.vim
+hi! link javaScriptGlobal GeState
+hi! link javaScriptIdentifier GeState
+hi! link javaScriptFunction GeTitle
+hi! link javaScriptLabel GeComment
+hi! link javaScriptValue GeConstant
+hi! link javaScriptNull GeConstantItalic
+hi! link javaScriptMember GeState
 
 " > vim.vim
 " -------------------------------------------------------------------------
@@ -534,6 +528,13 @@ hi! link javaStorageClass GeKeyword
 hi! link javaLabel GeKeyword
 
 
+" > proto.vim
+hi! link pbRPC YellowShade0Bold
+hi! link pbFloat GeConstant
+hi! link pbStructure GeKeyword
+hi! link pbRPC GeKeyword
+
+
 " > gitconfig.vim
 hi! link gitconfigSection GeTitle
 " > gitcommit.vim
@@ -545,6 +546,12 @@ hi! link gitcommitType GeTitleItalic
 hi! link gitcommitUntrackedFile GeComment
 hi! link gitcommitSummary GeTitle
 hi! link gitcommitBranch GeStateBoldItalic
+
+" > groovy.vim
+hi! link groovyDocTags SpecialComment
+hi! link groovyJDKBuiltin GeKeyword
+hi! link groovyStatement GeKeyword
+
 
 " > html.vim
 hi! link htmlTagName GeNormalBold
@@ -601,7 +608,6 @@ hi! link jsonNoise GeCommentNormal
 
 " > typescript.vim
 hi! link typescriptBraces GeCommentNormal
-
 
 hi! link typescriptReserved GeKeyword
 

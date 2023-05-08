@@ -1,6 +1,5 @@
 hi! link typescriptBraces GeCommentNormal
 
-
 hi! link typescriptReserved GeKeyword
 
 hi! link typescriptFuncKeyword GeTitle
