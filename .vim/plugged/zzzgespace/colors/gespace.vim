@@ -361,7 +361,8 @@ hi! link GeKeywordItalic GeGray1BoldItalic
 " comments are distracting, so they're gray
 hi! link GeComment GeGray2Italic
 hi! link GeCommentNormal GeGray2
-hi! link GeCommentSpecial GeGray2BoldItalic
+hi! link GeCommentBold GeGray2Bold
+hi! link GeCommentBoldItalic GeGray2BoldItalic
 
 " immovable things
 hi! link GeConstant GeGreen0
@@ -421,44 +422,24 @@ hi! link dtDelim Quote
 hi! link groovyDocTags SpecialComment
 hi! link groovyJDKBuiltin GeGray4Bold
 
-hi! link javaAnnotation GeGray2
-hi! link javaDocTags GeGray2
-
 hi! link javaScriptGlobal GeGray5
 hi! link javaScriptIdentifier GeGray2
 hi! link javaScriptFunction GeGray2
 hi! link javaScriptLabel GeGray2
 
-hi! link jsonBraces GeGray2
-hi! link jsonNoise GeGray0
-
-
 hi! link shArithmetic GeGray5
 hi! link shCommandSub GeGray2
 
-hi! link typescriptLabel GeGray2
-hi! link typescriptStorageClass GeGray2
-hi! link typescriptGlobalObjects GeGray2
-hi! link typescriptLogicSymbols GeGray4Bold
-hi! link typescriptBraces GeGray4Bold
-
-hi! link yamlFlowIndicator GeGray6Bold
 
 " -------------------------------------------------------------------------
 " green \#2dda2d
 " -------------------------------------------------------------------------
-hi! link typescriptDecorator YellowShade0Bold
-
 hi! link diffAdded GeGreen0
 
 hi! link gitHash Constant
 
 hi! link javaScriptValue GeGreen0
 hi! link javaScriptNull GreenShade0Italic
-
-hi! link jsonNull GreenShade0Italic
-
-" nerdtree
 
 " -------------------------------------------------------------------------
 " blue \#2e90bb
@@ -471,32 +452,16 @@ hi! link dtStringKey Label
 hi! link dtNumericKey Label
 hi! link dtBooleanKey Label
 
-"ini
-hi! link dosiniHeader Title
-hi! link dosiniLabel Label
-
 hi! link gitKeyword Label
-
-hi! link jsonKeyword GeBlue0
-
-hi! link yamlBlockMappingKey GeBlue1
-hi! link yamlKeyValueDelimiter GeBlue1Bold
 
 " -------------------------------------------------------------------------
 " yellow  \#ffa035
 " -------------------------------------------------------------------------
 
-hi! link javaScopeDecl YellowShade0
-hi! link javaType YellowShade0
-hi! link javaClassDecl YellowShade0
-hi! link javaStorageClass YellowShade0
-hi! link javaLabel YellowShade0
-
 hi! link pbRPC YellowShade0Bold
 
 hi! link shFunction YellowShade0Bold
 
-hi! link typescriptDecorators YellowShade0Italic
 
 " vim source, NonText are blocks of different source code
 " -------------------------------------------------------------------------
@@ -510,6 +475,11 @@ hi! link javaScriptMember RedShade1
 let g:colors_name = "gespace"
 
 " ------------------------------------------- DO NOT EDIT AFTER LINE ------
+" > dosini.vim
+"ini
+hi! link dosiniHeader GeTitle
+hi! link dosiniLabel GeLocal
+
 " > vim.vim
 " -------------------------------------------------------------------------
 " vim
@@ -551,6 +521,19 @@ hi! link cssPseudoClassFn GeState
 hi! link cssPseudoClass GeKeywordItalic
 hi! link cssPseudoClassId GeStateItalic
 hi! link cssAttrComma GeKeyword
+" > java.vim
+hi! link javaAnnotation GeProcessor
+hi! link javaDocTags GeComment
+hi! link javaFold GeComment
+hi! link javaConstant GeConstantItalic
+
+hi! link javaScopeDecl GeKeyword
+hi! link javaType GeKeyword
+hi! link javaClassDecl GeKeyword
+hi! link javaStorageClass GeKeyword
+hi! link javaLabel GeKeyword
+
+
 " > gitconfig.vim
 hi! link gitconfigSection GeTitle
 " > gitcommit.vim
@@ -583,7 +566,7 @@ hi! link NERDTreeExecFile GeFsExecutable
 hi! link NERDTreeDir GeFsDirectory
 hi! link NERDTreeNodeDelimiters GeFsDirectory
 hi! link NERDTreeOpenable GeFsDirectory
-hi! link NERDTreeCloseable GeFsDirectory
+hi! link NERDTreeClosable GeFsDirectory
 hi! link NERDTreeUp GeBlue4Italic
 hi! link NERDTreeLinkFile GeFsDirectoryLink
 hi! link NERDTreeLinkTarget GeFsExecutableLinkTarget
@@ -598,6 +581,38 @@ hi! link pythonDecorator GeProcessor
 hi! link pythonDecoratorName GeProcessor
 
 
+" > yaml.vim
+hi! link yamlFlowIndicator GeCommentNormal
+hi! link yamlBlockMappingKey GeLocal
+hi! link yamlKeyValueDelimiter GeNormal
+hi! link yamlBlockCollectionItemStart GeCommentNormal
+hi! link yamlPlainScalar GeConstant
+hi! link yamlFlowStringDelimiter GeCommentNormal
+
+
+" > json.vim
+hi! link jsonBraces GeCommentNormal
+hi! link jsonNull GeConstantItalic
+hi! link jsonKeyword GeLocal
+
+hi! link jsonNoise GeCommentNormal
+
+
+
+" > typescript.vim
+hi! link typescriptBraces GeCommentNormal
+
+
+hi! link typescriptReserved GeKeyword
+
+hi! link typescriptFuncKeyword GeTitle
+
+hi! link typescriptStorageClass GeKeyword
+hi! link typescriptGlobalObjects GeState
+hi! link typescriptGlobal GeNormal
+hi! link typescriptDocTags GeCommentBoldItalic
+hi! link typescriptDocParam GeNormalItalic
+hi! link typescriptNull GeConstantItalic
 " > xml.vim
 hi! link xmlTag GeComment
 hi! link xmlTagName GeNormalBold

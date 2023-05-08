@@ -4,6 +4,8 @@ call plug#begin('~/.vim/plugged')
 " core init:
 Plug 'file://.vim/plugged/AAAciplogic'
 
+Plug 'altercation/vim-colors-solarized' " the solarized theme
+
 " Cool feature plugins
 Plug 'vim-scripts/guicolorscheme.vim'  " 256 color support
 Plug 'bling/vim-airline'               " cooler status bar

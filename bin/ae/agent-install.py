@@ -403,6 +403,9 @@ def find_agent_binary_name(args: AgentInstallArgs) -> str:
         if f.endswith("6m.exe"):
             return f[0:-5]
 
+        if f.endswith("citx.sh"):
+            return f[0:-3]
+
     raise Exception(f"unable to find agent binary name looking in {args.target_folder}/{args.bin_folder}")
 
 

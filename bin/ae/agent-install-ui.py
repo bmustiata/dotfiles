@@ -46,11 +46,11 @@ def select_platform(token: adhesive.Token[Data], ui) -> None:
 
     if token.data.agent_os == "linux":
         platforms = [
-            "x64",
+            ["x64", "x64"],
         ]
     elif token.data.agent_os == "windows":
         platforms = [
-            "x64",
+            ["x64", "x64"],
         ]
     elif token.data.agent_os == "aix":
         platforms = [
@@ -64,9 +64,16 @@ def select_platform(token: adhesive.Token[Data], ui) -> None:
             ["/x86/", "UI8 Intel"],
             ["/x64/", "SI6 Intel 64-Bit (x64)"],
         ]
+    elif token.data.agent_os == "rapid automation":
+        platforms = [
+            ["/unix/", "unix"],
+            ["/windows/", "windows"],
+        ]
 
     if version.major >= 21 and token.data.agent_os in ("linux", "windows"):
         platforms.append("java")
+
+    platforms.append(["ra", "rapid automation"])
 
     ui.add_combobox(name="agent_platform", title="Platform", values=platforms, value=platforms[0])
 
@@ -140,6 +147,9 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
             else:
                 return ("Agent_Unix_Linux-java", "java")
 
+        if data.agent_platform == "ra":
+            return ("Agent_RA.Core", "unix")
+
         return ("Agent_Unix_Linux", "unix/linux/x64")
 
     if data.agent_os == "aix":
@@ -154,6 +164,9 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
                 return ("Agent_Windows", "java")
             else:
                 return ("Agent_Windows-Java", "java")
+
+        if data.agent_platform == "ra":
+            return ("Agent_RA.Core", "windows")
 
         return ("Agent_Windows", "x64")
 
