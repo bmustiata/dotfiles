@@ -288,7 +288,8 @@ if &g:background=="light"
 " general
 hi Normal guifg=#121212 guibg=#e4e4e4 guisp=NONE gui=NONE ctermfg=233 ctermbg=254 cterm=NONE
 hi LineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-hi Visual guifg=#121212 guibg=#52a4c8 guisp=NONE gui=NONE ctermfg=233 ctermbg=74 cterm=NONE
+" hi Visual guifg=#121212 guibg=#52a4c8 guisp=NONE gui=NONE ctermfg=233 ctermbg=74 cterm=NONE
+hi Visual guifg=#e4e4e4 guibg=#034D6D guisp=NONE gui=NONE ctermfg=233 ctermbg=74 cterm=NONE
 " gutter + line number
 hi CursorLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=233 ctermbg=252 cterm=bold
 hi SignColumn guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
@@ -336,12 +337,14 @@ hi PMenu guifg=#e4e4e4 guibg=#444444 guisp=NONE gui=NONE ctermfg=254 ctermbg=238
 hi PMenuSel guifg=#121212 guibg=#ffaf5f guisp=NONE gui=NONE ctermfg=233 ctermbg=215 cterm=NONE
 endif
 
+
 " normal text stays the same, keywords are roughly normal text
 " immovable things are green - constants, static fields, singletons
 " local variables, attributes of data (xml, yaml) are blue
 " instance variables, and active state is red
 " functions, decorators, classes, processors, important names are brown
 
+if &g:background=="light"
 " files are separate for keeping in sync with dir
 hi! link GeFsDirectory GeBlue1Bold
 hi! link GeFsDirectoryLink GeBlue1BoldItalic
@@ -388,6 +391,57 @@ hi! link GeSubTitleBoldItalic GeBrown0BoldItalic
 hi! link GeProcessor GeBrown0Italic
 
 hi! link GeLink GeBlue0Underline
+else
+" else &g:background=="dark"
+
+" files are separate for keeping in sync with dir
+hi! link GeFsDirectory GeBlue3Bold
+hi! link GeFsDirectoryLink GeBlue3BoldItalic
+hi! link GeFsDirectoryLinkTarget GeGray3Italic
+hi! link GeFsExecutable GeGreen4Bold
+hi! link GeFsExecutableLink GeGreen4BoldItalic
+hi! link GeFsExecutableLinkTarget GeGray3Italic
+
+" normal text
+hi! link GeNormal GeWhite
+hi! link GeNormalBold GeWhiteBold
+hi! link GeNormalItalic GeWhiteItalic
+hi! link GeNormalBoldItalic GeWhiteBoldItalic
+hi! link GeKeyword GeGray5Bold
+hi! link GeKeywordItalic GeGray5BoldItalic
+
+" comments are distracting, so they're gray
+hi! link GeComment GeGray2Italic
+hi! link GeCommentNormal GeGray2
+hi! link GeCommentBold GeGray2Bold
+hi! link GeCommentBoldItalic GeGray2BoldItalic
+
+" immovable things
+hi! link GeConstant GeGreen4
+hi! link GeConstantItalic GeGreen4Italic
+hi! link GeConstantBold GeGreen4Bold
+
+" state
+hi! link GeState GeRed4
+hi! link GeStateItalic GeRed4Italic
+hi! link GeStateBold GeRed4Bold
+hi! link GeStateBoldItalic GeRed4BoldItalic
+
+" locals
+hi! link GeLocal GeBlue4
+hi! link GeLocalItalic GeBlue4Italic
+hi! link GeLocalBold GeBlue4Bold
+
+" important things
+hi! link GeTitle GeBrown4Bold
+hi! link GeSubTitle GeBrown4
+hi! link GeSubTitleItalic GeBrown4Italic
+hi! link GeSubTitleBoldItalic GeBrown4BoldItalic
+hi! link GeProcessor GeBrown4Italic
+
+hi! link GeLink GeBlue4Underline
+
+endif
 
 " -------------------------------------------------------------------------
 " vim core / all apps
@@ -414,52 +468,21 @@ hi! link Directory GeFsDirectory
 hi! link Identifier GeLocal
 hi! link Label GeLocal
 
-" -------------------------------------------------------------------------
-" gray \#cccccc
-" -------------------------------------------------------------------------
-hi! link dtDelim Quote
-
-hi! link shArithmetic GeGray5
-hi! link shCommandSub GeGray2
-
-
-" -------------------------------------------------------------------------
-" green \#2dda2d
-" -------------------------------------------------------------------------
-hi! link diffAdded GeGreen0
-
-hi! link gitHash Constant
-
-" -------------------------------------------------------------------------
-" blue \#2e90bb
-" -------------------------------------------------------------------------
-hi! link dtGroup Title
-hi! link dtLocaleKey Label
-hi! link dtExecKey Label
-hi! link dtTypeKey Label
-hi! link dtStringKey Label
-hi! link dtNumericKey Label
-hi! link dtBooleanKey Label
-
-hi! link gitKeyword Label
-
-" -------------------------------------------------------------------------
-" yellow  \#ffa035
-" -------------------------------------------------------------------------
-
-hi! link shFunction YellowShade0Bold
-
-
-" vim source, NonText are blocks of different source code
-" -------------------------------------------------------------------------
-" red \#ff3535
-" -------------------------------------------------------------------------
-
-hi! link diffRemoved RedShade1
-
 let g:colors_name = "gespace"
 
 " ------------------------------------------- DO NOT EDIT AFTER LINE ------
+" > git.vim
+hi! link diffAdded GeConstant
+
+hi! link diffRemoved GeState
+hi! link diffFile GeTitle
+hi! link diffOldFile GeComment
+hi! link diffNewFile GeComment
+hi! link diffIndexLine GeSubTitleItalic
+hi! link diffLine GeComment
+hi! link diffSubname GeComment
+
+
 " > dosini.vim
 "ini
 hi! link dosiniHeader GeTitle
@@ -535,6 +558,17 @@ hi! link pbStructure GeKeyword
 hi! link pbRPC GeKeyword
 
 
+" > desktop.vim
+hi! link dtDelim Quote
+hi! link dtGroup Title
+hi! link dtLocaleKey Label
+hi! link dtExecKey Label
+hi! link dtTypeKey Label
+hi! link dtStringKey Label
+hi! link dtNumericKey Label
+hi! link dtBooleanKey Label
+
+
 " > gitconfig.vim
 hi! link gitconfigSection GeTitle
 " > gitcommit.vim
@@ -606,6 +640,14 @@ hi! link jsonNoise GeCommentNormal
 
 
 
+" > sh.vim
+hi! link shDerefSimple GeState
+hi! link shVariable GeState
+hi! link shCmdSubRegion GeKeyword
+hi! link shCommandSub GeNormalItalic
+hi! link shOption GeSubTitleItalic
+hi! link shQuote GeConstant
+hi! link shFunction GeTitle
 " > typescript.vim
 hi! link typescriptBraces GeCommentNormal
 
