@@ -347,7 +347,7 @@ endif
 if &g:background=="light"
 " files are separate for keeping in sync with dir
 hi! link GeFsDirectory GeBlue1Bold
-hi! link GeFsDirectoryLink GeBlue1BoldItalic
+hi! link GeFsDirectoryLink GeBrown0Italic
 hi! link GeFsDirectoryLinkTarget GeGray1Italic
 hi! link GeFsExecutable GeGreen0Bold
 hi! link GeFsExecutableLink GeGreen0BoldItalic
@@ -396,7 +396,7 @@ else
 
 " files are separate for keeping in sync with dir
 hi! link GeFsDirectory GeBlue3Bold
-hi! link GeFsDirectoryLink GeBlue3BoldItalic
+hi! link GeFsDirectoryLink GeBrown4Italic
 hi! link GeFsDirectoryLinkTarget GeGray3Italic
 hi! link GeFsExecutable GeGreen4Bold
 hi! link GeFsExecutableLink GeGreen4BoldItalic
@@ -497,6 +497,13 @@ hi! link javaScriptValue GeConstant
 hi! link javaScriptNull GeConstantItalic
 hi! link javaScriptMember GeState
 
+" > markdown.vim
+hi! link markdownCode GeConstant
+hi! link markdownCodeDelimiter GeConstantBold
+hi! link markdownUrl GeLink
+hi! link markdownLinkText GeState
+hi! link markdownLinkDelimiter GeCommentNormal
+hi! link markdownLinkTextDelimiter GeCommentNormal
 " > vim.vim
 " -------------------------------------------------------------------------
 " vim
@@ -513,6 +520,8 @@ hi! link vimOption GeState
 hi! link vimEnvVar GeStateItalic
 hi! link vimHiAttrib GeConstant
 
+" > cpp.vim
+hi! link cLabel GeKeyword
 " > css.vim
 hi! link cssStyle GeLocal
 hi! link cssAttrRegion GeLocalBold
@@ -554,8 +563,9 @@ hi! link javaLabel GeKeyword
 " > proto.vim
 hi! link pbRPC YellowShade0Bold
 hi! link pbFloat GeConstant
-hi! link pbStructure GeKeyword
-hi! link pbRPC GeKeyword
+
+hi! link pbStructure GeTitle
+hi! link pbRPC GeTitle
 
 
 " > desktop.vim
@@ -581,6 +591,8 @@ hi! link gitcommitUntrackedFile GeComment
 hi! link gitcommitSummary GeTitle
 hi! link gitcommitBranch GeStateBoldItalic
 
+" > perl.vim
+hi! link perlSubName GeTitle
 " > groovy.vim
 hi! link groovyDocTags SpecialComment
 hi! link groovyJDKBuiltin GeKeyword
@@ -624,13 +636,18 @@ hi! link pythonDecoratorName GeProcessor
 
 " > yaml.vim
 hi! link yamlFlowIndicator GeCommentNormal
-hi! link yamlBlockMappingKey GeLocal
-hi! link yamlKeyValueDelimiter GeNormal
+hi! link yamlFlowCollection GeCommentNormal
 hi! link yamlBlockCollectionItemStart GeCommentNormal
+hi! link yamlBlockMappingKey GeLocal
+hi! link yamlKeyValueDelimiter GeCommentNormal
 hi! link yamlPlainScalar GeConstant
 hi! link yamlFlowStringDelimiter GeCommentNormal
+hi! link yamlFlowMapping GeComment
 
-
+" > asciidoc.vim
+hi! link asciidocQuotedMonospaced2 GeConstant
+hi! link asciidocMacro GeLink
+hi! link asciidocMacroAttributes GeState
 " > json.vim
 hi! link jsonBraces GeCommentNormal
 hi! link jsonNull GeConstantItalic
