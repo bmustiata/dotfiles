@@ -9,17 +9,21 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-if !empty($GESPACE_THEME)
-    if $GESPACE_THEME == "dark"
-        set background=dark
-    endif
+if !exists("s:gespace_initialized")
+    let s:gespace_initialized = 1
 
-    if $GESPACE_THEME == "light"
-        set background=light
-    endif
+    if !empty($GESPACE_THEME)
+        if $GESPACE_THEME == "dark"
+            set background=dark
+        endif
 
-    if $GESPACE_THEME != "dark" && $GESPACE_THEME != "light"
-        echom printf("GESPACE_THEME environment variable is defined but is not 'dark' or 'light', is: '%s'", $GESPACE_THEME)
+        if $GESPACE_THEME == "light"
+            set background=light
+        endif
+
+        if $GESPACE_THEME != "dark" && $GESPACE_THEME != "light"
+            echom printf("GESPACE_THEME environment variable is defined but is not 'dark' or 'light', is: '%s'", $GESPACE_THEME)
+        endif
     endif
 endif
 
@@ -648,6 +652,11 @@ hi! link yamlFlowMapping GeComment
 hi! link asciidocQuotedMonospaced2 GeConstant
 hi! link asciidocMacro GeLink
 hi! link asciidocMacroAttributes GeState
+hi! link asciidocAttributeList GeComment
+hi! link asciidocListingBlock GeNormalItalic
+hi! link asciidocAdmonition GeSubTitleItalic
+hi! link asciidocURL GeLink
+hi! link asciidocCallout GeSubTitleItalic
 " > json.vim
 hi! link jsonBraces GeCommentNormal
 hi! link jsonNull GeConstantItalic
