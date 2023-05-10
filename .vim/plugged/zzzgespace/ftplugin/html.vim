@@ -7,7 +7,7 @@ hi! link htmlSpecialTagName GeTitle
 hi! link htmlH1 GeTitle
 hi! link htmlH2 GeSubTitle
 hi! link htmlH3 GeSubTitleItalic
-hi! link htmlH4 GeNormalBold
+hi! link htmlH4 GeNormalUnderline
 hi! link htmlH5 GeNormalItalic
 hi! link htmlH6 GeNormal
 

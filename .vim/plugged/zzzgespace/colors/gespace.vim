@@ -288,57 +288,56 @@ hi GeRed4BoldItalicUnderline guifg=#ff6262 guibg=NONE guisp=NONE gui=bold,italic
 " Basic UI Elements
 " -------------------------------------------------------------------------
 if &g:background=="light"
-" vim UI
-" general
-hi Normal guifg=#121212 guibg=#e4e4e4 guisp=NONE gui=NONE ctermfg=233 ctermbg=254 cterm=NONE
-hi LineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-" hi Visual guifg=#121212 guibg=#52a4c8 guisp=NONE gui=NONE ctermfg=233 ctermbg=74 cterm=NONE
-hi Visual guifg=#e4e4e4 guibg=#034D6D guisp=NONE gui=NONE ctermfg=233 ctermbg=74 cterm=NONE
-" gutter + line number
-hi CursorLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=233 ctermbg=252 cterm=bold
-hi SignColumn guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-hi GitGutterAdd guifg=#00d700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
-hi GitGutterAddLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-hi GitGutterDelete guifg=#de0000 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
-hi GitGutterDeleteLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-hi GitGutterChangeDeleteLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
-hi GitGutterChange guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
-hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=254 ctermbg=252 cterm=NONE
-hi LspErrorText guifg=#de0000 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
-hi LspWarningText guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
-hi LspInformationText guifg=#00d700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
-hi LspHintText guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
-hi LspCodeActionText guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
-" menu + split
-hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
-hi PMenu guifg=#e4e4e4 guibg=#444444 guisp=NONE gui=NONE ctermfg=254 ctermbg=238 cterm=NONE
-hi PMenuSel guifg=#000000 guibg=#ffaf5f guisp=NONE gui=NONE ctermfg=0 ctermbg=215 cterm=NONE
-
+  " vim UI
+  " general
+  hi Normal guifg=#121212 guibg=#e4e4e4 guisp=NONE gui=NONE ctermfg=233 ctermbg=254 cterm=NONE
+  hi LineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  " hi Visual guifg=#121212 guibg=#52a4c8 guisp=NONE gui=NONE ctermfg=233 ctermbg=74 cterm=NONE
+  hi Visual guifg=#e4e4e4 guibg=#034D6D guisp=NONE gui=NONE ctermfg=233 ctermbg=74 cterm=NONE
+  " gutter + line number
+  hi CursorLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=233 ctermbg=252 cterm=bold
+  hi SignColumn guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterAdd guifg=#00d700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
+  hi GitGutterAddLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterDelete guifg=#de0000 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
+  hi GitGutterDeleteLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterChangeDeleteLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
+  hi GitGutterChange guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
+  hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=254 ctermbg=252 cterm=NONE
+  hi LspErrorText guifg=#de0000 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
+  hi LspWarningText guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
+  hi LspInformationText guifg=#00d700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
+  hi LspHintText guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
+  hi LspCodeActionText guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
+  " menu + split
+  hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
+  hi PMenu guifg=#e4e4e4 guibg=#444444 guisp=NONE gui=NONE ctermfg=254 ctermbg=238 cterm=NONE
+  hi PMenuSel guifg=#000000 guibg=#ffaf5f guisp=NONE gui=NONE ctermfg=0 ctermbg=215 cterm=NONE
 else
-" background=="dark"
-" vim UI
-" general
-hi Normal guifg=#e4e4e4 guibg=#121212 guisp=NONE gui=NONE ctermfg=254 ctermbg=233 cterm=NONE
-hi LineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-hi Visual guifg=#e4e4e4 guibg=#034d6d guisp=NONE gui=NONE ctermfg=254 ctermbg=23 cterm=NONE
-" gutter + line number
-hi CursorLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=bold ctermfg=254 ctermbg=235 cterm=bold
-hi SignColumn guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-hi GitGutterAdd guifg=#56e156 guibg=#262626 guisp=NONE gui=NONE ctermfg=77 ctermbg=235 cterm=NONE
-hi GitGutterAddLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-hi GitGutterDelete guifg=#de0000 guibg=#262626 guisp=NONE gui=bold ctermfg=160 ctermbg=235 cterm=bold
-hi GitGutterDeleteLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-hi GitGutterChangeDeleteLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-hi GitGutterChange guifg=#ae5c00 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
-hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-hi LspErrorText guifg=#de0000 guibg=#262626 guisp=NONE gui=bold ctermfg=160 ctermbg=235 cterm=bold
-hi LspWarningText guifg=#ae5c00 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
-hi LspInformationText guifg=#56e156 guibg=#262626 guisp=NONE gui=NONE ctermfg=77 ctermbg=235 cterm=NONE
-hi LspHintText guifg=#ae5c00 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
-" menu + split
-hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
-hi PMenu guifg=#e4e4e4 guibg=#444444 guisp=NONE gui=NONE ctermfg=254 ctermbg=238 cterm=NONE
-hi PMenuSel guifg=#121212 guibg=#ffaf5f guisp=NONE gui=NONE ctermfg=233 ctermbg=215 cterm=NONE
+  " background=="dark"
+  " vim UI
+  " general
+  hi Normal guifg=#e4e4e4 guibg=#121212 guisp=NONE gui=NONE ctermfg=254 ctermbg=233 cterm=NONE
+  hi LineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
+  hi Visual guifg=#e4e4e4 guibg=#034d6d guisp=NONE gui=NONE ctermfg=254 ctermbg=23 cterm=NONE
+  " gutter + line number
+  hi CursorLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=bold ctermfg=254 ctermbg=235 cterm=bold
+  hi SignColumn guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
+  hi GitGutterAdd guifg=#56e156 guibg=#262626 guisp=NONE gui=NONE ctermfg=77 ctermbg=235 cterm=NONE
+  hi GitGutterAddLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
+  hi GitGutterDelete guifg=#de0000 guibg=#262626 guisp=NONE gui=bold ctermfg=160 ctermbg=235 cterm=bold
+  hi GitGutterDeleteLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
+  hi GitGutterChangeDeleteLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
+  hi GitGutterChange guifg=#ae5c00 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
+  hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
+  hi LspErrorText guifg=#de0000 guibg=#262626 guisp=NONE gui=bold ctermfg=160 ctermbg=235 cterm=bold
+  hi LspWarningText guifg=#ae5c00 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
+  hi LspInformationText guifg=#56e156 guibg=#262626 guisp=NONE gui=NONE ctermfg=77 ctermbg=235 cterm=NONE
+  hi LspHintText guifg=#ae5c00 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
+  " menu + split
+  hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
+  hi PMenu guifg=#e4e4e4 guibg=#444444 guisp=NONE gui=NONE ctermfg=254 ctermbg=238 cterm=NONE
+  hi PMenuSel guifg=#121212 guibg=#ffaf5f guisp=NONE gui=NONE ctermfg=233 ctermbg=215 cterm=NONE
 endif
 
 
@@ -360,6 +359,7 @@ hi! link GeFsExecutableLinkTarget GeGray1Italic
 " normal text
 hi! link GeNormal GeBlack
 hi! link GeNormalBold GeBlackBold
+hi! link GeNormalUnderline GeBlackUnderline
 hi! link GeNormalItalic GeBlackItalic
 hi! link GeNormalBoldItalic GeBlackBoldItalic
 hi! link GeKeyword GeGray1Bold
@@ -409,6 +409,7 @@ hi! link GeFsExecutableLinkTarget GeGray3Italic
 " normal text
 hi! link GeNormal GeWhite
 hi! link GeNormalBold GeWhiteBold
+hi! link GeNormalUnderline GeWhiteUnderline
 hi! link GeNormalItalic GeWhiteItalic
 hi! link GeNormalBoldItalic GeWhiteBoldItalic
 hi! link GeKeyword GeGray5Bold
@@ -476,57 +477,6 @@ hi! link Label GeLocal
 let g:colors_name = "gespace"
 
 " ------------------------------------------- DO NOT EDIT AFTER LINE ------
-" > git.vim
-hi! link diffAdded GeConstant
-
-hi! link diffRemoved GeState
-hi! link diffFile GeTitle
-hi! link diffOldFile GeComment
-hi! link diffNewFile GeComment
-hi! link diffIndexLine GeSubTitleItalic
-hi! link diffLine GeComment
-hi! link diffSubname GeComment
-
-
-" > dosini.vim
-"ini
-hi! link dosiniHeader GeTitle
-hi! link dosiniLabel GeLocal
-
-" > javascript.vim
-hi! link javaScriptGlobal GeState
-hi! link javaScriptIdentifier GeState
-hi! link javaScriptFunction GeTitle
-hi! link javaScriptLabel GeComment
-hi! link javaScriptValue GeConstant
-hi! link javaScriptNull GeConstantItalic
-hi! link javaScriptMember GeState
-
-" > markdown.vim
-hi! link markdownCode GeConstant
-hi! link markdownCodeDelimiter GeConstantBold
-hi! link markdownUrl GeLink
-hi! link markdownLinkText GeState
-hi! link markdownLinkDelimiter GeCommentNormal
-hi! link markdownLinkTextDelimiter GeCommentNormal
-" > vim.vim
-" -------------------------------------------------------------------------
-" vim
-" -------------------------------------------------------------------------
-hi! link vimCommand GeKeyword
-hi! link vimHiBang GeKeyword
-hi! link vimHiGroup GeLocal
-hi! link vimHiTerm GeLocal
-hi! link vimGroup GeLocal
-hi! link vimFunction GeTitle
-hi! link vimUserFunc GeTitle
-hi! link vueSurroundingTag GeTitle
-hi! link vimOption GeState
-hi! link vimEnvVar GeStateItalic
-hi! link vimHiAttrib GeConstant
-
-" > cpp.vim
-hi! link cLabel GeKeyword
 " > css.vim
 hi! link cssStyle GeLocal
 hi! link cssAttrRegion GeLocalBold
@@ -552,6 +502,90 @@ hi! link cssPseudoClassFn GeState
 hi! link cssPseudoClass GeKeywordItalic
 hi! link cssPseudoClassId GeStateItalic
 hi! link cssAttrComma GeKeyword
+" > gitcommit.vim
+hi! link gitcommitHeader GeSubTitleItalic
+hi! link gitcommitSelectedType GeNormalItalic
+hi! link gitcommitSelectedFile GeConstantItalic
+hi! link gitcommitType GeTitleItalic
+
+hi! link gitcommitUntrackedFile GeComment
+hi! link gitcommitSummary GeTitle
+hi! link gitcommitBranch GeStateBoldItalic
+
+" > gitconfig.vim
+hi! link gitconfigSection GeTitle
+" > python.vim
+" -------------------------------------------------------------------------
+" python
+" -------------------------------------------------------------------------
+hi! link pythonBuiltin GeKeyword
+hi! link pythonFunction GeTitle
+hi! link pythonDecorator GeProcessor
+hi! link pythonDecoratorName GeProcessor
+
+
+" > vim.vim
+" -------------------------------------------------------------------------
+" vim
+" -------------------------------------------------------------------------
+hi! link vimCommand GeKeyword
+hi! link vimHiBang GeKeyword
+hi! link vimHiGroup GeLocal
+hi! link vimHiTerm GeLocal
+hi! link vimGroup GeLocal
+hi! link vimFunction GeTitle
+hi! link vimUserFunc GeTitle
+hi! link vueSurroundingTag GeTitle
+hi! link vimOption GeState
+hi! link vimEnvVar GeStateItalic
+hi! link vimHiAttrib GeConstant
+
+" > xml.vim
+hi! link xmlTag GeComment
+hi! link xmlTagName GeNormalBold
+hi! link xmlEndTag GeComment
+hi! link xmlAttribPunct GeCommentNormal
+hi! link xmlProcessingDelim GeProcessor
+hi! link xmlAttrib GeLocal
+hi! link xmlNamespace GeCommentNormal
+
+hi! link xmlEntity GeConstantBold
+hi! link xmlEntityPunct GeConstantBold
+
+" > desktop.vim
+hi! link dtDelim Quote
+hi! link dtGroup Title
+hi! link dtLocaleKey Label
+hi! link dtExecKey Label
+hi! link dtTypeKey Label
+hi! link dtStringKey Label
+hi! link dtNumericKey Label
+hi! link dtBooleanKey Label
+
+
+" > dosini.vim
+"ini
+hi! link dosiniHeader GeTitle
+hi! link dosiniLabel GeLocal
+
+" > git.vim
+hi! link diffAdded GeConstant
+
+hi! link diffRemoved GeState
+hi! link diffFile GeTitle
+hi! link diffOldFile GeComment
+hi! link diffNewFile GeComment
+hi! link diffIndexLine GeSubTitleItalic
+hi! link diffLine GeComment
+hi! link diffSubname GeComment
+
+
+" > groovy.vim
+hi! link groovyDocTags SpecialComment
+hi! link groovyJDKBuiltin GeKeyword
+hi! link groovyStatement GeKeyword
+
+
 " > java.vim
 hi! link javaAnnotation GeProcessor
 hi! link javaDocTags GeComment
@@ -565,90 +599,45 @@ hi! link javaStorageClass GeKeyword
 hi! link javaLabel GeKeyword
 
 
-" > proto.vim
-hi! link pbRPC YellowShade0Bold
-hi! link pbFloat GeConstant
+" > javascript.vim
+hi! link javaScriptGlobal GeState
+hi! link javaScriptIdentifier GeState
+hi! link javaScriptFunction GeTitle
+hi! link javaScriptLabel GeComment
+hi! link javaScriptValue GeConstant
+hi! link javaScriptNull GeConstantItalic
+hi! link javaScriptMember GeState
 
-hi! link pbStructure GeTitle
-hi! link pbRPC GeTitle
+" > json.vim
+hi! link jsonBraces GeCommentNormal
+hi! link jsonNull GeConstantItalic
+hi! link jsonKeyword GeLocal
 
-
-" > desktop.vim
-hi! link dtDelim Quote
-hi! link dtGroup Title
-hi! link dtLocaleKey Label
-hi! link dtExecKey Label
-hi! link dtTypeKey Label
-hi! link dtStringKey Label
-hi! link dtNumericKey Label
-hi! link dtBooleanKey Label
+hi! link jsonNoise GeCommentNormal
 
 
-" > gitconfig.vim
-hi! link gitconfigSection GeTitle
-" > gitcommit.vim
-hi! link gitcommitHeader GeSubTitleItalic
-hi! link gitcommitSelectedType GeNormalItalic
-hi! link gitcommitSelectedFile GeConstantItalic
-hi! link gitcommitType GeTitleItalic
 
-hi! link gitcommitUntrackedFile GeComment
-hi! link gitcommitSummary GeTitle
-hi! link gitcommitBranch GeStateBoldItalic
+" > sh.vim
+hi! link shDerefSimple GeState
+hi! link shVariable GeState
+hi! link shCmdSubRegion GeKeyword
+hi! link shCommandSub GeNormalItalic
+hi! link shOption GeSubTitleItalic
+hi! link shQuote GeConstant
+hi! link shFunction GeTitle
+" > typescript.vim
+hi! link typescriptBraces GeCommentNormal
 
-" > perl.vim
-hi! link perlSubName GeTitle
-" > groovy.vim
-hi! link groovyDocTags SpecialComment
-hi! link groovyJDKBuiltin GeKeyword
-hi! link groovyStatement GeKeyword
+hi! link typescriptReserved GeKeyword
 
+hi! link typescriptFuncKeyword GeTitle
 
-" > html.vim
-hi! link htmlTagName GeNormalBold
-hi! link htmlTag GeComment
-hi! link htmlEndTag GeComment
-hi! link htmlArg GeLocal
-hi! link htmlSpecialTagName GeTitle
-
-hi! link htmlH1 GeTitle
-hi! link htmlH2 GeSubTitle
-hi! link htmlH3 GeSubTitleItalic
-hi! link htmlH4 GeNormalBold
-hi! link htmlH5 GeNormalItalic
-hi! link htmlH6 GeNormal
-
-hi! link htmlLink GeLink
-" > nerdtree.vim
-hi! link NERDTreeExecFile GeFsExecutable
-hi! link NERDTreeDir GeFsDirectory
-hi! link NERDTreeNodeDelimiters GeFsDirectory
-hi! link NERDTreeOpenable GeFsDirectory
-hi! link NERDTreeClosable GeFsDirectory
-hi! link NERDTreeUp GeBlue4Italic
-hi! link NERDTreeLinkFile GeFsDirectoryLink
-hi! link NERDTreeLinkTarget GeFsExecutableLinkTarget
-hi! link NERDTreeHelp GeComment
-" > python.vim
-" -------------------------------------------------------------------------
-" python
-" -------------------------------------------------------------------------
-hi! link pythonBuiltin GeKeyword
-hi! link pythonFunction GeTitle
-hi! link pythonDecorator GeProcessor
-hi! link pythonDecoratorName GeProcessor
-
-
-" > yaml.vim
-hi! link yamlFlowIndicator GeCommentNormal
-hi! link yamlFlowCollection GeCommentNormal
-hi! link yamlBlockCollectionItemStart GeCommentNormal
-hi! link yamlBlockMappingKey GeLocal
-hi! link yamlKeyValueDelimiter GeCommentNormal
-hi! link yamlPlainScalar GeConstant
-hi! link yamlFlowStringDelimiter GeCommentNormal
-hi! link yamlFlowMapping GeComment
-
+hi! link typescriptStorageClass GeKeyword
+hi! link typescriptGlobalObjects GeState
+hi! link typescriptGlobal GeNormal
+hi! link typescriptDocTags GeCommentBoldItalic
+hi! link typescriptDocParam GeNormalItalic
+hi! link typescriptNull GeConstantItalic
 " > asciidoc.vim
 hi! link asciidocQuotedMonospaced2 GeConstant
 hi! link asciidocMacro GeLink
@@ -684,44 +673,65 @@ endfunction
 
 " call AsciidocEnableSyntaxRanges()
 command! AsciidocEnableSyntaxRanges call AsciidocEnableSyntaxRanges()
-" > json.vim
-hi! link jsonBraces GeCommentNormal
-hi! link jsonNull GeConstantItalic
-hi! link jsonKeyword GeLocal
+" > cpp.vim
+hi! link cLabel GeKeyword
+" > perl.vim
+hi! link perlSubName GeTitle
+" > proto.vim
+hi! link pbRPC YellowShade0Bold
+hi! link pbFloat GeConstant
 
-hi! link jsonNoise GeCommentNormal
+hi! link pbStructure GeTitle
+hi! link pbRPC GeTitle
 
 
+" > yaml.vim
+hi! link yamlFlowIndicator GeCommentNormal
+hi! link yamlFlowCollection GeCommentNormal
+hi! link yamlBlockCollectionItemStart GeCommentNormal
+hi! link yamlBlockMappingKey GeLocal
+hi! link yamlKeyValueDelimiter GeCommentNormal
+hi! link yamlPlainScalar GeConstant
+hi! link yamlFlowStringDelimiter GeCommentNormal
+hi! link yamlFlowMapping GeComment
 
-" > sh.vim
-hi! link shDerefSimple GeState
-hi! link shVariable GeState
-hi! link shCmdSubRegion GeKeyword
-hi! link shCommandSub GeNormalItalic
-hi! link shOption GeSubTitleItalic
-hi! link shQuote GeConstant
-hi! link shFunction GeTitle
-" > typescript.vim
-hi! link typescriptBraces GeCommentNormal
+" > markdown.vim
+hi! link markdownCode GeConstant
+hi! link markdownCodeDelimiter GeConstantBold
+hi! link markdownUrl GeLink
+hi! link markdownLinkText GeState
+hi! link markdownLinkDelimiter GeCommentNormal
+hi! link markdownLinkTextDelimiter GeCommentNormal
 
-hi! link typescriptReserved GeKeyword
+hi! link markdownH1Delimiter htmlH1
+hi! link markdownH2Delimiter htmlH2
+hi! link markdownH3Delimiter htmlH3
+hi! link markdownH4Delimiter htmlH4
+hi! link markdownH5Delimiter htmlH5
+hi! link markdownH6Delimiter htmlH6
+" > html.vim
+hi! link htmlTagName GeNormalBold
+hi! link htmlTag GeComment
+hi! link htmlEndTag GeComment
+hi! link htmlArg GeLocal
+hi! link htmlSpecialTagName GeTitle
 
-hi! link typescriptFuncKeyword GeTitle
+hi! link htmlH1 GeTitle
+hi! link htmlH2 GeSubTitle
+hi! link htmlH3 GeSubTitleItalic
+hi! link htmlH4 GeNormalUnderline
+hi! link htmlH5 GeNormalItalic
+hi! link htmlH6 GeNormal
 
-hi! link typescriptStorageClass GeKeyword
-hi! link typescriptGlobalObjects GeState
-hi! link typescriptGlobal GeNormal
-hi! link typescriptDocTags GeCommentBoldItalic
-hi! link typescriptDocParam GeNormalItalic
-hi! link typescriptNull GeConstantItalic
-" > xml.vim
-hi! link xmlTag GeComment
-hi! link xmlTagName GeNormalBold
-hi! link xmlEndTag GeComment
-hi! link xmlAttribPunct GeCommentNormal
-hi! link xmlProcessingDelim GeProcessor
-hi! link xmlAttrib GeLocal
-hi! link xmlNamespace GeCommentNormal
-
-hi! link xmlEntity GeConstantBold
-hi! link xmlEntityPunct GeConstantBold
+hi! link htmlLink GeLink
+" > nerdtree.vim
+hi! link NERDTreeExecFile GeFsExecutable
+hi! link NERDTreeDir GeFsDirectory
+hi! link NERDTreeNodeDelimiters GeFsDirectory
+hi! link NERDTreeOpenable GeFsDirectory
+hi! link NERDTreeClosable GeFsDirectory
+hi! link NERDTreeUp GeBlue2Italic
+hi! link NERDTreeLinkFile GeFsDirectoryLink
+hi! link NERDTreeLinkTarget GeFsExecutableLinkTarget
+hi! link NERDTreeHelp GeComment
+hi! link NERDTreeCWD GeTitle
