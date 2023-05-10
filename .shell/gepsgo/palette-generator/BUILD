@@ -1,5 +1,5 @@
 subinclude("@gbs//toolchain/golang:golang.plz")
-subinclude("@gbs//dev:dev.plz")
+#subinclude("@gbs//dev:dev.plz")
 
 
 ge_golang_console_binary(
@@ -15,20 +15,20 @@ ge_golang_console_binary(
 # dev-mode
 ###########################################################
 
-ge_dev_run(
-  name="dev",
-  cmd="""
-    $(out_exe :palette-generator)
-  """,
-  deps=[
-    ":palette-generator",
-  ],
-  restart_on_changes=True,
-)
-
-ge_dev_watch(
-  name="watch",
-  deps=[
-    "//gepsgo/palette-generator:dev",
-  ],
-)
+#ge_dev_run(
+#  name="dev",
+#  cmd="""
+#    $(out_exe :palette-generator)
+#  """,
+#  deps=[
+#    ":palette-generator",
+#  ],
+#  restart_on_changes=True,
+#)
+#
+#ge_dev_watch(
+#  name="watch",
+#  deps=[
+#    "//gepsgo/palette-generator:dev",
+#  ],
+#)
