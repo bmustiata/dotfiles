@@ -8,4 +8,5 @@ hi! link NERDTreeLinkFile GeFsDirectoryLink
 hi! link NERDTreeLinkTarget GeFsExecutableLinkTarget
 hi! link NERDTreeHelp GeComment
 hi! link NERDTreeCWD GeTitle
+hi! link NERDTreeCurrentNode GeTitle
 

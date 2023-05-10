@@ -313,6 +313,13 @@ if &g:background=="light"
   hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
   hi PMenu guifg=#e4e4e4 guibg=#444444 guisp=NONE gui=NONE ctermfg=254 ctermbg=238 cterm=NONE
   hi PMenuSel guifg=#000000 guibg=#ffaf5f guisp=NONE gui=NONE ctermfg=0 ctermbg=215 cterm=NONE
+  " nerdtree selection + cursor line
+  hi CursorLine guifg=#e4e4e4 guibg=#05638C
+  " vim tabs
+  " vim tabs
+  hi TabLineFill guibg=#e4e4e4 guifg=#444444
+  hi TabLineSel guibg=#e4e4e4 guifg=#AE5C00 gui=bold guisp=NONE
+  hi TabLine guibg=#444444 guifg=#e4e4e4 gui=NONE guisp=NONE
 else
   " background=="dark"
   " vim UI
@@ -338,6 +345,12 @@ else
   hi VertSplit guifg=#444444 guibg=NONE guisp=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
   hi PMenu guifg=#e4e4e4 guibg=#444444 guisp=NONE gui=NONE ctermfg=254 ctermbg=238 cterm=NONE
   hi PMenuSel guifg=#121212 guibg=#ffaf5f guisp=NONE gui=NONE ctermfg=233 ctermbg=215 cterm=NONE
+  " nerdtree selection + cursor line
+  hi CursorLine guifg=#e4e4e4 guibg=#034D6D
+  " vim tabs
+  hi TabLineFill guibg=#121212 guifg=#444444
+  hi TabLineSel guibg=#121212 guifg=#FFB562 gui=bold guisp=NONE
+  hi TabLine guibg=#444444 guifg=#e4e4e4 gui=NONE guisp=NONE
 endif
 
 
@@ -349,8 +362,8 @@ endif
 
 if &g:background=="light"
 " files are separate for keeping in sync with dir
-hi! link GeFsDirectory GeBlue1Bold
-hi! link GeFsDirectoryLink GeBrown0Italic
+hi! link GeFsDirectory GeBlue0Bold
+hi! link GeFsDirectoryLink GeBlue2
 hi! link GeFsDirectoryLinkTarget GeGray1Italic
 hi! link GeFsExecutable GeGreen0Bold
 hi! link GeFsExecutableLink GeGreen0BoldItalic
@@ -383,9 +396,9 @@ hi! link GeStateBold GeRed0Bold
 hi! link GeStateBoldItalic GeRed0BoldItalic
 
 " locals
-hi! link GeLocal GeBlue1
-hi! link GeLocalItalic GeBlue1Italic
-hi! link GeLocalBold GeBlue1Bold
+hi! link GeLocal GeBlue0Bold
+hi! link GeLocalItalic GeBlue0Italic
+hi! link GeLocalBold GeBlue0Bold
 
 " important things
 hi! link GeTitle GeBrown0Bold
@@ -399,8 +412,8 @@ else
 " else &g:background=="dark"
 
 " files are separate for keeping in sync with dir
-hi! link GeFsDirectory GeBlue3Bold
-hi! link GeFsDirectoryLink GeBrown4Italic
+hi! link GeFsDirectory GeBlue4Bold
+hi! link GeFsDirectoryLink GeBlue2Italic
 hi! link GeFsDirectoryLinkTarget GeGray3Italic
 hi! link GeFsExecutable GeGreen4Bold
 hi! link GeFsExecutableLink GeGreen4BoldItalic
@@ -539,18 +552,6 @@ hi! link vueSurroundingTag GeTitle
 hi! link vimOption GeState
 hi! link vimEnvVar GeStateItalic
 hi! link vimHiAttrib GeConstant
-
-" > xml.vim
-hi! link xmlTag GeComment
-hi! link xmlTagName GeNormalBold
-hi! link xmlEndTag GeComment
-hi! link xmlAttribPunct GeCommentNormal
-hi! link xmlProcessingDelim GeProcessor
-hi! link xmlAttrib GeLocal
-hi! link xmlNamespace GeCommentNormal
-
-hi! link xmlEntity GeConstantBold
-hi! link xmlEntityPunct GeConstantBold
 
 " > desktop.vim
 hi! link dtDelim Quote
@@ -735,3 +736,16 @@ hi! link NERDTreeLinkFile GeFsDirectoryLink
 hi! link NERDTreeLinkTarget GeFsExecutableLinkTarget
 hi! link NERDTreeHelp GeComment
 hi! link NERDTreeCWD GeTitle
+hi! link NERDTreeCurrentNode GeTitle
+
+" > xml.vim
+hi! link xmlTag GeNormal
+hi! link xmlTagName GeNormalBold
+hi! link xmlEndTag GeNormalBold
+hi! link xmlAttribPunct GeCommentNormal
+hi! link xmlProcessingDelim GeProcessor
+hi! link xmlAttrib GeLocal
+hi! link xmlNamespace GeCommentNormal
+
+hi! link xmlEntity GeConstantBold
+hi! link xmlEntityPunct GeConstantBold
