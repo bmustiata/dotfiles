@@ -403,3 +403,27 @@ snippet red4 "insert the color red4" wm
 #FF6262
 endsnippet
 
+#
+# snippet: rgb
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# convert hex to rgb commas
+#
+snippet rgb "convert hex to rgb commas" wm
+`!p
+text = snip.v.text
+
+if text.startswith('#'):
+	text = text[1:]
+
+result = ""
+
+result += str(int(text[0:2], 16))
+result += ";"
+result += str(int(text[2:4], 16))
+result += ";"
+result += str(int(text[4:6], 16))
+
+snip.rv += result
+`
+endsnippet
