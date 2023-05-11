@@ -2,7 +2,7 @@ hi! link htmlTagName GeNormalBold
 hi! link htmlTag GeComment
 hi! link htmlEndTag GeComment
 hi! link htmlArg GeLocal
-hi! link htmlSpecialTagName GeTitle
+hi! link htmlSpecialTagame GeTitle
 
 hi! link htmlH1 GeTitle
 hi! link htmlH2 GeSubTitle
