@@ -17,6 +17,8 @@ if &g:background=="light"
   hi TabLineFill guibg=#e4e4e4 guifg=#444444
   hi TabLineSel guibg=#e4e4e4 guifg=#AE5C00 gui=bold guisp=NONE
   hi TabLine guibg=#444444 guifg=#e4e4e4 gui=NONE guisp=NONE
+  " vim search
+  hi Search guifg=#e4e4e4 guibg=#AE5C00
 else
   " background=="dark"
   " vim UI
@@ -37,5 +39,7 @@ else
   hi TabLineFill guibg=#121212 guifg=#444444
   hi TabLineSel guibg=#121212 guifg=#FFB562 gui=bold guisp=NONE
   hi TabLine guibg=#444444 guifg=#e4e4e4 gui=NONE guisp=NONE
+  " vim search
+  hi Search guifg=#121212 guibg=#FFB562
 endif
 
