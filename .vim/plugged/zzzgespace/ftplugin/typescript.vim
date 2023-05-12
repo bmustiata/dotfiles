@@ -1,4 +1,4 @@
-hi! link typescriptBraces GeCommentNormal
+hi! link typescriptBraces GeKeyword
 
 hi! link typescriptReserved GeKeyword
 

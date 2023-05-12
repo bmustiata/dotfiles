@@ -19,7 +19,7 @@ hi! link GeNormalBold GeBlackBold
 hi! link GeNormalUnderline GeBlackUnderline
 hi! link GeNormalItalic GeBlackItalic
 hi! link GeNormalBoldItalic GeBlackBoldItalic
-hi! link GeKeyword GeGray1Bold
+hi! link GeKeyword GeGray2Bold
 hi! link GeKeywordItalic GeGray1BoldItalic
 
 " comments are distracting, so they're gray
@@ -69,7 +69,7 @@ hi! link GeNormalBold GeWhiteBold
 hi! link GeNormalUnderline GeWhiteUnderline
 hi! link GeNormalItalic GeWhiteItalic
 hi! link GeNormalBoldItalic GeWhiteBoldItalic
-hi! link GeKeyword GeGray5Bold
+hi! link GeKeyword GeGray3Bold
 hi! link GeKeywordItalic GeGray5BoldItalic
 
 " comments are distracting, so they're gray

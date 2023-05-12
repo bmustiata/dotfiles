@@ -39,23 +39,23 @@ hi GeGray1ItalicUnderline guifg=#444444 guibg=NONE guisp=NONE gui=italic,underli
 hi GeGray1BoldItalic guifg=#444444 guibg=NONE guisp=NONE gui=bold,italic ctermfg=238 ctermbg=NONE cterm=bold,italic
 hi GeGray1BoldItalicUnderline guifg=#444444 guibg=NONE guisp=NONE gui=bold,italic,underline ctermfg=238 ctermbg=NONE cterm=bold,italic,underline
 " GeGray2
-hi GeGray2 guifg=#6c6c6c guibg=NONE guisp=NONE gui=NONE ctermfg=242 ctermbg=NONE cterm=NONE
-hi GeGray2Bold guifg=#6c6c6c guibg=NONE guisp=NONE gui=bold ctermfg=242 ctermbg=NONE cterm=bold
-hi GeGray2Italic guifg=#6c6c6c guibg=NONE guisp=NONE gui=italic ctermfg=242 ctermbg=NONE cterm=italic
-hi GeGray2Underline guifg=#6c6c6c guibg=NONE guisp=NONE gui=underline ctermfg=242 ctermbg=NONE cterm=underline
-hi GeGray2BoldUnderline guifg=#6c6c6c guibg=NONE guisp=NONE gui=bold,underline ctermfg=242 ctermbg=NONE cterm=bold,underline
-hi GeGray2ItalicUnderline guifg=#6c6c6c guibg=NONE guisp=NONE gui=italic,underline ctermfg=242 ctermbg=NONE cterm=italic,underline
-hi GeGray2BoldItalic guifg=#6c6c6c guibg=NONE guisp=NONE gui=bold,italic ctermfg=242 ctermbg=NONE cterm=bold,italic
-hi GeGray2BoldItalicUnderline guifg=#6c6c6c guibg=NONE guisp=NONE gui=bold,italic,underline ctermfg=242 ctermbg=NONE cterm=bold,italic,underline
+hi GeGray2 guifg=#585858 guibg=NONE guisp=NONE gui=NONE ctermfg=240 ctermbg=NONE cterm=NONE
+hi GeGray2Bold guifg=#585858 guibg=NONE guisp=NONE gui=bold ctermfg=240 ctermbg=NONE cterm=bold
+hi GeGray2Italic guifg=#585858 guibg=NONE guisp=NONE gui=italic ctermfg=240 ctermbg=NONE cterm=italic
+hi GeGray2Underline guifg=#585858 guibg=NONE guisp=NONE gui=underline ctermfg=240 ctermbg=NONE cterm=underline
+hi GeGray2BoldUnderline guifg=#585858 guibg=NONE guisp=NONE gui=bold,underline ctermfg=240 ctermbg=NONE cterm=bold,underline
+hi GeGray2ItalicUnderline guifg=#585858 guibg=NONE guisp=NONE gui=italic,underline ctermfg=240 ctermbg=NONE cterm=italic,underline
+hi GeGray2BoldItalic guifg=#585858 guibg=NONE guisp=NONE gui=bold,italic ctermfg=240 ctermbg=NONE cterm=bold,italic
+hi GeGray2BoldItalicUnderline guifg=#585858 guibg=NONE guisp=NONE gui=bold,italic,underline ctermfg=240 ctermbg=NONE cterm=bold,italic,underline
 " GeGray3
-hi GeGray3 guifg=#a8a8a8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
-hi GeGray3Bold guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold ctermfg=248 ctermbg=NONE cterm=bold
-hi GeGray3Italic guifg=#a8a8a8 guibg=NONE guisp=NONE gui=italic ctermfg=248 ctermbg=NONE cterm=italic
-hi GeGray3Underline guifg=#a8a8a8 guibg=NONE guisp=NONE gui=underline ctermfg=248 ctermbg=NONE cterm=underline
-hi GeGray3BoldUnderline guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold,underline ctermfg=248 ctermbg=NONE cterm=bold,underline
-hi GeGray3ItalicUnderline guifg=#a8a8a8 guibg=NONE guisp=NONE gui=italic,underline ctermfg=248 ctermbg=NONE cterm=italic,underline
-hi GeGray3BoldItalic guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold,italic ctermfg=248 ctermbg=NONE cterm=bold,italic
-hi GeGray3BoldItalicUnderline guifg=#a8a8a8 guibg=NONE guisp=NONE gui=bold,italic,underline ctermfg=248 ctermbg=NONE cterm=bold,italic,underline
+hi GeGray3 guifg=#949494 guibg=NONE guisp=NONE gui=NONE ctermfg=246 ctermbg=NONE cterm=NONE
+hi GeGray3Bold guifg=#949494 guibg=NONE guisp=NONE gui=bold ctermfg=246 ctermbg=NONE cterm=bold
+hi GeGray3Italic guifg=#949494 guibg=NONE guisp=NONE gui=italic ctermfg=246 ctermbg=NONE cterm=italic
+hi GeGray3Underline guifg=#949494 guibg=NONE guisp=NONE gui=underline ctermfg=246 ctermbg=NONE cterm=underline
+hi GeGray3BoldUnderline guifg=#949494 guibg=NONE guisp=NONE gui=bold,underline ctermfg=246 ctermbg=NONE cterm=bold,underline
+hi GeGray3ItalicUnderline guifg=#949494 guibg=NONE guisp=NONE gui=italic,underline ctermfg=246 ctermbg=NONE cterm=italic,underline
+hi GeGray3BoldItalic guifg=#949494 guibg=NONE guisp=NONE gui=bold,italic ctermfg=246 ctermbg=NONE cterm=bold,italic
+hi GeGray3BoldItalicUnderline guifg=#949494 guibg=NONE guisp=NONE gui=bold,italic,underline ctermfg=246 ctermbg=NONE cterm=bold,italic,underline
 " GeGray4
 hi GeGray4 guifg=#bcbcbc guibg=NONE guisp=NONE gui=NONE ctermfg=250 ctermbg=NONE cterm=NONE
 hi GeGray4Bold guifg=#bcbcbc guibg=NONE guisp=NONE gui=bold ctermfg=250 ctermbg=NONE cterm=bold
