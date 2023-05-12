@@ -8,8 +8,8 @@ import (
 )
 
 type Color struct {
-	r, g, b   uint8
-	isDefined bool
+	R, G, B   uint8
+	IsDefined bool
 }
 
 func MakeColor(value string) Color {
@@ -29,10 +29,10 @@ func MakeColor(value string) Color {
 
 	result := Color{}
 
-	result.isDefined = true
-	result.r = colorFromGroup(m, 1)
-	result.g = colorFromGroup(m, 2)
-	result.b = colorFromGroup(m, 3)
+	result.IsDefined = true
+	result.R = colorFromGroup(m, 1)
+	result.G = colorFromGroup(m, 2)
+	result.B = colorFromGroup(m, 3)
 
 	return result
 }
@@ -43,9 +43,9 @@ func sqr(value float64) float64 {
 
 func (c Color) ColorDistance(value string) float64 {
 	o := MakeColor(value)
-	return sqr(float64(c.r)-float64(o.r)) +
-		sqr(float64(c.g)-float64(o.g)) +
-		sqr(float64(c.b)-float64(o.b))
+	return sqr(float64(c.R)-float64(o.R)) +
+		sqr(float64(c.G)-float64(o.G)) +
+		sqr(float64(c.B)-float64(o.B))
 }
 
 func colorFromGroup(m []string, index int) uint8 {
@@ -106,11 +106,11 @@ func paletteColor(value string) string {
 }
 
 func (this Color) TermFg() string {
-	return fmt.Sprintf("\033[38;2;%d;%d;%dm", this.r, this.g, this.b)
+	return fmt.Sprintf("\033[38;2;%d;%d;%dm", this.R, this.G, this.B)
 }
 
 func (this Color) TermBg() string {
-	return fmt.Sprintf("\033[48;2;%d;%d;%dm", this.r, this.g, this.b)
+	return fmt.Sprintf("\033[48;2;%d;%d;%dm", this.R, this.G, this.B)
 }
 
 func (this Color) Reset() string {
@@ -118,7 +118,7 @@ func (this Color) Reset() string {
 }
 
 func (this Color) FindForeground() string {
-	if this.r > 127 || this.g > 127 || this.b > 127 {
+	if this.R > 127 || this.G > 127 || this.B > 127 {
 		return MakeColor("black").TermFg()
 	}
 
@@ -127,8 +127,8 @@ func (this Color) FindForeground() string {
 
 func (this Color) ToHex() string {
 	return fmt.Sprintf("#%02x%02x%02x",
-		this.r,
-		this.g,
-		this.b,
+		this.R,
+		this.G,
+		this.B,
 	)
 }
