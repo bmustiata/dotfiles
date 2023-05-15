@@ -309,7 +309,7 @@ if &g:background=="light"
   hi TabLineSel guibg=#e4e4e4 guifg=#AE5C00 gui=bold guisp=NONE
   hi TabLine guibg=#444444 guifg=#e4e4e4 gui=NONE guisp=NONE
   " vim search
-  hi Search guifg=#e4e4e4 guibg=#AE5C00
+  hi Search guifg=#e4e4e4 guibg=#FF6262 gui=italic
 else
   " background=="dark"
   " vim UI
@@ -331,7 +331,7 @@ else
   hi TabLineSel guibg=#121212 guifg=#FFB562 gui=bold guisp=NONE
   hi TabLine guibg=#444444 guifg=#e4e4e4 gui=NONE guisp=NONE
   " vim search
-  hi Search guifg=#121212 guibg=#FFB562
+  hi Search guifg=#121212 guibg=#FF6262 gui=italic
 endif
 
 " > /home/raptor/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_20_git_gutter.vim

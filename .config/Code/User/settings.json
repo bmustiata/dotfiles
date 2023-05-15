@@ -1,5 +1,13 @@
 // Place your settings in this file to overwrite the default settings
 {
+    "workbench.colorCustomizations": {
+        "editor.background": "#242424",
+        "editor.foreground": "#e4e4e4",
+        "editorGutter.background": "#121212",
+        "editorLineNumber.foreground": "#e4e4e4",
+        "editorLineNumber.activeForeground": "#e4e4e4",
+        "editorLineNumber.dimmedForeground": "#777777"
+    },
     // Controls the font family.
     "editor.fontFamily": "'Ubuntu Mono derivative Powerline Regular', 'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback'",
 
@@ -29,5 +37,5 @@
     "editor.stickyScroll.enabled": true,
     "editor.stickyScroll.maxLineCount": 10,
     "git.openRepositoryInParentFolders": "always",
-    "window.zoomLevel": 2,
+    "workbench.colorTheme": "Ciplogic",
 }
