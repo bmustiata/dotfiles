@@ -10,3 +10,15 @@ ge_golang_console_binary(
   ],
   static=False,
 )
+
+ge_golang_console_binary(
+  name="gepsgo-aix",
+  srcs=glob([
+    "*.go",
+  ]),
+  deps=[
+    "//gepsgo/colors",
+  ],
+  platform="aix/ppc64",
+)
+
