@@ -30,7 +30,7 @@ endif
 let g:colors_name = "gespace"
 
 " ------------------------------------------- DO NOT EDIT AFTER LINE ------
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_00_palette.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_00_palette.vim
 " -------------------------------------------------------------------------
 " The GeSpace Palette
 " -------------------------------------------------------------------------
@@ -288,7 +288,7 @@ hi GeRed4ItalicUnderline guifg=#ff6262 guibg=NONE guisp=NONE gui=italic,underlin
 hi GeRed4BoldItalic guifg=#ff6262 guibg=NONE guisp=NONE gui=bold,italic ctermfg=203 ctermbg=NONE cterm=bold,italic
 hi GeRed4BoldItalicUnderline guifg=#ff6262 guibg=NONE guisp=NONE gui=bold,italic,underline ctermfg=203 ctermbg=NONE cterm=bold,italic,underline
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_10_basic.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_10_basic.vim
 if &g:background=="light"
   " vim UI
   " general
@@ -309,7 +309,7 @@ if &g:background=="light"
   hi TabLineSel guibg=#e4e4e4 guifg=#AE5C00 gui=bold guisp=NONE
   hi TabLine guibg=#444444 guifg=#e4e4e4 gui=NONE guisp=NONE
   " vim search
-  hi Search guifg=#e4e4e4 guibg=#AE5C00
+  hi Search guifg=#e4e4e4 guibg=#FF6262 gui=italic
 else
   " background=="dark"
   " vim UI
@@ -331,10 +331,10 @@ else
   hi TabLineSel guibg=#121212 guifg=#FFB562 gui=bold guisp=NONE
   hi TabLine guibg=#444444 guifg=#e4e4e4 gui=NONE guisp=NONE
   " vim search
-  hi Search guifg=#121212 guibg=#FFB562
+  hi Search guifg=#121212 guibg=#FF6262 gui=italic
 endif
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_20_git_gutter.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_20_git_gutter.vim
 if &g:background=="light"
   hi GitGutterAdd guifg=#00d700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=28 ctermbg=252 cterm=bold
   hi GitGutterAddLineNr guifg=#121212 guibg=#d0d0d0 guisp=NONE gui=NONE ctermfg=233 ctermbg=252 cterm=NONE
@@ -352,7 +352,7 @@ else
   hi GitGutterChange guifg=#ae5c00 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
   hi GitGutterChangeLineNr guifg=#e4e4e4 guibg=#262626 guisp=NONE gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
 endif
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_30_lsp.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_30_lsp.vim
 if &g:background=="light"
   hi LspErrorText guifg=#de0000 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=160 ctermbg=252 cterm=bold
   hi LspWarningText guifg=#ff8700 guibg=#d0d0d0 guisp=NONE gui=bold ctermfg=208 ctermbg=252 cterm=bold
@@ -367,7 +367,7 @@ else
   hi LspCodeActionText guifg=#ae5c00 guibg=#262626 guisp=none gui=none ctermfg=208 ctermbg=235 cterm=none
 endif
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_40_airline.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_40_airline.vim
 let g:airline#themes#dark#palette = {}
 
 let g:airline#themes#dark#palette.normal = {
@@ -407,7 +407,7 @@ let g:airline#themes#dark#palette.visual = {
 \}
 
 " let g:airline#themes#dark#palette.insert = g:airline#themes#dark#palette.replace
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_98_ge_constructs.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_98_ge_constructs.vim
 " normal text stays the same, keywords are roughly normal text
 " immovable things are green - constants, static fields, singletons
 " local variables, attributes of data (xml, yaml) are blue
@@ -516,7 +516,7 @@ hi! link GeLink GeBlue4Underline
 endif
 
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_99_vim_core.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/colors/_parts/_99_vim_core.vim
 " -------------------------------------------------------------------------
 " vim core / all apps
 " -------------------------------------------------------------------------
@@ -543,7 +543,7 @@ hi! link Directory GeFsDirectory
 hi! link Identifier GeLocal
 hi! link Label GeLocal
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/asciidoc.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/asciidoc.vim
 hi! link asciidocQuotedMonospaced2 GeConstant
 hi! link asciidocMacro GeLink
 hi! link asciidocMacroAttributes GeState
@@ -578,9 +578,9 @@ endfunction
 
 " call AsciidocEnableSyntaxRanges()
 command! AsciidocEnableSyntaxRanges call AsciidocEnableSyntaxRanges()
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/cpp.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/cpp.vim
 hi! link cLabel GeKeyword
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/css.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/css.vim
 hi! link cssStyle GeLocal
 hi! link cssAttrRegion GeLocalBold
 hi! link cssProp GeLocalBold
@@ -605,7 +605,7 @@ hi! link cssPseudoClassFn GeState
 hi! link cssPseudoClass GeKeywordItalic
 hi! link cssPseudoClassId GeStateItalic
 hi! link cssAttrComma GeKeyword
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/desktop.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/desktop.vim
 hi! link dtDelim Quote
 hi! link dtGroup Title
 hi! link dtLocaleKey Label
@@ -616,12 +616,12 @@ hi! link dtNumericKey Label
 hi! link dtBooleanKey Label
 
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/dosini.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/dosini.vim
 "ini
 hi! link dosiniHeader GeTitle
 hi! link dosiniLabel GeLocal
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/git.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/git.vim
 hi! link diffAdded GeConstant
 
 hi! link diffRemoved GeState
@@ -633,7 +633,7 @@ hi! link diffLine GeComment
 hi! link diffSubname GeComment
 
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/gitcommit.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/gitcommit.vim
 hi! link gitcommitHeader GeSubTitleItalic
 hi! link gitcommitSelectedType GeNormalItalic
 hi! link gitcommitSelectedFile GeConstantItalic
@@ -643,15 +643,15 @@ hi! link gitcommitUntrackedFile GeComment
 hi! link gitcommitSummary GeTitle
 hi! link gitcommitBranch GeStateBoldItalic
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/gitconfig.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/gitconfig.vim
 hi! link gitconfigSection GeTitle
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/groovy.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/groovy.vim
 hi! link groovyDocTags SpecialComment
 hi! link groovyJDKBuiltin GeKeyword
 hi! link groovyStatement GeKeyword
 
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/html.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/html.vim
 hi! link htmlTagName GeNormalBold
 hi! link htmlTag GeComment
 hi! link htmlEndTag GeComment
@@ -666,7 +666,7 @@ hi! link htmlH5 GeNormalItalic
 hi! link htmlH6 GeNormal
 
 hi! link htmlLink GeLink
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/java.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/java.vim
 hi! link javaAnnotation GeProcessor
 hi! link javaDocTags GeComment
 hi! link javaFold GeComment
@@ -679,7 +679,7 @@ hi! link javaStorageClass GeKeyword
 hi! link javaLabel GeKeyword
 
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/javascript.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/javascript.vim
 hi! link javaScriptGlobal GeState
 hi! link javaScriptIdentifier GeState
 hi! link javaScriptFunction GeTitle
@@ -688,7 +688,7 @@ hi! link javaScriptValue GeConstant
 hi! link javaScriptNull GeConstantItalic
 hi! link javaScriptMember GeState
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/json.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/json.vim
 hi! link jsonBraces GeCommentNormal
 hi! link jsonNull GeConstantItalic
 hi! link jsonKeyword GeLocal
@@ -697,7 +697,7 @@ hi! link jsonNoise GeCommentNormal
 
 
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/markdown.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/markdown.vim
 hi! link markdownCode GeConstant
 hi! link markdownCodeDelimiter GeConstantBold
 hi! link markdownUrl GeLink
@@ -711,7 +711,7 @@ hi! link markdownH3Delimiter htmlH3
 hi! link markdownH4Delimiter htmlH4
 hi! link markdownH5Delimiter htmlH5
 hi! link markdownH6Delimiter htmlH6
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/nerdtree.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/nerdtree.vim
 hi! link NERDTreeExecFile GeFsExecutable
 hi! link NERDTreeDir GeFsDirectory
 hi! link NERDTreeNodeDelimiters GeFsDirectory
@@ -724,9 +724,9 @@ hi! link NERDTreeHelp GeComment
 hi! link NERDTreeCWD GeTitle
 hi! link NERDTreeCurrentNode GeTitle
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/perl.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/perl.vim
 hi! link perlSubName GeTitle
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/proto.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/proto.vim
 hi! link pbRPC YellowShade0Bold
 hi! link pbFloat GeConstant
 
@@ -734,7 +734,7 @@ hi! link pbStructure GeTitle
 hi! link pbRPC GeTitle
 
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/python.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/python.vim
 " -------------------------------------------------------------------------
 " python
 " -------------------------------------------------------------------------
@@ -744,7 +744,7 @@ hi! link pythonDecorator GeProcessor
 hi! link pythonDecoratorName GeProcessor
 
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/sh.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/sh.vim
 hi! link shDerefSimple GeState
 hi! link shVariable GeState
 hi! link shCmdSubRegion GeKeyword
@@ -752,7 +752,7 @@ hi! link shCommandSub GeNormalItalic
 hi! link shOption GeSubTitleItalic
 hi! link shQuote GeConstant
 hi! link shFunction GeTitle
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/typescript.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/typescript.vim
 hi! link typescriptBraces GeKeyword
 
 hi! link typescriptReserved GeKeyword
@@ -765,7 +765,7 @@ hi! link typescriptGlobal GeNormal
 hi! link typescriptDocTags GeCommentBoldItalic
 hi! link typescriptDocParam GeNormalItalic
 hi! link typescriptNull GeConstantItalic
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/vim.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/vim.vim
 " -------------------------------------------------------------------------
 " vim
 " -------------------------------------------------------------------------
@@ -781,7 +781,7 @@ hi! link vimOption GeState
 hi! link vimEnvVar GeStateItalic
 hi! link vimHiAttrib GeConstant
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/xml.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/xml.vim
 hi! link xmlTag GeNormal
 hi! link xmlTagName GeNormalBold
 hi! link xmlEndTag GeNormalBold
@@ -793,7 +793,7 @@ hi! link xmlNamespace GeCommentNormal
 hi! link xmlEntity GeConstantBold
 hi! link xmlEntityPunct GeConstantBold
 
-" > /home/raptor/dotfiles/.vim/plugged/zzzgespace/ftplugin/yaml.vim
+" > /home/raptor/projects/dotfiles/.vim/plugged/zzzgespace/ftplugin/yaml.vim
 hi! link yamlFlowIndicator GeCommentNormal
 hi! link yamlFlowCollection GeCommentNormal
 hi! link yamlBlockCollectionItemStart GeCommentNormal
