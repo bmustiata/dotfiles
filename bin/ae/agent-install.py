@@ -146,6 +146,7 @@ class AgentInstallArgs:
         self.system_name: str = kw["system_name"]
         self.agent_port: str = kw["agent_port"]
         self.zip_file: str = kw["zip_file"]
+        self.tgz_file: str = kw["tgz_file"]
         self.depman_delivery_name: str = kw["depman_delivery_name"]
         self.agent_platform: str = kw["agent_platform"]
         self.client_0: ClientDefinition = ClientDefinition(kw["client_0"])
@@ -163,6 +164,7 @@ default_agent_name = "UNIX01"
 default_system_name = "AUTOMIC"
 default_agent_port = "<detect>"
 default_zip_file = ""
+default_tgz_file = ""
 default_target_folder = "."
 default_client_0 = "0/UC/UC/UC"
 default_client_100 = "100/CD/CD/CD"
@@ -194,6 +196,8 @@ default_platform_folder = False
               default=default_agent_port)
 @click.option("--zip-file", "--zip", "-z",
               help=f"Don't download the agent, but use instead the zip file with the given name ({default_zip_file})")
+@click.option("--tgz-file", "--tgz",
+              help=f"Don't download the agent, but use instead the .tar.gz file with the given name ({default_tgz_file})")
 @click.option("--client-0", "-c-0",
               help=f"Client 0 ({default_client_0})",
               default=default_client_0)
@@ -226,7 +230,7 @@ def main(**kw):
         patch_the_config(args)
         return
 
-    if not args.zip_file:
+    if not args.zip_file and not args.tgz_file:
         args.zip_file = get_temp_file_path(args)
         ensure_agent_is_downloaded(args)
 
@@ -256,8 +260,11 @@ def unpack_agent_into_folder(args: AgentInstallArgs) -> None:
     temp_folder = tempfile.mkdtemp()
 
     try:
-        unzip_file_into_folder(args, temp_folder)
-        target_subarchive = find_subarchive_matching_platform(args, temp_folder)
+        if not args.tgz_file:
+            unzip_file_into_folder(args, temp_folder)
+            target_subarchive = find_subarchive_matching_platform(args, temp_folder)
+        else:
+            target_subarchive = args.tgz_file
 
         if args.windows:
             copy_files(target_subarchive, f"{args.target_folder}/{args.bin_folder}")

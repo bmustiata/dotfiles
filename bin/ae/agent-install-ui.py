@@ -18,6 +18,7 @@ class Data:
     agent_port: str
     agent_platform: str
     zip_file: str
+    tgz_file: str
 
 
 @adhesive.usertask('Select OS and Version')
@@ -29,6 +30,7 @@ def select_os_and_version(token: adhesive.Token[Data], ui) -> None:
     ui.add_input_text(name="agent_name", title="Agent Name", value=token.data.agent_name)
     ui.add_input_text(name="agent_port", title="Agent Port", value=token.data.agent_port)
     ui.add_input_text(name="zip_file", title="Zip File (empty to download)", value=token.data.zip_file)
+    ui.add_input_text(name="tgz_file", title="Tar.gz File (empty to download)", value=token.data.tgz_file)
     ui.add_combobox(name="agent_os", title="OS", values=("linux", "windows", "aix", "solaris"), value=token.data.agent_os)
 
 
@@ -111,6 +113,7 @@ def create_agent(token: adhesive.Token[Data]) -> None:
     windows_flag = "--windows" if token.data.agent_os == "windows" else ""
     exact_version_flag = "--exact-version" if "yes" in token.data.exact_version else ""
     zip_file = f"--zip {token.data.zip_file}" if token.data.zip_file else ""
+    tgz_file = f"--tgz {token.data.tgz_file}" if token.data.tgz_file else ""
 
     depman_delivery_name, agent_platform = detect_delivery_and_platform(token.data)
 
@@ -128,6 +131,7 @@ def create_agent(token: adhesive.Token[Data]) -> None:
                 --depman-delivery-name {shlex.quote(depman_delivery_name)} \\
                 --agent-platform {shlex.quote(agent_platform)} \\
                 {zip_file} \\
+                {tgz_file} \\
                 {exact_version_flag} {only_config_flag} {windows_flag} \\
                 --bin-folder {shlex.quote(token.data.bin_folder)} \\
                 {shlex.quote(token.data.folder)}

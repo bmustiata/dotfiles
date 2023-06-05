@@ -769,3 +769,96 @@ else:
   snip.rv += ""
 `
 endsnippet
+
+#
+# snippet: clusterrole
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a cluster role
+#
+snippet clusterrole "Create a role on cluster-wide resources" wm
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ${1:cluster-role-name}
+rules:
+- apiGroups: ["apiextensions.k8s.io"]
+  resources: ["customresourcedefinitions"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+endsnippet
+
+#
+# snippet: role
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a role bound to a namespace
+#
+snippet role "Create a role namespace bound resources" wm
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ${1:role-name}
+  namespace: ${2:default}
+rules:
+- apiGroups: ["germaniumhq.com"]
+  resources: ["yolo"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+endsnippet
+
+
+#
+# snippet: rolebinding
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a role binding that's namespace restricted
+#
+snippet rolebinding "Create a role binding that's namespace restricted" wm
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ${1:read-secrets}
+  namespace: ${2:development}
+roleRef:
+  kind: ${3:Role}`!p snip.rv += "" if t[3] != "" else """ClusterRole"""`
+  name: ${4:secret-reader}
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: User
+  name: dave
+  apiGroup: rbac.authorization.k8s.io
+endsnippet
+
+
+#
+# snippet: clusterrolebinding
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a clusterrolebinding not bounded by namespaces
+#
+snippet clusterrolebinding "Create a clusterrolebinding not bounded by namespaces" wm
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ${1:read-secrets-global}
+roleRef:
+  kind: ClusterRole
+  name: ${2:secret-reader}
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: Group
+  name: manager
+  apiGroup: rbac.authorization.k8s.io
+endsnippet
+
+#
+# snippet: rolerule
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a role rule entry
+#
+snippet rolerule "Create a role rule entry" wm
+- resources: ["${1:deployments}"]
+  apiGroups: ["${2:apps}"]
+  verbs: [${3:"get", "list", "watch", "create", "update", "patch", "delete"}]
+endsnippet
+

@@ -6,8 +6,9 @@
 #
 snippet option "A new click option (configurable string)" wm
 @click.option(${1:"--title", "-t"}${2/.+/,
-              help="/}${2:option help}${2/.+/"/}${3/.+/,
-              default=/}${3:"default value"})
+              multiple=/}${2:True}${3/.+/,
+              help="/}${3:option help}${3/.+/"/}${4/.+/,
+              default=/}${4:"default value"})
 endsnippet
 
 #
