@@ -38,6 +38,7 @@ Plug 'vim-scripts/SyntaxRange'
 Plug 'posva/vim-vue'
 Plug 'solarnz/thrift.vim'
 Plug 'bmustiata/vim-uc4'
+Plug 'bmustiata/vim-tal'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'rust-lang/rust.vim'
 Plug 'leafgarland/typescript-vim'

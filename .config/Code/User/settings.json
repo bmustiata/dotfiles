@@ -38,5 +38,4 @@
     "editor.stickyScroll.maxLineCount": 10,
     "git.openRepositoryInParentFolders": "always",
     "workbench.colorTheme": "Ciplogic",
-    "window.zoomLevel": 1,
 }

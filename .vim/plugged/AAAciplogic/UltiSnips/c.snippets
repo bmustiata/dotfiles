@@ -12,7 +12,7 @@ for (${1:i} = 0; i < ${2:max}; i++)
 endsnippet
 
 snippet in "include"
-#include <${1:stdio.h}>
+#include ${1:"}`!p snip.rv += "" if t[1] != "" else '<'`${2:stdio.h}${1/.+/"/}`!p snip.rv += "" if t[1] != "" else '>'`
 endsnippet
 
 #
@@ -27,3 +27,55 @@ int main(int argc, const char * argv[]) {
 	return 0;
 }
 endsnippet
+
+#
+# snippet: struct
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a struct definition
+#
+snippet struct "Create a struct definition" wm
+typedef struct {
+	${0:}
+} ${1:StructName};
+endsnippet
+
+#
+# snippet: fun
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new function
+#
+snippet f "Create a new function" wm
+${1:void} ${2:FunctionName}(${3:params}) {
+	${0:}
+}
+endsnippet
+
+#
+# snippet: m
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a new method
+#
+snippet m "Create a new method" wm
+${1:void} ${2:Clazz}_${3:FunctionName}($2* _this${4/.+/, /}${4:params}) {
+	${0:}
+}
+endsnippet
+
+#
+# snippet: h
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# create a header definition
+#
+snippet h "create a header definition" wm
+#ifndef __${1:header_name}
+#define __$1
+
+${VISUAL}${0:}
+
+#endif
+endsnippet
+

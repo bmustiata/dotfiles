@@ -15,6 +15,8 @@ fi # [[ "$BYOBU_TTY" == "" ]]
 
 # WARN: sdkman if configured must be at the end of the .bashrc
 
+export ADHESIVE_PARALLEL_PROCESSING=thread
+
 export EDITOR=nvim
 export PATH="${HOME}/bin/apps/:$PATH"
 export PATH="${HOME}/bin/docker/:$PATH"
@@ -31,8 +33,6 @@ export VIM_ULTISNIPS_FOLDER="/home/raptor/.vim/bundle/ciplogic/UltiSnips"
 export PYTHONPATH='.'
 export MYPYPATH='./stubs'
 
-
-# export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 export GOPATH="$HOME/programs/go/tools"
 export PATH="$GOPATH/bin:$PATH"
@@ -54,10 +54,6 @@ eval "$(archer project server py jdk dockerhost kubehost gosdk gespace issue)"
 alias p=project
 alias i=issue
 
-alias npmi="npm install --save -E"
-alias npmd="npm install --save-dev -E"
-alias npmg="npm install -g"
-
 cddot() {
     DOT_FOLDER=$(dirname $(readlink -f ${HOME}/.ciplogicprofilerc))
     if [[ "$1" == "" ]]; then
@@ -71,23 +67,11 @@ cddot() {
     cd $DOT_FOLDER${TARGET_FOLDER#*$HOME}
 }
 
-alias ap="ansible-playbook"
-alias a="ansible"
-
-alias ai="ansible -i /home/raptor/learn/learn/adoc/inventory"
-alias api="ansible-playbook -i /home/raptor/learn/learn/adoc/inventory"
-
-alias dc="docker-compose"
-alias d="docker"
-
-alias kubef="kubectl apply -f"
-alias kubedel="kubectl delete"
-
 alias sl=ls
 
 # antlr
-alias antlr4='java -jar /home/raptor/programs/antlr-complete-4.9.2.jar'
-alias grun='java -cp /home/raptor/programs/antlr-complete-4.9.2.jar org.antlr.v4.gui.TestRig'
+# alias antlr4='java -jar /home/raptor/programs/antlr-complete-4.9.2.jar'
+# alias grun='java -cp /home/raptor/programs/antlr-complete-4.9.2.jar org.antlr.v4.gui.TestRig'
 
 function _update_ps1() {
     PS1="$(~/.shell/powerline-shell.py $? 2> /dev/null)"
