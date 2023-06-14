@@ -1,7 +1,7 @@
 subinclude("@gbs//toolchain/golang:golang.plz")
 
 ge_golang_console_binary(
-  name="gepsgo",
+  name="gepsgox",
   srcs=glob([
     "*.go",
   ]),
@@ -11,14 +11,4 @@ ge_golang_console_binary(
   static=False,
 )
 
-ge_golang_console_binary(
-  name="gepsgo-aix",
-  srcs=glob([
-    "*.go",
-  ]),
-  deps=[
-    "//gepsgo/colors",
-  ],
-  platform="aix/ppc64",
-)
 

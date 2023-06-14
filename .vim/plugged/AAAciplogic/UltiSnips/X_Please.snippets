@@ -133,7 +133,7 @@ endsnippet
 # Load germanium java please steps
 #
 snippet java "Load germanium java please steps" wm
-subinclude("@gbs//toolchain/java:java.plz")
+subinclude("${1:@gbs}//toolchain/java:java.plz")
 endsnippet
 
 #
@@ -143,7 +143,7 @@ endsnippet
 # Load germanium node please steps
 #
 snippet node "Load germanium node please steps" wm
-subinclude("@gbs//toolchain/node:node.plz")
+subinclude("${1:@gbs}//toolchain/node:node.plz")
 endsnippet
 
 #
@@ -153,7 +153,7 @@ endsnippet
 # Load germanium python please steps
 #
 snippet golang "Load germanium golang please steps" wm
-subinclude("@gbs//toolchain/golang:golang.plz")
+subinclude("${1:@gbs}//toolchain/golang:golang.plz")
 endsnippet
 
 #
@@ -163,7 +163,7 @@ endsnippet
 # Load germanium python please steps
 #
 snippet python "Load germanium python please steps" wm
-subinclude("@gbs//toolchain/python:python.plz")
+subinclude("${1:@gbs}//toolchain/python:python.plz")
 endsnippet
 
 #
@@ -313,5 +313,41 @@ subrepo(
 	name="gbs",
 	path="/home/raptor/projects/gbs/",
 )
+endsnippet
+
+#
+# snippet: gobin
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# create a go console binary
+#
+snippet gobin "create a go console binary" wm
+ge_golang_console_binary(
+  name="${1:binary-name}",
+  srcs=glob([
+    "**/*.go",
+  ]),${2/.+/
+  deps=[
+    /}${2:"//deps",}${2/.+/
+  ],/}${3/.+/
+  static=/}${3:False},
+)
+endsnippet
+
+
+#
+# snippet: gomod
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# create a go module
+#
+snippet gomod "create a go module" wm
+ge_golang_module(${2/.+/
+  name=/}"${1:module-name}"${2/.+/,
+  srcs=glob([
+    /}${2:"**/*.go",
+    "go.mod",}${2/.+/
+  ]),
+/})
 endsnippet
 

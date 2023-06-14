@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+# resolves the relative path, and prints the absolute path,
+# without resolving the links.
+
+import sys
+import os
+
+if len(sys.argv) < 2:
+    print("you need to pass the relative path to the file")
+    sys.exit(1)
+
+file_name = sys.argv[1]
+
+print(os.path.abspath(file_name))
+

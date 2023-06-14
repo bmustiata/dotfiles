@@ -79,3 +79,28 @@ ${VISUAL}${0:}
 #endif
 endsnippet
 
+#
+# snippet: l
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# log the current line
+#
+snippet l "log the current line" wm
+printf("`!p
+snip.rv += snip.fn
+snip.rv += ":"
+snip.rv += str(snip.buffer.cursor.line)
+`${1/.+/ - /}${1:description}\n");
+endsnippet
+
+#
+# snippet: x
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# debug things
+#
+snippet x "debug things" wm
+// `!p
+snip.rv += str(dir(snip.ft))
+`
+endsnippet
