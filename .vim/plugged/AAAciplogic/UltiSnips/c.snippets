@@ -90,7 +90,7 @@ printf("`!p
 snip.rv += snip.fn
 snip.rv += ":"
 snip.rv += str(snip.buffer.cursor.line)
-`${1/.+/ - /}${1:description}\n");
+`${1/.+/ - /}${1:description}\n"${2:});
 endsnippet
 
 #
@@ -104,3 +104,14 @@ snippet x "debug things" wm
 snip.rv += str(dir(snip.ft))
 `
 endsnippet
+
+#
+# snippet: le
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# leave the function
+#
+snippet le "leave the function"
+xd_return("${1:function_name}"${2/.+/, /}${2:${VISUAL}})
+endsnippet
+

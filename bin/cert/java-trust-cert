@@ -33,7 +33,11 @@ def main(certificate, java_binary, pid, hostname, cacerts):
     certificate_alias = get_certificate_alias(hostname, certificate)
 
     print(f"adding certificate {certificate} into {cacerts} with alias {certificate_alias}")
-    add_certificate_into_keystore(keytool_binary, cacerts, certificate_alias, certificate)
+    try:
+        add_certificate_into_keystore(keytool_binary, cacerts, certificate_alias, certificate)
+    except Exception:
+        remove_existing_alias(keytool_binary, cacerts, certificate_alias)
+        add_certificate_into_keystore(keytool_binary, cacerts, certificate_alias, certificate)
 
 
 def read_cmd_line(pid: str) -> str:
@@ -43,7 +47,7 @@ def read_cmd_line(pid: str) -> str:
 
 def find_keytool_binary(java_binary: str) -> str:
     if java_binary == "<none>":
-        java_binary = shell("which java")
+        java_binary = sh_output("which java")
 
     return os.path.abspath(os.path.join(os.path.dirname(java_binary), "keytool"))
 
@@ -68,9 +72,20 @@ def get_certificate_alias(hostname: str, certificate: str) -> str:
 
     return os.path.splitext(os.path.basename(certificate))[0]
 
+def remove_existing_alias(keytool_binary: str, cacerts: str, certificate_alias: str) -> None:
+    sh_check(textwrap.dedent(f"""\
+        {keytool_binary} -delete \\
+            -noprompt \\
+            -v \\
+            -trustcacerts \\
+            -alias {quote(certificate_alias)} \\
+            -keystore {quote(cacerts)} \\
+            -storepass changeit
+    """))
+
 
 def add_certificate_into_keystore(keytool_binary: str, cacerts: str, alias: str, certificate: str) -> None:
-    shell(textwrap.dedent(f"""\
+    sh_check(textwrap.dedent(f"""\
         {keytool_binary} -import \\
             -v \\
             -trustcacerts \\
@@ -82,8 +97,12 @@ def add_certificate_into_keystore(keytool_binary: str, cacerts: str, alias: str,
     """))
 
 
-def shell(command: str) -> str:
+def sh_output(command: str) -> str:
     return subprocess.check_output(["/bin/sh", "-c", command]).decode('utf-8').strip()
+
+
+def sh_check(command: str) -> int:
+    return subprocess.check_call(["/bin/sh", "-c", command])
 
 
 if __name__ == "__main__":
