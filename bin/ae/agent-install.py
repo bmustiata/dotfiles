@@ -32,6 +32,7 @@ class AutomicIniSection:
         self.lines: List[str] = []
 
     def add_line(self, line: str) -> None:
+        line = line.rstrip() + "\n"
         if not self._is_variable_definition(line):
             self.lines.append(line)
             return
@@ -412,6 +413,11 @@ def find_agent_binary_name(args: AgentInstallArgs) -> str:
 
         if f.endswith("citx.sh"):
             return f[0:-3]
+
+    # if we can't find it, we assume it's a java thing, and we search for an `.ori.ini` file
+    for f in found_files:
+        if f.endswith(".ori.ini"):
+            return f[0:-8]
 
     raise Exception(f"unable to find agent binary name looking in {args.target_folder}/{args.bin_folder}")
 

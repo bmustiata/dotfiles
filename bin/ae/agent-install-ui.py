@@ -14,7 +14,7 @@ class Data:
     agent_version: str
     exact_version: Set[str]
     agent_name: str
-    agent_os: str
+    agent_type: str
     agent_port: str
     agent_platform: str
     zip_file: str
@@ -31,7 +31,7 @@ def select_os_and_version(token: adhesive.Token[Data], ui) -> None:
     ui.add_input_text(name="agent_port", title="Agent Port", value=token.data.agent_port)
     ui.add_input_text(name="zip_file", title="Zip File (empty to download)", value=token.data.zip_file)
     ui.add_input_text(name="tgz_file", title="Tar.gz File (empty to download)", value=token.data.tgz_file)
-    ui.add_combobox(name="agent_os", title="OS", values=("linux", "windows", "aix", "solaris"), value=token.data.agent_os)
+    ui.add_combobox(name="agent_type", title="Agent Type", values=("linux", "windows", "aix", "solaris", "tlsgw"), value=token.data.agent_type)
 
 
 @adhesive.usertask('Select Platform')
@@ -40,39 +40,44 @@ def select_platform(token: adhesive.Token[Data], ui) -> None:
     ui.add_readonly_text(title="Exact Version", value="yes" if "yes" in token.data.exact_version else "no, use latest")
     ui.add_readonly_text(title="Agent Name", value=token.data.agent_name)
     ui.add_readonly_text(title="Agent Port", value=token.data.agent_port)
-    ui.add_readonly_text(title="OS", value=token.data.agent_os)
+    ui.add_readonly_text(title="OS", value=token.data.agent_type)
 
     version = semver.VersionInfo.parse(token.data.agent_version)
 
     platforms: Any = None
 
-    if token.data.agent_os == "linux":
+    if token.data.agent_type == "linux":
         platforms = [
             ["x64", "x64"],
         ]
-    elif token.data.agent_os == "windows":
+    elif token.data.agent_type == "windows":
         platforms = [
             ["x64", "x64"],
         ]
-    elif token.data.agent_os == "aix":
+    elif token.data.agent_type == "aix":
         platforms = [
             ["/powerpc64/", "A64 Power-PC64"],
             ["/powerpc/", "AP6 Power-PC"],
         ]
-    elif token.data.agent_os == "solaris":
+    elif token.data.agent_type == "solaris":
         platforms = [
             ["/sparc64/", "U64 Sparc64"],
             ["/sparc/", "US8 Sparc"],
             ["/x86/", "UI8 Intel"],
             ["/x64/", "SI6 Intel 64-Bit (x64)"],
         ]
-    elif token.data.agent_os == "rapid automation":
+    elif token.data.agent_type == "rapid automation":  # FIXME: is this possible?
+        platforms = [
+            ["/unix/", "unix"],
+            ["/windows/", "windows"],
+        ]
+    elif token.data.agent_type == "tlsgw":
         platforms = [
             ["/unix/", "unix"],
             ["/windows/", "windows"],
         ]
 
-    if version.major >= 21 and token.data.agent_os in ("linux", "windows"):
+    if version.major >= 21 and token.data.agent_type in ("linux", "windows"):
         platforms.append("java")
 
     platforms.append(["ra", "rapid automation"])
@@ -110,7 +115,7 @@ def create_agent(token: adhesive.Token[Data]) -> None:
     agent_port = shlex.quote("<detect>") if not token.data.agent_port else token.data.agent_port
 
     only_config_flag = "--only-config" if token.data.direction == "config" else ""
-    windows_flag = "--windows" if token.data.agent_os == "windows" else ""
+    windows_flag = "--windows" if token.data.agent_type == "windows" else ""
     exact_version_flag = "--exact-version" if "yes" in token.data.exact_version else ""
     zip_file = f"--zip {token.data.zip_file}" if token.data.zip_file else ""
     tgz_file = f"--tgz {token.data.tgz_file}" if token.data.tgz_file else ""
@@ -144,7 +149,7 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
     """
     version = semver.VersionInfo.parse(data.agent_version)
 
-    if data.agent_os == "linux":
+    if data.agent_type == "linux":
         if data.agent_platform == "java":
             if version.major >= 23:
                 return ("Agent_Unix_Linux", "java")
@@ -156,13 +161,13 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
 
         return ("Agent_Unix_Linux", "unix/linux/x64")
 
-    if data.agent_os == "aix":
+    if data.agent_type == "aix":
         return ("Agent_Unix_aix", data.agent_platform)
 
-    if data.agent_os == "solaris":
+    if data.agent_type == "solaris":
         return ("Agent_Unix_Solaris", data.agent_platform)
 
-    if data.agent_os == "windows":
+    if data.agent_type == "windows":
         if data.agent_platform == "java":
             if version.major >= 23:
                 return ("Agent_Windows", "java")
@@ -174,7 +179,10 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
 
         return ("Agent_Windows", "x64")
 
-    raise Exception(f"unknown OS to install: {data.agent_os}")
+    if data.agent_type == "tlsgw":
+        return ("Agent_TLS.Gateway", data.agent_platform)
+
+    raise Exception(f"unknown OS to install: {data.agent_type}")
 
 
 def main():
@@ -185,7 +193,7 @@ def main():
         "bin_folder": "bin",
         "agent_version": "21.0.5",
         "agent_name": "UNIX01",
-        "agent_os": "linux",
+        "agent_type": "linux",
         "agent_port": "2301",
         "zip_file": "",
     })
