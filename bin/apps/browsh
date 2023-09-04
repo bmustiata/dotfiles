@@ -3,6 +3,8 @@
 
 import apps
 
+# browsh is a containerized firefox that renders into text
+
 
 apps.StaticBinary(
     name="browsh",
