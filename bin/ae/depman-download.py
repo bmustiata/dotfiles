@@ -4,6 +4,7 @@ import requests
 from tqdm import tqdm
 import click
 import re
+import sys
 
 
 NUMERIC_HOTFIX_PARSER_RE = re.compile(r'\+hf\.(\d+)')
@@ -16,11 +17,13 @@ class DepmanArgs:
                  exact_version: bool,
                  zip_file: str,
                  version: str,
+                 only_print: bool,
                  ):
         self.depman_delivery_name = depman_delivery_name
         self.exact_version = exact_version
         self.zip_file = zip_file
         self.version = version
+        self.only_print = only_print
 
 
 def download_remote_file(args: DepmanArgs) -> None:
@@ -41,6 +44,11 @@ def download_remote_file(args: DepmanArgs) -> None:
         params["version_string"] = depman_version
     else:
         params["exact_version"] = depman_version
+
+    if args.only_print:
+        p = requests.Request('GET', url, params=params).prepare()
+        print(p.url)
+        sys.exit(0)
 
     response = requests.get(url, params=params, stream=True)
     response.raise_for_status()
@@ -89,17 +97,24 @@ def get_hotfix_number(args: DepmanArgs) -> int:
               help="Use the exact version. Don't try to fetch the latest hotfix of the thing.")
 @click.option("--zip-file", "--zip", "--out", "-o",
               help="Output file")
-@click.option("--version",
+@click.option("--only-print", "--print", is_flag=True, default=False,
+              help="Only print the URL to download from depman")
+@click.option("--version", default="21.0",
               help="The version to download")
 def main(depman_delivery_name: str,
          exact_version: bool,
          zip_file: str,
-         version: str) -> None:
+         version: str,
+         only_print: bool) -> None:
+    if not zip_file:
+        zip_file = f"{depman_delivery_name}.zip"
+
     depman_args = DepmanArgs(
         depman_delivery_name=depman_delivery_name,
         exact_version=exact_version,
         zip_file=zip_file,
         version=version,
+        only_print=only_print,
     )
     download_remote_file(depman_args)
 

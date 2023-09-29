@@ -81,3 +81,87 @@ snippet javaversion "Specify the java version" wm
 </build>
 endsnippet
 
+#
+# snippet: java8
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Specify java8 in the current project
+#
+snippet java8 "Specify java <= 8 in the current project" wm
+<properties>
+	<maven.compiler.target>${1:1.8}</maven.compiler.target>
+	<maven.compiler.source>$1</maven.compiler.source>
+</properties>
+endsnippet
+
+#
+# snippet: javax
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Specify javaX where X>=9 in the current project
+#
+snippet javax "Specify javaX where X>=9 in the current project" wm
+<properties>
+	<maven.compiler.release>${1:17}</maven.compiler.release>
+	<!-- it should work without these two, however older maven versions fail to build -->
+	<maven.compiler.target>$1</maven.compiler.target>
+	<maven.compiler.source>$1</maven.compiler.source>
+</properties>
+endsnippet
+
+#
+# snippet: main
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a main class definition
+#
+snippet main "Add a main class definition" wm
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+			<configuration>
+				<archive>
+					<manifest>
+						<addClasspath>true</addClasspath>
+						<mainClass>${1:com.germaniumhq.jaxws.Main}</mainClass>
+					</manifest>
+				</archive>
+			</configuration>
+		</plugin>
+	</plugins>
+</build>
+endsnippet
+
+#
+# snippet: fatjar
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a fatjar definition
+#
+snippet fatjar "Add a fatjar definition" wm
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-shade-plugin</artifactId>
+			<executions>
+				<execution>
+					<phase>package</phase>
+					<goals>
+						<goal>shade</goal>
+					</goals>
+					<configuration>
+						<transformers>
+							<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<mainClass>${1:com.germaniumhq.jaxws.Main}</mainClass>
+							</transformer>
+						</transformers>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+	</plugins>
+</build>
+endsnippet

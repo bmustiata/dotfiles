@@ -200,7 +200,10 @@ def get_base_branch(version):
     if ('release/' + version) in all_branches():
         return 'release/' + version
 
-    raise Exception("Unable to find a maint/%s nor a release/%s branch." % (version, version))
+    if ('hotfix/' + version) in all_branches():
+        return 'hotfix/' + version
+
+    raise Exception("Unable to find a maint/%s, release/%s or hotfix/%s branch." % (version, version, version))
 
 
 def get_all_commits(branch_name):

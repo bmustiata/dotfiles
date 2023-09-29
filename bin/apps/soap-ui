@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+
+import apps
+
+apps.TarGzBinary(
+    name="soap-ui",
+    url="https://dl.eviware.com/soapuios/{version}/SoapUI-{version}-linux-bin.tar.gz",
+    executable="SoapUI-{version}/bin/soapui.sh",
+    version="5.7.1",
+)
+# https://dl.eviware.com/soapuios/5.7.1/SoapUI-5.7.1-linux-bin.tar.gz

@@ -351,3 +351,16 @@ ge_golang_module(${2/.+/
 /})
 endsnippet
 
+#
+# snippet: jar
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a standalone jar file
+#
+snippet jar "Create a standalone jar file" wm
+ge_java_maven_fatjar(
+	name="${1:jmx-test-server}",
+	maven_jar="target/${2:$1}*.jar",
+)
+endsnippet
+

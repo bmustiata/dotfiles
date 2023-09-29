@@ -31,7 +31,17 @@ def select_os_and_version(token: adhesive.Token[Data], ui) -> None:
     ui.add_input_text(name="agent_port", title="Agent Port", value=token.data.agent_port)
     ui.add_input_text(name="zip_file", title="Zip File (empty to download)", value=token.data.zip_file)
     ui.add_input_text(name="tgz_file", title="Tar.gz File (empty to download)", value=token.data.tgz_file)
-    ui.add_combobox(name="agent_type", title="Agent Type", values=("linux", "windows", "aix", "solaris", "tlsgw"), value=token.data.agent_type)
+    ui.add_combobox(name="agent_type", title="Agent Type", values=[
+        ["linux",   "Linux"],
+        ["windows", "Windows"],
+        ["aix",     "AIX"],
+        ["solaris", "Solaris"],
+        ["ra",      "Rapid Automation (REST, SOAP)"],
+        ["tlsgw",   "TLS GW"],
+        ["sap",     "SAP"],
+        ["sql",     "SQL"],
+        ["jmx",     "JMX"],
+    ], value=token.data.agent_type)
 
 
 @adhesive.usertask('Select Platform')
@@ -66,7 +76,7 @@ def select_platform(token: adhesive.Token[Data], ui) -> None:
             ["/x86/", "UI8 Intel"],
             ["/x64/", "SI6 Intel 64-Bit (x64)"],
         ]
-    elif token.data.agent_type == "rapid automation":  # FIXME: is this possible?
+    elif token.data.agent_type == "ra":
         platforms = [
             ["/unix/", "unix"],
             ["/windows/", "windows"],
@@ -76,11 +86,23 @@ def select_platform(token: adhesive.Token[Data], ui) -> None:
             ["/unix/", "unix"],
             ["/windows/", "windows"],
         ]
+    elif token.data.agent_type == "sap":
+        platforms = [
+            ["/unix/", "unix"],
+            ["/windows/", "windows"],
+        ]
+    elif token.data.agent_type == "sql":
+        platforms = [
+            ["/unix/", "unix"],
+            ["/windows/", "windows"],
+        ]
+    elif token.data.agent_type == "jmx":
+        platforms = [
+            ["/jmx/", "jmx"],
+        ]
 
     if version.major >= 21 and token.data.agent_type in ("linux", "windows"):
         platforms.append("java")
-
-    platforms.append(["ra", "rapid automation"])
 
     ui.add_combobox(name="agent_platform", title="Platform", values=platforms, value=platforms[0])
 
@@ -115,7 +137,7 @@ def create_agent(token: adhesive.Token[Data]) -> None:
     agent_port = shlex.quote("<detect>") if not token.data.agent_port else token.data.agent_port
 
     only_config_flag = "--only-config" if token.data.direction == "config" else ""
-    windows_flag = "--windows" if token.data.agent_type == "windows" else ""
+    windows_flag = "--windows" if token.data.agent_type in ("windows", "jmx") else ""
     exact_version_flag = "--exact-version" if "yes" in token.data.exact_version else ""
     zip_file = f"--zip {token.data.zip_file}" if token.data.zip_file else ""
     tgz_file = f"--tgz {token.data.tgz_file}" if token.data.tgz_file else ""
@@ -156,16 +178,7 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
             else:
                 return ("Agent_Unix_Linux-java", "java")
 
-        if data.agent_platform == "ra":
-            return ("Agent_RA.Core", "unix")
-
         return ("Agent_Unix_Linux", "unix/linux/x64")
-
-    if data.agent_type == "aix":
-        return ("Agent_Unix_aix", data.agent_platform)
-
-    if data.agent_type == "solaris":
-        return ("Agent_Unix_Solaris", data.agent_platform)
 
     if data.agent_type == "windows":
         if data.agent_platform == "java":
@@ -174,13 +187,28 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
             else:
                 return ("Agent_Windows-Java", "java")
 
-        if data.agent_platform == "ra":
-            return ("Agent_RA.Core", "windows")
-
         return ("Agent_Windows", "x64")
+
+    if data.agent_type == "aix":
+        return ("Agent_Unix_aix", data.agent_platform)
+
+    if data.agent_type == "solaris":
+        return ("Agent_Unix_Solaris", data.agent_platform)
+
+    if data.agent_type == "ra":
+        return ("Agent_RA.Core", data.agent_platform)
 
     if data.agent_type == "tlsgw":
         return ("Agent_TLS.Gateway", data.agent_platform)
+
+    if data.agent_type == "sap":
+        return ("Agent_SAP", data.agent_platform)
+
+    if data.agent_type == "sql":
+        return ("Agent_SQL", data.agent_platform)
+
+    if data.agent_type == "jmx":
+        return ("Agent_JMX", data.agent_platform)
 
     raise Exception(f"unknown OS to install: {data.agent_type}")
 
