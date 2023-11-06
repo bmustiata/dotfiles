@@ -17,6 +17,7 @@ class Data:
     agent_type: str
     agent_port: str
     agent_platform: str
+    branch_name: str
     zip_file: str
     tgz_file: str
 
@@ -29,6 +30,7 @@ def select_os_and_version(token: adhesive.Token[Data], ui) -> None:
     ui.add_checkbox_group(name="exact_version", title="Exact Version", values=(("yes", "Yes"),))
     ui.add_input_text(name="agent_name", title="Agent Name", value=token.data.agent_name)
     ui.add_input_text(name="agent_port", title="Agent Port", value=token.data.agent_port)
+    ui.add_input_text(name="branch_name", title="Git Branch", value=token.data.branch_name)
     ui.add_input_text(name="zip_file", title="Zip File (empty to download)", value=token.data.zip_file)
     ui.add_input_text(name="tgz_file", title="Tar.gz File (empty to download)", value=token.data.tgz_file)
     ui.add_combobox(name="agent_type", title="Agent Type", values=[
@@ -48,11 +50,19 @@ def select_os_and_version(token: adhesive.Token[Data], ui) -> None:
 def select_platform(token: adhesive.Token[Data], ui) -> None:
     ui.add_readonly_text(title="Version", value=token.data.agent_version)
     ui.add_readonly_text(title="Exact Version", value="yes" if "yes" in token.data.exact_version else "no, use latest")
+
+    if token.data.branch_name:
+        ui.add_readonly_text(title="Git Branch", value=token.data.branch_name)
+    if token.data.zip_file:
+        ui.add_readonly_text(title="Zip File", value=token.data.zip_file)
+    if token.data.tgz_file:
+        ui.add_readonly_text(title="Tar.gz File", value=token.data.tgz_file)
+
     ui.add_readonly_text(title="Agent Name", value=token.data.agent_name)
     ui.add_readonly_text(title="Agent Port", value=token.data.agent_port)
     ui.add_readonly_text(title="OS", value=token.data.agent_type)
 
-    version = semver.VersionInfo.parse(token.data.agent_version)
+    version = parse_semver_version(token.data.agent_version)
 
     platforms: Any = None
 
@@ -141,6 +151,7 @@ def create_agent(token: adhesive.Token[Data]) -> None:
     exact_version_flag = "--exact-version" if "yes" in token.data.exact_version else ""
     zip_file = f"--zip {token.data.zip_file}" if token.data.zip_file else ""
     tgz_file = f"--tgz {token.data.tgz_file}" if token.data.tgz_file else ""
+    branch_name_option = f"--branch-name {shlex.quote(token.data.branch_name)}" if token.data.branch_name else ""
 
     depman_delivery_name, agent_platform = detect_delivery_and_platform(token.data)
 
@@ -159,7 +170,7 @@ def create_agent(token: adhesive.Token[Data]) -> None:
                 --agent-platform {shlex.quote(agent_platform)} \\
                 {zip_file} \\
                 {tgz_file} \\
-                {exact_version_flag} {only_config_flag} {windows_flag} \\
+                {branch_name_option} {exact_version_flag} {only_config_flag} {windows_flag} \\
                 --bin-folder {shlex.quote(token.data.bin_folder)} \\
                 {shlex.quote(token.data.folder)}
     """))
@@ -169,7 +180,7 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
     """
     Detects the depman delivery name + eventual platform (path to search)
     """
-    version = semver.VersionInfo.parse(data.agent_version)
+    version = parse_semver_version(data.agent_version)
 
     if data.agent_type == "linux":
         if data.agent_platform == "java":
@@ -212,6 +223,13 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
 
     raise Exception(f"unknown OS to install: {data.agent_type}")
 
+def parse_semver_version(agent_version: str) -> semver.VersionInfo:
+    try:
+        version = semver.VersionInfo.parse(agent_version)
+    except Exception:
+        version = semver.VersionInfo.parse(f"{agent_version}.0")
+
+    return version
 
 def main():
     bpmn_file = os.path.join(os.path.dirname(__file__), "agent-install-ui.bpmn")

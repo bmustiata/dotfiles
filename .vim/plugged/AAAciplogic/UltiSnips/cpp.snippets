@@ -77,3 +77,30 @@ for (${1:int} ${2:i} = 0; $2 < ${3:10}; $2++) {
 }
 endsnippet
 
+#
+# snippet: namespace
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a namespace
+#
+snippet namespace "Add a namespace" wm
+namespace ${1:X}
+{
+${VISUAL}${0:}
+} // $1
+endsnippet
+
+#
+# snippet: h
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# create a header include
+#
+snippet h "create a header include" wm
+#ifndef ${1:__X}
+#define $1
+
+${VISUAL}${0:}
+
+#endif  // ifndef $1
+endsnippet

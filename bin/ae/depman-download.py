@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
+from typing import Dict
+
 import requests
 from tqdm import tqdm
 import click
 import re
 import sys
+import urllib
 
 
 NUMERIC_HOTFIX_PARSER_RE = re.compile(r'\+hf\.(\d+)')
@@ -17,12 +20,14 @@ class DepmanArgs:
                  exact_version: bool,
                  zip_file: str,
                  version: str,
+                 branch_name: str,
                  only_print: bool,
                  ):
         self.depman_delivery_name = depman_delivery_name
         self.exact_version = exact_version
         self.zip_file = zip_file
         self.version = version
+        self.branch_name = branch_name
         self.only_print = only_print
 
 
@@ -45,12 +50,21 @@ def download_remote_file(args: DepmanArgs) -> None:
     else:
         params["exact_version"] = depman_version
 
+    # branch build, we ignore the passed version
+    if args.branch_name:
+        if "exact_version" in params:
+            del params["exact_version"]
+        params["version_string"] = "latest"
+        params["branch_name"] = args.branch_name
+
+    escaped_params = escape_params(params)
+
     if args.only_print:
-        p = requests.Request('GET', url, params=params).prepare()
+        p = requests.Request('GET', url, params=escaped_params).prepare()
         print(p.url)
         sys.exit(0)
 
-    response = requests.get(url, params=params, stream=True)
+    response = requests.get(url, params=escaped_params, stream=True)
     response.raise_for_status()
 
     total_size_in_bytes= int(response.headers.get('content-length', 0))
@@ -63,6 +77,13 @@ def download_remote_file(args: DepmanArgs) -> None:
     progress_bar.close()
     if total_size_in_bytes != 0 and progress_bar.n != total_size_in_bytes:
         print("ERROR, something went wrong")
+
+
+def escape_params(params: Dict[str, str]) -> str:
+    """
+    Escapes the parameters so depman can consume them
+    """
+    return urllib.parse.urlencode(params, safe='/:+')
 
 
 def get_major_version(args: DepmanArgs) -> str:
@@ -91,20 +112,23 @@ def get_hotfix_number(args: DepmanArgs) -> int:
 
 
 @click.command()
-@click.option("--depman-delivery-name", "--delivery",
-              help="Specify the delivery name to download")
+@click.option("--depman-delivery-name", "--delivery-name", "--delivery",
+              help="Specify the delivery name to download (for example: AutomationEngine_Windows or Agents_SAP)")
 @click.option("--exact-version", "--exact", is_flag=True, default=False,
               help="Use the exact version. Don't try to fetch the latest hotfix of the thing.")
 @click.option("--zip-file", "--zip", "--out", "-o",
               help="Output file")
 @click.option("--only-print", "--print", is_flag=True, default=False,
               help="Only print the URL to download from depman")
+@click.option("--branch-name",
+              help="The branch name for the custom build", default="")
 @click.option("--version", default="21.0",
               help="The version to download")
 def main(depman_delivery_name: str,
          exact_version: bool,
          zip_file: str,
          version: str,
+         branch_name: str,
          only_print: bool) -> None:
     if not zip_file:
         zip_file = f"{depman_delivery_name}.zip"
@@ -114,6 +138,7 @@ def main(depman_delivery_name: str,
         exact_version=exact_version,
         zip_file=zip_file,
         version=version,
+        branch_name=branch_name,
         only_print=only_print,
     )
     download_remote_file(depman_args)

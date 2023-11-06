@@ -15,6 +15,7 @@ import socket
 import glob
 import unbreakable
 import hotswap
+import urllib
 
 
 LOCAL_TEMP_FOLDER="/tmp/downloads/"
@@ -157,6 +158,7 @@ class AgentInstallArgs:
         self.exact_version: bool = kw["exact_version"]
         self.only_config: bool = kw["only_config"]
         self.windows: bool = kw["windows"]
+        self.branch_name: str = kw["branch_name"]
 
 
 default_bin_folder = "bin"
@@ -182,6 +184,9 @@ default_platform_folder = False
 @click.option("--agent-version", "--version", "-v",
               help=f"Specify the agent version to install from depman ({default_agent_version})",
               default=default_agent_version)
+@click.option("--branch-name",
+              help="Specify the build branch name to be used",
+              default="")
 @click.option("--jcp", "-jcp",
               help=f"JCP address ({default_jcp})",
               default=default_jcp)
@@ -561,7 +566,16 @@ def download_remote_file(args: AgentInstallArgs) -> None:
     else:
         params["exact_version"] = depman_version
 
-    response = requests.get(url, params=params, stream=True)
+    # branch build, we ignore the passed version
+    if args.branch_name:
+        if "exact_version" in params:
+            del params["exact_version"]
+        params["version_string"] = "latest"
+        params["branch_name"] = args.branch_name
+
+    escaped_params = escape_params(params)
+
+    response = requests.get(url, params=escaped_params, stream=True)
     response.raise_for_status()
 
     total_size_in_bytes= int(response.headers.get('content-length', 0))
@@ -574,6 +588,13 @@ def download_remote_file(args: AgentInstallArgs) -> None:
     progress_bar.close()
     if total_size_in_bytes != 0 and progress_bar.n != total_size_in_bytes:
         print("ERROR, something went wrong")
+
+
+def escape_params(params: Dict[str, str]) -> str:
+    """
+    Escapes the parameters so depman can consume them
+    """
+    return urllib.parse.urlencode(params, safe='/:+')
 
 
 def get_temp_file_path(args: AgentInstallArgs) -> str:

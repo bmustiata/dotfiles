@@ -51,11 +51,14 @@ endsnippet
 # Generate a python_binary
 #
 snippet pybin "Generate a python_binary" wm
-python_binary(
-	name="${1:generate_dockerfile}",
-	main="${2:$1.py}",
-${3/.+/  deps=[
-    /}${3:"//build/thirdparty/python:click",}${3/.+/
+ge_python_console_binary(
+  name="${1:generate_dockerfile}",
+${2/.+/  srcs=glob([
+    "/}${2:oaas}${2/.+/\/**\/*.py",
+  ]),
+/}  main="${3:$1.py}",
+${4/.+/  deps=[
+    /}${4:"//build/thirdparty/python:click",}${4/.+/
   ],
 /})
 endsnippet
@@ -67,7 +70,7 @@ endsnippet
 # Generate a python_library
 #
 snippet pylib "Generate a python_library" wm
-python_library(
+ge_python_library(
   name="${2:$1-lib}",
   srcs=glob([
     "${1:oaas}/**/*.py",
@@ -86,7 +89,7 @@ endsnippet
 # Create a pip dependency
 #
 snippet pip "Create a pip dependency" wm
-pip_library(
+ge_pip_library(
 	name="${1:click}",
 	version="${2:7.1.2}",
 )
@@ -364,3 +367,28 @@ ge_java_maven_fatjar(
 )
 endsnippet
 
+#
+# snippet: ide
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an IDE generation
+#
+snippet ide "Add an IDE generation" wm
+subinclude("@gbs//_internal/ide/core:ide.plz")
+
+_ge_ide_workspace(
+	name="ide-workspace",
+	modules=[
+		"//_internal/ide-modules:_arg_parser#ide-module",
+	],
+	toolchains=[
+		"@gbs//toolchain/golang:golang",
+	],
+)
+
+_ge_ide_generate(
+	name="ide",
+	workspace=":ide-workspace",
+)
+
+endsnippet
