@@ -120,7 +120,7 @@ def get_hotfix_number(args: DepmanArgs) -> int:
               help="Output file")
 @click.option("--only-print", "--print", is_flag=True, default=False,
               help="Only print the URL to download from depman")
-@click.option("--branch-name",
+@click.option("--branch-name", "--branch",
               help="The branch name for the custom build", default="")
 @click.option("--version", default="21.0",
               help="The version to download")
