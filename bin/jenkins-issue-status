@@ -65,7 +65,7 @@ def print_status(built_version: str,
     else:
         print(RED_CIRCLE + " " + red(built_version, bold=True))
 
-    print("   git    : " + cyan(git_pr.url))
+    print("   git    : " + (cyan(git_pr.url) if git_pr.url else red("no pr")))
     print("   jenkins: " + cyan(build_status.last_build_url))
     print()
 
