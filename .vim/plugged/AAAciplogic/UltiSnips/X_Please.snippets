@@ -392,3 +392,14 @@ _ge_ide_generate(
 )
 
 endsnippet
+
+#
+# snippet: dedent
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a dedent include
+#
+snippet dedent "Add a dedent include" wm
+subinclude("@gbs//_internal/util:dedent.plz")
+endsnippet
+
