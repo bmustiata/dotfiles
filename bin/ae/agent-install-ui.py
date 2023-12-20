@@ -69,6 +69,9 @@ def select_platform(token: adhesive.Token[Data], ui) -> None:
     if token.data.agent_type == "linux":
         platforms = [
             ["x64", "x64"],
+            ["x86", "x86"],
+            ["ppc64", "ppc64"],
+            ["ppc64le", "ppc64le"],
         ]
     elif token.data.agent_type == "windows":
         platforms = [
@@ -189,7 +192,7 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
             else:
                 return ("Agent_Unix_Linux-java", "java")
 
-        return ("Agent_Unix_Linux", "unix/linux/x64")
+        return ("Agent_Unix_Linux", f"unix/linux/{data.agent_platform}")
 
     if data.agent_type == "windows":
         if data.agent_platform == "java":
