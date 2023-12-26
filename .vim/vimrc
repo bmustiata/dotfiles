@@ -52,6 +52,7 @@ Plug 'zchee/vim-flatbuffers'
 Plug 'uarun/vim-protobuf'
 Plug 'mfukar/robotframework-vim'
 Plug 'hashivim/vim-terraform'
+Plug 'dylon/vim-antlr'
 
 " autocomplete
 Plug 'prabirshrestha/asyncomplete.vim'
