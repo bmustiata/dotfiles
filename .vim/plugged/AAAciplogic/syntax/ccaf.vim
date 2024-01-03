@@ -28,15 +28,23 @@ syn keyword syKeyword struct
 syn keyword syKeyword try
 syn keyword syKeyword throw
 syn keyword syKeyword use
-syn keyword syKeyword var
 syn keyword syKeyword variant
 syn keyword syKeyword while
 
-syn keyword syPrimitiveType ptr i64 i32 i16 i8 u8 void str bool
+syn keyword syPrimitiveType ptr
+syn keyword syPrimitiveType i64
+syn keyword syPrimitiveType i32
+syn keyword syPrimitiveType i16
+syn keyword syPrimitiveType i8
+syn keyword syPrimitiveType u8
+syn keyword syPrimitiveType void
+syn keyword syPrimitiveType str
+syn keyword syPrimitiveType bool
+syn keyword syPrimitiveType var
 
 hi def link syComment Comment
 hi def link syBlockComment Comment
-hi def link syPrimitiveType GeNormalItalic
+hi def link syPrimitiveType GeGray2Italic
 
 hi def link syString String
 hi def link syNumber String
