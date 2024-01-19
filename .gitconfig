@@ -30,7 +30,25 @@
     hash = !git rev-parse --verify HEAD
     stashgrep = "!f() { for i in `git stash list --format=\"%gd\"` ; \
               do git stash show -p $i | grep -H --label=\"$i\" \"$@\" ; done ; }; f"
-
+    fixws= !"\
+      if (! git diff-files --quiet .) && \
+         (! git diff-index --quiet --cached HEAD) ; then \
+        git commit -m FIXWS_SAVE_INDEX && \
+        git add -u :/ && \
+        git commit -m FIXWS_SAVE_TREE && \
+        git rebase --whitespace=fix HEAD~2 && \
+        git reset HEAD~ && \
+        git reset --soft HEAD~ ; \
+      elif (! git diff-files --quiet .) ; then \
+        git add -u :/ && \
+        git commit -m FIXWS_SAVE_TREE && \
+        git rebase --whitespace=fix HEAD~ && \
+        git reset HEAD~ ; \
+      elif (! git diff-index --quiet --cached HEAD) ; then \
+        git commit -m FIXWS_SAVE_INDEX && \
+        git rebase --whitespace=fix HEAD~ && \
+        git reset --soft HEAD~ ; \
+      fi"
 [commit]
 template = ~/.gitmessage
 [diff "sopsdiffer"]
