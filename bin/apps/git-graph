@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+
+
+import apps
+
+
+apps.TarGzBinary(
+    name="git-graph",
+    url="https://github.com/mlange-42/git-graph/releases/download/{version}/git-graph-{version}-linux-amd64.tar.gz",
+    version="0.5.3",
+    executable="git-graph",
+)
+
+

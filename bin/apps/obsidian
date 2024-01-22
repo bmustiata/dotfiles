@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+
+import apps
+
+apps.StaticBinary(
+    name="obsidian",
+    url="https://github.com/obsidianmd/obsidian-releases/releases/download/v{version}/Obsidian-{version}.AppImage",
+    version="1.5.3",
+)
