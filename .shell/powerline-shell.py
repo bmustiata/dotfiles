@@ -881,7 +881,7 @@ try:
     segment_content = add_jee_segment(powerline) or segment_content
     segment_content = add_java_segment(powerline) or segment_content
     segment_content = add_git_segment(powerline) or segment_content
-    segment_content = add_svn_segment(powerline) or segment_content
+    # segment_content = add_svn_segment(powerline) or segment_content
     segment_content = add_jobs_segment(powerline) or segment_content
     if segment_content:
         add_enter_segment(powerline)

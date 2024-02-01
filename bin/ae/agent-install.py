@@ -320,6 +320,14 @@ def find_subarchive_matching_platform(args: AgentInstallArgs, temp_folder: str) 
             print(f"using subarchive {file} for platform {args.agent_platform}")
             return file
 
+    # if we haven't found it yet, maybe it's a java platform repackaged
+    if "java" == args.agent_platform:
+        for file in tar_files:
+            basename = os.path.basename(file)
+            if basename.startswith("ucxj"):
+                print(f"using subarchive {file} for platform {args.agent_platform}")
+                return file
+
     searched_files = [] + files + tar_files
 
     raise Exception(f"unable to find {args.agent_platform} in {temp_folder}: {searched_files}")
@@ -594,7 +602,7 @@ def escape_params(params: Dict[str, str]) -> str:
     """
     Escapes the parameters so depman can consume them
     """
-    return urllib.parse.urlencode(params, safe='/:+')
+    return urllib.parse.urlencode(params, safe='/:')  # + used to be also here
 
 
 def get_temp_file_path(args: AgentInstallArgs) -> str:

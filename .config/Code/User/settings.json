@@ -32,7 +32,6 @@
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "none",
     "window.titleBarStyle": "custom",
-    "workbench.activityBar.visible": true,
     "explorer.confirmDragAndDrop": false,
     "editor.stickyScroll.enabled": true,
     "editor.stickyScroll.maxLineCount": 10,
