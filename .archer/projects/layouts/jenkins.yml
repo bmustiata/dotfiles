@@ -1,5 +1,7 @@
 config:
   name: jenkins
+  layouts:
+  - jenkins-env
   requires:
   - JENKINS_PREFIX
   - PROJECT_HOME

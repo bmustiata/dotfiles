@@ -6,6 +6,7 @@ import requests
 import git_utils
 import click
 import os
+from requests.auth import HTTPBasicAuth
 
 RED_CIRCLE="🔴"
 GREEN_CIRCLE="🟢"
@@ -52,7 +53,15 @@ def get_build_status(git_pr: GitPr) -> JenkinsBuildStatus:
 def jenkins_fetch_job_data(git_pr: GitPr) -> Any:
     jenkins_prefix = os.getenv("JENKINS_PREFIX")
     jenkins_url = f"{jenkins_prefix}/view/change-requests/job/PR-{git_pr.number}/api/json?depth=1"
-    r = requests.get(jenkins_url)
+
+    auth = None
+    if os.getenv("JENKINS_API_USER"):
+        auth=HTTPBasicAuth(os.getenv("JENKINS_API_USER"), os.getenv("JENKINS_API_TOKEN"))
+
+    r = requests.get(jenkins_url, auth=auth)
+
+    r.raise_for_status()
+
     return r.json()
 
 
