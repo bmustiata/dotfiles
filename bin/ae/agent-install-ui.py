@@ -76,6 +76,7 @@ def select_platform(token: adhesive.Token[Data], ui) -> None:
     elif token.data.agent_type == "windows":
         platforms = [
             ["x64", "x64"],
+            ["x86", "x86"],
         ]
     elif token.data.agent_type == "aix":
         platforms = [
@@ -201,7 +202,7 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
             else:
                 return ("Agent_Windows-Java", "java")
 
-        return ("Agent_Windows", "x64")
+        return ("Agent_Windows", data.agent_platform)
 
     if data.agent_type == "aix":
         return ("Agent_Unix_aix", data.agent_platform)
