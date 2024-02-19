@@ -5,14 +5,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'file://.vim/plugged/AAAciplogic'
 
 
-Plug 'altercation/vim-colors-solarized' " the solarized theme
-
 " Cool feature plugins
 Plug 'vim-scripts/guicolorscheme.vim'  " 256 color support
 Plug 'bling/vim-airline'               " cooler status bar
 Plug 'bmustiata/ultisnips'             " UltiSnips, with no nested scripts
 Plug 'brooth/far.vim'                  " Replace across multiple files
-Plug 'scrooloose/nerdcommenter'    " Comment sections of code <leader>cc
+Plug 'scrooloose/nerdcommenter'        " Comment sections of code <leader>cc
 Plug 'ntpeters/vim-better-whitespace'  " Whitespace highlight at the end, and chars
 Plug 'bmustiata/vim-todo'              " TODO lists created with ease
 Plug 'vim-scripts/DirDiff.vim'         " Diff two folders
