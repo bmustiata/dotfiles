@@ -36,5 +36,77 @@
     "editor.stickyScroll.enabled": true,
     "editor.stickyScroll.maxLineCount": 10,
     "git.openRepositoryInParentFolders": "always",
-    "workbench.colorTheme": "Ciplogic"
+    "workbench.colorTheme": "Ciplogic",
+    "zowe.ds.history": {
+        "persistence": true,
+        "favorites": [],
+        "history": [],
+        "sessions": [
+            "zexplore"
+        ],
+        "templates": [],
+        "fileHistory": [
+            "[ZEXPLORE]: ZXP.PUBLIC.JCL(VSCJCL)",
+            "[ZEXPLORE]: Z43926.README"
+        ],
+        "searchHistory": [
+            "Z43926,ZXP",
+            "Z43926"
+        ]
+    },
+    "zowe.uss.history": {
+        "persistence": true,
+        "favorites": [],
+        "history": [],
+        "sessions": [
+            "zexplore"
+        ],
+        "templates": []
+    },
+    "zowe.jobs.history": {
+        "persistence": true,
+        "favorites": [],
+        "history": [],
+        "sessions": [
+            "zexplore"
+        ],
+        "templates": []
+    },
+    "zowe.settings.version": 2,
+    "files.associations": {
+        "*.COBOL*": "cobol",
+        "*.COB*": "cobol",
+        "*.COBCOPY*": "cobol",
+        "*.COPYBOOK*": "cobol",
+        "*.COPY*": "cobol",
+        "*.PL1*": "pl1",
+        "*.PLI*": "pl1",
+        "*.INC*": "pl1",
+        "*.INCLUDE*": "pl1",
+        "*.JCL*": "jcl",
+        "*.ASM*": "hlasm",
+        "*.ASSEMBLE*": "hlasm",
+        "*.HLASM*": "hlasm",
+        "*.HLA*": "hlasm",
+        "*.MACLIB*": "hlasm",
+        "*.EXEC*": "rexx",
+        "*.REXX*": "rexx",
+        "*.REXXINC*": "rexx",
+        "*.rex": "rexx",
+        "*.rexx": "rexx"
+    },
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "/zapp.json"
+            ],
+            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-3.4.0/resources/zapp-schema-1.0.0.json"
+        },
+        {
+            "fileMatch": [
+                "/zcodeformat.json"
+            ],
+            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-3.4.0/resources/zcodeformat-schema-0.0.1.json"
+        }
+    ]
 }
