@@ -61,7 +61,8 @@
         "sessions": [
             "zexplore"
         ],
-        "templates": []
+        "templates": [],
+        "searchHistory": []
     },
     "zowe.jobs.history": {
         "persistence": true,
@@ -93,7 +94,12 @@
         "*.REXX*": "rexx",
         "*.REXXINC*": "rexx",
         "*.rex": "rexx",
-        "*.rexx": "rexx"
+        "*.rexx": "rexx",
+        "uc_trace.h": "c",
+        "functional": "cpp",
+        "msgtab2.h": "c",
+        "string": "cpp",
+        "uc_main.h": "c"
     },
     "json.schemas": [
         {

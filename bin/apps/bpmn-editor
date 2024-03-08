@@ -3,8 +3,10 @@
 
 import apps
 
+# https://kumisystems.dl.sourceforge.net/project/bpmn/6-GPLv3/editor/6.1/yaoqiang-bpmn-editor-6.1.3.jar
+
 apps.JarExecutable(
     name="yaoqiang-bpmn-editor",
-    url="https://jaist.dl.sourceforge.net/project/bpmn/{version_1}-GPLv3/binaries/{version_2}/yaoqiang-bpmn-editor-{version}.jar",
-    version="5.5.3",
+    url="https://kumisystems.dl.sourceforge.net/project/bpmn/{version_1}-GPLv3/editor/{version_2}/yaoqiang-bpmn-editor-{version}.jar",
+    version="6.1.3",
 )
