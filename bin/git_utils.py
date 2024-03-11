@@ -51,11 +51,14 @@ def get_checked_out_branch_name() -> str:
 
 def get_checkout_issue_number() -> str:
     current_branch = get_checked_out_branch_name()  # type: str
+    return get_branch_issue_number(current_branch)
 
-    m = BRANCH_ISSUE_ID_PARSER.match(current_branch)
+
+def get_branch_issue_number(branch_name: str) -> str:
+    m = BRANCH_ISSUE_ID_PARSER.match(branch_name)
 
     if not m:
-        raise Exception("Unable to find the issue number from: %s" % current_branch)
+        raise Exception("Unable to find the issue number from: %s" % branch_name)
 
     return m.group(1)
 
@@ -66,22 +69,31 @@ def get_checkout_branch_suffix_name() -> str:
     """
     current_branch = get_checked_out_branch_name()  # type: str
 
-    m = BRANCH_ISSUE_ID_PARSER.match(current_branch)
+    return get_branch_suffix_name(current_branch)
+
+
+def get_branch_suffix_name(branch_name: str) -> str:
+    """
+    Get the string of the branch after the issue number.
+    """
+    m = BRANCH_ISSUE_ID_PARSER.match(branch_name)
 
     if not m:
-        raise Exception("Unable to find the suffix from: %s" % current_branch)
+        raise Exception("Unable to find the suffix from: %s" % branch_name)
 
     return m.group(2)
 
 
-
 def get_checkout_version() -> str:
     current_branch = get_checked_out_branch_name()  # type: str
+    return get_branch_version(current_branch)
 
-    m = BRANCH_NAME_PARSER.match(current_branch)
+
+def get_branch_version(branch_name: str) -> str:
+    m = BRANCH_NAME_PARSER.match(branch_name)
 
     if not m:
-        raise Exception("Unable to find the version from: %s" % current_branch)
+        raise Exception("Unable to find the version from: %s" % branch_name)
 
     version = m.group(4)
 

@@ -8,8 +8,12 @@ import os
 import titlecase
 
 
-def get_branch_title() -> str:
-    branch_suffix = git_utils.get_checkout_branch_suffix_name()
+def get_branch_title(branch: str) -> str:
+    if branch:
+        branch_suffix = git_utils.get_branch_suffix_name(branch)
+    else:
+        branch_suffix = git_utils.get_checkout_branch_suffix_name()
+
     return titlecase.titlecase(branch_suffix.replace("-", " "))
 
 
@@ -46,11 +50,18 @@ def create_github_pr(base: str, head: str, message: str) -> None:
 @click.option("--project", "-p",
               help="Specify a project name to be added into the commit message",
               default="")
-def main(version: str, issue_id: str, onto: str, message: str, project: str) -> None:
-    if not version:
+@click.option("--branch", "-b",
+              help="Use the given branch, not the locally checked out one",
+              default="")
+def main(version: str, issue_id: str, onto: str, message: str, project: str, branch: str) -> None:
+    if not version and not branch:
         version = git_utils.get_checkout_version()
+    elif branch:
+        version = git_utils.get_branch_version(branch)
 
-    if not issue_id:
+    if branch:
+        pass
+    elif not issue_id:
         issue_id = git_utils.get_checkout_issue_number()
         branch = git_utils.find_branch_by_issue_id(version, issue_id)
     else:
@@ -60,10 +71,12 @@ def main(version: str, issue_id: str, onto: str, message: str, project: str) -> 
         target_branch = onto
     elif version == "master":
         target_branch = "master"
+    elif "+hf." in version:
+        target_branch = f"hotfix/{version}"
     else:
         target_branch = f"maint/{version}"
 
-    pr_title = get_branch_title()
+    pr_title = get_branch_title(branch)
 
     if not message:
         if version == "master":
