@@ -60,7 +60,8 @@ def jenkins_fetch_job_data(git_pr: GitPr) -> Any:
 
     r = requests.get(jenkins_url, auth=auth)
 
-    r.raise_for_status()
+    if not r.ok:
+        return None
 
     return r.json()
 

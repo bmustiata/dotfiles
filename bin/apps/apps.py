@@ -33,9 +33,10 @@ def JarExecutable(
         name: str,
         url: str,
         version: str = "",
+        jvm_args: List[str] = [],
         shortcut: Optional[str] = None) -> None:
     app_definition(
-        command_prefix = ["java", "-jar"],
+        command_prefix = ["java", "-jar"] + jvm_args,
         name=name,
         version=version,
         url=url,

@@ -99,7 +99,9 @@
         "functional": "cpp",
         "msgtab2.h": "c",
         "string": "cpp",
-        "uc_main.h": "c"
+        "uc_main.h": "c",
+        "*.ipp": "cpp",
+        "array": "cpp"
     },
     "json.schemas": [
         {

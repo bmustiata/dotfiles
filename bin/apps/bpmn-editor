@@ -9,4 +9,8 @@ apps.JarExecutable(
     name="yaoqiang-bpmn-editor",
     url="https://kumisystems.dl.sourceforge.net/project/bpmn/{version_1}-GPLv3/editor/{version_2}/yaoqiang-bpmn-editor-{version}.jar",
     version="6.1.3",
+    jvm_args=[
+        "--add-opens=java.desktop/sun.swing=ALL-UNNAMED",
+        "--add-opens=java.desktop/sun.awt.shell=ALL-UNNAMED",
+    ],
 )

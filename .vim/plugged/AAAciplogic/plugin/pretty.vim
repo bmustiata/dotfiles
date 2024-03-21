@@ -77,10 +77,20 @@ function! PrettyCss()
 set filetype=css
 endfunction
 
+"
+" This function sends the current buffer into sqlformat
+" Install: pip install sqlparse
+"
+function! PrettySql()
+:%!sqlformat --reindent --keywords upper --identifiers lower -
+set filetype=sql
+endfunction
+
 " Command for pretty format XMLs and JSON
 command PrettyXml call PrettyXml()
 command PrettyJson call PrettyJson()
 command PrettyHtml call PrettyHtml()
 command PrettyCss call PrettyCss()
 command PrettyJs call PrettyJs()
+command PrettySql call PrettySql()
 

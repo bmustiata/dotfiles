@@ -16,6 +16,7 @@ NUMERIC_HOTFIX_PARSER_RE = re.compile(r'\+hf\.(\d+)')
 class DepmanArgs:
     def __init__(self,
                  *,
+                 lifecycle_entity_technical_name: str,
                  depman_delivery_name: str,
                  exact_version: bool,
                  zip_file: str,
@@ -23,6 +24,7 @@ class DepmanArgs:
                  branch_name: str,
                  only_print: bool,
                  ):
+        self.lifecycle_entity_technical_name = lifecycle_entity_technical_name
         self.depman_delivery_name = depman_delivery_name
         self.exact_version = exact_version
         self.zip_file = zip_file
@@ -40,7 +42,7 @@ def download_remote_file(args: DepmanArgs) -> None:
         depman_version = f"{depman_version} HF{hotfix_number}"
 
     params = {
-        "lifecycle_entity_technical_name": "AE",
+        "lifecycle_entity_technical_name": args.lifecycle_entity_technical_name,
         "version_string": depman_version,
         "delivery_name": args.depman_delivery_name,
     }
@@ -112,6 +114,8 @@ def get_hotfix_number(args: DepmanArgs) -> int:
 
 
 @click.command()
+@click.option("--lifecycle-entity-technical-name", "--lifecycle-entity",
+              help="Specify the lifecycle entity name to download (for example: AE or RA.Web.Service)")
 @click.option("--depman-delivery-name", "--delivery-name", "--delivery",
               help="Specify the delivery name to download (for example: AutomationEngine_Windows or Agents_SAP)")
 @click.option("--exact-version", "--exact", is_flag=True, default=False,
@@ -124,7 +128,8 @@ def get_hotfix_number(args: DepmanArgs) -> int:
               help="The branch name for the custom build", default="")
 @click.option("--version", default="21.0",
               help="The version to download")
-def main(depman_delivery_name: str,
+def main(lifecycle_entity_technical_name: str,
+         depman_delivery_name: str,
          exact_version: bool,
          zip_file: str,
          version: str,
@@ -134,6 +139,7 @@ def main(depman_delivery_name: str,
         zip_file = f"{depman_delivery_name}.zip"
 
     depman_args = DepmanArgs(
+        lifecycle_entity_technical_name=lifecycle_entity_technical_name,
         depman_delivery_name=depman_delivery_name,
         exact_version=exact_version,
         zip_file=zip_file,
