@@ -62,7 +62,8 @@
             "zexplore"
         ],
         "templates": [],
-        "searchHistory": []
+        "searchHistory": [],
+        "fileHistory": []
     },
     "zowe.jobs.history": {
         "persistence": true,
@@ -71,7 +72,8 @@
         "sessions": [
             "zexplore"
         ],
-        "templates": []
+        "templates": [],
+        "fileHistory": []
     },
     "zowe.settings.version": 2,
     "files.associations": {
