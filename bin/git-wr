@@ -1,0 +1,235 @@
+#!/usr/bin/env python3
+
+from typing import Optional
+
+import adhesive
+import click
+import ge_jira_api
+import git_utils
+import unbreakable
+import os.path
+
+
+class Data:
+    issue_id: str
+    direction: str
+
+jira_issue: Optional[ge_jira_api.JiraIssue] = None
+zephyr_issue: Optional[ge_jira_api.JiraIssue] = None
+
+
+@adhesive.task('Detect issue ID from current branch')
+@unbreakable.code
+def detect_issue_id_from_current_branch(token: adhesive.Token[Data]) -> None:
+    try:
+        token.data.issue_id = git_utils.get_checkout_issue_number()
+    except Exception:
+        token.data.issue_id = '???'
+
+
+@adhesive.usertask('Select Issue ID')
+@unbreakable.code
+def select_issue_id(token: adhesive.Token[Data], ui: adhesive.UI) -> None:
+    ui.add_input_text("issue_id", "Issue", token.data.issue_id)
+
+
+@adhesive.task('Load/Reload Task Details')
+@unbreakable.code
+def load_reload_task_details(token: adhesive.Token) -> None:
+    global jira_issue
+    jira_issue = ge_jira_api.JiraIssue(token.data.issue_id)
+
+    jira_issue.field("AutomicTeams").restrict_values(
+        "AWA.Phoenix",
+        "PA.DaVinci",
+        "PA.Eiffel",
+        "RA.AUX",
+    )
+    jira_issue.field("Root Cause (Automic)").restrict_values(
+        'Faulty Coding',
+        'Faulty 3rd Party',
+        'Faulty Error Handling',
+    )
+    jira_issue.field("Mitigation").restrict_values(
+        'Code Review',
+        'Unit Test',
+        'Integration Test',
+        'System Test',
+    )
+
+@adhesive.usertask('Fill Issue Details')
+@unbreakable.code
+def fill_issue_details(token: adhesive.Token[Data], ui: adhesive.UI) -> None:
+    assert jira_issue
+
+    ui.add_readonly_text("Title", jira_issue.title)
+    ui.add_readonly_text("Status", jira_issue.status)
+    ui.add_readonly_text(
+            title="Sprint",
+            value=jira_issue.get_value("Sprint"))
+    ui.add_checkbox_group("team",
+            title="Team",
+            value=jira_issue.get_value("AutomicTeams"),
+            values=jira_issue.field("AutomicTeams").allowed_values)
+    ui.add_combobox("root_cause",
+            title="Root Cause",
+            value=jira_issue.get_value("Root Cause (Automic)"),
+            values=jira_issue.field("Root Cause (Automic)").allowed_values)
+    ui.add_combobox("mitigation",
+            title="Mitigation",
+            value=jira_issue.get_value("Mitigation"),
+            values=jira_issue.field("Mitigation").allowed_values)
+    ui.add_textarea("public_description_short",
+            title="Public short description EN",
+            value=jira_issue.get_value("Public short description EN"))
+    ui.add_textarea("public_description_long",
+            title="Public description EN",
+            value=jira_issue.get_value("Public description EN"))
+
+    ui.add_default_button("direction", "Back", "back")
+    ui.add_default_button("direction", "Skip", "skip")
+    ui.add_default_button("direction", "OK", "ok")
+
+
+@adhesive.task('Update JIRA Details')
+@unbreakable.code
+def update_jira_details(token: adhesive.Token[Data]) -> None:
+    assert jira_issue
+
+    print({
+        "AutomicTeams": list(token.data.team),
+        "Root Cause (Automic)": token.data.root_cause,
+        "Mitigation": token.data.mitigation,
+        "Public short description EN": token.data.public_description_short,
+        "Public description EN": token.data.public_description_long if token.data.public_description_long else token.data.public_description_short,
+    })
+
+    jira_issue.update_all({
+        "AutomicTeams": list(token.data.team),
+        "Root Cause (Automic)": token.data.root_cause,
+        "Mitigation": token.data.mitigation,
+        "Public short description EN": token.data.public_description_short,
+        "Public description EN": token.data.public_description_long if token.data.public_description_long else token.data.public_description_short,
+    })
+
+
+@adhesive.task('Needs Zephyr Test Case?')
+@unbreakable.code
+def needs_zephyr_test_case_(context: adhesive.Token[Data]) -> None:
+    assert jira_issue
+    global zephyr_issue
+
+    context.data.direction = ""
+
+    for link in jira_issue.links:
+        if link.issue_type == 'Test':
+            zephyr_issue = ge_jira_api.JiraIssue(link.issue_number)
+            return
+
+    context.data.direction = "create"
+
+
+@adhesive.task('Create & Link Zephyr Test Case')
+@unbreakable.code
+def create_link_zephyr_test_case(token: adhesive.Token[Data]) -> None:
+    assert jira_issue
+
+    global zephyr_issue
+
+    zephyr_issue = ge_jira_api.JiraIssue.create(
+        project_key="AE",
+        issue_type="Test",
+        title=f"Test for {jira_issue.issue_number}: {jira_issue.title}",
+        description=f".",
+    )
+
+    jira_issue.link("Relates", zephyr_issue.issue_number)
+
+
+@adhesive.usertask('Zephyr Test Case Details')
+@unbreakable.code
+def zephyr_test_case_details(context: adhesive.Token[Data], ui: adhesive.UI) -> None:
+    assert zephyr_issue
+
+    context.data.direction = ""
+
+    ui.add_input_text("zephyr_title",
+            title="Title",
+            value=zephyr_issue.title)
+    ui.add_textarea("zephyr_description",
+            title="Description",
+            value=zephyr_issue.get_value('Description'))
+    ui.add_readonly_text("Status", zephyr_issue.status)
+    ui.add_combobox("zephyr_execution_type",
+            title="Execution Type",
+            value=zephyr_issue.get_value("Execution Type"),
+            values=zephyr_issue.field("Execution Type").allowed_values)
+
+    ui.add_default_button("direction", title="Skip", value="skip")
+    ui.add_default_button("direction", title="Update", value="update")
+
+
+@adhesive.task('Update Zephyr Test Details')
+@unbreakable.code
+def update_zephyr_test_details(token: adhesive.Token[Data]) -> None:
+    assert zephyr_issue
+
+    zephyr_issue.update_all({
+        "Summary": token.data.zephyr_title,
+        "Description": token.data.zephyr_description,
+        "Execution Type": token.data.zephyr_execution_type,
+    })
+
+
+@adhesive.usertask('Transition Task to Wait Review')
+@unbreakable.code
+def transition_task_to_wait_review(token: adhesive.Token[Data], ui: adhesive.UI) -> None:
+    assert jira_issue
+
+    if 'Ready for review' in jira_issue.transitions.allowed_values:
+        jira_issue.transitions.restrict_values(
+            'Ready for review',
+            'Close Issue',
+            'Stop Progress',
+        )
+    elif 'Start Progress' in jira_issue.transitions.allowed_values:
+        jira_issue.transitions.restrict_values(
+            'Start Progress',
+            'Close Issue',
+        )
+
+    ui.add_readonly_text("Status", jira_issue.status)
+
+    for transition in jira_issue.transitions.allowed_values:
+        ui.add_default_button("direction", transition, value=transition)
+
+    ui.add_default_button("direction", title="Exit", value="exit")
+
+
+@adhesive.task('Transition task: {direction}')
+@unbreakable.code
+def transition_task_direction_(token: adhesive.Token[Data]) -> None:
+    assert jira_issue
+    jira_issue.update_all(None, transition_name=token.data.direction)
+
+
+@adhesive.task('Reload JIRA Issue Details')
+@unbreakable.code
+def reload_jira_issue_details(token: adhesive.Token[Data]) -> None:
+    assert jira_issue
+
+    # we keep the jira_issue._meta
+    jira_issue._data = None
+    jira_issue._transitions_data = None
+
+
+@unbreakable.main
+@click.command()
+def main() -> None:
+    folder = os.path.abspath(os.path.dirname(__file__))
+    adhesive.bpmn_build(f"{folder}/git-wr.bpmn")
+
+
+if __name__ == "__main__":
+    main()
+

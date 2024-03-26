@@ -14,6 +14,7 @@ set previewheight=10
 
 nnoremap <silent> gd :LspDefinition<CR>
 nnoremap <silent> gr :LspReferences<CR>
+nnoremap <silent> gA :LspRename<CR>
 nnoremap <silent> gf :LspDocumentFormatSync<CR>
 nnoremap <silent> H :LspHover<CR>
 
