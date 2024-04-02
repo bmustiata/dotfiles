@@ -73,7 +73,8 @@
             "zexplore"
         ],
         "templates": [],
-        "fileHistory": []
+        "fileHistory": [],
+        "searchHistory": []
     },
     "zowe.settings.version": 2,
     "files.associations": {
@@ -103,20 +104,86 @@
         "string": "cpp",
         "uc_main.h": "c",
         "*.ipp": "cpp",
-        "array": "cpp"
+        "array": "cpp",
+        "cctype": "cpp",
+        "clocale": "cpp",
+        "cmath": "cpp",
+        "csignal": "cpp",
+        "cstdarg": "cpp",
+        "cstddef": "cpp",
+        "cstdio": "cpp",
+        "cstdlib": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "cwchar": "cpp",
+        "cwctype": "cpp",
+        "any": "cpp",
+        "atomic": "cpp",
+        "strstream": "cpp",
+        "bit": "cpp",
+        "*.tcc": "cpp",
+        "bitset": "cpp",
+        "cfenv": "cpp",
+        "chrono": "cpp",
+        "codecvt": "cpp",
+        "complex": "cpp",
+        "condition_variable": "cpp",
+        "cstdint": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "exception": "cpp",
+        "algorithm": "cpp",
+        "iterator": "cpp",
+        "memory": "cpp",
+        "memory_resource": "cpp",
+        "numeric": "cpp",
+        "optional": "cpp",
+        "random": "cpp",
+        "ratio": "cpp",
+        "regex": "cpp",
+        "source_location": "cpp",
+        "string_view": "cpp",
+        "system_error": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "fstream": "cpp",
+        "future": "cpp",
+        "initializer_list": "cpp",
+        "iomanip": "cpp",
+        "iosfwd": "cpp",
+        "iostream": "cpp",
+        "istream": "cpp",
+        "limits": "cpp",
+        "mutex": "cpp",
+        "new": "cpp",
+        "ostream": "cpp",
+        "shared_mutex": "cpp",
+        "sstream": "cpp",
+        "stdexcept": "cpp",
+        "streambuf": "cpp",
+        "thread": "cpp",
+        "cinttypes": "cpp",
+        "typeindex": "cpp",
+        "typeinfo": "cpp",
+        "variant": "cpp"
     },
     "json.schemas": [
         {
             "fileMatch": [
                 "/zapp.json"
             ],
-            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-3.4.0/resources/zapp-schema-1.0.0.json"
+            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.1.0/resources/zapp-schema-1.1.0.json"
         },
         {
             "fileMatch": [
                 "/zcodeformat.json"
             ],
-            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-3.4.0/resources/zcodeformat-schema-0.0.1.json"
+            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.1.0/resources/zcodeformat-schema-0.0.1.json"
         }
     ]
 }
