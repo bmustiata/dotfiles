@@ -13,16 +13,21 @@ syn match syNativeEndCurly /}/ contained conceal
 syn match syString '"\_.\{-0,1000}"'
 syn match syNumber '\d'
 
+syn keyword syKeyword false
+syn keyword syKeyword true
 syn keyword syKeyword as
+syn keyword syKeyword break
 syn keyword syKeyword catch
+syn keyword syKeyword continue
 syn keyword syKeyword class
+syn keyword syKeyword extend
 syn keyword syKeyword finally
 syn keyword syKeyword for
 syn keyword syKeyword if
 syn keyword syKeyword in
 syn keyword syKeyword is
 syn keyword syKeyword package
-syn keyword syKeyword ret
+syn keyword syKeyword return
 syn keyword syKeyword not
 syn keyword syKeyword struct
 syn keyword syKeyword try
@@ -48,6 +53,7 @@ hi def link syPrimitiveType GeGray2Italic
 
 hi def link syString String
 hi def link syNumber String
+hi def link syBool String
 
 hi def link syKeyword Keyword
 

@@ -151,7 +151,7 @@ def create_agent(token: adhesive.Token[Data]) -> None:
     agent_port = shlex.quote("<detect>") if not token.data.agent_port else token.data.agent_port
 
     only_config_flag = "--only-config" if token.data.direction == "config" else ""
-    windows_flag = "--windows" if token.data.agent_type in ("windows", "jmx") else ""
+
     exact_version_flag = "--exact-version" if "yes" in token.data.exact_version else ""
     zip_file = f"--zip {token.data.zip_file}" if token.data.zip_file else ""
     tgz_file = f"--tgz {token.data.tgz_file}" if token.data.tgz_file else ""
@@ -159,7 +159,12 @@ def create_agent(token: adhesive.Token[Data]) -> None:
 
     depman_delivery_name, agent_platform = detect_delivery_and_platform(token.data)
 
-    token.workspace.run(textwrap.dedent(f"""\
+    windows_flag = ""
+    if token.data.agent_type in ("windows", "jmx") or \
+            token.data.agent_type == 'ra' and 'windows' in agent_platform:
+        windows_flag = "--windows"
+
+    command = textwrap.dedent(f"""\
         cd {token.data.cwd}
         /home/raptor/bin/ae/agent-install.py \\
                 --agent-version {shlex.quote(token.data.agent_version)} \\
@@ -177,7 +182,9 @@ def create_agent(token: adhesive.Token[Data]) -> None:
                 {branch_name_option} {exact_version_flag} {only_config_flag} {windows_flag} \\
                 --bin-folder {shlex.quote(token.data.bin_folder)} \\
                 {shlex.quote(token.data.folder)}
-    """))
+    """)
+    print(command)
+    token.workspace.run(command)
 
 
 def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
