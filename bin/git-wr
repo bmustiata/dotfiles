@@ -24,7 +24,7 @@ def detect_issue_id_from_current_branch(token: adhesive.Token[Data]) -> None:
     try:
         token.data.issue_id = git_utils.get_checkout_issue_number()
     except Exception:
-        token.data.issue_id = '???'
+        token.data.issue_id = '?'
 
 
 @adhesive.usertask('Select Issue ID')
@@ -124,9 +124,13 @@ def needs_zephyr_test_case_(context: adhesive.Token[Data]) -> None:
     for link in jira_issue.links:
         if link.issue_type == 'Test':
             zephyr_issue = ge_jira_api.JiraIssue(link.issue_number)
+            restrict_zephyr_issue(zephyr_issue)
+
             return
 
     context.data.direction = "create"
+
+
 
 
 @adhesive.task('Create & Link Zephyr Test Case')
@@ -142,6 +146,8 @@ def create_link_zephyr_test_case(token: adhesive.Token[Data]) -> None:
         title=f"Test for {jira_issue.issue_number}: {jira_issue.title}",
         description=f".",
     )
+
+    restrict_zephyr_issue(zephyr_issue)
 
     jira_issue.link("Relates", zephyr_issue.issue_number)
 
@@ -164,6 +170,14 @@ def zephyr_test_case_details(context: adhesive.Token[Data], ui: adhesive.UI) -> 
             title="Execution Type",
             value=zephyr_issue.get_value("Execution Type"),
             values=zephyr_issue.field("Execution Type").allowed_values)
+    ui.add_checkbox_group("zephyr_team",
+            title="Team",
+            value=zephyr_issue.get_value("AutomicTeams"),
+            values=zephyr_issue.field("AutomicTeams").allowed_values)
+    ui.add_checkbox_group("zephyr_component",
+            title="Component/s",
+            value=zephyr_issue.get_value("Component/s"),
+            values=zephyr_issue.field("Component/s").allowed_values)
 
     ui.add_default_button("direction", title="Skip", value="skip")
     ui.add_default_button("direction", title="Update", value="update")
@@ -174,11 +188,16 @@ def zephyr_test_case_details(context: adhesive.Token[Data], ui: adhesive.UI) -> 
 def update_zephyr_test_details(token: adhesive.Token[Data]) -> None:
     assert zephyr_issue
 
-    zephyr_issue.update_all({
+    data = {
         "Summary": token.data.zephyr_title,
         "Description": token.data.zephyr_description,
         "Execution Type": token.data.zephyr_execution_type,
-    })
+        "AutomicTeams": list(token.data.zephyr_team),
+        "Component/s": list(token.data.zephyr_component),
+    }
+
+    print(data)
+    zephyr_issue.update_all(data)
 
 
 @adhesive.usertask('Transition Task to Wait Review')
@@ -228,6 +247,39 @@ def reload_jira_issue_details(token: adhesive.Token[Data]) -> None:
 def main() -> None:
     folder = os.path.abspath(os.path.dirname(__file__))
     adhesive.bpmn_build(f"{folder}/git-wr.bpmn")
+
+
+def restrict_zephyr_issue(zephyr_issue):
+    zephyr_issue.field("AutomicTeams").restrict_values(
+        "AWA.Phoenix",
+        "PA.DaVinci",
+        "PA.Eiffel",
+        "RA.AUX",
+    )
+
+    zephyr_issue.field("Component/s").restrict_values(
+        "AutomationEngine",
+        "Automic.Web.Interface",
+        "ServiceManager",
+        "Utility",
+        "Agent AS400",
+        "Agent BS2000",
+        "Agent GoogleCloudComposer",
+        "Agent JMX",
+        "Agent MVS",
+        "Agent NSK",
+        "Agent OS Java",
+        "Agent PeopleSoft",
+        "Agent RA Core",
+        "Agent SAP",
+        "Agent SQL",
+        "Agent TLS Gateway",
+        "Agent Unix",
+        "Agent Unix Java",
+        "Agent VMS",
+        "Agent Windows",
+        "Agent Windows Java",
+    )
 
 
 if __name__ == "__main__":
