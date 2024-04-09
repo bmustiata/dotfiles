@@ -55,6 +55,7 @@ def load_reload_task_details(token: adhesive.Token) -> None:
         'Unit Test',
         'Integration Test',
         'System Test',
+        'Static Code Analysis',
     )
 
 @adhesive.usertask('Fill Issue Details')
@@ -131,6 +132,10 @@ def needs_zephyr_test_case_(context: adhesive.Token[Data]) -> None:
     context.data.direction = "create"
 
 
+@adhesive.usertask('Create Zephyr Test Case?')
+def create_zephyr_test_case_(token: adhesive.Token[Data], ui: adhesive.UI) -> None:
+    ui.add_default_button("direction", title="Skip", value="skip")
+    ui.add_default_button("direction", title="Create", value="create")
 
 
 @adhesive.task('Create & Link Zephyr Test Case')
@@ -200,7 +205,7 @@ def update_zephyr_test_details(token: adhesive.Token[Data]) -> None:
     zephyr_issue.update_all(data)
 
 
-@adhesive.usertask('Transition Task to Wait Review')
+@adhesive.usertask('Transition Task')
 @unbreakable.code
 def transition_task_to_wait_review(token: adhesive.Token[Data], ui: adhesive.UI) -> None:
     assert jira_issue
