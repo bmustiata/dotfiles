@@ -154,8 +154,15 @@ statuses = {
 }
 
 @click.command()
-@click.argument("status_code", nargs=1)
-def main(status_code):
+@click.argument("status_code", default="1900")
+@click.option("--show-all", "--all", "-a", is_flag=True, default=False,
+              help="Show all the status codes")
+def main(show_all, status_code):
+    if show_all:
+        for k, v in sorted(statuses.items()):
+            print(f"{k} -> {v}")
+        return
+
     print(f"{status_code} -> {statuses[status_code]}")
 
 
