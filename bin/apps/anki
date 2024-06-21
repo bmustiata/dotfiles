@@ -4,9 +4,9 @@ import apps
 
 apps.TarZstBinary(
     name="anki",
-    url="https://apps.ankiweb.net/downloads/archive/anki-{version}-linux-qt6.tar.zst",
-    version="2.1.60",
-    executable="anki-{version}-linux-qt6/anki",
+    url="https://apps.ankiweb.net/downloads/archive/anki-{version}-linux-qt5.tar.zst",
+    version="23.12.1",
+    executable="anki-{version}-linux-qt5/anki",
 )
 
 
