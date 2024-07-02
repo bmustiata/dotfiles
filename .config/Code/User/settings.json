@@ -177,13 +177,13 @@
             "fileMatch": [
                 "/zapp.json"
             ],
-            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.1.0/resources/zapp-schema-1.1.0.json"
+            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.3.0/resources/zapp-schema-1.2.0.json"
         },
         {
             "fileMatch": [
                 "/zcodeformat.json"
             ],
-            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.1.0/resources/zcodeformat-schema-0.0.1.json"
+            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.3.0/resources/zcodeformat-schema-0.0.1.json"
         }
     ]
 }

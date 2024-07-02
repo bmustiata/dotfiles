@@ -94,3 +94,4 @@ fi # [[ "$(umask)" == "0000" ]]
 
 source <(plz --completion_script)
 
+echo create a git theirs and git ours script to do `git checkout --theirs path` and also `git add`
