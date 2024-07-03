@@ -31,6 +31,8 @@
     hash = !git rev-parse --verify HEAD
     stashgrep = "!f() { for i in `git stash list --format=\"%gd\"` ; \
               do git stash show -p $i | grep -H --label=\"$i\" \"$@\" ; done ; }; f"
+    ours =   "!f() { git checkout --ours   $@; git add $@ ; }; f"
+    theirs = "!f() { git checkout --theirs $@; git add $@ ; }; f"
     fixws= !"\
       if (! git diff-files --quiet .) && \
          (! git diff-index --quiet --cached HEAD) ; then \
