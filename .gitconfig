@@ -61,6 +61,7 @@ template = ~/.gitmessage
 	trustExitCode = false
 [diff]
 	guitool = vimdiff
+	tool = vimdiff
 [difftool "kdiff3"]
 	trustExitCode = false
 	trustExitCode = false
@@ -70,3 +71,5 @@ template = ~/.gitmessage
 	meta = 130
 	old = 124
 	new = 77
+[difftool]
+	prompt = false

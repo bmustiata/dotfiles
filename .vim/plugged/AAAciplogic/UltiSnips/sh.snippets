@@ -387,3 +387,23 @@ snippet extremove "Remove the extension" wm
 ${${1:VARNAME}%%.*}
 endsnippet
 
+#
+# snippet: substr
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Extract a substring from the variable
+#
+snippet substr "Extract a substring from the variable" wm
+${${1:s}:${2:offset_0_based}:${3:length}}
+endsnippet
+
+#
+# snippet: replace
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Replace all strings with a diferent string (// = all)
+#
+snippet replace "Replace all strings with a diferent string" wm
+${${1:s}//${2:pattern}/${3:replace}}
+endsnippet
+
