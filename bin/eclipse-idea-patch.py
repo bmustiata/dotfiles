@@ -45,9 +45,9 @@ def patch_iml_file(home_folder, project_folder: str, iml_file: str) -> None:
     """
     links_dict = read_eclipse_links(iml_file)
     print(f"links: {links_dict}")
-    iml_file_lines = read_file_lines(iml_file)
+    iml_file_document = ET.parse(os.path.abspath(iml_file))
 
-    processed_file_lines = process_file_lines(home_folder, iml_file_lines, links_dict)
+    processed_file_lines = process_file_lines(home_folder, iml_file_document, links_dict)
     write_file_lines(iml_file, processed_file_lines)
 
 
@@ -77,19 +77,32 @@ def read_eclipse_links(iml_file: str) -> Dict[str, str]:
     return result
 
 
-def read_file_lines(file: str) -> List[str]:
-    """
-    Reads all the lines of the file
-    """
-    with open(file, 'rt', encoding='utf-8') as f:
-        return f.readlines()
-
-
-def process_file_lines(home_folder: str, lines: List[str], links_dict: Dict[str, str]) -> List[str]:
+def process_file_lines(home_folder: str,
+                       root: ET,
+                       links_dict: Dict[str, str]) -> List[str]:
     """
     Processes all the lines from the IDEA iml file, and returns the new
     content that should be persisted.
     """
+    # 1. reparent all the sourceFolder to new content roots
+    parent_map = {c:p for p in root.iter() for c in p}
+
+    for p in root.findall('.//content'):
+        content_parent = parent_map[p]
+
+        # reparent the source folders to be each in a new <content> with the same URL
+        for e in p.iter("sourceFolder"):
+            new_content = ET.Element("content", attrib={"url": e.get("url")})
+            new_content.append(e)
+            content_parent.append(new_content)
+
+        parent_map[p].remove(p)
+
+    lines = ET.tostring(root.getroot(), encoding='utf8')\
+                .decode('utf-8')\
+                .split("\n")
+
+    # 2. resolve aliases for $MODULE_DIR$ and $USER_HOME$
     result = []
     for line in lines:
         processed_line = process_line(home_folder, line, links_dict)

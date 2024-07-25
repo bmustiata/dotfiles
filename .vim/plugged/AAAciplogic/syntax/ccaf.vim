@@ -16,6 +16,7 @@ syn match syNumber '\d'
 syn keyword syKeyword false
 syn keyword syKeyword true
 syn keyword syKeyword as
+syn keyword syKeyword and
 syn keyword syKeyword break
 syn keyword syKeyword catch
 syn keyword syKeyword continue
@@ -25,7 +26,9 @@ syn keyword syKeyword finally
 syn keyword syKeyword for
 syn keyword syKeyword if
 syn keyword syKeyword in
+syn keyword syKeyword interface
 syn keyword syKeyword is
+syn keyword syKeyword or
 syn keyword syKeyword package
 syn keyword syKeyword return
 syn keyword syKeyword not
@@ -35,6 +38,7 @@ syn keyword syKeyword throw
 syn keyword syKeyword use
 syn keyword syKeyword variant
 syn keyword syKeyword while
+syn keyword syKeyword yield
 
 syn keyword syPrimitiveType ptr
 syn keyword syPrimitiveType i64
