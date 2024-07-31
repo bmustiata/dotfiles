@@ -7,23 +7,41 @@ endsnippet
 snippet ifdef "Create an #ifdef statement"
 #ifdef ${1:NAME}
 	${2:}
-#endif // $1
+#endif /* $1 */
 endsnippet
 
 snippet def "Create a #define statement"
 #define ${1:NAME}
 endsnippet
 
+snippet ifn "Create a #define statement if an ifndef is present."
+#ifndef ${1:NAME}
+	${2:}
+#endif /* not $1 */
+endsnippet
+
 snippet ifndef "Create a #define statement if an ifndef is present."
 #ifndef ${1:NAME}
 	${2:}
-#endif // not $1
+#endif /* not $1 */
 endsnippet
 
 snippet br "Create a big comment block to show a different section"
-/////////////////////////////////////////////////////////////////////////////
-//// ${1:}
-/////////////////////////////////////////////////////////////////////////////
+/* ************************************************************************ */
+/* ${1:} */
+/* ************************************************************************ */
+endsnippet
+
+#
+# snippet: struct
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a struct definition
+#
+snippet struct "Create a struct definition" wm
+typedef struct {
+	${0:}
+} ${1:struct_name};
 endsnippet
 
 snippet if "Add an if"
@@ -33,6 +51,15 @@ if (${1:condition}) {
 endsnippet
 
 snippet #in "#include a header"
+#include ${1:<}${2:iostream}`!p
+if t[1] == "<":
+	snip.rv += ">"
+else:
+	snip.rv += '"'
+`
+endsnippet
+
+snippet in "#include a header"
 #include ${1:<}${2:iostream}`!p
 if t[1] == "<":
 	snip.rv += ">"
@@ -87,7 +114,7 @@ snippet namespace "Add a namespace" wm
 namespace ${1:X}
 {
 ${VISUAL}${0:}
-} // $1
+} /* $1 */
 endsnippet
 
 #
@@ -102,5 +129,5 @@ snippet h "create a header include" wm
 
 ${VISUAL}${0:}
 
-#endif  // ifndef $1
+#endif  /* ifndef $1 */
 endsnippet
