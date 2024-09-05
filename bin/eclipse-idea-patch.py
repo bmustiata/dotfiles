@@ -33,6 +33,7 @@ def find_all_iml_files(project_folder: str) -> Generator[str, None, None]:
     """
     Finds all the iml files under the current folder
     """
+    print(f"working in: {project_folder}")
     for dirname, dirnames, files in os.walk(project_folder):
         for file in files:
             if file.endswith(".iml"):

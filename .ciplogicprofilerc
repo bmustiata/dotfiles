@@ -94,3 +94,6 @@ fi # [[ "$(umask)" == "0000" ]]
 
 source <(plz --completion_script)
 
+# enable implicitly the Num Lock for VMs
+sudo sh -c 'setleds +num < /dev/console'
+
