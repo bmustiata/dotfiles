@@ -1,13 +1,15 @@
 [user]
-	email = bogdan.mustiata@gmail.com
-	name = Bogdan Mustiata
+    email = bogdan.mustiata@gmail.com
+    name = Bogdan Mustiata
 [push]
-	default = current
+    default = current
 [credential]
-	helper = cache --timeout=86400
+    helper = cache --timeout=86400
 [merge]
     tool = diffconflicts
-	tool = vimdiff
+    tool = vimdiff
+    ff = only
+    renamelimit = 10000
 [mergetool "diffconflicts"]
     cmd=diffconflicts "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
 [mergetool "diffuse"]
@@ -55,21 +57,20 @@
 [commit]
 template = ~/.gitmessage
 [diff "sopsdiffer"]
-	textconv = sops -d
+    textconv = sops -d
 [mergetool "kdiff3"]
-	path = /usr/bin/kdiff3
-	trustExitCode = false
+    path = /usr/bin/kdiff3
+    trustExitCode = false
 [diff]
-	guitool = vimdiff
-	tool = vimdiff
+    guitool = vimdiff
+    tool = vimdiff
 [difftool "kdiff3"]
-	trustExitCode = false
-	trustExitCode = false
+    trustExitCode = false
 [core]
-	autocrlf = false
+    autocrlf = false
 [color "diff"]
-	meta = 130
-	old = 124
-	new = 77
+    meta = 130
+    old = 124
+    new = 77
 [difftool]
-	prompt = false
+    prompt = false

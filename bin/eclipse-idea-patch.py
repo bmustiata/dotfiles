@@ -5,6 +5,7 @@ from typing import List, Generator, Dict
 import click
 import os
 import re
+import os
 
 from xml.etree import ElementTree as ET
 
@@ -24,6 +25,9 @@ def main(project_folder: str, home_folder: str) -> None:
     Patch the modules.xml and workspace.xml from IDEA so it can correctly read
     the eclipse projects
     """
+    if not home_folder:
+        home_folder = os.environ.get('HOME')
+
     for iml_file in find_all_iml_files(project_folder):
         print(f"processing: {iml_file}")
         patch_iml_file(home_folder, project_folder, iml_file)

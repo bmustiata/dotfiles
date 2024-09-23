@@ -93,6 +93,9 @@
         "*.HLASM*": "hlasm",
         "*.HLA*": "hlasm",
         "*.MACLIB*": "hlasm",
+        "*.DBD*": "hlasm",
+        "*.MFS*": "hlasm",
+        "*.PCB*": "hlasm",
         "*.EXEC*": "rexx",
         "*.REXX*": "rexx",
         "*.REXXINC*": "rexx",
@@ -177,13 +180,13 @@
             "fileMatch": [
                 "/zapp.json"
             ],
-            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.3.0/resources/zapp-schema-1.2.0.json"
+            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.5.0/resources/zapp-schema-1.2.1.json"
         },
         {
             "fileMatch": [
                 "/zcodeformat.json"
             ],
-            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.3.0/resources/zcodeformat-schema-0.0.1.json"
+            "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.5.0/resources/zcodeformat-schema-0.0.1.json"
         }
     ]
 }

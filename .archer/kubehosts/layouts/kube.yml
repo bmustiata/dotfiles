@@ -3,6 +3,7 @@ layout:
   requires: [ KUBECONFIG ]
   activate: |
     ps1-show kubehost kubernetes_namespace kubernetes_user
+    source <(kubectl completion bash)
   deactivate: |
     ps1-hide kubehost kubernetes_namespace kubernetes_user
   commands:

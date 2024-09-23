@@ -495,7 +495,7 @@ def add_kubernetes_user_segment(powerline):
 
     bg = Color.KUBE_ENV_BG
     fg = Color.KUBE_ENV_FG
-    icon = u'🔒 ' if show_emojis else ''
+    icon = u'👤' if show_emojis else ''
     powerline.append(u'%s%s' % (icon, kube_user), fg, bg)
 
     return True

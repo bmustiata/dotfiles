@@ -76,6 +76,9 @@ alias sl=ls
 alias antlr4='java -jar /home/raptor/programs/antlr-complete-*.jar'
 alias grun='java -cp /home/raptor/programs/antlr-complete-*.jar org.antlr.v4.gui.TestRig'
 
+# get rid of the super huge header, same as running ctrl-E all the time
+alias k9s="k9s --headless"
+
 function _update_ps1() {
     PS1="$(~/.shell/powerline-shell.py $? 2> /dev/null)"
 }

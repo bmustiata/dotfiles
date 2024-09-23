@@ -4,7 +4,7 @@
 # m (trim spaces on the right of the script)
 # Create a variable/whatevs
 #
-snippet { "Create a variable/whatevs" wm
+snippet { "Render a variable/whatevs" wm
 {{ ${1:${VISUAL}} }}${0:}
 endsnippet
 
@@ -14,7 +14,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Create a variable
 #
-snippet var "Create a variable" wm
+snippet var "Render a variable" wm
 {{ .Values.${0:replicaCount} }}
 endsnippet
 
@@ -62,6 +62,18 @@ snippet if "Create an if condition" wm
 {{- end }}
 endsnippet
 
+#
+# snippet: ifi
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an if condition
+#
+snippet ife "Create an if/else condition" wm
+{{- if ${1:.Values.ingress.enabled} }}
+	${0:${VISUAL}}
+{{- else }}
+{{- end }}
+endsnippet
 #
 # snippet: ifi
 # w (word boundary),
@@ -120,7 +132,48 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Get the current namespace
 #
-snippet nsget "Get the current namespace" wm
+snippet nsget "Render the current namespace" wm
 {{ .Release.Namespace }}
 endsnippet
 
+#
+# snippet: ns
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Get the current namespace value
+#
+snippet ns "Get the current namespace value" wm
+.Release.Namespace
+endsnippet
+
+#
+# snippet: c
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a comment
+#
+snippet c "Add a comment" wm
+{{- /* ${1:${VISUAL}} */ -}}
+endsnippet
+
+#
+# snippet: lookup
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a lookup function call
+#
+snippet lookup "Create a lookup function call" wm
+{{- if (lookup "${1:apiVersion}" "${2:Kind}" "${3:namespace}" ${4:"resource-name"}) }}
+${VISUAL}${0:}
+{{- end }}
+endsnippet
+
+#
+# snippet: set
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a variable
+#
+snippet set "Create a variable" wm
+{{- $${1:cr} := ${2:(lookup "v1" "ConfigMap" "" "automic-automation")} }}
+endsnippet
