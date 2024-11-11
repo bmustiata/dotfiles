@@ -13,8 +13,6 @@ if [[ "$BYOBU_TTY" == "" ]]; then
     return
 fi # [[ "$BYOBU_TTY" == "" ]]
 
-# WARN: sdkman if configured must be at the end of the .bashrc
-
 export ADHESIVE_PARALLEL_PROCESSING=thread
 
 export EDITOR=nvim
@@ -23,9 +21,13 @@ export PATH="${HOME}/bin/docker/:$PATH"
 export PATH="${HOME}/bin:$PATH"
 export PATH="${HOME}/.local/bin:$PATH"
 export PATH="${HOME}/.yarn/bin:$PATH"
-export PATH="${HOME}/.please:$PATH"
 export PATH="${HOME}/programs/ge-build-explorer:$PATH"
 
+# please configuration
+export PATH="${HOME}/.please:$PATH"
+source <(plz --completion_script)
+
+# sdkman
 export FREEPLANE_USE_UNSUPPORTED_JAVA_VERSION=1
 
 export ARS_PROJECTS_FOLDER="/home/raptor/projects/dotfiles/.projects"
@@ -56,6 +58,7 @@ eval "$(archer project server py jdk dockerhost kubehost gosdk gespace issue)"
 
 alias p=project
 alias i=issue
+alias kh=kubehost
 
 cddot() {
     DOT_FOLDER=$(dirname $(readlink -f ${HOME}/.ciplogicprofilerc))
@@ -91,11 +94,11 @@ fi
 # WSL workaround
 if [[ "$(umask)" == "0000" ]]; then
     umask 022
+    setxkbmap us -variant colemak
 fi # [[ "$(umask)" == "0000" ]]
+alias xc='setxkbmap us -variant colemak'
 
 . $HOME/.shell/dircolors.sh
-
-source <(plz --completion_script)
 
 # enable implicitly the Num Lock for VMs
 sudo sh -c 'setleds +num < /dev/console'

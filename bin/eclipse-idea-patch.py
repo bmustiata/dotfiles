@@ -12,7 +12,10 @@ from xml.etree import ElementTree as ET
 
 MODULE_RE = re.compile('^.*?(\$MODULE_DIR\$[^"]+).*$')
 
-
+# 1. eclipse: ./dev-build.sh run ae-workspaces/targets/java/install-operator --config=java17
+# 2. idea import eclipse project (but don't open)
+# 3. eclipse-idea-patch.py --folder /path/to/folder/with/.idea
+# 4. open the IDEA project, add the module + change the sources types
 
 @click.command()
 @click.option("--project-folder", "--folder",
