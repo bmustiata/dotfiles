@@ -97,6 +97,7 @@ if [[ "$(umask)" == "0000" ]]; then
     setxkbmap us -variant colemak
 fi # [[ "$(umask)" == "0000" ]]
 alias xc='setxkbmap us -variant colemak'
+alias be='/home/raptor/programs/ge-build-explorer/bazelinio.sh'
 
 . $HOME/.shell/dircolors.sh
 
