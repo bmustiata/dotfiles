@@ -42,6 +42,8 @@ export MYPYPATH='./stubs'
 export GOPATH="$HOME/programs/go/tools"
 export PATH="$GOPATH/bin:$PATH"
 
+export DONT_PROMPT_WSL_INSTALL=1
+
 # this is for byobu usage
 #alias vim="TERM=xterm-256color nvim"
 
