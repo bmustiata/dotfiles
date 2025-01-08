@@ -1,22 +1,25 @@
 {
-    "name": "theme-ciplogic",
-    "displayName": "Ciplogic Color Theme",
-    "description": "A semantic color scheme, that aims at providing information.",
-    "version": "0.0.1",
-    "publisher": "bmustiata",
-    "engines": {
-        "vscode": "^1.5.0"
-    },
-    "categories": [
-        "Themes"
-    ],
-    "contributes": {
-        "themes": [
-            {
-                "label": "Ciplogic",
-                "uiTheme": "vs-dark",
-                "path": "./themes/Ciplogic.tmTheme"
-            }
-        ]
-    }
+	"name": "theme-ciplogic",
+	"displayName": "Ciplogic Color Theme",
+	"description": "A semantic color scheme, that aims at providing information.",
+	"version": "0.0.1",
+	"publisher": "bmustiata",
+	"engines": {
+		"vscode": "^1.5.0"
+	},
+	"categories": [
+		"Themes"
+	],
+	"contributes": {
+		"themes": [
+			{
+				"label": "Ciplogic",
+				"uiTheme": "vs-dark",
+				"path": "./themes/Ciplogic.tmTheme"
+			}
+		]
+	},
+	"__metadata": {
+		"size": 10544
+	}
 }

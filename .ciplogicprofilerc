@@ -42,10 +42,14 @@ export MYPYPATH='./stubs'
 export GOPATH="$HOME/programs/go/tools"
 export PATH="$GOPATH/bin:$PATH"
 
+# vscode should just run under WSL and stop bothering me with installing for Windows
 export DONT_PROMPT_WSL_INSTALL=1
 
 # this is for byobu usage
-#alias vim="TERM=xterm-256color nvim"
+alias vim="TERM=xterm-256color nvim"
+
+# --disable-gpu is W/A for WSL yet again
+alias obsidian="silent obsidian --disable-gpu"
 
 . ~/bin/async
 
@@ -98,6 +102,7 @@ if [[ "$(umask)" == "0000" ]]; then
     umask 022
     setxkbmap us -variant colemak
 fi # [[ "$(umask)" == "0000" ]]
+
 alias xc='setxkbmap us -variant colemak'
 alias be='/home/raptor/programs/ge-build-explorer/bazelinio.sh'
 

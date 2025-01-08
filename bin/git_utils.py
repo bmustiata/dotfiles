@@ -197,8 +197,8 @@ def find_branch_by_issue_id(version: str, issue_id: str) -> str:
 def get_base_branch(version):
     if version == "master" or version == "develop":
         other_branch = {
-            "master": "develop",
-            "develop": "master"
+            "master": "origin/develop",
+            "develop": "origin/master"
         }
 
         if version not in all_branches():
@@ -210,10 +210,10 @@ def get_base_branch(version):
         return 'origin/maint/' + version
 
     if ('release/' + version) in all_branches():
-        return 'release/' + version
+        return 'origin/release/' + version
 
     if ('hotfix/' + version) in all_branches():
-        return 'hotfix/' + version
+        return 'origin/hotfix/' + version
 
     raise Exception("Unable to find a maint/%s, release/%s or hotfix/%s branch." % (version, version, version))
 

@@ -71,10 +71,11 @@ def main(version: str, issue_id: str, onto: str, message: str, project: str, bra
         target_branch = onto
     elif version == "master":
         target_branch = "master"
-    elif "+hf." in version:
-        target_branch = f"hotfix/{version}"
     else:
-        target_branch = f"maint/{version}"
+        target_branch = git_utils.get_base_branch(version)
+
+    if target_branch.startswith("origin/"):
+        target_branch = target_branch[7:]  # skip origin/
 
     pr_title = get_branch_title(branch)
 

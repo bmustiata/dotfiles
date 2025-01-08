@@ -104,7 +104,21 @@ def process_file_lines(home_folder: str,
             new_content.append(e)
             content_parent.append(new_content)
 
+            # e.remove(content_parent)
+            # print(e)
+
         parent_map[p].remove(p)
+
+        # patch the source nodes to have the correct types
+        for e in p.iter("sourceFolder"):
+            if "src/main/java" in e.get("url"):
+                e.set("isTestSource", "false")
+            if "src/test/java" in e.get("url"):
+                e.set("isTestSource", "true")
+            if "src/main/resource" in e.get("url"):
+                e.set("type", "java-resource")
+            if "src/test/resource" in e.get("url"):
+                e.set("type", "java-test-resource")
 
     lines = ET.tostring(root.getroot(), encoding='utf8')\
                 .decode('utf-8')\
