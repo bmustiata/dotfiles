@@ -43,24 +43,25 @@ def select_os_and_version(token: adhesive.Token[Data], ui) -> None:
         ["sap",     "SAP"],
         ["sql",     "SQL"],
         ["jmx",     "JMX"],
+        ["utility", "Utility"],
     ], value=token.data.agent_type)
 
 
 @adhesive.usertask('Select Platform')
 def select_platform(token: adhesive.Token[Data], ui) -> None:
-    ui.add_readonly_text(title="Version", value=token.data.agent_version)
-    ui.add_readonly_text(title="Exact Version", value="yes" if "yes" in token.data.exact_version else "no, use latest")
+    ui.add_input_text(name="agent_version", title="Version", value=token.data.agent_version)
+    ui.add_input_text(name="exact_version2", title="Exact Version", value="yes" if "yes" in token.data.exact_version else "no, use latest")
 
     if token.data.branch_name:
-        ui.add_readonly_text(title="Git Branch", value=token.data.branch_name)
+        ui.add_input_text(name="branch_name", title="Git Branch", value=token.data.branch_name)
     if token.data.zip_file:
-        ui.add_readonly_text(title="Zip File", value=token.data.zip_file)
+        ui.add_input_text(name="zip_file", title="Zip File", value=token.data.zip_file)
     if token.data.tgz_file:
-        ui.add_readonly_text(title="Tar.gz File", value=token.data.tgz_file)
+        ui.add_input_text(name="tgz_file", title="Tar.gz File", value=token.data.tgz_file)
 
-    ui.add_readonly_text(title="Agent Name", value=token.data.agent_name)
-    ui.add_readonly_text(title="Agent Port", value=token.data.agent_port)
-    ui.add_readonly_text(title="OS", value=token.data.agent_type)
+    ui.add_input_text(name="agent_name", title="Agent Name", value=token.data.agent_name)
+    ui.add_input_text(name="agent_port", title="Agent Port", value=token.data.agent_port)
+    ui.add_input_text(name="agent_type", title="OS", value=token.data.agent_type)
 
     version = parse_semver_version(token.data.agent_version)
 
@@ -114,6 +115,11 @@ def select_platform(token: adhesive.Token[Data], ui) -> None:
         platforms = [
             ["/jmx/", "jmx"],
         ]
+    elif token.data.agent_type == "utility":
+        platforms = [
+            ["/linux/", "linux"],
+            ["/windows/", "windows"],
+        ]
 
     if version.major >= 21 and token.data.agent_type in ("linux", "windows"):
         platforms.append("java")
@@ -127,7 +133,7 @@ def select_platform(token: adhesive.Token[Data], ui) -> None:
 @adhesive.usertask('AE Config')
 def ae_config(token: adhesive.Token[Data], ui) -> None:
     ui.add_input_text(name="system_name", title="System", value="AUTOMIC")
-    ui.add_input_text(name="jcp", title="JCP", value="7YXK0Z2:8443")
+    ui.add_input_text(name="jcp", title="JCP", value="6KGNB54:8443")
     ui.add_input_text(name="cp", title="CP", value="")
 
     ui.add_input_text(name="client_0_id", title="Client 0 ID", value="0")
@@ -231,6 +237,9 @@ def detect_delivery_and_platform(data: Data) -> Tuple[str, str]:
 
     if data.agent_type == "jmx":
         return ("Agent_JMX", data.agent_platform)
+
+    if data.agent_type == "utility":
+        return ("Utility", data.agent_platform)
 
     raise Exception(f"unknown OS to install: {data.agent_type}")
 

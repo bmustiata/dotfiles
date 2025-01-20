@@ -13,8 +13,8 @@ import tarfile
 import ssl
 import socket
 import glob
-import unbreakable
-import hotswap
+#import unbreakable
+#import hotswap
 import urllib
 
 
@@ -228,7 +228,7 @@ default_platform_folder = False
 @click.option("--windows", is_flag=True, default=default_platform_folder,
               help="Assume the files are already unpacked in the archive, so use the platform just a subfolder (for Windows agents)")
 @click.argument("target_folder", default=default_target_folder, nargs=1)
-@hotswap.main
+#@hotswap.main
 def main(**kw):
     args = AgentInstallArgs(**kw)
 
@@ -247,7 +247,7 @@ def main(**kw):
     patch_the_config(args)
 
 
-@unbreakable.code
+#@unbreakable.code
 def ensure_agent_is_downloaded(args: AgentInstallArgs) -> str:
     """
     Downloads the agent locally on the disk. Returns the filename
@@ -264,7 +264,7 @@ def ensure_agent_is_downloaded(args: AgentInstallArgs) -> str:
     return args.zip_file
 
 
-@unbreakable.code
+#@unbreakable.code
 def unpack_agent_into_folder(args: AgentInstallArgs) -> None:
     os.makedirs(args.target_folder, exist_ok=True)
 
@@ -293,7 +293,7 @@ def copy_files(src_folder: str, dest_folder: str) -> None:
     shutil.copytree(src_folder, dest_folder, dirs_exist_ok=True)
 
 
-@unbreakable.code
+#@unbreakable.code
 def find_subarchive_matching_platform(args: AgentInstallArgs, temp_folder: str) -> str:
     """
     Finds the correct agent that we're supposed to install
@@ -333,14 +333,14 @@ def find_subarchive_matching_platform(args: AgentInstallArgs, temp_folder: str) 
     raise Exception(f"unable to find {args.agent_platform} in {temp_folder}: {searched_files}")
 
 
-@unbreakable.code
+#@unbreakable.code
 def patch_the_config(args: AgentInstallArgs) -> None:
     download_the_certificate(args)
     open_port = find_an_available_port(args)
     patch_ini_file(args, open_port)
 
 
-@unbreakable.code
+#@unbreakable.code
 def download_the_certificate(args: AgentInstallArgs) -> None:
     """
     Download the certificate from the JCP connection
@@ -360,7 +360,7 @@ def download_the_certificate(args: AgentInstallArgs) -> None:
         f.write(content)
 
 
-@unbreakable.code
+#@unbreakable.code
 def find_an_available_port(args: AgentInstallArgs) -> int:
     if args.agent_port != default_agent_port:
         print(f"using passed agent port: {args.agent_port}")
@@ -380,7 +380,7 @@ def find_an_available_port(args: AgentInstallArgs) -> int:
         sock.close()
 
 
-@unbreakable.code
+#@unbreakable.code
 def patch_ini_file(args: AgentInstallArgs, available_port: int) -> None:
     """
     Configures the ini file of the agent, so it can connect to the given
@@ -404,7 +404,7 @@ def patch_ini_file(args: AgentInstallArgs, available_port: int) -> None:
     change_ini_properties(ini_filename, INI_PROPERTIES)
 
 
-@unbreakable.code
+#@unbreakable.code
 def ensure_ini_file_exists(args: AgentInstallArgs) -> str:
     """
     Ensures the ini file exists
@@ -423,7 +423,7 @@ def ensure_ini_file_exists(args: AgentInstallArgs) -> str:
     return ini_file_name
 
 
-@unbreakable.code
+#@unbreakable.code
 def find_agent_binary_name(args: AgentInstallArgs) -> str:
     """
     Finds the binary executable name of the agent.
@@ -455,7 +455,7 @@ def find_agent_binary_name(args: AgentInstallArgs) -> str:
     raise Exception(f"unable to find agent binary name looking in {args.target_folder}/{args.bin_folder}")
 
 
-@unbreakable.code
+#@unbreakable.code
 def get_ini_file_name(args: AgentInstallArgs, agent_binary_name: str) -> str:
     bin_folder = os.path.join(args.target_folder, args.bin_folder)
     ini_file_name = f"{agent_binary_name}.ini"
@@ -467,7 +467,7 @@ def get_ini_file_name(args: AgentInstallArgs, agent_binary_name: str) -> str:
     return os.path.join(bin_folder, ini_file_name)
 
 
-@unbreakable.code
+#@unbreakable.code
 def find_ori_ini_file_name(args: AgentInstallArgs) -> str:
     """
     Find the ori.ini file name in the bin folder
@@ -480,7 +480,7 @@ def find_ori_ini_file_name(args: AgentInstallArgs) -> str:
     raise Exception(f"unable to find template ini file (????.ori.ini) in {args.target_folder}/{args.bin_folder}")
 
 
-@unbreakable.code
+#@unbreakable.code
 def change_ini_properties(ini_filename: str, ini_properties: Dict[str, str]):
     automic_ini = AutomicIni.read_from_file(ini_filename)
 
@@ -491,7 +491,7 @@ def change_ini_properties(ini_filename: str, ini_properties: Dict[str, str]):
     automic_ini.write_to_file()
 
 
-@unbreakable.code
+#@unbreakable.code
 def get_section_and_key(section_key: str) -> Tuple[str, str]:
     """
     Processes strings such as: [SECTION]key and returns them split
@@ -505,7 +505,7 @@ def get_section_and_key(section_key: str) -> Tuple[str, str]:
     return m.group(1), m.group(2)
 
 
-@unbreakable.code
+#@unbreakable.code
 def get_hostname(url: str) -> str:
     """
     Extracts the hostname part
@@ -518,7 +518,7 @@ def get_hostname(url: str) -> str:
     return m.group(2)
 
 
-@unbreakable.code
+#@unbreakable.code
 def get_port(url: str) -> int:
     """
     Extracts the port part from a host:port pair
@@ -538,19 +538,19 @@ def get_port(url: str) -> int:
     return 443 if m.group(1) == "https" else 80
 
 
-@unbreakable.code
+#@unbreakable.code
 def untargz_file_into_folder(targz_file: str, target_folder: str) -> None:
     with tarfile.open(targz_file) as f:
         f.extractall(target_folder)
 
 
-@unbreakable.code
+#@unbreakable.code
 def unzip_file_into_folder(args: AgentInstallArgs, temp_folder: str) -> None:
     with zipfile.ZipFile(args.zip_file, 'r') as zip_ref:
         zip_ref.extractall(temp_folder)
 
 
-@unbreakable.code
+#@unbreakable.code
 def is_already_downloaded(args: AgentInstallArgs) -> bool:
     return os.path.isfile(args.zip_file)
 

@@ -45,6 +45,8 @@ export PATH="$GOPATH/bin:$PATH"
 # vscode should just run under WSL and stop bothering me with installing for Windows
 export DONT_PROMPT_WSL_INSTALL=1
 
+alias ccaf="java -jar /home/raptor/projects/ccaf/target/ccaf-1.0.0-SNAPSHOT.jar"
+
 # this is for byobu usage
 alias vim="TERM=xterm-256color nvim"
 
