@@ -26,6 +26,7 @@
     cleanup-github = "!git branch -r --merged | grep -v master | sed 's/origin\\///' | xargs -n 1 git push --delete github"
     cleanup-local = "!git branch --merged | grep -v master | xargs git branch -d"
     cleanup-all-local = "!git for-each-ref --format '%(refname:short)' refs/heads | grep -P -v '^(master|main)$' | xargs git branch -D"
+    diff-merge= "!f() { COMMIT_VERSION=$1; shift; git diff $COMMIT_VERSION^...$COMMIT_VERSION \"$@\"; }; f"
     mtag = "!f() { git tag -m $1 $1; }; f"
     fmtag = "!f() { git tag -f -m $1 $1; }; f"
     lc = log master..@ --pretty=format:"%C(yellow)%h\\ %Cred%s%Cblue\\ [%cn]"  --decorate --reverse --numstat
