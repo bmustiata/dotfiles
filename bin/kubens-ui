@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+
+import adhesive
+from collections import OrderedDict
+import yaml
+import click
+import subprocess
+
+
+@adhesive.task('Read Current Context')
+def read_current_context(context):
+    kubeconfig = yaml.safe_load(context.workspace.run(f"""
+        kubectl config view
+    """, capture_stdout=True).strip())
+
+    print(kubeconfig['current-context'])
+
+    for kubecontext in kubeconfig['contexts']:
+        if kubecontext['name'] != kubeconfig['current-context']:
+            continue
+
+        context.data.current_namespace = kubecontext['context'].get('namespace', 'default')
+        break
+
+    context.data.runs_in_openshift = 'openshift' in kubeconfig['current-context']
+    context.data.current_context = kubeconfig['current-context']
+
+    context.data.available_namespaces = OrderedDict()
+
+    if context.data.runs_in_openshift:
+        namespace_list = context.workspace.run("""
+            oc projects -q
+        """, capture_stdout=True).strip().split("\n")
+
+        for namespace_line in namespace_list:
+            context.data.available_namespaces[namespace_line] = namespace_line
+
+        return
+
+    namespace_list = context.workspace.run("""
+        kubectl get ns --no-headers
+    """, capture_stdout=True).strip().split("\n")
+
+    for namespace_line in namespace_list:
+        namespace_name = namespace_line.split(" ")[0]
+        context.data.available_namespaces[namespace_name] = namespace_line
+
+
+@adhesive.usertask('Select Context')
+def select_context(context, ui):
+    if context.data.current_namespace not in context.data.available_namespaces:
+        context.data.current_namespace = 'default'
+
+    ui.add_radio_group(
+        "desired_namespace",
+        title="Project" if context.data.runs_in_openshift else "Namespace",
+        values=[ (key, value) for key, value in context.data.available_namespaces.items()],
+        value=context.data.current_namespace)
+
+
+@adhesive.task('Change Context')
+def change_context(context):
+    if context.data.desired_namespace == context.data.current_namespace:
+        return
+
+    if context.data.runs_in_openshift:
+        context.workspace.run(f"""
+            oc project {context.data.desired_namespace}
+        """, capture_stdout=True)
+        return
+
+    context.workspace.run(f"""
+        kubectl config set-context {context.data.current_context} --namespace={context.data.desired_namespace}
+    """, capture_stdout=True)
+
+
+@click.command()
+@click.argument("namespace_name", required=False)
+def main(namespace_name) -> None:
+    if namespace_name:
+        subprocess.check_call([
+            "bash",
+            "-c",
+            f"kubectl config set-context $(kubectl config current-context) --namespace={namespace_name}"
+        ])
+        return
+
+    adhesive.build()
+
+
+if __name__ == "__main__":
+    main()
+
