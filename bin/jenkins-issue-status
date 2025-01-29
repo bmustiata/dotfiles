@@ -35,11 +35,11 @@ def find_jira_url(issue: str) -> str:
     return f"{jira_url}/browse/{issue}"
 
 
-def get_build_status(git_pr: GitPr) -> JenkinsBuildStatus:
+def get_build_status(no_pr: bool, git_pr: GitPr, branch_name: str) -> JenkinsBuildStatus:
     if not git_pr.url:
         return JenkinsBuildStatus("", "")
 
-    jenkins_job = jenkins_fetch_job_data(git_pr)
+    jenkins_job = jenkins_fetch_job_data(no_pr, git_pr, branch_name)
 
     if not jenkins_job or "lastBuild" not in jenkins_job or jenkins_job["lastBuild"] is None:
         return JenkinsBuildStatus("", "")
@@ -50,9 +50,16 @@ def get_build_status(git_pr: GitPr) -> JenkinsBuildStatus:
     )
 
 
-def jenkins_fetch_job_data(git_pr: GitPr) -> Any:
+def jenkins_fetch_job_data(no_pr: bool, git_pr: GitPr, branch_name: str) -> Any:
     jenkins_prefix = os.getenv("JENKINS_PREFIX")
-    jenkins_url = f"{jenkins_prefix}/view/change-requests/job/PR-{git_pr.number}/api/json?depth=1"
+
+    branch_name = branch_name.replace("/", "%2F")
+    if no_pr:
+        jenkins_url = f"{jenkins_prefix}/job/{branch_name}/api/json?depth=1"
+    else:
+        jenkins_url = f"{jenkins_prefix}/view/change-requests/job/PR-{git_pr.number}/api/json?depth=1"
+
+    print(jenkins_url)
 
     auth = None
     if os.getenv("JENKINS_API_USER"):
@@ -85,7 +92,11 @@ def print_status(built_version: str,
 
 @click.command()
 @click.argument("issue", default="<from-branch>", nargs=1)
-def main(issue: str) -> None:
+@click.option("--no-pr", is_flag=True, default=False,
+              help="Use the branch name to check the build status in Jenkins, not the PR number from GitHub")
+def main(issue: str, no_pr: bool) -> None:
+    branch_name = git_utils.get_checked_out_branch_name()
+
     if issue == "<from-branch>":
         issue = git_utils.get_checkout_issue_number()
 
@@ -99,7 +110,7 @@ def main(issue: str) -> None:
 
     for built_version in built_versions:
         git_pr = find_git_pr(built_version)
-        build_status = get_build_status(git_pr)
+        build_status = get_build_status(no_pr, git_pr, branch_name)
         print_status(built_version, git_pr, build_status)
 
 
