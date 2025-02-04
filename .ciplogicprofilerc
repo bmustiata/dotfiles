@@ -22,6 +22,7 @@ export PATH="${HOME}/bin:$PATH"
 export PATH="${HOME}/.local/bin:$PATH"
 export PATH="${HOME}/.yarn/bin:$PATH"
 export PATH="${HOME}/programs/ge-build-explorer:$PATH"
+export PATH="${HOME}/projects/ccaf/bin:$PATH"
 
 # please configuration
 export PATH="${HOME}/.please:$PATH"
@@ -38,23 +39,22 @@ export VIM_ULTISNIPS_FOLDER="/home/raptor/.vim/bundle/ciplogic/UltiSnips"
 export PYTHONPATH='.'
 export MYPYPATH='./stubs'
 
-
 export GOPATH="$HOME/programs/go/tools"
 export PATH="$GOPATH/bin:$PATH"
 
-# vscode should just run under WSL and stop bothering me with installing for Windows
-export DONT_PROMPT_WSL_INSTALL=1
+if [[ "$WSL2_GUI_APPS_ENABLED" != "" ]]; then
+    # we need vcxsrv - seems better than the default nonsense
+    export DISPLAY=$(hostname):0.0
 
-alias ccaf="java -jar /home/raptor/projects/ccaf/target/ccaf-1.0.0-SNAPSHOT.jar"
+    # vscode should just run under WSL and stop bothering me with installing for Windows
+    export DONT_PROMPT_WSL_INSTALL=1
+
+    # --disable-gpu is W/A for WSL yet again
+    alias obsidian="silent obsidian --disable-gpu"
+fi
 
 # this is for byobu usage
 alias vim="TERM=xterm-256color nvim"
-
-# vscode should just run under WSL and stop bothering me with installing for Windows
-export DONT_PROMPT_WSL_INSTALL=1
-
-# --disable-gpu is W/A for WSL yet again
-alias obsidian="silent obsidian --disable-gpu"
 
 alias pdf2md="java -jar /home/raptor/projects/pdf2md/target/pdf2md-1.0-SNAPSHOT.jar"
 
