@@ -48,6 +48,7 @@ if [[ "$WSL2_GUI_APPS_ENABLED" != "" ]]; then
 
     # vscode should just run under WSL and stop bothering me with installing for Windows
     export DONT_PROMPT_WSL_INSTALL=1
+    alias code="code --disable-gpu"
 
     # --disable-gpu is W/A for WSL yet again
     alias obsidian="silent obsidian --disable-gpu"

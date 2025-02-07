@@ -187,5 +187,6 @@
             ],
             "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.5.1/resources/zcodeformat-schema-0.0.1.json"
         }
-    ]
+    ],
+    "sqldeveloper.sqlHistory.historyLimit": 500
 }

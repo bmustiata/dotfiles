@@ -59,8 +59,6 @@ def jenkins_fetch_job_data(no_pr: bool, git_pr: GitPr, branch_name: str) -> Any:
     else:
         jenkins_url = f"{jenkins_prefix}/view/change-requests/job/PR-{git_pr.number}/api/json?depth=1"
 
-    print(jenkins_url)
-
     auth = None
     if os.getenv("JENKINS_API_USER"):
         auth=HTTPBasicAuth(os.getenv("JENKINS_API_USER"), os.getenv("JENKINS_API_TOKEN"))
