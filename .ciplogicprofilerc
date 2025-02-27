@@ -8,6 +8,9 @@
 # This should be before nvm registrations, etc.
 #
 
+# set -x  # debug with times
+# PS4='+\t '
+
 if [[ "$BYOBU_TTY" == "" ]]; then
     byobu new-session
     return
@@ -101,12 +104,13 @@ alias grun='java -cp /home/raptor/programs/antlr-complete-*.jar org.antlr.v4.gui
 # get rid of the super huge header, same as running ctrl-E all the time
 alias k9s="k9s --headless"
 
-if [ -f ~/.shell/powerline-shell.dist/powerline-shell.bin ]; then
+if [ -f ~/.shell/powerline-shell.bin ]; then
     # nuitka binary, faaaaaster: nuitka --one-file powerline-shell.py
     function _update_ps1() {
         PS1="$(~/.shell/powerline-shell.bin $? 2> /dev/null)"
     }
 else
+    echo "warning: using powerline-shell.py instead of bin. run nuitka --onefile ~/.shell/powerline-shell.py (in ~/.shell)"
     function _update_ps1() {
         PS1="$(~/.shell/powerline-shell.py $? 2> /dev/null)"
     }
