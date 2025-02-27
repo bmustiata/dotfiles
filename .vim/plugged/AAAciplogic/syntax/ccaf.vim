@@ -29,8 +29,9 @@ syn keyword syKeyword in
 syn keyword syKeyword interface
 syn keyword syKeyword is
 syn keyword syKeyword or
-syn keyword syKeyword package
 syn keyword syKeyword return
+syn keyword syKeyword module
+syn keyword syKeyword new
 syn keyword syKeyword not
 syn keyword syKeyword struct
 syn keyword syKeyword try
