@@ -385,7 +385,7 @@ endsnippet
 #
 snippet extremove "Remove the extension" wm
 ${${1:VARNAME}%%.*}
-endsnippet
+	endsnippet
 
 #
 # snippet: substr
@@ -405,5 +405,35 @@ endsnippet
 #
 snippet replace "Replace all strings with a diferent string" wm
 ${${1:s}//${2:pattern}/${3:replace}}
+endsnippet
+
+#
+# snippet: startswith
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Checks if the string in the variable starts with
+#
+snippet startswith "Checks if the string in the variable starts with" wm
+"${1:$VARIABLE}" == ${2:text}*
+endsnippet
+
+#
+# snippet: endswith
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Checks if the string in the variable starts with
+#
+snippet endswith "Checks if the string in the variable ends with" wm
+"${1:$VARIABLE}" == *${2:text}
+endsnippet
+
+#
+# snippet: re
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run a regex and extract some values
+#
+snippet perlre "Run a regex and extract some values via perl" wm
+echo ${1:$VARIABLE} | perl -pe '${2:s/(wu)t/\1/g}'
 endsnippet
 

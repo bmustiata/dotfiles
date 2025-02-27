@@ -11,7 +11,6 @@ import sys
 import subprocess
 import re
 import socket
-import distutils
 import yaml
 
 py3 = sys.version_info.major == 3
