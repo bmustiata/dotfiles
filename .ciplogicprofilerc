@@ -22,7 +22,7 @@ export PATH="${HOME}/bin:$PATH"
 export PATH="${HOME}/.local/bin:$PATH"
 export PATH="${HOME}/.yarn/bin:$PATH"
 export PATH="${HOME}/programs/ge-build-explorer:$PATH"
-export PATH="${HOME}/projects/ccaf/bin:$PATH"
+export PATH="${HOME}/projects/caffc/bin:$PATH"
 
 # please configuration
 export PATH="${HOME}/.please:$PATH"
