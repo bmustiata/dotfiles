@@ -384,6 +384,16 @@ endsnippet
 # Remove the extension
 #
 snippet extremove "Remove the extension" wm
+${${1:VARNAME}%.*}
+endsnippet
+
+#
+# snippet: ext
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Extract the extension
+#
+snippet ext "Extract the extension" wm
 ${${1:VARNAME}%%.*}
 endsnippet
 
