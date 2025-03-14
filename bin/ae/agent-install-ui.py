@@ -166,8 +166,8 @@ def create_agent(token: adhesive.Token[Data]) -> None:
     depman_delivery_name, agent_platform = detect_delivery_and_platform(token.data)
 
     windows_flag = ""
-    if token.data.agent_type in ("windows", "jmx") or \
-            token.data.agent_type == 'ra' and 'windows' in agent_platform:
+    if token.data.agent_type in ("windows", "jmx") or 'windows' in agent_platform:
+        #            token.data.agent_type == 'ra' and 'windows' in agent_platform:
         windows_flag = "--windows"
 
     command = textwrap.dedent(f"""\

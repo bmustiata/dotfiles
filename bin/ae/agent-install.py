@@ -22,7 +22,6 @@ LOCAL_TEMP_FOLDER="/tmp/downloads/"
 NUMERIC_HOTFIX_PARSER_RE = re.compile(r'\+hf\.(\d+)')
 URL_RE = re.compile(r'^(.*)://([A-Za-z0-9\-\.]+)(:[0-9]+)?(.*)$')
 
-ROOT_SECTION = "<root>"
 INI_WRITE_VAR_DEF = re.compile(r"^\[(.+)\]\.(.+)$")  # [SECTION].key
 INI_SECTION_RE = re.compile(r"^\[(.+)\]$")           # [SECTION]
 INI_VARIABLE_RE = re.compile(r"^([^;](.*?))=(.*)$")  # key=value
@@ -163,7 +162,7 @@ class AgentInstallArgs:
 
 default_bin_folder = "bin"
 default_agent_version = "21.0.5"
-default_jcp = "7YXK0Z2:8443"
+default_jcp = "6KGNB54:8443"
 default_cp = "<none>"
 default_agent_name = "UNIX01"
 default_system_name = "AUTOMIC"
@@ -302,6 +301,10 @@ def find_subarchive_matching_platform(args: AgentInstallArgs, temp_folder: str) 
         for root, dirs, files in os.walk(temp_folder):
             for name in dirs:
                 full_name = os.path.join(root, name)
+
+                if os.path.isdir(full_name):
+                    full_name += '/'
+
                 if args.agent_platform in full_name:
                     return full_name
 
