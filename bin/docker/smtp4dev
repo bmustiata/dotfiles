@@ -1,4 +1,4 @@
 
-echo "SMTP listening on localhost:2525"
+echo "SMTP listening on localhost:25"
 echo "WebUI: http://localhost:3000/"
-docker run --rm --name=smtp4dev -p 2525:25 -p 3000:80 rnwood/smtp4dev
+docker run --rm --name=smtp4dev -p 25:25 -p 3000:80 rnwood/smtp4dev
