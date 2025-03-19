@@ -140,5 +140,6 @@ sudo sh -c 'setleds +num < /dev/console'
 
 if [[ $(date +%u) -eq 5 ]]; then
   echo FRIDAY: time sheets
+  echo https://www.myworkday.com/broadcom/d/pex/home.htmld
 fi
 
