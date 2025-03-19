@@ -135,3 +135,7 @@ alias be='/home/raptor/programs/ge-build-explorer/bazelinio.sh'
 # enable implicitly the Num Lock for VMs
 sudo sh -c 'setleds +num < /dev/console'
 
+if [[ $(date +%u) -eq 5 ]]; then
+  echo FRIDAY: time sheets
+fi
+
