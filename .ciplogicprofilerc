@@ -18,6 +18,9 @@ fi # [[ "$BYOBU_TTY" == "" ]]
 
 export ADHESIVE_PARALLEL_PROCESSING=thread
 
+# APM w/a for Caused by: java.lang.reflect.InaccessibleObjectException: Unable to make protected final java.lang.Class java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain) throws java.lang.ClassFormatError accessible: module java.base does not "opens java.lang" to unnamed module @184f6be2
+export JAVA_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
+
 export EDITOR=nvim
 export PATH="${HOME}/bin/apps/:$PATH"
 export PATH="${HOME}/bin/docker/:$PATH"
