@@ -6,3 +6,6 @@ docker run --detach --rm --name openldap \
   --env LDAP_PASSWORDS=custompassword \
   bitnami/openldap:latest
 
+echo "cn=admin,dc=example,dc=org               : adminpassword"
+echo "cn=customuser,ou=users,dc=example,dc=org : custompassword"
+
