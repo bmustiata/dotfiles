@@ -2,6 +2,7 @@ layout:
     name: Python Virtual Environment
     requires: [VIRTUAL_ENVIRONMENT_HOME]
     activate: |
+        echo activated
         OLDDIR=`pwd`
         cd $VIRTUAL_ENVIRONMENT_HOME/bin
         . activate
