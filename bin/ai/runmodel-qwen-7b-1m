@@ -1,1 +1,1 @@
-./runmodel Qwen/Qwen2.5-7B-Instruct-1M --model-length 65000
+./runmodel Qwen/Qwen2.5-7B-Instruct-1M --model-length 250000
