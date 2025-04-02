@@ -1,1 +1,4 @@
-./runmodel Qwen/Qwen2.5-14B-Instruct-1M --model-length 64000
+#!/usr/bin/env bash
+
+CURDIR=$(readlink -f "$(dirname "$0")")
+$CURDIR/runmodel Qwen/Qwen2.5-14B-Instruct-1M --model-length 64000
