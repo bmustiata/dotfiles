@@ -11,8 +11,8 @@ from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 # Set the URL of your vLLM server
 inference_server_url = "http://localhost:8000/v1"
 #model_name="Qwen/Qwen2.5-14B-Instruct-1M"
-# model_name="Qwen/Qwen2.5-7B-Instruct"
-model_name="Qwen/QwQ-32B"
+model_name="Qwen/Qwen2.5-7B-Instruct"
+#model_name="Qwen/QwQ-32B"
 
 
 system_message = ""
@@ -47,22 +47,26 @@ def run_ai_command(system: str, user: str) -> None:
 
 
 @click.command()
+@click.option("--head",
+              help="Truncate the input to the first n lines")
+@click.option("--tail",
+              help="Truncate the input to the last n lines")
 @click.argument("files", nargs=-1)
-def main_call(files: List[str]) -> None:
+def main_call(files: List[str], head: str, tail: str) -> None:
     # Initialize the ChatOpenAI model
     # max_tokens=8192,
     llm = ChatOpenAI(
         model = model_name,
         openai_api_key="EMPTY",
         openai_api_base=inference_server_url,
-        temperature=0.1,
+        temperature=0,
         model_kwargs = {
             "stream" : True,
         }
     )
 
     # Create messages
-    for f in read_input_files(files):
+    for f in read_input_files(files, head, tail):
         user_message = render_template(user_message_template, f)
 
         messages = [
@@ -86,12 +90,12 @@ def main_call(files: List[str]) -> None:
         print()
 
 
-def read_input_files(files: List[str]):
+def read_input_files(files: List[str], head: str, tail: str):
     if not files:
         yield {
             "filename": "<STDIN>",
             "fullpath": "<STDIN>",
-            "content": sys.stdin.read(),
+            "content": truncate(sys.stdin.read(), head, tail),
         }
         return
 
@@ -99,7 +103,7 @@ def read_input_files(files: List[str]):
         yield {
             "filename": os.path.basename(file),
             "fullpath": os.path.abspath(file),
-            "content": read_file(file),
+            "content": truncate(read_file(file), head, tail),
         }
 
 
@@ -128,4 +132,13 @@ def is_thinking_model(model_name: str) -> bool:
     return False
 
 
+def truncate(text: str, head: str, tail: str) -> str:
+    lines = text.split("\n")
+    if head:
+        lines = lines[:int(head)]
+
+    if tail:
+        lines = lines[int(tail):]
+
+    return "\n".join(lines)
 

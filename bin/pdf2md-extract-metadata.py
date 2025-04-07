@@ -6,27 +6,30 @@ import ge_ai_util
 ge_ai_util.run_ai_command(
 system="""\
 You are a document metadata extractor tool. You need to output
-as a JSON document the name as document_name, author as document_author
-and publishing year as publishing_year. For example:
+as a CSV `;` separated line the file name, document name, author, and
+publishing year. Example (without the line):
 
-{
-  "document_name": "The Title",
-  "document_author": "Author Name",
-  "publishing_year": 2001
-}
+------------------------------------
+file.md;Some Title;Author Name;2001;
+------------------------------------
 
-In case you don't know the values, set the value to `null`. For example:
+The year must be just the year, without the month.
 
-{
-  "document_name": "The Title",
-  "document_author": null,
-  "publishing_year": 2001
-}
+In case you can't detect a value, you must return that particular value as
+an empty string - nothing, just `;;`. Example (without the line) for missing
+document name and missing author name:
 
-Output only the JSON document, nothing else. Try to correct broken spaces.
+----------------------------------
+otherfile.md;;;2001;
+----------------------------------
+
+Output only the CSV line.
 """,
 user="""\
-Extract the metadata of the document after the line:
+Extract the metadata of the `{filename}` document.
+If any fields are missing return them as empty string.
+
+Its contents follows after the line:
 ---------------------------------------------------
 {content}
 """)

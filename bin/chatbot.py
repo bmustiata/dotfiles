@@ -21,12 +21,12 @@ model_name="Qwen/Qwen2.5-7B-Instruct"
               help="Use the Qwen/QwQ-32B Model")
 def main(model: str, qwq: bool) -> None:
     if qwq:
-        model_name = "Qwen/QwQ-32B"
+        model = "Qwen/QwQ-32B"
 
     # Initialize the ChatOpenAI model
     # max_tokens=8192,
     llm = ChatOpenAI(
-        model = model_name,
+        model = model,
         openai_api_key="EMPTY",
         openai_api_base=inference_server_url,
         temperature=0.5,
