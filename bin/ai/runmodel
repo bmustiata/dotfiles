@@ -47,6 +47,7 @@ def main(
 
     subprocess.check_call(["/bin/sh", "-c", command])
 
+
 if __name__ == '__main__':
     main()
 
