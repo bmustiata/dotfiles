@@ -17,31 +17,39 @@ DEFAULT_MODEL="Qwen/Qwen2.5-7B-Instruct-1M"
 @click.option("--model-length",
               help="How many tokens should our model ingest at most",
               default="8192")
+@click.option("--served-model-name",
+              help="The model name to serve (i.e. gpt-4 so other vendors are happy)")
 @click.argument("model_name", default=DEFAULT_MODEL, nargs=1)
 def main(
         reasoning: bool,
         deepseek: bool,
         model_name: str,
         model_length: str,
+        served_model_name: str,
     ) -> None:
 
     reasoning_parser = ""
     if deepseek:
-        reasoning_parser = "--reasoning-parser deepseek_r1"
+        reasoning_parser = "--reasoning-parser=deepseek_r1"
         reasoning = True
 
     enable_reasoning = ""
     if reasoning:
         enable_reasoning = "--enable-reasoning"
 
+    served_model_name_option = ""
+    if served_model_name:
+        served_model_name_option=f"--served-model-name={served_model_name}"
+
     command = textwrap.dedent(f"""\
         vllm serve \
         {enable_reasoning} \
         {reasoning_parser} \
-        --gpu-memory-utilization 0.98 \
+        --gpu-memory-utilization=0.98 \
         --enforce-eager \
-        --max-model-len {model_length} \
-        --quantization bitsandbytes \
+        --max-model-len={model_length} \
+        --quantization=bitsandbytes \
+        {served_model_name_option} \
         {model_name}
     """)
 
