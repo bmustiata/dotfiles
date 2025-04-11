@@ -52,6 +52,7 @@ def main(
         {served_model_name_option} \
         {model_name}
     """)
+    print(command)
 
     subprocess.check_call(["/bin/sh", "-c", command])
 
