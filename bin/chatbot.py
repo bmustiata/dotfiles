@@ -35,8 +35,7 @@ def main(model: str, qwq: bool) -> None:
         }
     )
 
-    print("🏚️ system> ", end="")
-    system_message = input()
+    system_message = read_multiline_message("🏚️ system> ")
 
     # Create messages
     messages = [
@@ -44,9 +43,7 @@ def main(model: str, qwq: bool) -> None:
     ]
 
     while True:
-        print("👨   user> ", end="")
-        user_message = input()
-
+        user_message = read_multiline_message("👨   user> ")
         messages.append( HumanMessage(content=user_message) )
 
         ai_message = ""
@@ -73,8 +70,22 @@ def main(model: str, qwq: bool) -> None:
             print(response_segment.content, end="", flush=True)
 
         print()
+        print()
 
         messages.append(AIMessage(content=ai_message))
+
+
+def read_multiline_message(prompt: str) -> str:
+    print(prompt, end="")
+
+    message = ""
+    last_message = input()
+
+    while last_message != '\t':  # a single tab marks the end of input
+        message += last_message + "\n"
+        last_message = input()
+
+    return message
 
 
 def is_thinking_model(model_name: str) -> bool:
