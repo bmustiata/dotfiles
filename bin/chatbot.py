@@ -32,7 +32,7 @@ def main(model: str, qwq: bool, reason: bool) -> None:
         model = model,
         openai_api_key="EMPTY",
         openai_api_base=inference_server_url,
-        temperature=0.5,
+        temperature=0,
         model_kwargs = {
             "stream" : True,
         }
