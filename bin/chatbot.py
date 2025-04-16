@@ -8,8 +8,8 @@ from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 inference_server_url = "http://localhost:8000/v1"
 
 
-model_name="gpt-4"
-# model_name="Qwen/Qwen2.5-7B-Instruct"
+model_name = "gpt-4"
+#model_name="Qwen/Qwen2.5-7B-Instruct"
 # model="Qwen/Qwen2.5-14B-Instruct-1M",
 # model="Qwen/QwQ-32B",
 #model_name = "Qwen/QwQ-32B"
@@ -20,7 +20,9 @@ model_name="gpt-4"
               default=model_name)
 @click.option("--qwq", is_flag=True, default=False,
               help="Use the Qwen/QwQ-32B Model")
-def main(model: str, qwq: bool) -> None:
+@click.option("--reason", "-r", is_flag=True, default=False,
+              help="Mark that this model is a reasoning model. For simplifying calls to the same model name")
+def main(model: str, qwq: bool, reason: bool) -> None:
     if qwq:
         model = "Qwen/QwQ-32B"
 
@@ -50,7 +52,7 @@ def main(model: str, qwq: bool) -> None:
         ai_message = ""
 
         response_started = False
-        is_thinking = is_thinking_model(model_name)
+        is_thinking = is_thinking_model(model_name) or reason
 
         if is_thinking:
             print("🧠")
