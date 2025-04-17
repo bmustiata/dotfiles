@@ -38,7 +38,7 @@ def main(model: str, qwq: bool, reason: bool) -> None:
         }
     )
 
-    system_message = read_multiline_message("🏚️ system> ")
+    system_message = read_multiline_message("⚙️ system> ")
 
     # Create messages
     messages = [
