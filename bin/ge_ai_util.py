@@ -11,7 +11,8 @@ from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 # Set the URL of your vLLM server
 inference_server_url = "http://localhost:8000/v1"
 #model_name="Qwen/Qwen2.5-14B-Instruct-1M"
-model_name="Qwen/Qwen2.5-7B-Instruct"
+#model_name="Qwen/Qwen2.5-7B-Instruct"
+model_name="gpt-4"
 #model_name="Qwen/QwQ-32B"
 
 
@@ -27,6 +28,7 @@ def run_ai_command(system: str, user: str) -> None:
     The `user` variable is a template where the following will be filled with
     their actual concrete values:
     * {filename} - base filename of the current argument file
+    * {fileline} - current file line from the readed file
     * {fullpath} - full path of the current argument file
     * {content}  - the content of the current argument file
 
@@ -51,8 +53,10 @@ def run_ai_command(system: str, user: str) -> None:
               help="Truncate the input to the first n lines")
 @click.option("--tail",
               help="Truncate the input to the last n lines")
+@click.option("--each-line", "--line", "-l", is_flag=True, default=False,
+              help="Process each line of content from the file as {content}")
 @click.argument("files", nargs=-1)
-def main_call(files: List[str], head: str, tail: str) -> None:
+def main_call(files: List[str], head: str, tail: str, each_line: bool) -> None:
     # Initialize the ChatOpenAI model
     # max_tokens=8192,
     llm = ChatOpenAI(
@@ -66,7 +70,7 @@ def main_call(files: List[str], head: str, tail: str) -> None:
     )
 
     # Create messages
-    for f in read_input_files(files, head, tail):
+    for f in read_input_files(files, head, tail, each_line):
         user_message = render_template(user_message_template, f)
 
         messages = [
@@ -90,12 +94,74 @@ def main_call(files: List[str], head: str, tail: str) -> None:
         print()
 
 
-def read_input_files(files: List[str], head: str, tail: str):
+def read_input_files(files: List[str], head: str, tail: str, each_line: bool):
+    if each_line:
+        return read_each_line_from_files(files, head, tail)
+
+    return read_lines_from_files(files, head, tail)
+
+
+def read_each_line_from_files(files: List[str], head_string: str, tail_string: str):
+    """
+    Reads the content yielding line by line.
+    """
+    if tail_string is not None:
+        raise Exception("Cannot specify tail for each line mode")
+
+    linenumber = 1
+    head = int(head_string) if head_string else -1
+
+    if head >= 0:
+        raise Exception("Cannot specify both head and tail")
+
+    if not files:
+        line = sys.stdin.readline()
+
+        while line:
+            if head >= 0 and linenumber > head:
+                return
+
+            yield {
+                "filename": "<STDIN>",
+                "fullpath": "<STDIN>",
+                "content": line,
+                "linenumber": linenumber,
+            }
+
+            linenumber += 1
+            line = sys.stdin.readline()
+
+        return
+
+    for file in files:
+        filename = os.path.basename(file)
+        fullpath = os.path.abspath(file)
+
+        with open(file, 'rt', encoding='utf-8') as f:
+            line = f.readline()
+
+            while line:
+                if head >= 0 and linenumber > head:
+                    return
+
+                yield {
+                    "filename": filename,
+                    "fullpath": fullpath,
+                    "content": line,
+                    "linenumber": linenumber,
+                }
+
+                linenumber += 1
+                line = f.readline()
+
+
+def read_lines_from_files(files: List[str], head: str, tail: str):
     if not files:
         yield {
             "filename": "<STDIN>",
             "fullpath": "<STDIN>",
             "content": truncate(sys.stdin.read(), head, tail),
+            "linenumber": 1,
         }
         return
 
@@ -104,6 +170,7 @@ def read_input_files(files: List[str], head: str, tail: str):
             "filename": os.path.basename(file),
             "fullpath": os.path.abspath(file),
             "content": truncate(read_file(file), head, tail),
+            "linenumber": 1,
         }
 
 

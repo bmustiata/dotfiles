@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 CURDIR=$(readlink -f "$(dirname "$0")")
-$CURDIR/runmodel Qwen/Qwen2.5-7B-Instruct --model-length 8192  --served-model-name gpt-4
+$CURDIR/runmodel Qwen/Qwen2.5-7B-Instruct --model-length 24000  --served-model-name gpt-4
