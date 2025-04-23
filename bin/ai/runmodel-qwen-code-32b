@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+CURDIR=$(readlink -f "$(dirname "$0")")
+$CURDIR/runmodel Qwen/Qwen2.5-Coder-32B-Instruct --served-model-name=gpt-4 --model-length 10000
+
+
