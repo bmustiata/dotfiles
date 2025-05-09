@@ -19,25 +19,26 @@ syn keyword syKeyword as
 syn keyword syKeyword and
 syn keyword syKeyword break
 syn keyword syKeyword catch
-syn keyword syKeyword continue
 syn keyword syKeyword class
-syn keyword syKeyword extend
+syn keyword syKeyword continue
+syn keyword syKeyword extends
 syn keyword syKeyword finally
 syn keyword syKeyword for
 syn keyword syKeyword if
+syn keyword syKeyword implements
 syn keyword syKeyword in
 syn keyword syKeyword interface
 syn keyword syKeyword is
-syn keyword syKeyword or
-syn keyword syKeyword return
 syn keyword syKeyword module
 syn keyword syKeyword new
 syn keyword syKeyword not
-syn keyword syKeyword struct
-syn keyword syKeyword try
+syn keyword syKeyword or
+syn keyword syKeyword return
+syn keyword syKeyword tag
 syn keyword syKeyword throw
+syn keyword syKeyword try
 syn keyword syKeyword use
-syn keyword syKeyword variant
+syn keyword syKeyword var
 syn keyword syKeyword while
 syn keyword syKeyword yield
 
@@ -52,9 +53,14 @@ syn keyword syPrimitiveType str
 syn keyword syPrimitiveType bool
 syn keyword syPrimitiveType var
 
+syn keyword syCollectionType list
+syn keyword syCollectionType map
+syn keyword syCollectionType set
+
 hi def link syComment Comment
 hi def link syBlockComment Comment
-hi def link syPrimitiveType GeGray2Italic
+hi def link syPrimitiveType GeGray3Italic
+hi def link syCollectionType GeGray3Italic
 
 hi def link syString String
 hi def link syNumber String
