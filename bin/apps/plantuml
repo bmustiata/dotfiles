@@ -5,6 +5,6 @@ import apps
 apps.JarExecutable(
     name="plantuml",
     url="https://github.com/plantuml/plantuml/releases/download/v{version}/plantuml-{version}.jar",
-    version="1.2023.13",
+    version="1.2025.2",
 )
 
