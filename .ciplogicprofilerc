@@ -12,7 +12,7 @@
 # PS4='+\t '
 
 if [[ "$BYOBU_TTY" == "" ]]; then
-    byobu new-session
+    # byobu new-session
     return
 fi # [[ "$BYOBU_TTY" == "" ]]
 
@@ -51,7 +51,7 @@ export PATH="$GOPATH/bin:$PATH"
 
 if [[ "$WSL2_GUI_APPS_ENABLED" != "" ]]; then
     # we need vcxsrv - seems better than the default nonsense
-    export DISPLAY=$(hostname):0.0
+    export DISPLAY=172.21.80.1:0.0
 
     # vscode should just run under WSL and stop bothering me with installing for Windows
     export DONT_PROMPT_WSL_INSTALL=1
