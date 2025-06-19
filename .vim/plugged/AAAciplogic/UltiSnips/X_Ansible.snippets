@@ -303,3 +303,17 @@ snippet copy "Copy a file on the remote server" wm
     group: /}${6:foo}
 endsnippet
 
+#
+# snippet: snap
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Install a snap
+#
+snippet snap "Install a snap" wm
+- name: ${4:Install snap $1${2/.+/ --classic/}${3/.+/ --channel=latest\/edge/}}
+  community.general.snap:
+    name: ${1:foo}${2/.+/
+    classic: /}${2:true}${3/.+/
+    channel: /}${3:latest/edge}
+endsnippet
+

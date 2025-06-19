@@ -40,6 +40,9 @@ def main(
     served_model_name_option = ""
     if served_model_name:
         served_model_name_option=f"--served-model-name={served_model_name}"
+        #--cpu-offload-gb=64 \
+        #--device auto \
+        # --quantization=bitsandbytes \
 
     command = textwrap.dedent(f"""\
         vllm serve \
@@ -48,6 +51,7 @@ def main(
         --gpu-memory-utilization=0.98 \
         --enforce-eager \
         --max-model-len={model_length} \
+        --device auto \
         --quantization=bitsandbytes \
         {served_model_name_option} \
         {model_name}
