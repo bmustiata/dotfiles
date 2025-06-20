@@ -11,11 +11,6 @@
 # set -x  # debug with times
 # PS4='+\t '
 
-if [[ "$BYOBU_TTY" == "" ]]; then
-    # byobu new-session
-    return
-fi # [[ "$BYOBU_TTY" == "" ]]
-
 export ADHESIVE_PARALLEL_PROCESSING=thread
 
 # APM w/a for Caused by: java.lang.reflect.InaccessibleObjectException: Unable to make protected final java.lang.Class java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain) throws java.lang.ClassFormatError accessible: module java.base does not "opens java.lang" to unnamed module @184f6be2
@@ -48,6 +43,23 @@ export MYPYPATH='./stubs'
 
 export GOPATH="$HOME/programs/go/tools"
 export PATH="$GOPATH/bin:$PATH"
+
+if [ -f ~/.shell/powerline-shell.bin ]; then
+    # nuitka binary, faaaaaster: nuitka --one-file powerline-shell.py
+    function _update_ps1() {
+        PS1="$(~/.shell/powerline-shell.bin $? 2> /dev/null)"
+    }
+else
+    echo "warning: using powerline-shell.py instead of bin. run nuitka --onefile ~/.shell/powerline-shell.py (in ~/.shell)"
+    function _update_ps1() {
+        PS1="$(~/.shell/powerline-shell.py $? 2> /dev/null)"
+    }
+fi
+
+if [ "$TERM" != "linux" ] && [ -f ~/.shell/powerline-shell.py ]; then
+    source ~/.shell/ps1-show-functions.sh
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
 
 if [[ "$WSL2_GUI_APPS_ENABLED" != "" ]]; then
     # we need vcxsrv - seems better than the default nonsense
@@ -110,23 +122,6 @@ alias grun='java -cp /home/raptor/programs/antlr-complete-*.jar org.antlr.v4.gui
 # get rid of the super huge header, same as running ctrl-E all the time
 alias k9s="k9s --headless"
 
-if [ -f ~/.shell/powerline-shell.bin ]; then
-    # nuitka binary, faaaaaster: nuitka --one-file powerline-shell.py
-    function _update_ps1() {
-        PS1="$(~/.shell/powerline-shell.bin $? 2> /dev/null)"
-    }
-else
-    echo "warning: using powerline-shell.py instead of bin. run nuitka --onefile ~/.shell/powerline-shell.py (in ~/.shell)"
-    function _update_ps1() {
-        PS1="$(~/.shell/powerline-shell.py $? 2> /dev/null)"
-    }
-fi
-
-if [ "$TERM" != "linux" ] && [ -f ~/.shell/powerline-shell.py ]; then
-    source ~/.shell/ps1-show-functions.sh
-    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-fi
-
 # WSL workaround
 if [[ "$(umask)" == "0000" ]]; then
     umask 022
@@ -156,4 +151,12 @@ if [[ $(date +%u) -eq 5 ]]; then
 
 EOM
 fi
+
+cat << EOM
+DREaM - don't code like a pleb
+  Develop
+  Repeat
+  Examine & analyse
+  Maximize
+EOM
 
