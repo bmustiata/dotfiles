@@ -94,8 +94,6 @@ else
     eval "$(archer project server py jdk dockerhost kubehost gosdk gespace issue)"
 fi
 
-py 312default
-
 alias p=project
 alias i=issue
 alias kh=kubehost
