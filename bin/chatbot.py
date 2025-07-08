@@ -15,6 +15,7 @@ model_name = "gpt-4"
 # model="Qwen/QwQ-32B",
 #model_name = "Qwen/QwQ-32B"
 model_name = "Qwen/Qwen3-0.6B"
+model_name = "Qwen/Qwen2.5-32B-Instruct"
 
 @click.command()
 @click.option("--model", "-m",
