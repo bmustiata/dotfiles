@@ -48,7 +48,7 @@ def main(
         vllm serve \
         {enable_reasoning} \
         {reasoning_parser} \
-        --gpu-memory-utilization=0.98 \
+        --gpu-memory-utilization=0.95 \
         --enforce-eager \
         --max-model-len={model_length} \
         --device auto \
