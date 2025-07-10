@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+set -x
+
+echo "deleting branch $1. Enter to continue, ctrl+C to cancel"
+read
+
+git branch -D $1
+git push --delete origin $1
+
