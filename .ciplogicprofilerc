@@ -71,6 +71,9 @@ if [[ "$WSL2_GUI_APPS_ENABLED" != "" ]]; then
 
     # --disable-gpu is W/A for WSL yet again
     alias obsidian="silent obsidian --disable-gpu"
+else
+    # --no-sandbox is for ubuntu since for whatever reason appimage isn't running right
+    alias obsidian="silent obsidian --no-sandbox"
 fi
 
 # this is for byobu usage
