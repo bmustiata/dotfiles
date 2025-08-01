@@ -1,3 +1,6 @@
 set editing-mode vi
 set keymap vi-command
 set bell-style none
+
+Control-u: "ls"
+
