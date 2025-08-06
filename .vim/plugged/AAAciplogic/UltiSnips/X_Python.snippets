@@ -6,6 +6,16 @@ snippet from "Adds a from .. import"
 from ${1:name} import ${2:$1}
 endsnippet
 
+#
+# snippet: i
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# import
+#
+snippet i "import" wm
+import ${1:os}
+endsnippet
+
 snippet P "Create a behave parameter" i
 (?P<${1:name}>.*?)
 endsnippet
@@ -21,6 +31,14 @@ endsnippet
 # Define a method or function
 #
 snippet def "Define a method or function" wm
+def ${1:name}(${2:self})${3/.+/ -> /}${3:None}:${4/.+/
+	"""
+	/}${4:documentation}${4/.+/
+	"""/}
+	${5:pass}
+endsnippet
+
+snippet d "Define a method or function" wm
 def ${1:name}(${2:self})${3/.+/ -> /}${3:None}:${4/.+/
 	"""
 	/}${4:documentation}${4/.+/
@@ -172,6 +190,11 @@ endsnippet
 # Create a for loop.
 #
 snippet for "Create a for loop." wm
+for ${1:item} in ${2:$1s}:
+	${0:${VISUAL}}
+endsnippet
+
+snippet f "Create a for loop" wm
 for ${1:item} in ${2:$1s}:
 	${0:${VISUAL}}
 endsnippet
