@@ -3,15 +3,19 @@
     name = Bogdan Mustiata
 [push]
     default = current
+
 [credential]
     helper = cache --timeout=86400
+
 [merge]
     tool = diffconflicts
     tool = vimdiff
     ff = only
     renamelimit = 10000
+
 [mergetool "diffconflicts"]
     cmd=diffconflicts "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+
 [mergetool "diffuse"]
     cmd=diffuse "$LOCAL" "$BASE" "$REMOTE"
 
@@ -75,3 +79,10 @@ template = ~/.gitmessage
     new = 77
 [difftool]
     prompt = false
+
+[mergetool "idea"]
+cmd = /home/raptor/programs/idea-IU-243.26053.27/bin/idea.sh merge "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+trustExitCode = true
+
+[mergetool]
+keepBackup = false
