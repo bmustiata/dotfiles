@@ -6,8 +6,6 @@ BYOBU_ACCENT="\#2E90BB"      # blue3
 BYOBU_HIGHLIGHT="\#2E90BB"   # blue3
 MONOCHROME=
 
-echo $0 > /tmp/wut.txt
-
 # in here we just abuse the color map so all we have is the dark
 # blue and white for all the plugins.
 color_map() {

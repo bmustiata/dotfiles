@@ -35,6 +35,7 @@
               do git stash show -p $i | grep -H --label=\"$i\" \"$@\" ; done ; }; f"
     ours =   "!f() { git checkout --ours   $@; git add $@ ; }; f"
     theirs = "!f() { git checkout --theirs $@; git add $@ ; }; f"
+    origin = "!git reset --hard origin/$(git current)"
     fixws= !"\
       if (! git diff-files --quiet .) && \
          (! git diff-index --quiet --cached HEAD) ; then \
