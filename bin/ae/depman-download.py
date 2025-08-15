@@ -127,7 +127,7 @@ def get_hotfix_number(args: DepmanArgs) -> int:
 @click.option("--branch-name", "--branch",
               help="The branch name for the custom build", default="")
 @click.option("--version", default="latest",
-              help="The version to download")
+              help="The version to download. Examples: latest, 24.4, 24.4.1, or 24.4.1+hf.2")
 def main(lifecycle_entity_technical_name: str,
          depman_delivery_name: str,
          exact_version: bool,
