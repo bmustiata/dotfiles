@@ -43,11 +43,16 @@ syn keyword syKeyword while
 syn keyword syKeyword yield
 
 syn keyword syPrimitiveType ptr
+syn keyword syPrimitiveType u64
 syn keyword syPrimitiveType i64
+syn keyword syPrimitiveType u32
 syn keyword syPrimitiveType i32
+syn keyword syPrimitiveType u16
 syn keyword syPrimitiveType i16
-syn keyword syPrimitiveType i8
 syn keyword syPrimitiveType u8
+syn keyword syPrimitiveType i8
+syn keyword syPrimitiveType f32
+syn keyword syPrimitiveType f64
 syn keyword syPrimitiveType void
 syn keyword syPrimitiveType str
 syn keyword syPrimitiveType bool
