@@ -6,7 +6,7 @@ import os
 
 BACKPORT_BRANCH_CHECK = re.compile(r'^.*?/\d+\.\d+(.+)?/.*$')
 BRANCH_NAME_PARSER = re.compile(r'(remotes/origin/)?(.+?)(/(\d+\.\d+(.+)?))?/(.*)$')
-BRANCH_ISSUE_ID_PARSER = re.compile(r'^.+/(\w+-?\d+)-?(.+?)$')
+BRANCH_ISSUE_ID_PARSER = re.compile(r'^.+/(\w+-?\d+)-?(.*?)$')
 GIT_URL_PARSER = re.compile(r'git@(.*?):([^/]+)/((.*?)(.git)?)$')
 
 
@@ -153,8 +153,10 @@ branch_by_issue_id_cache: Dict[str, str] = dict()
 
 def find_branches_for_issue_id(issue_id: str) -> List[str]:
     issue_substring = '/%s-' % issue_id
+    issue_end_substring = '/%s' % issue_id  # the nerve on some people to name their branch: bugfix/DE123456
 
     branches = list(filter(lambda branch: issue_substring in branch, all_branches()))
+    branches += list(filter(lambda branch: branch.endswith(issue_end_substring), all_branches()))
 
     return branches
 
@@ -241,7 +243,7 @@ def get_commits_for_branch(branch_name, issue_id=None) -> List[Commit]:
 
     issue_id = normalize_issue_name(issue_id)
 
-    search_re = f'{issue_id}\W'
+    search_re = f'{issue_id}\\W'
     print(f"searching: {search_re} commits in {branch_name}")
     issue_marker = re.compile(issue_id, re.IGNORECASE)  # FIXME: not so great
     merge_test = re.compile('^Merge')

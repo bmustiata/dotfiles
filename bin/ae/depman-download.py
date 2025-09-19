@@ -85,7 +85,7 @@ def escape_params(params: Dict[str, str]) -> str:
     """
     Escapes the parameters so depman can consume them
     """
-    return urllib.parse.urlencode(params, safe='/:+')
+    return urllib.parse.urlencode(params, safe='/:')
 
 
 def get_major_version(args: DepmanArgs) -> str:
