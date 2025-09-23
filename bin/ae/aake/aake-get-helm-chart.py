@@ -27,7 +27,7 @@ def main(version: str, branch: str) -> None:
       set -x
       {depman_download}
       unzip out.zip
-      rm out.zip README.md automic-automation-plugin-*.tgz
+      rm -f out.zip README.md NOTICE.txt automic-automation-plugin-*.tgz
     """)
 
     subprocess.check_call(["/bin/sh", "-c", command])
