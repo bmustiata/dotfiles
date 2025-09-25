@@ -459,22 +459,22 @@ data:
 endsnippet
 
 #
-# snippet: pv_host
+# snippet: pv
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Create a persistent volume
 #
-snippet pv_host "Create a persistent volume" wm
+snippet pv "Create a persistent volume" wm
 kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: ${1:task-pv-volume}
 spec:
-  storageClassName: ${2:local-demo}
+  storageClassName: ${2:microk8s-hostpath}  # kubectl get sc
   capacity:
     storage: ${3:2Mi}
   accessModes:
-    - ${4:ReadOnlyMany}
+  - ${4:ReadOnlyMany}  # ReadWriteOnce, ReadOnlyMany, ReadWriteMany, ReadWriteOncePod
   hostPath:
     path: "${5:/etc}"
 endsnippet
@@ -489,14 +489,15 @@ snippet pvc "Create a persistent volume claim" wm
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: ${1:task-pv-claim}
+  name: ${1:pvc-name}
 spec:
   storageClassName: ${2:local-demo}
   accessModes:
-  - ${3:ReadOnlyMany}
+  - ${3:ReadOnlyMany}  # ReadWriteOnce, ReadOnlyMany, ReadWriteMany, ReadWriteOncePod
   resources:
     requests:
       storage: ${4:1Mi}
+  volumeName: "${5:$1}
 endsnippet
 
 #
