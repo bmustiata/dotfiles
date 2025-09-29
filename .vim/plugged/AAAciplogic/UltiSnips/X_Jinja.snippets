@@ -1,10 +1,32 @@
 #
-# snippet: for
+# snippet: each
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a for for a jinja template
+#
+snippet for "Create a for for a jinja template" wm
+{% for ${1:domain} in ${2:$1s} %}
+${VISUAL}${0:}
+{% endfor %}
+endsnippet
+
+#
+# snippet: eachi
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an inline for for a jinja template
+#
+snippet eachi "Create an inline for for a jinja template" wm
+{% for ${1:domain} in ${2:$1s} %}${VISUAL}${0:}{% endfor %}
+endsnippet
+
+#
+# snippet: eachkv
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Foreach item
 #
-snippet for "Foreach item" wm
+snippet eachkv "Foreach item in map" wm
 {% for ${1:key, val} in ${2:map.items()} %}
 	${VISUAL}${0:}
 {% endfor %}
@@ -52,5 +74,15 @@ snippet {% "Create a statement" wm
 {% ${1:if} %}
 	${VISUAL}${0:}
 {% end$1 %}
+endsnippet
+
+#
+# snippet: ifi
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create an inlined if for a jinja template
+#
+snippet ifi "Create an inlined if for a jinja template" wm
+{% if ${1:enabled} %}${VISUAL}${0:}{% endif %}
 endsnippet
 
