@@ -122,7 +122,7 @@ snippet case "Case branch" wm
 ;;
 endsnippet
 
-snippet fun "Create a function"
+snippet f "Create a function"
 ${1:name}() {
 	${VISUAL}${0:}
 }
@@ -130,18 +130,6 @@ endsnippet
 
 snippet for "Create a for loop"
 for ${1:f} in ${2:\`ls\`}; do
-	${VISUAL}${0:}
-done
-endsnippet
-
-#
-# snippet: foria
-# w (word boundary),
-# m (trim spaces on the right of the script)
-# Create a for loop assigned over an array
-#
-snippet foria "Create a for loop assigned over an array" wm
-for ${1:e} in "${${2:array}[@]}"; do
 	${VISUAL}${0:}
 done
 endsnippet
@@ -445,5 +433,89 @@ endsnippet
 #
 snippet perlre "Run a regex and extract some values via perl" wm
 echo ${1:$VARIABLE} | perl -pe '${2:s/(wu)t/\1/g}'
+endsnippet
+
+#
+# snippet: a
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a create an array
+#
+snippet a "Create an array" wm
+${1:ARRAY_NAME}=(${2:"v1" "v2"})
+endsnippet
+
+#
+# snippet: adda
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an item to a adda
+#
+snippet adda "Add an item to an array" wm
+${1:ARRAY_NAME}=("${$1[@]}" ${0:${VISUAL}})
+endsnippet
+
+#
+# snippet: m
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a map definition
+#
+snippet m "Create a map definition" wm
+declare -A ${1:MAP_NAME}
+
+$1[${2:"key"}]=${3:"value"}
+endsnippet
+
+#
+# snippet: fora
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a for loop assigned over an array
+#
+snippet fora "Create a for loop assigned over an array" wm
+for ${1:e} in "${${2:array}[@]}"; do
+	${VISUAL}${0:}
+done
+endsnippet
+
+#
+# snippet: forkv
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# iterate over all the keys and values of a map
+#
+snippet forkv "iterate over all the keys and values of a map" wm
+for ${1:key} in "${!${2:map_name}[@]}"
+do
+	local ${3:value}=${$2[$$1]}"
+	${0:}
+done
+endsnippet
+
+#
+# snippet: fork
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# iterate over all the keys of a map
+#
+snippet fork "iterate over all the keys and values of a map" wm
+for ${1:key} in "${!${2:map_name}[@]}"
+do
+	${0:}
+done
+endsnippet
+
+#
+# snippet: forv
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# iterate over all the values of a map
+#
+snippet fork "iterate over all the values of a map" wm
+for ${1:value} in "${${2:map_name}[@]}"
+do
+	${0:}
+done
 endsnippet
 
