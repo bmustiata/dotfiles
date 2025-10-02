@@ -11,7 +11,7 @@ syn match syNativeEndCurly /}/ contained conceal
 
 
 syn match syString '"\_.\{-0,1000}"'
-syn match syNumber '\d'
+syn match syNumber '\d+'
 
 syn keyword syKeyword false
 syn keyword syKeyword true
@@ -34,6 +34,7 @@ syn keyword syKeyword new
 syn keyword syKeyword not
 syn keyword syKeyword or
 syn keyword syKeyword return
+syn keyword syKeyword static
 syn keyword syKeyword tag
 syn keyword syKeyword throw
 syn keyword syKeyword try
