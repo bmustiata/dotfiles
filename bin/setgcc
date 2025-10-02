@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+print_help() {
+  echo "usage: $0 [local|8]"
+  exit 1
+}
+
+main() {
+  if [[ "$1" == "" ]]; then
+    print_help
+  fi
+
+  if [[ "$1" == "local" ]]; then
+    cd /usr/local/bin
+    sudo rm -f $(ls x)
+    exit 0
+  fi # [[ "$1" == "local" ]]
+
+  if [[ "$1" == "8" ]]; then
+    cd /usr/local/bin
+    sudo cp x/* .
+    exit 0
+  fi # [[ "$1" == "8" ]]
+
+  print_help
+}
+
+main "$@"
+
