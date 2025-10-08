@@ -13,7 +13,7 @@ import os.path
 
 @click.command()
 @click.option("--server",
-              help="The server to use",
+              help="The server to use (default: http://6KGNB54:8088)",
               default="http://6KGNB54:8088")
 @click.option("--client",
               help="Client ID",
