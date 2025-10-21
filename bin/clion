@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -x
+
+cd ~/programs/clion-*/bin
+silent ./clion
+
