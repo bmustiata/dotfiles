@@ -30,7 +30,9 @@ for i in range(len(vim.current.range)):
     line = vim.current.range[i].strip()
     element = ET.Element("OT_CONTENT")
     element.text = line
-    vim.current.range[i] = ET.tostring(element, encoding='utf-8', method='xml').decode('utf-8')
+    vim.current.range[i] = ET.tostring(element, encoding='utf-8', method='xml')\
+        .decode('utf-8')\
+        .replace("<OT_CONTENT />", "<OT_CONTENT></OT_CONTENT>")
 
 endpython
 endfunction

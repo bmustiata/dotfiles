@@ -25,6 +25,13 @@ function! Tabs8()
 endfunction
 command Tabs8 call Tabs8()
 
+function! Spaces1()
+    setlocal tabstop=1
+    setlocal shiftwidth=1
+    setlocal expandtab
+endfunction
+command Spaces1 call Spaces1()
+
 function! Spaces2()
     setlocal tabstop=2
     setlocal shiftwidth=2
