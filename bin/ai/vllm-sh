@@ -1,4 +1,11 @@
+#!/usr/bin/env bash
 #	-e TRANSFORMERS_OFFLINE=1 \
+
+if [[ "$1" != "" ]]; then
+  BASH_COMMAND="$@"
+else # not [[ "$1" != "" ]]
+  BASH_COMMAND="--norc"
+fi   # else [[ "$1" != "" ]]
 
 sudo docker run -it \
 	--network=host \
@@ -20,4 +27,4 @@ sudo docker run -it \
 	$(id -G | perl -pe 's/(\d+)/--group-add \1/g') \
 	ge-vllm-rocm \
 	bash \
-	--norc
+	$BASH_COMMAND

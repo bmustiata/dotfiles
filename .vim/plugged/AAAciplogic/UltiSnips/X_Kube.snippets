@@ -388,7 +388,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Add a new environment key
 #
-snippet esec "Add a new environment key from a secret" wm
+snippet esec "Add a new environment key from a secret (single key)" wm
 - name: ${1:VAR_NAME}
   valueFrom:
     secretKeyRef:
@@ -402,7 +402,7 @@ endsnippet
 # m (trim spaces on the right of the script)
 # Add a new environment key
 #
-snippet econf "Add a new environment key from a configmap" wm
+snippet econf "Add a new environment key from a configmap (single key)" wm
 - name: ${1:VAR_NAME}
   valueFrom:
     configMapKeyRef:
@@ -412,13 +412,22 @@ endsnippet
 
 
 # inject secrets into the environment
-snippet envsecret "Create environment variables from secret" wm
-env:
-- name: ${1:VAR_NAME}
-  valueFrom:
-    secretKeyRef:
-      name: ${2:secret-name}
-      key: ${3:password}
+snippet envsec "Create environment variables from secret (all keys)" wm
+envFrom:
+- secretRef:
+    name: ${1:secret-name}
+endsnippet
+
+#
+# snippet: envcm
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create environment variables from config map (all keys)
+#
+snippet envcm "Create environment variables from config map (all keys)" wm
+envFrom:
+- configMapRef:
+    name: ${1:secret-name}
 endsnippet
 
 # ingress mapping
@@ -433,10 +442,13 @@ spec:
   - host: ${3:nextcloud.yolo}
     ${4:http}:
       paths:
-      - backend:
-          serviceName: ${5:nextcloud}
-          servicePort: ${6:http}
-        path: ${7:/}${8/.+/
+      - path: ${5:/}
+        pathType: Prefix
+        backend:
+          name: ${6:nextcloud}
+          port:
+            name: ${7:http}
+        ${8/.+/
   tls:
   - secretName: /}${8:$3}${8/.+/
     hosts:

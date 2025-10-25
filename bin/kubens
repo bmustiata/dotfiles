@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 
+# yq is available as an apt package
+
+CURRENT_KUBE_CONTEXT=$(kubectl config view | grep current-context | cut -f2 -d\ )
+
 if [[ "$1" == "" ]]; then
+    CURRENT_NAMESPACE=$(kubectl config view | yq ".contexts[]|select(.name==\"$CURRENT_KUBE_CONTEXT\").context.namespace")
+
     echo "change the current k8s namespace to the provided one"
     echo ""
     echo "usage: $0 namespace-name"
     echo ""
+    echo "current namespace: $CURRENT_NAMESPACE"
     exit 1
 fi # [[ "$1" == "" ]]
 
-CURRENT_KUBE_CONTEXT=$(kubectl config view | grep current-context | cut -f2 -d\ )
 kubectl config set-context $CURRENT_KUBE_CONTEXT --namespace=$1
 

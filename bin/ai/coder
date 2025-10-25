@@ -1,4 +1,4 @@
-	#-e TRANSFORMERS_OFFLINE=1 \
+RUN_AS_USER="raptor"
 
 sudo docker run -it \
 	--network=host \
@@ -15,11 +15,14 @@ sudo docker run -it \
 	-e VLLM_USE_TRITON_FLASH_ATTN=1 \
 	-e FLASH_ATTENTION_TRITON_AMD_ENABLE=TRUE \
 	-e FLASH_ATTENTION_TRITON_AMD_AUTOTUNE=TRUE \
+	-e TRANSFORMERS_OFFLINE=1 \
+	-e PYTORCH_HIP_ALLOC_CONF=garbage_collection_threshold:0.8,max_split_size_mb:128 \
 	-v $HOME:$HOME:rw \
-    -u $(id -u):$(id -g) \
-    $(id -G | perl -pe 's/(\d+)/--group-add \1/g') \
+	-u $(id -u $RUN_AS_USER):$(id -g $RUN_AS_USER) \
+	$(id -G $RUN_AS_USER | perl -pe 's/(\d+)/--group-add \1/g') \
 	ge-vllm-rocm \
 	bash \
 	--norc \
 	-c \
-	"vllm serve --gpu-memory-utilization=0.98 --model-impl=transformers --served-model-name=gpt-4.1 --device=auto Qwen/Qwen2.5-Coder-14B-Instruct-GPTQ-Int8"
+	"vllm serve --gpu-memory-utilization=0.98 --model-impl=transformers --enable-auto-tool-choice --tool-call-parser=hermes --served-model-name=gpt-4.1 --device=auto Qwen/Qwen2.5-Coder-14B-Instruct-GPTQ-Int8"
+

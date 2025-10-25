@@ -81,7 +81,8 @@ def apt_install(token: adhesive.Token[Data]):
                 -nodes \\
                 -out {data.certificate_file} \\
                 -keyout {data.key_file} \\
-                -subj '/CN={data.cn}/O={data.company_name}/C={data.country}'
+                -subj '/CN={data.cn}/O={data.company_name}/C={data.country}' \\
+                -addext 'subjectAltName = DNS:awi.{data.cn}'
     """)
 
     if not token.data.java_keystore_file:
