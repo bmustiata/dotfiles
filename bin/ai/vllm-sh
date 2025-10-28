@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
 #	-e TRANSFORMERS_OFFLINE=1 \
 
-if [[ "$1" != "" ]]; then
-  BASH_COMMAND="$@"
-else # not [[ "$1" != "" ]]
-  BASH_COMMAND="--norc"
-fi   # else [[ "$1" != "" ]]
-
-sudo docker run -it \
+sudo docker run -it --rm \
 	--network=host \
 	--group-add=video \
 	--ipc=host \
@@ -25,6 +19,6 @@ sudo docker run -it \
 	-v $HOME:$HOME:rw \
 	-u $(id -u):$(id -g) \
 	$(id -G | perl -pe 's/(\d+)/--group-add \1/g') \
-	ge-vllm-rocm \
+	ge-vllm-rocm-0-11-0 \
 	bash \
-	$BASH_COMMAND
+	--norc

@@ -1,6 +1,6 @@
 RUN_AS_USER="raptor"
 
-sudo docker run -it \
+sudo docker run -it --rm\
 	--network=host \
 	--group-add=video \
 	--ipc=host \
@@ -16,13 +16,13 @@ sudo docker run -it \
 	-e FLASH_ATTENTION_TRITON_AMD_ENABLE=TRUE \
 	-e FLASH_ATTENTION_TRITON_AMD_AUTOTUNE=TRUE \
 	-e TRANSFORMERS_OFFLINE=1 \
-	-e PYTORCH_HIP_ALLOC_CONF=garbage_collection_threshold:0.8,max_split_size_mb:128 \
+	-e PYTORCH_ALLOC_CONF=garbage_collection_threshold:0.8,max_split_size_mb:128 \
 	-v $HOME:$HOME:rw \
 	-u $(id -u $RUN_AS_USER):$(id -g $RUN_AS_USER) \
 	$(id -G $RUN_AS_USER | perl -pe 's/(\d+)/--group-add \1/g') \
-	ge-vllm-rocm \
+	ge-vllm-rocm-0-11-0 \
 	bash \
 	--norc \
 	-c \
-	"vllm serve --gpu-memory-utilization=0.98 --model-impl=transformers --enable-auto-tool-choice --tool-call-parser=hermes --served-model-name=gpt-4.1 --device=auto Qwen/Qwen2.5-Coder-14B-Instruct-GPTQ-Int8"
+	"vllm serve --gpu-memory-utilization=0.98 --model-impl=transformers --enable-auto-tool-choice --tool-call-parser=qwen3_coder --served-model-name=gpt-4.1 Qwen/Qwen2.5-Coder-14B-Instruct-GPTQ-Int8"
 
