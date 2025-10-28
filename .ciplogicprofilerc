@@ -47,6 +47,9 @@ export MYPYPATH='./stubs'
 export GOPATH="$HOME/programs/go/tools"
 export PATH="$GOPATH/bin:$PATH"
 
+# don't always show the: OPENAI_API_KEY is not set, skipping trace export
+export OPENAI_AGENTS_DISABLE_TRACING=1
+
 if [ -f ~/.shell/powerline-shell.bin ]; then
     # nuitka binary, faaaaaster: nuitka --one-file powerline-shell.py
     function _update_ps1() {
