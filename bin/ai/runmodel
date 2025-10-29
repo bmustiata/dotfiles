@@ -53,6 +53,8 @@ def main(
         --max-model-len={model_length} \
         --device auto \
         --quantization=bitsandbytes \
+        --enable-auto-tool-choice \
+        --tool-call-parser=hermes \
         {served_model_name_option} \
         {model_name}
     """)
