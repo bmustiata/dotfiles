@@ -10,6 +10,7 @@ import asyncio
 from agents import Agent, Runner, function_tool, OpenAIChatCompletionsModel
 from openai import AsyncOpenAI
 from openai.types.responses import ResponseTextDeltaEvent
+from agents.mcp import MCPServerStreamableHttp
 
 
 @function_tool
@@ -27,21 +28,31 @@ local_model = OpenAIChatCompletionsModel(
 	openai_client=local_client,
 )
 
+mcp_server = MCPServerStreamableHttp(
+	name="MCP Server",
+	params={
+		"url": "http://localhost:8081/mcp",
+	},
+	cache_tools_list=True,
+)
+
 agent = Agent(
 	name="Hello world",
 	instructions="You are a helpful agent.",
 	tools=[get_weather],
+	mcp_servers=[mcp_server],
 	model=local_model,
 )
 
 
 async def main():
-	result = Runner.run_streamed(agent, input="What's the weather in Tokyo?")
-	async for event in result.stream_events():
-		if event.type == "raw_response_event" and isinstance(event.data, ResponseTextDeltaEvent):
-			print(event.data.delta, end="", flush=True)
+	await mcp_server.connect()
 
-	# The weather in Tokyo is sunny.
+	async with mcp_server:
+		result = Runner.run_streamed(agent, input="What's the weather in Tokyo?")
+		async for event in result.stream_events():
+			if event.type == "raw_response_event" and isinstance(event.data, ResponseTextDeltaEvent):
+				print(event.data.delta, end="", flush=True)
 
 
 if __name__ == "__main__":
@@ -58,8 +69,9 @@ snippet agent "Create an OpenAI Agent" wm
 ${1:agent} = Agent(
 	name="${2:Agent Name}",
 	instructions=${3:"You are a helpful agent."}${4/.+/,
-	tools=[/}${4:get_weather}${4/.+/]/},
-	model=${5:local_model},
+	tools=[/}${4:get_weather}${4/.+/]/}${5/.+/,
+	mpc_servers=[/}${5:mcp_server}${5/.+/]/},
+	model=${6:local_model},
 )
 endsnippet
 
@@ -104,6 +116,23 @@ async for ${4:event} in $1.stream_events():
 	if $4.type == "raw_response_event" and isinstance($4.data, ResponseTextDeltaEvent):
 		print($4.data.delta, end="", flush=True)
 endsnippet
+
+#
+# snippet: mcp
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add an MCP Server reference
+#
+snippet mcp "Add an MCP Server reference" wm
+${1:mcp_server} = MCPServerStreamableHttp(
+	name="${2:MCP Server}",
+	params={
+		"url": ${3:"http://localhost:8081/mcp"},
+	},
+	cache_tools_list=True,
+)
+endsnippet
+
 
 #
 # snippet: def
