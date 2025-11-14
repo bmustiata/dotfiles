@@ -5,11 +5,16 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 
 # Set the URL of your vLLM server
+<<<<<<< HEAD
 #inference_server_url = "http://localhost:8000/v1"
 inference_server_url = "http://gmktek:8000/v1"
+=======
+inference_server_url = "http://localhost:8000/v1"
+#inference_server_url = "http://172.21.80.1:8000/v1"
+>>>>>>> 4cfe04a (sync)
 
 
-model_name = "gpt-4.1"
+model_name = "gpt-4"
 #model_name="Qwen/Qwen2.5-7B-Instruct"
 # model="Qwen/Qwen2.5-14B-Instruct-1M",
 # model="Qwen/QwQ-32B",
