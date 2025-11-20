@@ -1,6 +1,14 @@
 RUN_AS_USER="raptor"
+MODEL_NAME=gpt-4
+
 #	-e VLLM_ROCM_QUICK_REDUCE_QUANTIZATION=INT8 \
 #	-e VLLM_ROCM_USE_AITER_RMSNORM=1 \
+#
+# disabled ROPE because it answers in russian/etc
+#--rope-scaling '{\"rope_type\":\"yarn\",\"factor\":4.0,\"original_max_position_embeddings\":32768}' \\
+#--max-model-len 131072 \\
+#	-e PYTORCH_ALLOC_CONF=garbage_collection_threshold:0.8,max_split_size_mb:128 \
+
 
 sudo docker run -it \
 	--network=host \
@@ -18,7 +26,6 @@ sudo docker run -it \
 	-e FLASH_ATTENTION_TRITON_AMD_ENABLE=TRUE \
 	-e FLASH_ATTENTION_TRITON_AMD_AUTOTUNE=TRUE \
 	-e TRANSFORMERS_OFFLINE=1 \
-	-e PYTORCH_ALLOC_CONF=garbage_collection_threshold:0.8,max_split_size_mb:128 \
 	-v $HOME:$HOME:rw \
 	-u $(id -u $RUN_AS_USER):$(id -g $RUN_AS_USER) \
 	$(id -G $RUN_AS_USER | perl -pe 's/(\d+)/--group-add \1/g') \
@@ -31,8 +38,7 @@ sudo docker run -it \
         --model-impl=transformers \\
         --enable-auto-tool-choice \\
         --tool-call-parser=hermes \\
-        --served-model-name=gpt-4.1 \\
-        --rope-scaling '{\"rope_type\":\"yarn\",\"factor\":4.0,\"original_max_position_embeddings\":32768}' \\
-        --max-model-len 131072 \\
+        --max-model-len=32768 \\
+        --served-model-name=$MODEL_NAME \\
         Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8"
 
