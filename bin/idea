@@ -3,5 +3,6 @@
 set -x
 
 cd ~/programs/idea-IU-*/bin
-silent ./idea
+#silent ./idea
+./idea
 

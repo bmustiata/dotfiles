@@ -7,10 +7,10 @@
 snippet openai "Create a basic OpenAI Project" wm
 import asyncio
 
-from agents import Agent, Runner, function_tool, OpenAIChatCompletionsModel
+from agents import Agent, Runner, function_tool, OpenAIChatCompletionsModel, ModelSettings
 from openai import AsyncOpenAI
 from openai.types.responses import ResponseTextDeltaEvent
-from agents.mcp import MCPServerStreamableHttp
+from agents.mcp import MCPServerStreamableHttp, MCPServerStudio
 
 
 @function_tool
@@ -20,11 +20,11 @@ def get_weather(city: str) -> str:
 
 local_client = AsyncOpenAI(
 	base_url="http://gmktek:8000/v1/",
-	api_key="1",
+	api_key="EMPTY",
 )
 
 local_model = OpenAIChatCompletionsModel(
-	model="gpt-4.1",
+	model="gpt-4",
 	openai_client=local_client,
 )
 
@@ -42,6 +42,10 @@ agent = Agent(
 	tools=[get_weather],
 	mcp_servers=[mcp_server],
 	model=local_model,
+	model_settings=ModelSettings(
+		temperature=0.5,
+		top_p=0.1,
+	),
 )
 
 
@@ -70,8 +74,12 @@ ${1:agent} = Agent(
 	name="${2:Agent Name}",
 	instructions=${3:"You are a helpful agent."}${4/.+/,
 	tools=[/}${4:get_weather}${4/.+/]/}${5/.+/,
-	mpc_servers=[/}${5:mcp_server}${5/.+/]/},
+	mcp_servers=[/}${5:mcp_server}${5/.+/]/},
 	model=${6:local_model},
+	model_settings=ModelSettings(
+		temperature=${7:0.5},
+		top_p=${8:0.1},
+	),
 )
 endsnippet
 
@@ -132,6 +140,23 @@ ${1:mcp_server} = MCPServerStreamableHttp(
 	cache_tools_list=True,
 )
 endsnippet
+
+#
+# snippet: mcpl
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Add a local MCP Server reference
+#
+snippet mcpl "Add a local MCP Server reference" wm
+MCPServerStdio(
+	name="${1:Filesystem Server via npx}",
+	params={
+		"command": "npx",
+		"args": ["-y", "@modelcontextprotocol/server-filesystem", str(samples_dir)],
+	},
+)
+endsnippet
+
 
 
 #

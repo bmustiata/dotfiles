@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+vllm serve \
+    --gpu-memory-utilization=0.92 \
+    --model-impl=transformers \
+    --enable-auto-tool-choice \
+    --tool-call-parser=hermes \
+    --served-model-name=gpt-4 \
+    --max-num-seqs=1 \
+    Qwen/Qwen2.5-32B-Instruct-AWQ
+
+# Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8
+
