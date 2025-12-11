@@ -7,7 +7,7 @@ import textwrap
 
 @click.command()
 @click.option("--version", "-v",
-              help="Version to download. ie. 24.4.2",
+              help="Version to download. ie. 4.4.2 (helmchart versions don't have the prefixing 2)",
               default="<none>")
 @click.option("--branch", "-b",
               help="Developer branch to download the helmchart for. ie. master (default)",

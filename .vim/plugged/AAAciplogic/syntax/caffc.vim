@@ -18,6 +18,7 @@ syn keyword syKeyword true
 syn keyword syKeyword as
 syn keyword syKeyword and
 syn keyword syKeyword break
+syn keyword syKeyword case
 syn keyword syKeyword catch
 syn keyword syKeyword class
 syn keyword syKeyword continue
@@ -35,6 +36,7 @@ syn keyword syKeyword not
 syn keyword syKeyword or
 syn keyword syKeyword return
 syn keyword syKeyword static
+syn keyword syKeyword switch
 syn keyword syKeyword tag
 syn keyword syKeyword throw
 syn keyword syKeyword try
