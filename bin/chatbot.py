@@ -6,9 +6,9 @@ from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 
 # Set the URL of your vLLM server
 #inference_server_url = "http://localhost:8000/v1"
-inference_server_url = "http://gmktek:8000/v1"
+inference_server_url = "http://gmktek:11434/v1"
 
-model_name = "gpt-4"
+model_name = "qwen3:30b"
 #model_name="Qwen/Qwen2.5-7B-Instruct"
 # model="Qwen/Qwen2.5-14B-Instruct-1M",
 # model="Qwen/QwQ-32B",
