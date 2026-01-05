@@ -3,6 +3,10 @@ if exists("b:current_syntax")
 endif
 
 syn match syComment '//.*'
+
+syn match syTag '#[^ ]*'
+syn match syDecorator '@[^ ]*'
+
 syn region syBlockComment start="/\*"  end="\*/"
 syn region syNative start="native {"  end="}" keepend contains=syNativeStart,syNativeStartCurly,syNativeEndCurly
 syn match syNativeStart /native/ contained conceal
@@ -22,6 +26,7 @@ syn keyword syKeyword case
 syn keyword syKeyword catch
 syn keyword syKeyword class
 syn keyword syKeyword continue
+syn keyword syKeyword default
 syn keyword syKeyword extends
 syn keyword syKeyword finally
 syn keyword syKeyword for
@@ -64,6 +69,9 @@ syn keyword syPrimitiveType var
 syn keyword syCollectionType list
 syn keyword syCollectionType map
 syn keyword syCollectionType set
+
+hi def link syTag Comment
+hi def link syDecorator Comment
 
 hi def link syComment Comment
 hi def link syBlockComment Comment
