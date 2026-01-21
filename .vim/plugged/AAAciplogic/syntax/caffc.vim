@@ -62,6 +62,7 @@ syn keyword syPrimitiveType i8
 syn keyword syPrimitiveType f32
 syn keyword syPrimitiveType f64
 syn keyword syPrimitiveType void
+syn keyword syPrimitiveType null
 syn keyword syPrimitiveType str
 syn keyword syPrimitiveType bool
 syn keyword syPrimitiveType var
