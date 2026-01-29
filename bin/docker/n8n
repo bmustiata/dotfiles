@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+docker run -it --rm \
+     --name n8n \
+     -u $(id -u):$(id -g) \
+     -p 5678:5678 \
+     -e GENERIC_TIMEZONE="CET" \
+     -e TZ="CET" \
+     -e N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true \
+     -e N8N_RUNNERS_ENABLED=true \
+     -v ${HOME}/.n8n_data:/home/node/.n8n \
+     docker.n8n.io/n8nio/n8n
+
