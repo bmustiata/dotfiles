@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional, List, Dict
 
 import os
 import os.path
@@ -34,7 +34,9 @@ def JarExecutable(
         url: str,
         version: str = "",
         jvm_args: List[str] = [],
-        shortcut: Optional[str] = None) -> None:
+        shortcut: Optional[str] = None,
+        env: Optional[Dict[str, str]] = None,
+        ) -> None:
     app_definition(
         command_prefix = ["java", "-jar"] + jvm_args,
         name=name,
@@ -42,6 +44,7 @@ def JarExecutable(
         url=url,
         suffix=".jar",
         shortcut=shortcut,
+        env=env,
     )
 
 
@@ -121,6 +124,7 @@ def app_definition(
         suffix: str = "",
         archive: str = "",
         executable: str = "",
+        env: Optional[Dict[str, str]] = None,
         shortcut: Optional[str] = None) -> None:
     if not os.path.isdir(target):
         raise Exception(f"{target} is not a folder")
@@ -164,6 +168,7 @@ def app_definition(
         version=version,
         suffix=suffix,
         executable=executable,
+        env=env,
     )
 
 
@@ -304,7 +309,14 @@ def execute_app(*,
         name: str,
         version: str,
         executable: str,
-        suffix: str = "") -> None:
+        env: Optional[Dict[str, str]] = None,
+        suffix: str = "",
+        ) -> None:
+
+    # implicitly just take the current env, but we might need to extend it
+    process_env = dict(os.environ)
+    if env:
+        process_env.update(env)
 
     if executable:
         target_executable = version_format(executable, version)
@@ -314,7 +326,8 @@ def execute_app(*,
 
     subprocess.call([
         *command_prefix, full_path, *sys.argv[1:]
-    ])
+    ],
+    env=process_env)
 
 
 def version_format(s: str, version: str) -> str:
