@@ -5,14 +5,15 @@ endif
 syn match syComment '//.*'
 
 syn match syTag '#[^ ]*'
+syn region syTagCall start="#[^ (]*(" end=")"
 syn match syDecorator '@[^ ]*'
+syn region syDecoratorCall start="@[^ (]*(" end=")"
 
 syn region syBlockComment start="/\*"  end="\*/"
 syn region syNative start="native {"  end="}" keepend contains=syNativeStart,syNativeStartCurly,syNativeEndCurly
 syn match syNativeStart /native/ contained conceal
 syn match syNativeStartCurly /{/ contained conceal
 syn match syNativeEndCurly /}/ contained conceal
-
 
 syn match syString '"\_.\{-0,1000}"'
 syn match syNumber '\d+'
@@ -24,7 +25,6 @@ syn keyword syKeyword and
 syn keyword syKeyword break
 syn keyword syKeyword case
 syn keyword syKeyword catch
-syn keyword syKeyword class
 syn keyword syKeyword continue
 syn keyword syKeyword default
 syn keyword syKeyword extends
@@ -33,7 +33,6 @@ syn keyword syKeyword for
 syn keyword syKeyword if
 syn keyword syKeyword implements
 syn keyword syKeyword in
-syn keyword syKeyword interface
 syn keyword syKeyword is
 syn keyword syKeyword module
 syn keyword syKeyword new
@@ -49,6 +48,9 @@ syn keyword syKeyword use
 syn keyword syKeyword var
 syn keyword syKeyword while
 syn keyword syKeyword yield
+
+syn keyword syObject class
+syn keyword syObject interface
 
 syn keyword syPrimitiveType ptr
 syn keyword syPrimitiveType u64
@@ -71,8 +73,12 @@ syn keyword syCollectionType list
 syn keyword syCollectionType map
 syn keyword syCollectionType set
 
+hi def link syObject Tag
+
 hi def link syTag Comment
-hi def link syDecorator Comment
+hi def link syTagCall Comment
+hi def link syDecorator Tag
+hi def link syDecoratorCall Tag
 
 hi def link syComment Comment
 hi def link syBlockComment Comment

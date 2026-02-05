@@ -129,6 +129,9 @@ alias grun='java -cp /home/raptor/programs/antlr-complete-*.jar org.antlr.v4.gui
 # get rid of the super huge header, same as running ctrl-E all the time
 alias k9s="k9s --headless"
 
+# espressif IDE workaround (ESP32 nonsense)
+export NO_AT_BRIDGE=1
+
 # WSL workaround
 if [[ "$(umask)" == "0000" ]]; then
     umask 022
