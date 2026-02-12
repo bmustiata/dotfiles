@@ -284,7 +284,7 @@ def _create_llm(state: RecallState):
 
     Priority:
       1. GEMINI_CONFIG  -> Vertex AI with service account
-      2. fallback       -> OpenAI-compatible localhost
+      2. fallback       -> OpenAI-compatible gmktek
     """
     gemini_config = os.getenv("GEMINI_CONFIG")
 
@@ -305,17 +305,17 @@ def _create_llm(state: RecallState):
             project=project_id,
             location=location,
             temperature=0.3,
-            max_tokens=2000,
+            max_tokens=8192,
         )
 
-    # Default: OpenAI-compatible localhost
-    log("Using OpenAI (localhost:8080)")
+    # Default: OpenAI-compatible gmktek
+    log("Using OpenAI (gmktek:8080)")
     return ChatOpenAI(
-        base_url="http://localhost:8080/v1",
+        base_url="http://gmktek:11434/v1",
         api_key="EMPTY",
-        model="local-model",
+        model="deepseek-r1:32b",
         temperature=0.3,
-        max_tokens=2000,
+        #        max_tokens=8192,
     )
 
 
@@ -374,7 +374,7 @@ def main():
 
     # Determine AI backend
     gemini_config = os.getenv("GEMINI_CONFIG")
-    ai_backend = "OpenAI (localhost)"
+    ai_backend = "OpenAI (gmktek)"
     if gemini_config:
         ai_backend = "Gemini (Vertex AI)"
 
