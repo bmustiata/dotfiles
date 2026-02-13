@@ -130,6 +130,10 @@ alias grun='java -cp /home/raptor/programs/antlr-complete-*.jar org.antlr.v4.gui
 # get rid of the super huge header, same as running ctrl-E all the time
 alias k9s="k9s --headless"
 
+if [[ $(uname -a | grep WSL2) != "" ]]; then
+    export GEMINI_CONFIG=/home/raptor/tmp/gemini.vertex.json
+fi # [[ $(uname -a | grep WSL2) != "" ]]
+
 # espressif IDE workaround (ESP32 nonsense)
 export NO_AT_BRIDGE=1
 
