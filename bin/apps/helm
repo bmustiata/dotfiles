@@ -6,7 +6,7 @@ import apps
 apps.TarGzBinary(
     name="helm",
     url="https://get.helm.sh/helm-v{version}-linux-amd64.tar.gz",
-    version="3.16.2",
+    version="3.18.4",
     executable="linux-amd64/helm",
     # shortcut="/home/raptor/bin/bazel",
 )
