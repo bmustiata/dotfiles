@@ -6,7 +6,7 @@ from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 
 # Set the URL of your vLLM server
 #inference_server_url = "http://localhost:8000/v1"
-inference_server_url = "http://gmktek:11434/v1"
+inference_server_url = "http://localhost:11434/v1"
 
 model_name = "qwen3-coder:30b"
 #model_name="Qwen/Qwen2.5-7B-Instruct"
