@@ -40,9 +40,7 @@ def run_git(args: list[str]) -> subprocess.CompletedProcess:
 
 def main() -> int:
     """Main entry point."""
-    parser = argparse.ArgumentParser(
-        description="Squash commits up to a target hash"
-    )
+    parser = argparse.ArgumentParser(description="Squash commits up to a target hash")
     parser.add_argument(
         "-m", "--message", help="Commit message for the squashed commit"
     )
@@ -55,14 +53,14 @@ def main() -> int:
 
     try:
         head = run_git(["rev-parse", "HEAD"]).stdout.strip()
-        
+
         # Get full target hash
         target_result = run_git(["rev-parse", target_hash])
         target = target_result.stdout.strip()
-        
+
         # Get parent of target
         parent = get_parent_hash(target)
-        
+
         # Count commits from parent to HEAD
         result = run_git(["rev-list", f"{parent}..{head}"])
         commits = result.stdout.strip().splitlines()
@@ -77,7 +75,7 @@ def main() -> int:
 
         # Reset to parent to stage all changes from target onwards
         run_git(["reset", "--soft", parent])
-        run_git(["add", "-A"])
+        run_git(["add", "-u", "."])
         run_git(["commit", "-m", message])
 
         print(f"Squashed {commit_count} commits into new commit")
