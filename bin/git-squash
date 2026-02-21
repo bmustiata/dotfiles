@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""Git squash utility for automatic squash commits."""
+
+import argparse
+import subprocess
+import sys
+
+
+def get_commit_message(hash: str) -> str:
+    """Get the commit message for a given hash."""
+    result = subprocess.run(
+        ["git", "log", "-1", "--format=%s", hash],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    return result.stdout.strip()
+
+
+def get_parent_hash(hash_value: str) -> str:
+    """Get the parent hash of a commit."""
+    result = subprocess.run(
+        ["git", "show", "--no-patch", "--format=%P", hash_value],
+        capture_output=True,
+        text=True,
+    )
+    parents = result.stdout.strip().split()
+    return parents[0] if parents else ""
+
+
+def run_git(args: list[str]) -> subprocess.CompletedProcess:
+    """Run a git command."""
+    return subprocess.run(
+        ["git"] + args,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+
+def main() -> int:
+    """Main entry point."""
+    parser = argparse.ArgumentParser(
+        description="Squash commits up to a target hash"
+    )
+    parser.add_argument(
+        "-m", "--message", help="Commit message for the squashed commit"
+    )
+    parser.add_argument("targethash", help="Target commit hash to squash up to")
+
+    args = parser.parse_args()
+
+    target_hash = args.targethash
+    message = args.message
+
+    try:
+        head = run_git(["rev-parse", "HEAD"]).stdout.strip()
+        
+        # Get full target hash
+        target_result = run_git(["rev-parse", target_hash])
+        target = target_result.stdout.strip()
+        
+        # Get parent of target
+        parent = get_parent_hash(target)
+        
+        # Count commits from parent to HEAD
+        result = run_git(["rev-list", f"{parent}..{head}"])
+        commits = result.stdout.strip().splitlines()
+        commit_count = len([c for c in commits if c])
+
+        if commit_count < 2:
+            print("Error: Need at least 2 commits to squash", file=sys.stderr)
+            return 1
+
+        if not message:
+            message = get_commit_message(target)
+
+        # Reset to parent to stage all changes from target onwards
+        run_git(["reset", "--soft", parent])
+        run_git(["add", "-A"])
+        run_git(["commit", "-m", message])
+
+        print(f"Squashed {commit_count} commits into new commit")
+        return 0
+
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e.stderr.strip()}", file=sys.stderr)
+        return 1
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
