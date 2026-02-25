@@ -1,5 +1,6 @@
 // Place your settings in this file to overwrite the default settings
 {
+    "chat.disableAIFeatures": true,
     "workbench.colorCustomizations": {
         "editor.background": "#242424",
         "editor.foreground": "#e4e4e4",
@@ -188,5 +189,6 @@
             "url": "file:///home/raptor/.vscode/extensions/ibm.zopeneditor-4.5.1/resources/zcodeformat-schema-0.0.1.json"
         }
     ],
-    "sqldeveloper.sqlHistory.historyLimit": 500
+    "sqldeveloper.sqlHistory.historyLimit": 500,
+    "workbench.editor.enablePreview": false
 }
