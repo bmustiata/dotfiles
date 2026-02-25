@@ -309,11 +309,11 @@ def _create_llm(state: RecallState):
         )
 
     # Default: OpenAI-compatible gmktek
-    log("Using OpenAI (gmktek:8080)")
+    log("Using OpenAI (gmktek:11434)")
     return ChatOpenAI(
         base_url="http://gmktek:11434/v1",
         api_key="EMPTY",
-        model="deepseek-r1:32b",
+        model="qwen3:30b",
         temperature=0.3,
         #        max_tokens=8192,
     )
