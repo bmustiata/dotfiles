@@ -313,7 +313,8 @@ def _create_llm(state: RecallState):
     return ChatOpenAI(
         base_url="http://gmktek:11434/v1",
         api_key="EMPTY",
-        model="qwen3:30b",
+        #model="qwen3:30b",
+        model="huihui_ai/glm-4.7-flash-abliterated",
         temperature=0.3,
         #        max_tokens=8192,
     )
