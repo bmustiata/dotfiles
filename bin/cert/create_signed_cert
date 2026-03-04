@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+if [[ ! -f ca.key ]]; then
+  echo "you need a ca.key/ca.crt in the current folder to use for signing"
+  exit 1
+fi # [[ ! -f ca.key ]]
+
+if [[ ! -f ca.crt ]]; then
+  echo "you need a ca.key/ca.crt in the current folder to use for signing"
+  exit 1
+fi # [[ ! -f ca.crt ]]
+
+if [[ "$1" == "" ]]; then
+  echo "you need to give a name to the <name>.key/crt that will be created"
+  exit 1
+fi
+
+NAME="$1"
+
+set -e
+
+echo "creating $NAME.ext"
+cat > $NAME.ext << EOM
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = $HOSTNAME
+DNS.2 = $HOSTNAME.localdomain
+DNS.3 = localhost
+DNS.4 = localhost.localdomain
+EOM
+
+echo "creating $NAME.key"
+openssl genrsa -out $NAME.key 2048
+
+echo "creating $NAME.csr"
+openssl req -new -key $NAME.key -subj "/C=AT/O=Bamboozle Technologies/CN=$NAME" -out $NAME.csr
+
+echo "creating $NAME.crt"
+openssl x509 -req -in $NAME.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out $NAME.crt -days 365 -extfile $NAME.ext # ae.crt is signed
+
