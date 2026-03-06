@@ -5,7 +5,7 @@
 # Create a job card
 #
 snippet job "Create a job card" wm
-//TSOZXXX1 JOB (5820),'TSOZXXX',MSGCLASS=Q,MSGLEVEL=(1,1),
+//${1:JOBNAME} JOB (${2:ACCOUNTNO}),'${3:USERNAME}',MSGCLASS=${4:A},MSGLEVEL=(1,1),
 //         NOTIFY=&SYSUID,CLASS=A,REGION=2M
 endsnippet
 
@@ -30,8 +30,8 @@ endsnippet
 # m (trim spaces on the right of the script)
 # run a program
 #
-snippet pgm "run a program" wm
-//STEP1    EXEC PGM=IEBCOPY
+snippet step "run a program" wm
+//STEP1    EXEC PGM=${1:IEBCOPY}
 //SYSPRINT DD   SYSOUT=*
 //SYSIN    DD   DUMMY
 endsnippet
@@ -43,6 +43,45 @@ endsnippet
 # Create a data definition mapping
 #
 snippet dd "Create a data definition mapping" wm
-//SYSPRINT DD   SYSOUT=*
+//${1:OUT}`!p snip.rv = (8 - len(t[1])) * " "` DD   ${2:SYSOUT=*}
+endsnippet
+
+#
+# snippet: echo
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Run an 'echo' IEBGENER command
+#
+snippet echo "Run an 'echo' IEBGENER command" wm
+//${1:STEP01}`!p snip.rv = (8 - len(t[1])) * " "` EXEC PGM=IEBGENER
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD DUMMY
+//SYSUT2   DD SYSOUT=*
+//SYSUT1   DD *
+${2:HERE COMES THE MESSAGE!}
+/*
+//
+endsnippet
+
+#
+# snippet: cs
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# comment section
+#
+snippet cs "comment section" wm
+//* ********************************************************
+//* ${VISUAL}${0:}
+//* ********************************************************
+endsnippet
+
+#
+# snippet: c
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# comment
+#
+snippet c "comment" wm
+//* ${VISUAL}${0:}
 endsnippet
 
