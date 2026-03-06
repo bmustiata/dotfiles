@@ -1,0 +1,48 @@
+#
+# snippet: job
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a job card
+#
+snippet job "Create a job card" wm
+//TSOZXXX1 JOB (5820),'TSOZXXX',MSGCLASS=Q,MSGLEVEL=(1,1),
+//         NOTIFY=&SYSUID,CLASS=A,REGION=2M
+endsnippet
+
+#
+# snippet: iebcopy
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# run a copy
+#
+snippet iebcopy "run a copy" wm
+//STEP1    EXEC PGM=${1:IEBCOPY}
+//SYSUT1   DD   DSN=${2:SRC.DATA.SET},DISP=SHR
+//SYSUT2   DD   DISP=(,CATLG),DSN=${3:DEST.DATA.SET},
+//         LIKE=$2
+//SYSPRINT DD   SYSOUT=*
+//SYSIN    DD   DUMMY
+endsnippet
+
+#
+# snippet: pgm
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# run a program
+#
+snippet pgm "run a program" wm
+//STEP1    EXEC PGM=IEBCOPY
+//SYSPRINT DD   SYSOUT=*
+//SYSIN    DD   DUMMY
+endsnippet
+
+#
+# snippet: dd
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a data definition mapping
+#
+snippet dd "Create a data definition mapping" wm
+//SYSPRINT DD   SYSOUT=*
+endsnippet
+
