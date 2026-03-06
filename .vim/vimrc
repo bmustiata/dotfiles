@@ -36,6 +36,7 @@ Plug 'dkprice/vim-easygrep'            " Grep across multiple files <leader>vv
 Plug 'vim-test/vim-test'
 Plug 'vim-scripts/ingo-library'
 Plug 'vim-scripts/SyntaxRange'
+Plug 'vim-scripts/jcl.vim'
 Plug 'posva/vim-vue'
 Plug 'solarnz/thrift.vim'
 Plug 'bmustiata/vim-uc4'
