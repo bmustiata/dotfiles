@@ -64,6 +64,18 @@ ${2:HERE COMES THE MESSAGE!}
 endsnippet
 
 #
+# snippet: mls
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Multi-line string
+#
+snippet mls "DD Multi-line string" wm
+//${1:SYSUT1}`!p snip.rv = (8 - len(t[1])) * " "` DD *
+${2:HERE COMES THE MESSAGE!}
+/*
+endsnippet
+
+#
 # snippet: cs
 # w (word boundary),
 # m (trim spaces on the right of the script)
