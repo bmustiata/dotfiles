@@ -37,13 +37,46 @@ snippet step "run a program" wm
 endsnippet
 
 #
+# snippet: ddout
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a data definition mapping
+#
+snippet ddout "Create a DD SYSOUT definition mapping" wm
+//${1:OUT}`!p snip.rv = (8 - len(t[1])) * " "` DD   ${2:SYSOUT=*}
+endsnippet
+
+
+
+# DISP Documentation for DD
+# For each step we decide what we do with the datasets, here's where the `DISP` comes in handy. `DISP` is divided in three, basically what happens when the step starts (1st option), when the step finishes successfully (2nd option) and when the step dies with problems (3rd option).
+#
+# Status (Initial State): What is the state of the dataset when the job step begins?
+# * NEW: The dataset does not exist yet; create it.
+# * OLD: You want exclusive access to the dataset.
+# * SHR: You want to share the dataset with other jobs.
+# * MOD: Start appending data to the end of an existing dataset.
+#
+# Normal End (Normal Termination): What happens if the job step finishes successfully?
+# DEFAULT: If Status is NEW, the default is DELETE.
+#          If Status is OLD, SHR, or MOD, the default is KEEP.
+# * KEEP: Keep the dataset on the volume.
+# * CATLG: Keep the dataset and add an entry to the system catalog (so you can find it by name later).
+# * UNCATLG: Keep it, but remove the entry from the catalog.
+# * DELETE: Delete the dataset (scratch it from the volume).
+# * PASS: Hold the dataset for use by a subsequent job step.
+# Abnormal End (Abnormal Termination): What happens if the job step abends (crashes)?
+
+#
 # snippet: dd
 # w (word boundary),
 # m (trim spaces on the right of the script)
 # Create a data definition mapping
 #
 snippet dd "Create a data definition mapping" wm
-//${1:OUT}`!p snip.rv = (8 - len(t[1])) * " "` DD   ${2:SYSOUT=*}
+//${1:OUT}`!p snip.rv = (8 - len(t[1])) * " "` DD   DISP=(${2|NEW,OLD,SHR,MOD|},${3|KEEP,CATLG,UNCATLG,DELETE,PASS|},${4|KEEP,CATLG,UNCATLG,DELETE,PASS|}), DSN=${5:DATA.SET.NAME}${6/.+/,
+\/\/         LIKE=/}${6:OTHER.DSN},
+//         DCB=(RECFM=${7|F,V,U|}${8|B,S|}${9:A},LRECL=${10:80},BLKSIZE=${11:27920})
 endsnippet
 
 #

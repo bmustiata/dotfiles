@@ -10,7 +10,7 @@ Plug 'williamboman/mason-lspconfig.nvim'
 " Cool feature plugins
 Plug 'vim-scripts/guicolorscheme.vim'  " 256 color support
 Plug 'bling/vim-airline'               " cooler status bar
-Plug 'bmustiata/ultisnips'             " UltiSnips, with no nested scripts
+Plug 'SirVer/ultisnips'                " UltiSnips
 Plug 'brooth/far.vim'                  " Replace across multiple files
 Plug 'scrooloose/nerdcommenter'        " Comment sections of code <leader>cc
 Plug 'ntpeters/vim-better-whitespace'  " Whitespace highlight at the end, and chars
@@ -36,7 +36,6 @@ Plug 'dkprice/vim-easygrep'            " Grep across multiple files <leader>vv
 Plug 'vim-test/vim-test'
 Plug 'vim-scripts/ingo-library'
 Plug 'vim-scripts/SyntaxRange'
-Plug 'vim-scripts/jcl.vim'
 Plug 'posva/vim-vue'
 Plug 'solarnz/thrift.vim'
 Plug 'bmustiata/vim-uc4'
