@@ -8,48 +8,6 @@ import os
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 
-<<<<<<< HEAD
-# Set the URL of your vLLM server
-inference_server_url = "http://gmktek:11434/v1"
-#model_name="Qwen/Qwen2.5-14B-Instruct-1M"
-#model_name="Qwen/Qwen2.5-7B-Instruct"
-model_name="gpt-4"
-#model_name="Qwen/QwQ-32B"
-
-
-system_message = ""
-user_message_template = ""
-
-
-def run_ai_command(system: str, user: str) -> None:
-    """
-    Runs an AI command with the given system/user prompt, and outputs directly
-    on the stdout.
-
-    The `user` variable is a template where the following will be filled with
-    their actual concrete values:
-    * {filename} - base filename of the current argument file
-    * {fileline} - current file line from the readed file
-    * {fullpath} - full path of the current argument file
-    * {content}  - the content of the current argument file
-
-    If the program is invoked without any file arguments, it
-    will read its <stdin> as {content}, and the {filename} and {fullpath} will
-    be set as the string "STDIN" if used in the user template.
-
-    If the program is invoked _with_ file arguments, the prompts will be invoked
-    for each individual file.
-    """
-    global system_message
-    global user_message_template
-
-    system_message = system
-    user_message_template = user
-
-    main_call()
-
-=======
->>>>>>> 51c7619 (sync)
 
 @click.command()
 @click.option("--server", "--server",
