@@ -8,6 +8,7 @@ import os
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 
+<<<<<<< HEAD
 # Set the URL of your vLLM server
 inference_server_url = "http://gmktek:11434/v1"
 #model_name="Qwen/Qwen2.5-14B-Instruct-1M"
@@ -47,30 +48,56 @@ def run_ai_command(system: str, user: str) -> None:
 
     main_call()
 
+=======
+>>>>>>> 51c7619 (sync)
 
 @click.command()
+@click.option("--server", "--server",
+              help="Server to use.",
+              default="http://gmktek:11434/v1")
+@click.option("--model-name", "--model", "-m",
+              help="Model to use. (qwen3.5:35b)",
+              default="qwen3.5:35b")
+@click.option("--system-prompt", "--system",
+              help="Specify the system message for the LLM (file name)",
+              default="<none>")
+@click.option("--user-prompt", "--user",
+              help="Specify the user message for the LLM (file name)",
+              default="<none>")
 @click.option("--head",
               help="Truncate the input to the first n lines")
 @click.option("--tail",
               help="Truncate the input to the last n lines")
 @click.option("--each-line", "--line", "-l", is_flag=True, default=False,
               help="Process each line of content from the file as {content}")
+@click.option("--resume-from",
+              help="Resume from a certain line number (0 based)",
+              default="0")
 @click.argument("files", nargs=-1)
-def main_call(files: List[str], head: str, tail: str, each_line: bool) -> None:
-    # Initialize the ChatOpenAI model
-    # max_tokens=8192,
+def main_call(server: str, model_name: str, resume_from: str, system_prompt: str, user_prompt: str, files: List[str], head: str, tail: str, each_line: bool) -> None:
+    global system_message
+    global user_message_template
+
+    if system_prompt != "<none>":
+        with open(system_prompt, 'r', encoding='utf-8') as f:
+            system_message = f.read()
+
+    if user_prompt != "<none>":
+        with open(user_prompt, 'r', encoding='utf-8') as f:
+            user_message_template = f.read()
+
     llm = ChatOpenAI(
         model = model_name,
         openai_api_key="EMPTY",
-        openai_api_base=inference_server_url,
-        temperature=0,
+        openai_api_base=server,
+        temperature=0.0,
         model_kwargs = {
             "stream" : True,
         }
     )
 
     # Create messages
-    for f in read_input_files(files, head, tail, each_line):
+    for f in read_input_files(files[int(resume_from):], head, tail, each_line):
         user_message = render_template(user_message_template, f)
 
         messages = [
@@ -209,3 +236,6 @@ def truncate(text: str, head: str, tail: str) -> str:
 
     return "\n".join(lines)
 
+
+if __name__ == "__main__":
+    main_call()

@@ -74,7 +74,7 @@ endsnippet
 # Create a data definition mapping
 #
 snippet dd "Create a data definition mapping" wm
-//${1:OUT}`!p snip.rv = (8 - len(t[1])) * " "` DD   DISP=(${2|NEW,OLD,SHR,MOD|},${3|KEEP,CATLG,UNCATLG,DELETE,PASS|},${4|KEEP,CATLG,UNCATLG,DELETE,PASS|}), DSN=${5:DATA.SET.NAME}${6/.+/,
+//${1:OUT}`!p snip.rv = (8 - len(t[1])) * " "` DD   DISP=(${2|NEW,OLD,SHR,MOD|},${3|KEEP,CATLG,UNCATLG,DELETE,PASS|},${4|KEEP,CATLG,UNCATLG,DELETE,PASS|}),DSN=${5:DATA.SET.NAME}${6/.+/,
 \/\/         LIKE=/}${6:OTHER.DSN},
 //         DCB=(RECFM=${7|F,V,U|}${8|B,S|}${9:A},LRECL=${10:80},BLKSIZE=${11:27920})
 endsnippet
@@ -128,5 +128,66 @@ endsnippet
 #
 snippet c "comment" wm
 //* ${VISUAL}${0:}
+endsnippet
+
+#
+# snippet: ife
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# if/else block
+#
+snippet ife "if/else block" wm
+// IF (${1:ABEND OR STEP1.RC > 8}) THEN
+${VISUAL}${0:}
+// ELSE
+
+// ENDIF
+endsnippet
+
+#
+# snippet: if
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# if block
+#
+snippet if "if block" wm
+// IF (${1:ABEND OR STEP1.RC > 8}) THEN
+${VISUAL}${0:}
+// ENDIF
+endsnippet
+
+#
+# snippet: spgm
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# pgm step
+#
+snippet spgm "pgm step" wm
+//${1:stepname}`!p snip.rv = (8 - len(t[1])) * " "` EXEC PGM=${2:program1}
+endsnippet
+
+#
+# snippet: sproc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# pgm step
+#
+snippet sproc "proc step" wm
+//${1:stepname}`!p snip.rv = (8 - len(t[1])) * " "` EXEC PROC=${2:procname}
+endsnippet
+
+#
+# snippet: proc
+# w (word boundary),
+# m (trim spaces on the right of the script)
+# Create a procedure
+#
+snippet proc "Create a procedure" wm
+//${1:MYPROC}`!p snip.rv = (8 - len(t[1])) * " "` PROC ${2:TYPE='MASTER',CLASS=A}
+${3://STEP1    EXEC PGM=MYPROG
+//INPUT    DD   DSN=&TYPE..DATA,DISP=SHR
+//OUTPUT   DD   SYSOUT=&CLASS
+//REPORT   DD   SYSOUT=&CLASS}
+//          PEND
 endsnippet
 
