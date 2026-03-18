@@ -175,9 +175,9 @@ fi
 
 cat << EOM
 DREaM - don't code like a pleb
-  Develop
-  Repeat
-  Examine & analyse
-  Maximize
+  Develop           - try to protocol what's done
+  Repeat            - make it a repeatable script
+  Examine & analyse - make the logs better, to understand when it doesn't work, why it doesn't
+  Maximize          - improve on the performance of the script - parallelism, etc
 EOM
 
