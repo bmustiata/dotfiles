@@ -40,5 +40,6 @@ sudo docker run -it \
         --tool-call-parser=hermes \\
         --max-model-len=32768 \\
         --served-model-name=$MODEL_NAME \\
+        --port 11434 \\
         Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8"
 
