@@ -175,7 +175,7 @@ fi
 
 cat << EOM
 DREaM - don't code like a pleb
-  Develop           - try to protocol what's done
+  Develop           - write the instructions into a script, even if it's all hardcoded
   Repeat            - make it a repeatable script
   Examine & analyse - make the logs better, to understand when it doesn't work, why it doesn't
   Maximize          - improve on the performance of the script - parallelism, etc
