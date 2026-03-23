@@ -15,8 +15,8 @@ from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
               help="Server to use.",
               default="http://gmktek:11434/v1")
 @click.option("--model-name", "--model", "-m",
-              help="Model to use. (qwen3.5:35b)",
-              default="qwen3.5:35b")
+              help="Model to use. (mradermacher/Qwen3-Coder-Next-REAM-GGUF:Q4_K_M)",
+              default="mradermacher/Qwen3-Coder-Next-REAM-GGUF:Q4_K_M")
 @click.option("--system-prompt", "--system",
               help="Specify the system message for the LLM (file name)",
               default="<none>")
@@ -60,7 +60,7 @@ def main_call(server: str, model_name: str, resume_from: str, system_prompt: str
             model=model_name,
             openai_api_key="EMPTY",
             openai_api_base=server,
-            temperature=0.0,
+            temperature=0.1,
             model_kwargs={"stream": True},
         )
         for f in items:
@@ -83,7 +83,7 @@ def main_call(server: str, model_name: str, resume_from: str, system_prompt: str
             model=model_name,
             openai_api_key="EMPTY",
             openai_api_base=server,
-            temperature=0.0,
+            temperature=0.1,
             model_kwargs={"stream": False},
         )
 
