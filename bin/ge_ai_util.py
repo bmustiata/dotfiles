@@ -11,7 +11,7 @@ from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 
 
 @click.command()
-@click.option("--server", "--server",
+@click.option("--server", "-s",
               help="Server to use.",
               default="http://gmktek:11434/v1")
 @click.option("--model-name", "--model", "-m",
