@@ -1,0 +1,1 @@
+ssh -L 22022:localhost:22022 -L 11434:localhost:11434 -L 30080:localhost:30080 -L 30022:localhost:30022 -L 7890:localhost:7890 -L 7891:localhost:7891 -L 7892:localhost:7892 raptor@germaniumhq.com

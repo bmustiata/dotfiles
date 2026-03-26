@@ -12,6 +12,7 @@ import subprocess
 import re
 import socket
 import yaml
+from datetime import datetime
 
 py3 = sys.version_info.major == 3
 show_emojis = os.getenv('PS1_SHOW_EMOJIS', 'True').lower() in {
@@ -230,6 +231,7 @@ class DefaultColor:
     This class should have the default colors for every segment.
     Please test every new segment with this theme first.
     """
+
     USERNAME_FG = 250
     USERNAME_BG = 240
     USERNAME_ROOT_BG = 124
@@ -248,7 +250,7 @@ class DefaultColor:
     READONLY_BG = 124
     READONLY_FG = 254
 
-    SSH_BG = 166 # medium orange
+    SSH_BG = 166  # medium orange
     SSH_FG = 254
 
     REPO_CLEAN_BG = 22  # a dark green color
@@ -280,6 +282,9 @@ class DefaultColor:
     GIT_CONFLICTED_BG = 9
     GIT_CONFLICTED_FG = 15
 
+    TIME_BG = 1  # yellow
+    TIME_FG = 15
+
     VIRTUAL_ENV_BG = 77
     VIRTUAL_ENV_FG = 16
     JAVA_ENV_BG = 35
@@ -287,12 +292,19 @@ class DefaultColor:
     KUBE_ENV_BG = 74
     KUBE_ENV_FG = 0
 
+
 class Color(DefaultColor):
     """
     This subclass is required when the user chooses to use 'default' theme.
     Because the segments require a 'Color' class for every theme.
     """
     pass
+
+
+def add_time_segment(powerline):
+    current_time = datetime.now().strftime("%H:%M:%S")
+    powerline.append(" %s " % current_time, Color.TIME_FG, Color.TIME_BG)
+    return True
 
 
 def add_enter_segment(powerline):
@@ -864,6 +876,8 @@ def add_root_segment(powerline):
 # ####################################################################
 try:
     add_enter_segment(powerline)
+
+    add_time_segment(powerline)
     add_enter_segment(powerline)
 
     # kubernetes

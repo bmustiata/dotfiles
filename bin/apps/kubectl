@@ -5,7 +5,7 @@ import apps
 apps.StaticBinary(
     name="kubectl",
     url="https://dl.k8s.io/release/v{version}/bin/linux/amd64/kubectl",
-    version="1.33.0",
+    version="1.35.0",
     # shortcut="/home/raptor/bin/bazel",
 )
 

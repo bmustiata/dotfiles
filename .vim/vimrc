@@ -7,6 +7,8 @@ Plug 'file://.vim/plugged/AAAciplogic'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 
+Plug 'saghen/blink.cmp'
+
 " Cool feature plugins
 Plug 'vim-scripts/guicolorscheme.vim'  " 256 color support
 Plug 'bling/vim-airline'               " cooler status bar
