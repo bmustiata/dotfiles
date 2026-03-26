@@ -282,8 +282,8 @@ class DefaultColor:
     GIT_CONFLICTED_BG = 9
     GIT_CONFLICTED_FG = 15
 
-    TIME_BG = 1  # yellow
-    TIME_FG = 15
+    TIME_BG = 236
+    TIME_FG = 0
 
     VIRTUAL_ENV_BG = 77
     VIRTUAL_ENV_FG = 16
