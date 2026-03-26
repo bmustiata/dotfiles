@@ -282,7 +282,7 @@ class DefaultColor:
     GIT_CONFLICTED_BG = 9
     GIT_CONFLICTED_FG = 15
 
-    TIME_BG = 236
+    TIME_BG = 220
     TIME_FG = 0
 
     VIRTUAL_ENV_BG = 77
@@ -875,9 +875,8 @@ def add_root_segment(powerline):
 # segment building
 # ####################################################################
 try:
-    add_enter_segment(powerline)
-
     add_time_segment(powerline)
+    add_enter_segment(powerline)
     add_enter_segment(powerline)
 
     # kubernetes

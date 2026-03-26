@@ -190,5 +190,6 @@
         }
     ],
     "sqldeveloper.sqlHistory.historyLimit": 500,
-    "workbench.editor.enablePreview": false
+    "workbench.editor.enablePreview": false,
+    "sqldeveloper.datagrid.fontFamily": "'Droid Sans Mono', monospace"
 }
